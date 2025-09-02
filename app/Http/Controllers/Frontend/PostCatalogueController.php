@@ -12,6 +12,7 @@ use App\Services\Interfaces\SlideServiceInterface as SlideService;
 use App\Models\System;
 use App\Enums\SlideEnum;
 use Jenssegers\Agent\Facades\Agent;
+use App\Models\Introduce;
 
 class PostCatalogueController extends FrontendController
 {
@@ -78,64 +79,16 @@ class PostCatalogueController extends FrontendController
             $this->language
         );
 
-        $template = '';
-        if (Agent::isMobile() && $postCatalogue->canonical == 'video') {
-            
-        } else if (Agent::isMobile() && $postCatalogue->canonical == 'du-an') {
-            $template = 'mobile.post.catalogue.project';
-        } else if ($postCatalogue->canonical == 'du-an') {
-           
-        } else if ($postCatalogue->canonical == 'video') {
-            $template = 'frontend.post.catalogue.video';
-        } else if (Agent::isMobile() && ($postCatalogue->canonical == 'thiet-ke-noi-that' || $postCatalogue->canonical == 'thi-cong-noi-that' || $postCatalogue->canonical == 'san-xuat-theo-yeu-cau')) {
-            $template = 'mobile.post.catalogue.design';
-        } else if (
-            Agent::isMobile() && in_array($postCatalogue->canonical, [
-                've-chung-toi',
-                'doi-tac',
-                'bao-hanh-doi-tra',
-                'van-chuyen-giao-hang',
-                'quy-trinh-lam-viec',
-                'hinh-thuc-thanh-toan',
-                'bao-gia',
-                'lien-he'
-            ])
-        ) {
-            $template = 'mobile.post.catalogue.about-us';
-        } else if (
-            in_array($postCatalogue->canonical, [
-                've-chung-toi',
-                'doi-tac',
-                'bao-hanh-doi-tra',
-                'van-chuyen-giao-hang',
-                'quy-trinh-lam-viec',
-                'hinh-thuc-thanh-toan',
-                'bao-gia',
-                'lien-he'
-            ])
-        ) {
-            $template = 'frontend.post.catalogue.about-us';
-        } else if (Agent::isMobile()) {
-            $template = 'mobile.post.catalogue.index';
-        } 
-        
-       
-        
-        if($postCatalogue->canonical === 'video'){
-            $template = 'frontend.post.catalogue.video';
-        }else if($postCatalogue->canonical === 'du-an'){
-            $template = 'frontend.post.catalogue.project';
-        }else if($postCatalogue->canonical === 'catalogue'){
-            $template = 'frontend.post.catalogue.catalogue';
+        if($postCatalogue->canonical === 'gioi-thieu'){
+            $template = 'frontend.post.catalogue.intro';
         }else{
             $template = 'frontend.post.catalogue.index';
         }
 
-
         $config = $this->config();
         $system = $this->system;
         $seo = seo($postCatalogue, $page);
-
+        $introduce = convert_array(Introduce::where('language_id', $this->language)->get(), 'keyword', 'content');
         $schema = $this->schema($postCatalogue, $posts, $breadcrumb);
         return view($template, compact(
             'config',
@@ -146,7 +99,8 @@ class PostCatalogueController extends FrontendController
             'posts',
             'widgets',
             'schema',
-            'slides'
+            'slides',
+            'introduce'
         ));
     }
 

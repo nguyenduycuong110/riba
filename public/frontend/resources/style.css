@@ -2924,3 +2924,119 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
 .thumb-video{
     margin-top:15px;
 }
+
+/**  INTRO-CONATINER-CSS */
+.intro-container .intro-section-1{
+    background-repeat: no-repeat !important;
+    background-size: 100% !important;
+    min-height: 643px;
+    padding-top:20px;
+}
+
+.intro-container .intro-section-1 .breadcrumb{
+    margin-bottom:50px;
+}
+.intro-container .intro-section-1 .breadcrumb li{
+    margin-right:10px;
+}
+.intro-container .intro-section-1 .breadcrumb *{
+    color:#fff;
+    letter-spacing: 1.5px;
+}
+.intro-container .intro-section-1 .heading{
+    font-weight: 600;
+    font-size:40px;
+    text-transform: uppercase;
+    color:#fff;
+    line-height: 40px;
+    margin-bottom:25px;
+}
+.intro-container .intro-section-1 .description{
+    color:#fff;
+    margin-bottom:80px;
+}
+.intro-container .intro-section-1 .section-1-list{
+    margin-left:auto;
+    margin-right:auto;
+    max-width:535px;
+}
+.intro-container .section-1-item{
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+    padding:20px;
+    transition: all 0.3s linear;
+    cursor:pointer;
+}
+.intro-container .section-1-item:hover{
+    transform: scale(1.2);
+}
+.intro-container .section-1-item .number{
+    font-size:20px;
+    font-weight: bold;
+    margin-bottom:15px;
+    color:#636363;
+}
+.button-group{
+    margin-top:40px;
+}
+.button-group a{
+    margin-right:25px;
+    background: #FEC828;
+    color:#fff;
+    font-size:15px;
+    border-radius: 100px;
+    padding:10px 25px;
+    font-weight: 600;
+    transition: all 0.3s linear;
+}
+.button-group a.button-style-2{
+    background: #fff;
+    color:#0C4A1A;
+
+}
+.button-group a:hover{
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+}
+.intro-section-2{
+    padding:20px;
+    background: #F9FAF9;
+    border-radius: 5px;
+    margin: 30px 0;
+    padding-top:50px;
+    padding-bottom:50px;
+}
+.intro-section-2 .heading{
+    font-size:30px;
+    color:#000;
+    font-weight: 600;
+    line-height:30px;
+    margin-bottom:25px;
+}
+.intro-2-list > li{
+    margin-bottom:20px;
+}
+.intro-2-list > li > a{
+    display: inline-block;
+    background: #FBF6E6;
+    padding-left:30px;
+    padding-top:12px;
+    padding-bottom:12px;
+    padding-right:50px;
+    border-radius: 100px;
+    border-left:5px solid #FEC828;
+    transition: all 0.3s linear;
+}
+.intro-2-list > li > a img{
+    margin-right:25px;
+}
+.intro-2-button > *{
+    display: inline-block;
+    padding: 10px 25px;
+    background: #145C25;
+    border-radius: 5px;
+    color:#fff;
+}
+.intro-2-list > li > a:hover{
+     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+}

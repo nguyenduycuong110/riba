@@ -97,11 +97,6 @@ class HomeController extends FrontendController
         ));
     }
 
-    public function ckfinder()
-    {
-        return view('frontend.homepage.home.ckfinder');
-    }
-
 
     private function schema($seo)
     {
@@ -176,5 +171,7 @@ class HomeController extends FrontendController
         }
         return response()->json(['html' => $html]);
     }
+
+
 
 }

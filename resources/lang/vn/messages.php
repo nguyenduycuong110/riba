@@ -96,6 +96,14 @@ return [
             'title' => 'Cài đặt thông tin cấu hình hệ thống'
         ],
     ],
+    'introduce' => [
+        'index' => [
+            'title' => 'Cấu hình Trang giới thiệu',
+        ],
+        'create' => [
+            'title' => 'Cài đặt thông tin cấu trang giới thiệu'
+        ],
+    ],
     'galleryCatalogue' => [
         'index' => [
             'title' => 'Quản lý hình ảnh',

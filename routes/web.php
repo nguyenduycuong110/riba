@@ -92,6 +92,8 @@ Route::get('/ajax/projects', [HomeController::class, 'ajaxProject'])->name('home
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('lien-he.html', [FeContactController::class, 'index'])->name('contact.index');
+
+
 Route::post('ajax/contact/saveContact', [FeContactController::class, 'save'])->name('ajax.contact.save');
 
 Route::get('crawler', [CrawlerController::class, 'index'])->name('crawler.index');
@@ -254,6 +256,14 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
         Route::post('store', [SystemController::class, 'store'])->name('system.store');
         Route::get('{languageId}/translate', [SystemController::class, 'translate'])->where(['languageId' => '[0-9]+'])->name('system.translate');
         Route::post('{languageId}/saveTranslate', [SystemController::class, 'saveTranslate'])->where(['languageId' => '[0-9]+'])->name('system.save.translate');
+    });
+
+    
+    Route::group(['prefix' => 'introduce'], function () {
+        Route::get('index', [IntroduceController::class, 'index'])->name('introduce.index');
+        Route::post('store', [IntroduceController::class, 'store'])->name('introduce.store');
+        Route::get('{languageId}/translate', [IntroduceController::class, 'translate'])->where(['languageId' => '[0-9]+'])->name('introduce.translate');
+        Route::post('{languageId}/saveTranslate', [IntroduceController::class, 'saveTranslate'])->where(['languageId' => '[0-9]+'])->name('introduce.save.translate');
     });
 
     Route::group(['prefix' => 'review'], function () {
