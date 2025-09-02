@@ -468,9 +468,17 @@ class ProductService extends BaseService implements ProductServiceInterface
         $param['attributeQuery'] = $this->attributeQuery($request);
         $param['rateQuery'] = $this->rateQuery($request);
         $param['productCatalogueQuery'] = $this->productCatalogueQuery($request);
+
+       
        
 
         $query = $this->combineFilterQuery($param);
+        if($request->has('lectureId')){
+            $query['whereIn'] = [
+                ['field' => 'lecturer_id', 'value' => $request->input('lectureId')]
+            ];
+        }
+        // dd($query);
         $orderBy = $this->orderByQuery($query['join'], $request);
 
         $products = $this->productRepository->filter($query, $perpage, $orderBy);
@@ -487,7 +495,6 @@ class ProductService extends BaseService implements ProductServiceInterface
         $flag = false;
         $attributes = $request->input('attributes');
         if(is_array($joins) && count($joins)){
-            
             foreach($joins as $key => $val){
                 if(is_null($val)) continue;
                 if(count($val) && in_array('product_variants as pv', $val)){
@@ -501,8 +508,10 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     private function combineFilterQuery($param){
         $query = [];
+        // dd($param);
 
         foreach ($param as $array) {
+            if (empty($array) || !is_array($array)) continue; 
             foreach ($array as $key => $value) {
                 if (!isset($query[$key])) {
                     $query[$key] = [];
@@ -518,27 +527,59 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $query;
     }
 
-    private function productCatalogueQuery($request){
+    // private function productCatalogueQuery($request){
 
-        $productCatalogueId = $request->input('productCatalogueId');
-        $query['join'] = null;
-        $query['whereRaw'] = null;
-        if($productCatalogueId > 0){
+    //     $productCatalogueId = (array)$request->input('productCatalogueId');
+    //     $query['join'] = null;
+    //     $query['whereRaw'] = null;
+    //     if($productCatalogueId > 0){
+    //         $query['join'] = [
+    //             ['product_catalogue_product as pcp', 'pcp.product_id', '=', 'products.id']
+    //         ];
+    //         $query['whereRaw'] = [
+    //             [
+    //                 'pcp.product_catalogue_id IN (
+    //                     SELECT id
+    //                     FROM product_catalogues
+    //                     WHERE lft >= (SELECT lft FROM product_catalogues as pc WHERE pc.id = ?)
+    //                     AND rgt <= (SELECT rgt FROM product_catalogues as pc WHERE pc.id = ?)
+    //                 )',
+    //                 [$productCatalogueId, $productCatalogueId]
+    //             ]
+    //         ];
+    //     }
+    //     return $query;
+    // }
+
+    private function productCatalogueQuery($request) {
+        $productCatalogueIds = (array)$request->input('productCatalogueId'); // Cast to array to handle single or multiple IDs
+        $query = [
+            'join' => null,
+            'whereRaw' => null,
+        ];
+
+        if (!empty($productCatalogueIds)) {
             $query['join'] = [
                 ['product_catalogue_product as pcp', 'pcp.product_id', '=', 'products.id']
             ];
-            $query['whereRaw'] = [
-                [
+
+            // Initialize whereRaw as an array
+            $query['whereRaw'] = [];
+
+            // Generate a whereRaw condition for each productCatalogueId
+            foreach ($productCatalogueIds as $id) {
+                $query['whereRaw'][] = [
                     'pcp.product_catalogue_id IN (
                         SELECT id
                         FROM product_catalogues
                         WHERE lft >= (SELECT lft FROM product_catalogues as pc WHERE pc.id = ?)
                         AND rgt <= (SELECT rgt FROM product_catalogues as pc WHERE pc.id = ?)
                     )',
-                    [$productCatalogueId, $productCatalogueId]
-                ]
-            ];
+                    [(string)$id, (string)$id]
+                ];
+            }
         }
+
         return $query;
     }
 
@@ -627,44 +668,47 @@ class ProductService extends BaseService implements ProductServiceInterface
 
 
     private function priceQuery($request){
-        $price = $request->input('price');
-        $priceMin = str_replace('đ', '', convert_price($price['price_min']));
-        $priceMax = str_replace('đ', '', convert_price($price['price_max']));
-        $query['select'] = null;
-        $query['join'] = null;
-        $query['having'] = null;
+        if($request->has('price')){
+            $price = $request->input('price');
+            $priceMin = str_replace('đ', '', convert_price($price['price_min']));
+            $priceMax = str_replace('đ', '', convert_price($price['price_max']));
+            $query['select'] = null;
+            $query['join'] = null;
+            $query['having'] = null;
 
-        if($priceMax > $priceMin){
-            $query['join'] = [
-                ['promotion_product_variant as ppv', 'ppv.product_id', '=', 'products.id'],
-                ['promotions', 'ppv.promotion_id', '=', 'promotions.id']
-            ];
-            $query['select'] = "
-                (products.price - MAX(
-                    IF(promotions.maxDiscountValue != 0,
-                        LEAST(
+            if($priceMax > $priceMin){
+                $query['join'] = [
+                    ['promotion_product_variant as ppv', 'ppv.product_id', '=', 'products.id'],
+                    ['promotions', 'ppv.promotion_id', '=', 'promotions.id']
+                ];
+                $query['select'] = "
+                    (products.price - MAX(
+                        IF(promotions.maxDiscountValue != 0,
+                            LEAST(
+                                CASE 
+                                    WHEN discountType = 'cash' THEN discountValue
+                                    WHEN discountType = 'percent' THEN products.price * discountValue / 100
+                                ELSE 0
+                                END,
+                                promotions.maxDiscountValue 
+                            ),
                             CASE 
-                                WHEN discountType = 'cash' THEN discountValue
-                                WHEN discountType = 'percent' THEN products.price * discountValue / 100
+                                    WHEN discountType = 'cash' THEN discountValue
+                                    WHEN discountType = 'percent' THEN products.price * discountValue / 100
                             ELSE 0
-                            END,
-                            promotions.maxDiscountValue 
-                        ),
-                        CASE 
-                                WHEN discountType = 'cash' THEN discountValue
-                                WHEN discountType = 'percent' THEN products.price * discountValue / 100
-                        ELSE 0
-                        END
-                    )
-                )) as discounted_price
-            ";
+                            END
+                        )
+                    )) as discounted_price
+                ";
 
-            $query['having'] = function($query) use ($priceMin, $priceMax){
-                $query->havingRaw('discounted_price >= ? AND discounted_price <= ?', [$priceMin, $priceMax]);
-            };
+                $query['having'] = function($query) use ($priceMin, $priceMax){
+                    $query->havingRaw('discounted_price >= ? AND discounted_price <= ?', [$priceMin, $priceMax]);
+                };
 
+            }
+            return $query;
         }
-        return $query;
+        
     }
 
     public function paginateSeller($request, $languageId, $sellerId){

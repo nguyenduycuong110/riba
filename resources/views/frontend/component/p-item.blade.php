@@ -10,7 +10,7 @@
     $review['star'] = ($product->review_count == 0) ? '0' : $product->review_average/5*100;
 @endphp
 <div class="product-item">
-    <a href="{{ $canonical }}" title="{{ $name }}" class="image img-scaledown img-zoomin">
+    <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
         <div class="skeleton-loading"></div>
         <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
     </a>

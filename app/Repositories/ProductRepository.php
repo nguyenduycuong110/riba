@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 /**
  * Class UserService
@@ -197,6 +198,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'products.id',
             'products.price',
             'products.image',
+            'products.lecturer_id'
         );
 
         if(isset($param['select']) && count($param['select'])){
@@ -220,9 +222,21 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 $query->where($val);
             }
         }
+       
+        // dd($param['whereRaw']);
+        if (!empty($param['whereRaw']) && !is_null($param['whereRaw'][0])) {
+            $query->where(function ($q) use ($param) {
+                foreach ($param['whereRaw'] as $raw) {
+                    $q->orWhereRaw($raw[0], $raw[1]);
+                }
+            });
+        }
 
-        if(isset($param['whereRaw']) && count($param['whereRaw'])){
-            $query->whereRaw($param['whereRaw'][0][0], $param['whereRaw'][0][1]);
+        if(isset($param['whereIn']) && count($param['whereIn'])){
+            foreach($param['whereIn'] as $key => $val){
+                $query->whereIn($val['field'], $val['value']);
+            }
+            // dd(123);
         }
 
         if(isset($param['having']) && count($param['having'])){
@@ -233,8 +247,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
 
         $query->groupBy($orderBy);
-        $query->with(['reviews', 'languages', 'product_catalogues']);
+        $query->with(['reviews', 'languages', 'product_catalogues', 'lecturers']);
 
+        // dd($query->toSql()) ;
         return $query->paginate($perpage);
     }    
 
