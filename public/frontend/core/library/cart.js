@@ -55,7 +55,8 @@
             if(typeof quantity === 'undefined'){
                 quantity = 1
             }
-            
+            let redirect = _this.attr('data-redirect')
+
             let attribute_id = []
             $('.attribute-value .choose-attribute').each(function(){
                 let _this = $(this)
@@ -93,13 +94,15 @@
                         
                     },
                     success: function(res) {
-                toastr.clear()
+                    toastr.clear()
                         if(res.code === 10){
-                    toastr.success(res.messages, 'Thông báo từ hệ thống!')
-                    window.location.href = 'gio-hang.html'
-                }else{
-                    toastr.error('Có vấn đề xảy ra! Hãy thử lại', 'Thông báo từ hệ thống!')
-                }
+                            toastr.success(res.messages, 'Thông báo từ hệ thống!')
+                            if(redirect == 1){
+                                window.location.href = 'gio-hang.html'
+                            }
+                        }else{
+                            toastr.error('Có vấn đề xảy ra! Hãy thử lại', 'Thông báo từ hệ thống!')
+                        }
                     },
                 });
 

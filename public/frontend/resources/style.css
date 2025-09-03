@@ -2813,6 +2813,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
 .popup-product{
     background: rgba(255, 255, 255, 1);
     padding: 30px 25px;
+    height: 366px;
     border-radius: 10px;
 }
 .popup-product .description {
@@ -2860,7 +2861,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     color: rgba(255, 205, 41, 1);
 }
 .video.image{
-    height: 332px;
+    height: 366px;
     border-radius: 10px;
     position: relative
 }
@@ -3486,4 +3487,253 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
 
 .product-item .image{
     height:194px;
+}
+
+.product-preview-image{
+    height: 366px;
+    border-radius: 10px;
+}
+.product-preview-image img{
+    border-radius: 10px;
+}
+.product-video-feature iframe{
+    width:100% !important;
+    height: 366px !important;
+}
+.product-main-content{
+    background: #FAFAFA;
+    border-radius: 10px;
+    padding: 25px;
+    
+}
+.tabs-content .nab-tavs{
+    width:100%;
+    border-radius: 10px 10px 0 0;
+    background: #F3F4F6;
+}
+.tabs-content > ul > li > a{
+    display: block;
+    padding: 15px 10px;
+    text-align: center;
+}
+.tabs-content .nab-tavs  > li.uk-active{
+    background: #22C55E;
+}
+.tabs-content .nab-tavs  > li.uk-active > a{
+    color:#fff;
+}
+.product-tabs-content{
+    background: #fff;
+    padding: 30px;
+    border:1px solid #E5E7EB;
+    font-size:15px;
+    line-height:22px;
+    border-top:0;
+}
+.product-tabs-content ul{
+    margin:0;
+}
+.product-tabs-content ul > li{
+    margin-bottom:10px;
+    padding-left:20px;
+    position: relative;
+}
+.product-tabs-content ul > li:before{
+    content:'';
+    display: block;
+    position: absolute;
+    width:14px;
+    height:14px;
+    left:0;
+    top:0;
+    background: url('img/checked.png');
+}
+.product-tabs-content h2{
+    margin-bottom:35px;
+    margin-top:20px;
+}
+
+.chapter-item{
+    border:1px solid #E5E7EB;
+    background: #fff;
+    border-radius: 8px;
+    border-left:4px solid #333333;
+    padding:20px;
+}
+.chapter-item .chapter-title{
+    margin-bottom:8px;
+    font-size:16px;
+    font-weight: 500;
+}
+.chapter-item .chapter-description{
+    font-size:14px;
+}
+
+.unlock{
+    padding: 10px 25px;
+    background: #22C55E;
+    color:#fff;
+    font-weight: 300;
+    border-radius: 100px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+
+.chapter-lession{
+    background: #F0FDF4;
+    margin-top:30px;
+}
+.lesstion-item{
+    padding: 20px;
+    padding-left:100px;
+    position: relative;
+}
+.lesstion-item .number{
+    position: absolute;
+    top:50%;
+    transform: translate(0, -50%);
+    left:40px;
+    width:31px;
+    height:31px;
+    line-height: 31px;
+    text-align: center;
+    font-size:18px;
+    color:#fff;
+    font-weight: bold;
+    background: #22C55E;
+    border-radius: 50%;
+}
+.lesstion-item .title{
+    margin-bottom:8px;
+    font-weight: 500;
+}
+.lesstion-item .description{
+    font-size:12px;
+    color:#363636
+}
+.lession-info .time{
+    margin-right:20px;
+    font-size:13px;
+    color:#363636;
+}
+.lession-info .lession-type{
+    background: #1da1f26e;
+    padding: 5px 25px;
+    border-radius: 100px;
+    text-align: center;
+    color:#0370CB;
+    font-weight: bold;
+    font-size:12px;
+}
+.chapter{
+    margin-bottom:35px;
+}
+.lesstion-item{
+    border-bottom:1px solid #eaeaea;
+}
+.uk-accordion-title.uk-active .chapter-item{
+    border-left: 4px solid #22C55E;
+}
+.teacher-head {
+    margin-bottom:20px;
+}
+.teacher-head .image{
+    height: 200px;
+    display: block;
+    margin-bottom:20px;
+
+}
+.teacher-head .image img{
+    border-radius: 50%;
+    height:100%;
+     border:5px solid #22C55E;
+}
+.teacher-name{
+    font-weight: bold;
+}
+.review-wrapper{
+    padding:0 20px !important;
+}
+.product-price-box{
+    box-shadow: 5px 5px 15px rgba(0,0,0,.05);
+    border:1px solid #22C55E;
+    padding: 20px;
+    border-radius: 10px;
+}
+.product-price-box .price-content{
+    margin-bottom:20px;
+    text-align: center;
+}
+.price-content .price-old{
+    color:#6B7280;
+    text-decoration: line-through;
+    font-size:12px;
+    margin-bottom:10px;
+}
+.price-content .price-new{
+    font-weight: bold;
+    font-size:28px;
+    line-height:28px;
+    color:#22C55E;
+    margin-bottom:10px;
+}
+.price-content .price-save{
+    color:#EF4444;
+    font-size:14px;
+    font-weight: 500;
+}
+
+.product-price-box .cart-button button{
+    display: block;
+    width:100%;
+    padding:10px 20px;
+    text-align: center;
+    background: #22C55E;
+    border:0;
+    margin-bottom:10px;
+    border-radius: 100px;
+    color:#fff;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition: all 0.4s linear;
+}
+.product-price-box .cart-button button:nth-child(1){
+    background: rgba(255, 205, 41, 1);
+}
+.product-price-box .cart-button button:hover{
+    background: #fff;
+    border:1px solid #22C55E;
+    color:#000;
+}
+.product-price-box .discount-time{
+    text-align: center;
+    font-size:12px;
+    margin-top:20px;
+}
+.course-content{
+    border-radius: 10px;
+    border:1px solid #E5E7EB;
+    padding: 20px;
+    margin-top:30px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,.05);
+}
+.course-content .title{
+    margin-bottom:25px;
+    font-weight: bold;
+}
+.course-content ul li {
+    margin-bottom:10px;
+    position: relative;
+    padding-left:25px;
+}
+.course-content ul li:before{
+    content:'';
+    display: block;
+    position: absolute;
+    left:0;
+    top:3px;
+    width:14px;
+    height:14px;
+    background: url('img/checked.png');
 }

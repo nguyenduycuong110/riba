@@ -130,6 +130,8 @@
                     contentType: false, 
                     success: function(response) {
                         console.log('Success:', response);
+                        alert('Gửi Đánh Giá Thành Công!');
+                        location.reload()
                     },
                     error: function(xhr, status, error) {
                         console.log('Error:', error);

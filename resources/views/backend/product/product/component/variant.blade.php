@@ -1,5 +1,5 @@
 
-<div class="ibox variant-box">
+<div class="ibox variant-box hidden">
     <div class="ibox-title">
         <div>
             <h5>Sản phẩm có nhiều phiên bản</h5>
@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<div class="ibox product-variant">
+<div class="ibox product-variant hidden">
     <div class="ibox-title">
         <h5>Danh sách phiên bản</h5>
     </div>

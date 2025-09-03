@@ -6,7 +6,7 @@
 @endphp
 <div class="review-container">
     <div class="panel-head">
-       <h2 class="review-heading">Đánh giá sản phẩm</h2>
+       <h2 class="review-heading">Đánh giá khóa học</h2>
        <div class="review-statistic">
             <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
                 <div class="uk-width-large-2-5">
@@ -43,19 +43,6 @@
        </div>
     </div>
     <div class="panel-body">
-        <div class="review-filter">
-            <div class="uk-flex uk-flex-middle">
-                <span class="filter-text">Lọc xem theo: </span>
-                <div class="filter-item">
-                    <span>Đã mua hàng</span>
-                    <span>5 sao</span>
-                    <span>4 sao</span>
-                    <span>3 sao</span>
-                    <span>2 sao</span>
-                    <span>1 sao</span>
-                </div>
-            </div>
-        </div>
         <div class="review-wrapper">
             @if(!is_null($product->reviews))
                 @foreach($product->reviews as  $review)
@@ -101,18 +88,9 @@
             @endif
         </div>
     </div>
-    <div class="panel-foot">
-        <div class="uk-grid uk-grid-medium">
-            <div class="uk-width-1-2 uk-width-large-1-2">
-                <div class="readmore-button">
-                    <button class="read-more-review">Xem Thêm 5 đánh giá</button>
-                </div>
-            </div>
-            <div class="uk-width-1-2 uk-width-large-1-2">
-                <div class="review-action ">
-                    <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
-                </div>
-            </div>
+    <div class="panel-foot" style="padding-bottom:25px;">
+        <div class="review-action uk-text-center">
+            <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
         </div>
     </div>
 </div>

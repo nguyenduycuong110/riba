@@ -162,7 +162,9 @@ if(!function_exists('getReview')){
         return [
             'star' => $starPercent,
             'count' => $totalReviews,
+            'totalRate' => $totalRate
         ];
+        
     }
 }
 

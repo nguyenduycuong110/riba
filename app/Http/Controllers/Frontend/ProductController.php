@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Cart;
 use Jenssegers\Agent\Facades\Agent;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class ProductController extends FrontendController
 {
@@ -59,6 +60,12 @@ class ProductController extends FrontendController
         parent::__construct();
     }
 
+    private function promotionLeft($product = null){
+        $end = Carbon::parse($product->promotions->endDate);
+        $now = Carbon::now();
+        $dayLefts = $now->diffInDays($end, false);
+        return $dayLefts;
+    }
 
     public function index($id, $request)
     {
@@ -75,6 +82,7 @@ class ProductController extends FrontendController
         if (!is_null($product->seller_id)) {
             $seller = $this->customerRepository->findById($product->seller_id);
         }
+        $promotionLeft = $this->promotionLeft($product);
 
 
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $this->language);
@@ -165,7 +173,8 @@ class ProductController extends FrontendController
             'carts',
             'schema',
             'productRelated',
-            'children'
+            'children',
+            'promotionLeft'
         ));
     }
 

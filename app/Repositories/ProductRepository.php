@@ -136,6 +136,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 'products.total_lesson',
                 'products.duration',
                 'products.lecturer_id',
+                'products.chapter',
+                'products.lession_content',
                 'tb2.name',
                 'tb2.description',
                 'tb2.content',

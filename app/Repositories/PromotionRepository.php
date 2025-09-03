@@ -26,8 +26,9 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
             'promotions.discountValue',
             'promotions.discountType',
             'promotions.maxDiscountValue',
+            'promotions.endDate',
             'products.id as product_id',
-            'products.price as product_price'
+            'products.price as product_price',
         )
         ->selectRaw(
             "

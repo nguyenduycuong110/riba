@@ -32,11 +32,15 @@ class Product extends Model
         'seller_id',
         'total_lesson',
         'duration',
-        'lecturer_id'
+        'lecturer_id',
+        'lession_content',
+        'chapter',
+        'iframe'
     ];
 
     protected $casts = [
-        'attribute' => 'json'
+        'attribute' => 'json',
+        'chapter' => 'json'
     ];
 
     protected $table = 'products';

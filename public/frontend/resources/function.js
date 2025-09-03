@@ -977,6 +977,8 @@
         })
     }
 
+    // HT.previewVideo
+
 	$(document).ready(function(){
         HT.whyChoose()
         HT.partner()

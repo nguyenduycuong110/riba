@@ -58,11 +58,53 @@
                         name="code"
                         value="{{ old('code', ($product->code) ?? time()) }}"
                         class="form-control"
+                        
                     >
                 </div>
             </div>
         </div>
         <div class="row mb15">
+             <div class="col-lg-6">
+                <div class="form-row">
+                    <label for="" class="control-label text-left">Số lượng bài<span class="text-danger">(*)</span></label>
+                    <input 
+                        type="text"
+                        name="total_lesson"
+                        value="{{ old('total_lesson', ($product->total_lesson) ?? '' ) }}"
+                        class="form-control change-title int"
+                        placeholder="VD: 23 bài"
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-lg-6 mb15">
+                <div class="form-row">
+                    <label for="" class="control-label text-left">Thời lượng<span class="text-danger">(*)</span></label>
+                    <input 
+                        type="text"
+                        name="duration"
+                        value="{{ old('duration', ($product->duration) ?? '' ) }}"
+                        class="form-control change-title"
+                        placeholder="VD: 12 tiếng"
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <label for="" class="control-label text-left">Giảng viên<span class="text-danger">(*)</span></label>
+                    <select name="lecturer_id" class="form-control setupSelect2">
+                        <option value="0">[Chọn Giảng Viên]</option>
+                        @foreach($lecturers as $key => $val)
+                        <option {{ 
+                            $val->id == old('lecturer_id', (isset($product->lecturer_id)) ? $product->lecturer_id : '') ? 'selected' : '' 
+                            }}  value="{{ $val->id }}">{{ $val->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mb15 hidden">
             <div class="col-lg-12">
                 <div class="form-row">
                     <label for="">{{ __('messages.product.made_in') }}</label>
@@ -88,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-row mb20">
+        <div class="form-row mb20 hidden">
             <label for="" class="control-label text-left">Thời gian BH</label>
             <div class="guarantee">
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
@@ -107,17 +149,30 @@
                 </div>
             </div>
         </div>
-        <div class="form-row">
-            <label for="">Mã Nhúng</label>
+        <div class="form-row mb15">
+            <label for="">Mã Nhúng Video Demo</label>
             <textarea 
                 type="text"
                 name="iframe"
                 class="form-control"
                 style="height:168px;"
+                placeholder="Nhập mã nhúng iframe của video"
             >{{ old('iframe', ($product->iframe) ?? '') }}</textarea>
+        </div>
+        <div class="form-row">
+            <label for="">Nội dung khóa học</label>
+            <div class="text-danger" style="font-size:12px;font-style:italic">Mỗi nội dung thể hiện trên 1 dòng</div>
+            <textarea 
+                type="text"
+                name="lession_content"
+                class="form-control"
+                style="height:168px;"
+            >{{ old('lession_content', ($product->lession_content) ?? '') }}</textarea>
         </div>
     </div>
 </div>
+
+
 @include('backend.dashboard.component.publish', ['model' => ($product) ?? null, 'hideImage' => false])
 
 @if(!empty($product->qrcode))

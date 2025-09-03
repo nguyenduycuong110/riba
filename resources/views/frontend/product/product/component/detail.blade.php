@@ -10,6 +10,7 @@
     $gallery = json_decode($product->album);
     $iframe = $product->iframe;
     $total_lesson = $product->total_lesson;
+    // dd($price);
 @endphp
 <div class="info">
     <div class="popup">
@@ -26,11 +27,11 @@
                     <div class="stats">
                         <div class="stat-item rating">
                             <img src="/frontend/resources/img/star1.svg" alt="">
-                            <span>4.8 (247 đánh giá)</span>
+                            <span>{{ $review['totalRate'] != 0 ? $review['totalRate'] : 5 }} ({{ $review['count'] }} đánh giá)</span>
                         </div>
                         <div class="stat-item students">
                             <img src="/frontend/resources/img/user.svg" alt="">
-                            <span>1.250 học viên</span>
+                            <span>0 học viên</span>
                         </div>
                         <div class="stat-item duration">
                             <img src="/frontend/resources/img/time1.svg" alt="">
@@ -39,17 +40,23 @@
                     </div>
                     <div class="buttons">
                         <a href="" title="" class="btn btn-register"><span>Đăng ký ngay</span></a>
-                        <a href="" title="" class="btn btn-demo"><span>Xem demo</span></a>
+                        <a href="" class="preview-video" data-video="{{ json_encode($product->iframe) }}" title="" class="btn btn-demo"><span>Xem demo</span></a>
                     </div>
                 </div>
             </div>
             <div class="uk-width-large-1-2">
-                <a href="https://youtu.be/293j0Jntlus?si=URoovBGX79h4ZE7X" class="image img-cover wow fadeInUp video" data-wow-delay="0.2s" target="_blank" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <img src="/userfiles/image/product/a2da0910b82abb1ec49237d3ddfd26f57487606e.jpg" alt="">
-                    <button class="btn-play">
-                        <img src="/frontend/resources/img/play.svg" alt="">
-                    </button>
-                </a>
+                @if(!empty($product->iframe))
+                    <div class="video-feature product-video-feature">
+                        <a href="" data-video="{{ json_encode($product->iframe) }}" class="image img-cover wow fadeInUp video preview-video" data-wow-delay="0.2s" target="_blank" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                            <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                            <button class="btn-play">
+                                <img src="/frontend/resources/img/play.svg" alt="">
+                            </button>
+                        </a>
+                    </div>
+                @else 
+                    <span class="image img-cover product-preview-image"><img src="{{ $product->image }}" alt="{{ $product->name }}"></span>
+                @endif
             </div>
         </div>
     </div>

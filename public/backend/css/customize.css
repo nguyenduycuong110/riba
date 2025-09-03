@@ -396,6 +396,8 @@ a{
 .niceSelect{
     width:100% !important;
 }
+
+.add-program,
 .add-variant{
     height:42px;
     color:#1791f2;
@@ -406,6 +408,7 @@ a{
     transition: all 0.3s ease;
     padding:0 40px;
 }
+.add-program:hover,
 .add-variant:hover{
     background: #efefef;
 }
@@ -1442,4 +1445,21 @@ div.edit{
 }
 .count .uk-flex{
     justify-content: right;
+}
+
+.chapter-item{
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid #eaeaea;
+}
+
+.remove-chapter-item,
+.add-chapter-item{
+    background: transparent;
+    border:0;
+    color:blue;
+}
+
+.remove-chapter-item{
+    color:#ec4758;
 }

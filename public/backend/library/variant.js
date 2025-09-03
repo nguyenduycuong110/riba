@@ -670,6 +670,92 @@
     }
 
 
+    HT.addProgram = () => {
+        $(document).on('click', '.add-program', function(){
+
+            let chapterIndex = $('.chapter-wrapper').length
+
+            let html = `<div class="ibox mt20 chapter-wrapper" data-chapter-index=${chapterIndex}>
+                <div class="ibox-title">
+                    <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                        <input type="text" name="chapter[${chapterIndex}][title]" class="form-control" placeholder="Nhập vào tên Chapter" value="" style="width:75%;">
+                        <div class="chapter-action">
+                            <button type="button" class="add-chapter-item mr10">+Thêm bài học</button>
+                            <button type="button" class="remove-chapter-item">Xóa bài học</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                
+                </div>
+            </div>`
+
+            $('.program-content').append(html)
+                
+        })
+        
+    }
+
+    HT.addChapterItem = () => {
+        $(document).on('click', '.add-chapter-item', function(){
+            let _this = $(this)
+            let chapterWrapper = _this.parents('.chapter-wrapper')
+            let chapterIndex = chapterWrapper.data('chapter-index')
+            let lessionIndex = chapterWrapper.find('.chapter-item').length
+            let chapterItem = `<div class="chapter-item" data-lesssion-index=${lessionIndex}>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="chapter-content">
+                            <div class="title mb10">
+                                <input type="text" class="form-control" name="chapter[${chapterIndex}][content][${lessionIndex}][title]" placeholder="Nhập vào tên bài học" value="" > 
+                            </div>
+                            <div class="description">
+                                <input type="text" class="form-control" name="chapter[${chapterIndex}][content][${lessionIndex}][description]" placeholder="Nhập vào mô tả bài học">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="chapter-info">
+                            <div class="chapter-time mb10">
+                                <input type="text" class="form-control" name=chapter[${chapterIndex}][content][${lessionIndex}][time] placeholder="Thời lượng" style="width:100% !important;">
+                            </div>
+                            <div class="chapter-type">
+                                <input type="text" class="form-control" name=chapter[${chapterIndex}][content][${lessionIndex}][type] placeholder="Loại bài học: Ví dụ Video, Quiz" style="width:100% !important;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="form-control btn btn-danger remove-chapter">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>`
+            _this.parents('.chapter-wrapper').find('.ibox-content').append(chapterItem)
+            // HT.select2()
+        })
+    }
+
+    HT.removeChapter = () => {
+        $(document).on('click', '.remove-chapter', function(){
+            let _this = $(this)
+            _this.parents('.chapter-item').remove()
+        })
+    }
+    HT.removeProgram = () => {
+        $(document).on('click', '.remove-chapter-item', function(){
+            let _this = $(this)
+            _this.parents('.chapter-wrapper').remove()
+        })
+    }
+
+    // HT.select2 = () => {
+    //     if($('.setupSelect2').length){
+    //         $('.setupSelect2').select2();
+    //     }
+        
+    // }
+
 	$(document).ready(function(){
         HT.setupProductVariant()
         HT.addVariant()
@@ -683,10 +769,15 @@
         HT.updateVariant()
         HT.cancleVariantUpdate()
         HT.saveVariantUpdate()
-    
+        
         HT.setupSelectMultiple().then(() => {
             HT.productVariant();
         });
+
+        HT.addProgram()
+        HT.addChapterItem()
+        HT.removeChapter()
+        HT.removeProgram()
 
         // HT.productVariant()
         

@@ -132,6 +132,7 @@ class ProductService extends BaseService implements ProductServiceInterface
     public function create($request, $languageId, $sellerId = null){
         DB::beginTransaction();
         try{
+            // dd($request->all());
             $product = $this->createProduct($request, $sellerId);
             if($product->id > 0){
                 $this->updateLanguageForProduct($product, $request, $languageId);
@@ -301,7 +302,6 @@ class ProductService extends BaseService implements ProductServiceInterface
         if(!is_null($sellerId)){
             $payload['seller_id'] = $sellerId;
         }
-        // dd($payload);
 
         $product = $this->productRepository->create($payload);
         return $product;
@@ -356,6 +356,8 @@ class ProductService extends BaseService implements ProductServiceInterface
             'products.lecturer_id',
             'products.total_lesson',
             'products.duration',
+            'products.chapter',
+            'products.lession_content',
             'tb2.name', 
             'tb2.canonical',
         ];
@@ -378,7 +380,9 @@ class ProductService extends BaseService implements ProductServiceInterface
             'guarantee',
             'total_lesson',
             'duration',
-            'lecturer_id'
+            'lecturer_id',
+            'chapter',
+            'lession_content'
         ];
     }
 
