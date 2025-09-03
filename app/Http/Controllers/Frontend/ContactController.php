@@ -62,6 +62,20 @@ class ContactController extends FrontendController
         
     }
 
+    public function saveContact(Request $request){
+        try {
+            DB::beginTransaction();
+            $payload = $request->only(['email', 'name', 'phone', 'address', 'message']);
+            Contact::create($payload);
+            DB::commit();
+            return redirect()->back()->with('success', 'Gửi đăng ký thành công. Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+        
+    }
+
     private function config(){
         return [
             'language' => $this->language,

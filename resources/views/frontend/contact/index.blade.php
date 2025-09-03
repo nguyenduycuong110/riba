@@ -32,7 +32,8 @@
                 <div class="wrapper">
                     <div class="frm-ct">
                         <h3 class="heading-2"><span>Liên hệ ngay</span></h3>
-                        <form action="" method="POST" class="ct-form">
+                        <form action="{{ url('contact/save') }}" method="POST" class="ct-form">
+                            @csrf
                             <div class="form-group">
                                 <label for="name">Họ tên</label>
                                 <input type="text" id="name" name="name" placeholder="Nguyễn Văn A" required>

@@ -11,6 +11,7 @@ use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use Jenssegers\Agent\Facades\Agent;
 use App\Models\Post;
+use App\View\Components\TableOfContents;
 
 class postController extends FrontendController
 {
@@ -73,12 +74,7 @@ class postController extends FrontendController
 
 
         $widgets = $this->widgetService->getWidget([
-            ['keyword' => 'news-feature'],
-            ['keyword' => 'projects-feature'],
-            ['keyword' => 'news'],
-            ['keyword' => 'news-outstanding','object' => true],
-            ['keyword' => 'design_construction_interior', 'object' => true],
-            ['keyword' => 'showroom-system','object' => true],
+            ['keyword' => 'product-catalogue', 'object' => true],
             
         ], $this->language);
 
@@ -87,12 +83,19 @@ class postController extends FrontendController
         $config = $this->config();
         $system = $this->system;
         $seo = seo($post);
-
+        
 
 
         $template = 'frontend.post.post.index';
 
         $schema = $this->schema($post, $postCatalogue, $breadcrumb);
+        $content = $post->languages->first()->pivot->content;
+        // dd($content);
+        // dd($content, $cont);
+        $items = TableOfContents::extract($content);
+        $contentWithToc = null;
+        $contentWithToc = TableOfContents::injectIds($content, $items);
+        // dd($contentWithToc);
 
         return view($template, compact(
             'config',
@@ -103,7 +106,8 @@ class postController extends FrontendController
             'post',
             'asidePost',
             'widgets',
-            'schema'
+            'schema',
+            'contentWithToc'
         ));
     }
 

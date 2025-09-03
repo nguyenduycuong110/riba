@@ -65,6 +65,8 @@ class PostCatalogueController extends FrontendController
 
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'students', 'object' => true],
+            ['keyword' => 'product-catalogue', 'object' => true],
+            
         ], $this->language);
 
         $slides = $this->slideService->getSlide(
