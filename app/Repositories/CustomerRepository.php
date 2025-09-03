@@ -75,6 +75,14 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         return $this->model->where($field, $value)->first();
     }
 
+    public function getCustomerByDate($request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $query = $this->model->whereBetween('created_at', [$startDate, $endDate])->get();
+        return $query;
+    }
+
 
 
     public function totalCustomer(){

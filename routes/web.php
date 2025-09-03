@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Controllers\Backend\User\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 
@@ -36,6 +35,7 @@ use App\Http\Controllers\Ajax\CartController as AjaxCartController;
 use App\Http\Controllers\Ajax\OrderController as AjaxOrderController;
 use App\Http\Controllers\Ajax\ReviewController as AjaxReviewController;
 use App\Http\Controllers\Ajax\PostController as AjaxPostController;
+use App\Http\Controllers\Ajax\ExcelController as AjaxExcelController;
 use App\Http\Controllers\Ajax\DistributionController as AjaxDistributionController;
 use App\Http\Controllers\Backend\Product\ProductCatalogueController;
 use App\Http\Controllers\Backend\Product\ProductController;
@@ -50,26 +50,21 @@ use App\Http\Controllers\Frontend\Payment\MomoController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\CrawlerController;
 use App\Http\Controllers\Frontend\AuthController as FeAuthController;
-
 use App\Http\Controllers\Frontend\DistributionController as FeDistributionController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
-
-use App\Http\Controllers\Backend\Crm\AgencyController;
-use App\Http\Controllers\Backend\Crm\ConstructionController;
 use App\Http\Controllers\Ajax\ConstructController as AjaxConstructController;
 use App\Http\Controllers\Ajax\CustomerController as AjaxCustomerController;
 use App\Http\Controllers\Ajax\ContactController as AjaxContactController;
+
 
 /* Buyer */
 use App\Http\Controllers\Buyer\BuyerAuthController;
 use App\Http\Controllers\Buyer\BuyerController;
 use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
 use App\Http\Controllers\Seller\Product\ProductController as SellerProductController;
-
 use App\Http\Controllers\Seller\OrderController as SellerOrderController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Http\Controllers\Ajax\ViettelPostController;
-
 use App\Http\Controllers\Frontend\ContactController as FeContactController;
 
 //@@useController@@
@@ -115,7 +110,7 @@ Route::post('ajax/contact/requestConsult', [AjaxContactController::class, 'reque
 /* CUSTOMER  */
 Route::get('customer/login'.config('apps.general.suffix'), [FeAuthController::class, 'index'])->name('fe.auth.login'); 
 
-Route::get('customer/check/login'.config('apps.general.suffix'), [FeAuthController::class, 'login'])->name('fe.auth.dologin');
+Route::post('customer/check/login'.config('apps.general.suffix'), [FeAuthController::class, 'login'])->name('fe.auth.dologin');
 
 Route::get('customer/password/forgot'.config('apps.general.suffix'), [FeAuthController::class, 'forgotCustomerPassword'])->name('forgot.customer.password');
 
@@ -486,6 +481,8 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
 
 
     Route::get('ajax/post/updateOrder', [AjaxPostController::class, 'updateOrder'])->name('ajax.updateOrder');
+
+    Route::post('ajax/excel/export', [AjaxExcelController::class, 'export'])->name('ajax.excel.export');
 });
 
 
@@ -515,33 +512,32 @@ Route::get('buyer/facebook/redirect', [BuyerAuthController::class, 'redirectToFa
 Route::get('buyer/facebook/callback', [BuyerAuthController::class, 'handleFacebookCallback'])->name('buyer.facebook.callback');
 
 Route::group(['middleware' => ['buyer']], function () {
-   Route::get('buyer/profile', [BuyerController::class, 'profile'])->name('buyer.profile');
-   Route::post('buyer/profile/update', [BuyerController::class, 'updateProfile'])->name('buyer.profile.update');
-   Route::get('buyer/profile/password', [BuyerController::class, 'password'])->name('buyer.profile.password');
-   Route::post('buyer/profile/password/update', [BuyerController::class, 'updatePassword'])->name('buyer.profile.password.update');
-   Route::get('buyer/logout', [BuyerAuthController::class, 'logout'])->name('buyer.logout');
-   Route::get('buyer/order', [BuyerController::class, 'order'])->name('buyer.order');
-   Route::get('buyer/order/{id}/detail', [BuyerController::class, 'orderDetail'])->name('buyer.order.detail');
-   Route::get('ajax/buyer/getDistrict', [ViettelPostController::class, 'getDistrict'])->name('ajax.order.getDistrict');
-   Route::get('ajax/buyer/getWard', [ViettelPostController::class, 'getWard'])->name('ajax.order.getWard');
+    Route::get('buyer/profile', [BuyerController::class, 'profile'])->name('buyer.profile');
+    Route::post('buyer/profile/update', [BuyerController::class, 'updateProfile'])->name('buyer.profile.update');
+    Route::get('buyer/profile/password', [BuyerController::class, 'password'])->name('buyer.profile.password');
+    Route::post('buyer/profile/password/update', [BuyerController::class, 'updatePassword'])->name('buyer.profile.password.update');
+    Route::get('buyer/logout', [BuyerAuthController::class, 'logout'])->name('buyer.logout');
+    Route::get('buyer/order', [BuyerController::class, 'order'])->name('buyer.order');
+    Route::get('buyer/order/{id}/detail', [BuyerController::class, 'orderDetail'])->name('buyer.order.detail');
+    Route::get('ajax/buyer/getDistrict', [ViettelPostController::class, 'getDistrict'])->name('ajax.order.getDistrict');
+    Route::get('ajax/buyer/getWard', [ViettelPostController::class, 'getWard'])->name('ajax.order.getWard');
 
-   Route::get('seller', [SellerDashboardController::class, 'index'])->name('seller');
+    Route::get('seller', [SellerDashboardController::class, 'index'])->name('seller');
 
-   Route::get('seller/product/index', [SellerProductController::class, 'index'])->name('seller.product.index');
+    Route::get('seller/product/index', [SellerProductController::class, 'index'])->name('seller.product.index');
 
-   Route::group(['prefix' => 'seller/product'], function () {
-      Route::get('index', [SellerProductController::class, 'index'])->name('seller.product.index');
-      Route::get('create', [SellerProductController::class, 'create'])->name('seller.product.create');
-      Route::post('store', [SellerProductController::class, 'store'])->name('seller.product.store');
-      Route::get('{id}/edit', [SellerProductController::class, 'edit'])->where(['id' => '[0-9]+'])->name('seller.product.edit');
-      Route::post('{id}/update', [SellerProductController::class, 'update'])->where(['id' => '[0-9]+'])->name('seller.product.update');
-      Route::get('{id}/delete', [SellerProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('seller.product.delete');
-      Route::delete('{id}/destroy', [SellerProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('seller.product.destroy');
-   });
+    Route::group(['prefix' => 'seller/product'], function () {
+        Route::get('index', [SellerProductController::class, 'index'])->name('seller.product.index');
+        Route::get('create', [SellerProductController::class, 'create'])->name('seller.product.create');
+        Route::post('store', [SellerProductController::class, 'store'])->name('seller.product.store');
+        Route::get('{id}/edit', [SellerProductController::class, 'edit'])->where(['id' => '[0-9]+'])->name('seller.product.edit');
+        Route::post('{id}/update', [SellerProductController::class, 'update'])->where(['id' => '[0-9]+'])->name('seller.product.update');
+        Route::get('{id}/delete', [SellerProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('seller.product.delete');
+        Route::delete('{id}/destroy', [SellerProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('seller.product.destroy');
+    });
 
-   Route::group(['prefix' => 'seller/order'], function () {
-      Route::get('index', [SellerOrderController::class, 'index'])->name('seller.order.index');
-      Route::get('{id}/detail', [SellerOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('seller.order.detail');
-   });
-
+    Route::group(['prefix' => 'seller/order'], function () {
+        Route::get('index', [SellerOrderController::class, 'index'])->name('seller.order.index');
+        Route::get('{id}/detail', [SellerOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('seller.order.detail');
+    });
 });

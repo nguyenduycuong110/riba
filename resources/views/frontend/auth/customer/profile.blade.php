@@ -21,7 +21,7 @@
                                 <div class="uk-form-row form-row">
                                     <label class="uk-form-label" for="form-h-it">Tài khoản đăng nhập</label>
                                     <div class="uk-form-controls">
-                                        {{ $customer->email }}
+                                        {{ $buyer->email }}
                                     </div>
                                 </div>
                                 
@@ -33,7 +33,7 @@
                                             class="input-text"
                                             placeholder="Họ Tên"
                                             name="name"
-                                            value="{{ old('name', $customer->name) }}"
+                                            value="{{ old('name', $buyer->name) }}"
                                         >
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                                             class="input-text"
                                             placeholder="Email"
                                             name="email"
-                                            value="{{ old('email', $customer->email) }}"
+                                            value="{{ old('email', $buyer->email) }}"
                                         >
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                             class="input-text"
                                             placeholder="Số điện thoại"
                                             name="phone"
-                                            value="{{ old('phone', $customer->phone) }}"
+                                            value="{{ old('phone', $buyer->phone) }}"
                                         >
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                             class="input-text"
                                             placeholder="Địa chỉ"
                                             name="address"
-                                            value="{{ old('address', $customer->address) }}"
+                                            value="{{ old('address', $buyer->address) }}"
                                         >
                                     </div>
                                 </div>

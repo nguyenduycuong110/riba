@@ -3,14 +3,18 @@
 
 @section('content')
     <div id="buyer-signup"> 
-        <div class="page-breadcrumb background">      
-            <div class="uk-container uk-container-center">
+        <div class="uk-container uk-container-center">
+            <div class="page-breadcrumb background">   
                 <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                     <li>
-                        <a href="/"><i class="fi-rs-home mr5"></i>Trang chủ</a>
-                        <span><i class="fi-rs-angle-right"></i></span>
+                        <a href="/" title="Trang chủ">Trang chủ</a>
                     </li>
-                    <li><a href="{{ route('buyer.profile') }}" title="">Danh sách đơn hàng</a></li>
+                    <li>    
+                        <span class="slash">/</span>
+                    </li>
+                    <li>
+                        <a href="{{ route('buyer.order') }}" title="Danh sách đơn hàng">Danh sách đơn hàng</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -34,7 +38,6 @@
                                             <th>Mã đơn hàng</th>
                                             <th>Ngày đặt</th>
                                             <th>Thành tiền</th>
-                                            <th>Phí ship</th>
                                             <th>Tổng tiền</th>
                                             <th>Tình trạng</th>
                                         </tr>
@@ -51,7 +54,6 @@
                                                 <td><a class="order-detail-link" href="{{ route('buyer.order.detail', ['id' => $val->id]) }}">{{ $val->code }}</a></td>
                                                 <td>{{ convertDateTime($val->created_at, 'd-m-Y') }}</td>
                                                 <td>{{ $cartTotal }}₫</td>
-                                                <td>{{ convert_price($val->shipping, true) }}₫</td>
                                                 <td style="color: blue;">{{ convert_price($val->shipping + $val->cart['cartTotal'], true) }}₫</td>
                                                 <td>
                                                     {!! ($val->confirm != 'cancle') ? __('cart.confirm')[$val->confirm] : '<span class="cancle-badge">'.__('cart.confirm')[$val->confirm].'</span>' !!}

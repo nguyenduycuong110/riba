@@ -28,7 +28,8 @@ class System{
                     'type' => 'textarea', 
                     'label' => 'Video youtube(pc)', 
                 ],
-                
+                'viettelpost_email' => ['type' => 'text', 'label' => 'Email Viettel Post'],
+                'viettelpost_password' => ['type' => 'text', 'label' => 'Password Viettel Post'],
             ]
         ];
 

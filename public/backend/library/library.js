@@ -258,9 +258,60 @@
             });
         })
     }
+
+    HT.exportExcel = () => {
+        $(document).on('click', '#confirmExport', function(e){
+            e.preventDefault()
+            let _this = $(this)
+            const model = _this.data('model')
+            let option = {
+                model:model
+            }
+            HT.setupDataForExport(option)
+        })
+    }
+
+     HT.setupDataForExport = (option) => {
+        const loadingOverlay = $('<div class="loading-overlay">Đang tải file...</div>');
+        $('body').append(loadingOverlay);
+        const startDate = $('input[name="startDate"]').val();
+        const endDate = $('input[name="endDate"]').val();
+
+        $.ajax({
+            url: 'ajax/excel/export', 
+            type: 'POST', 
+            data: {
+                ...option,
+                startDate : startDate,
+                endDate : endDate,
+                _token: $('meta[name="csrf-token"]').attr('content') // Thêm CSRF token
+            },
+            dataType: 'json', 
+            success: function(res) {
+                if (res.status === 'success') {
+                    const link = document.createElement('a');
+                    link.href = res.file_url;
+                    link.download = res.filename; 
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    console.error('Error:', res.message);
+                }
+    
+                loadingOverlay.remove();
+                window.location.reload()
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('AJAX Error:', textStatus, errorThrown);
+                loadingOverlay.remove();
+            }
+        });
+    }
     
 
 	$(document).ready(function(){
+        HT.exportExcel()
         HT.changeOrder()
         HT.approve()
         HT.switchery()

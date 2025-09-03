@@ -1,16 +1,18 @@
-
 @extends('frontend.homepage.layout')
-
 @section('content')
     <div id="buyer-signup"> 
         <div class="page-breadcrumb background">      
             <div class="uk-container uk-container-center">
                 <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                     <li>
-                        <a href="/"><i class="fi-rs-home mr5"></i>Trang chủ</a>
-                        <span><i class="fi-rs-angle-right"></i></span>
+                        <a href="/" title="Trang chủ">Trang chủ</a>
                     </li>
-                    <li><a href="{{ route('buyer.profile') }}" title="">Thông tin tài khoản</a></li>
+                    <li>    
+                        <span class="slash">/</span>
+                    </li>
+                    <li>
+                        <a href="{{ route('buyer.profile') }}" title="Thông tin tài khoản">Thông tin tài khoản</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -36,7 +38,7 @@
                                             <input 
                                                 type="text"
                                                 name="name"
-                                                value="{{ $customerAuth->name }}"
+                                                value="{{ $buyer->name }}"
                                                 class="input-text"
                                             >
                                         </span>
@@ -47,15 +49,15 @@
                                             <input 
                                                 type="text"
                                                 name="phone"
-                                                value="{{ $customerAuth->phone }}"
-                                                placeholder=" {{ $customerAuth->phone ?? 'Chưa cập nhật' }}"
+                                                value="{{ $buyer->phone }}"
+                                                placeholder=" {{ $buyer->phone ?? 'Chưa cập nhật' }}"
                                                 class="input-text"
                                             >
                                         </span>
                                     </div>
                                     <div class="form-row">
                                         <span class="label-name">Email:</span>
-                                        <span class="label-value">{{ $customerAuth->email }}</span>
+                                        <span class="label-value">{{ $buyer->email }}</span>
                                     </div>
 
                                     <div class="form-row">
@@ -94,8 +96,8 @@
                                             <input 
                                                 type="text"
                                                 name="address"
-                                                value="{{ $customerAuth->address }}"
-                                                placeholder=" {{ $customerAuth->address ?? 'Chưa cập nhật' }}"
+                                                value="{{ $buyer->address }}"
+                                                placeholder=" {{ $buyer->address ?? 'Chưa cập nhật' }}"
                                                 class="input-text"
                                             >
                                         </span>
@@ -107,8 +109,8 @@
                                             <input 
                                                 type="text"
                                                 name="viettelpost_email"
-                                                value="{{ $customerAuth->viettelpost_email }}"
-                                                placeholder=" {{ $customerAuth->viettelpost_email ?? 'Chưa cập nhật' }}"
+                                                value="{{ $buyer->viettelpost_email }}"
+                                                placeholder=" {{ $buyer->viettelpost_email ?? 'Chưa cập nhật' }}"
                                                 class="input-text"
                                             >
                                         </span>
@@ -120,8 +122,8 @@
                                             <input 
                                                 type="text"
                                                 name="viettelpost_password"
-                                                value="{{ $customerAuth->viettelpost_password }}"
-                                                placeholder=" {{ $customerAuth->viettelpost_password ?? 'Chưa cập nhật' }}"
+                                                value="{{ $buyer->viettelpost_password }}"
+                                                placeholder=" {{ $buyer->viettelpost_password ?? 'Chưa cập nhật' }}"
                                                 class="input-text"
                                             >
                                         </span>
@@ -138,9 +140,9 @@
     </div>
 
     <script>
-        var province_id = '{{ (isset($customerAuth->province_id)) ? $customerAuth->province_id : old('province_id') }}'
-        var district_id = '{{ (isset($customerAuth->district_id)) ? $customerAuth->district_id : old('district_id') }}'
-        var ward_id = '{{ (isset($customerAuth->ward_id)) ? $customerAuth->ward_id : old('ward_id') }}'
+        var province_id = '{{ (isset($buyer->province_id)) ? $buyer->province_id : old('province_id') }}'
+        var district_id = '{{ (isset($buyer->district_id)) ? $buyer->district_id : old('district_id') }}'
+        var ward_id = '{{ (isset($buyer->ward_id)) ? $buyer->ward_id : old('ward_id') }}'
     </script>
 
 @endsection

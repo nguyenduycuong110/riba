@@ -65,16 +65,30 @@
                 </div>
                 <div class="toolbox">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        <a href="{{ write_url('gio-hang') }}" title="" class="toolbox-item cart wow fadeInUp" data-wow-delay="0.35s">
-                            <img src="/frontend/resources/img/cart.svg" alt="">
-                            <span class="count">0</span>
-                        </a>
-                        <a href="#modal-login" title="Đăng nhập" class="toolbox-item login wow fadeInUp" data-wow-delay="0.4s" data-uk-modal>
-                            <img src="/frontend/resources/img/login.svg" alt="Đăng nhập">
-                        </a>
-                        <a href="{{ route('customer.register') }}" title="" class="toolbox-item register wow fadeInUp" data-wow-delay="0.45s">
-                            <span>Đăng ký ngay</span>
-                        </a>
+                        @if(isset($customerAuth) && !is_null($customerAuth))
+                            <a href="{{ write_url('gio-hang') }}" title="" class="toolbox-item cart wow fadeInUp" data-wow-delay="0.35s">
+                                <img src="/frontend/resources/img/cart.svg" alt="">
+                                <span class="count">0</span>
+                            </a>
+                        @else
+                            <a href="#modal-login" title="" class="toolbox-item cart wow fadeInUp" data-wow-delay="0.35s" data-uk-modal>
+                                <img src="/frontend/resources/img/cart.svg" alt="">
+                                <span class="count">0</span>
+                            </a>
+                        @endif
+                        @if(isset($customerAuth) && !is_null($customerAuth))
+                            <a href="{{ route('buyer.profile') }}" title="" class="toolbox-item register profile wow fadeInUp" data-wow-delay="0.45s">
+                                <img src="/frontend/resources/img/login.svg" alt="">
+                                <span>Xin chào: {{ $customerAuth->name }}</span>
+                            </a>
+                        @else
+                            <a href="#modal-login" title="Đăng nhập" class="toolbox-item login wow fadeInUp" data-wow-delay="0.4s" data-uk-modal>
+                                <img src="/frontend/resources/img/login.svg" alt="Đăng nhập">
+                            </a>
+                            <a href="{{ route('customer.register') }}" title="" class="toolbox-item register wow fadeInUp" data-wow-delay="0.45s">
+                                <span>Đăng ký ngay</span>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -137,28 +151,37 @@
         @if(isset($menu['mobile']))
 		<ul class="l1 uk-nav uk-nav-offcanvas uk-nav uk-nav-parent-icon" data-uk-nav>
 			@foreach ($menu['mobile'] as $key => $val)
-            @php
-                $name = $val['item']->languages->first()->pivot->name;
-                $canonical = write_url($val['item']->languages->first()->pivot->canonical, true, true);
-            @endphp
-			<li class="l1 {{ (count($val['children']))?'uk-parent uk-position-relative':'' }}">
-                <?php echo (isset($val['children']) && is_array($val['children']) && count($val['children']))?'<a href="#" title="" class="dropicon"></a>':''; ?>
-				<a href="{{ $canonical }}" title="{{ $name }}" class="l1">{{ $name }}</a>
-				@if(count($val['children']))
-				<ul class="l2 uk-nav-sub">
-					@foreach ($val['children'] as $keyItem => $valItem)
-                    @php
-                        $name_2 = $valItem['item']->languages->first()->pivot->name;
-                        $canonical_2 = write_url($valItem['item']->languages->first()->pivot->canonical, true, true);
-                    @endphp
-					<li class="l2">
-                        <a href="{{ $canonical_2 }}" title="{{ $name_2 }}" class="l2">{{ $name_2 }}</a>
-                    </li>
-					@endforeach
-				</ul>
-				@endif
-			</li>
+                @php
+                    $name = $val['item']->languages->first()->pivot->name;
+                    $canonical = write_url($val['item']->languages->first()->pivot->canonical, true, true);
+                @endphp
+                <li class="l1 {{ (count($val['children']))?'uk-parent uk-position-relative':'' }}">
+                    <?php echo (isset($val['children']) && is_array($val['children']) && count($val['children']))?'<a href="#" title="" class="dropicon"></a>':''; ?>
+                    <a href="{{ $canonical }}" title="{{ $name }}" class="l1">{{ $name }}</a>
+                    @if(count($val['children']))
+                    <ul class="l2 uk-nav-sub">
+                        @foreach ($val['children'] as $keyItem => $valItem)
+                        @php
+                            $name_2 = $valItem['item']->languages->first()->pivot->name;
+                            $canonical_2 = write_url($valItem['item']->languages->first()->pivot->canonical, true, true);
+                        @endphp
+                        <li class="l2">
+                            <a href="{{ $canonical_2 }}" title="{{ $name_2 }}" class="l2">{{ $name_2 }}</a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </li>
 			@endforeach
+            @if(!is_null($customerAuth))
+                <li>
+                    <a href="{{ route('buyer.profile') }}" title="">Xin chào : {{ $customerAuth->name }}</a>
+                </li>
+            @else
+                <li>
+                    <a href="#modal-login" title="" data-uk-modal>Đăng nhập</a>
+                </li>
+            @endif
 		</ul>
 		@endif
 	</div>

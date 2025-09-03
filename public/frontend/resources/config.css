@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @font-face{
     font-family:"uicons-regular-straight";
     src:url("fonts/uicons-regular-straight.eot#iefix") format("embedded-opentype"),
@@ -26,8 +26,8 @@ i[class^=fi-rs-],span[class^=fi-rs-]{line-height:0 !important}i[class^=fi-rs-]:b
     box-sizing: border-box;
 }
 body{
-    /* font-family: 'Montserrat', sans-serif; */
-    font-weight: 300;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
     margin:0;
     color:#000;
 }
@@ -384,6 +384,7 @@ ul li{
     text-transform: uppercase;
     width: 220px;
     margin-bottom: 25px;
+    font-family: "Inter", sans-serif !important;
 }
 .cart-checkout:hover{
     color: #fff;
@@ -1099,8 +1100,8 @@ ul li{
 .btn-core{
     padding: 12px 35px 13px 35px;
     width: 100%;
-    border: 1px solid #b20000;
-    background-color: #b20000;
+    border: 1px solid #0C4A1A;
+    background-color: #0C4A1A;
     font-size: 13px;
     font-weight: 600;
     color: #fff;
@@ -1114,7 +1115,7 @@ ul li{
 
 .btn-core:hover{
     background: transparent !important;
-    color: #b20000 !important;
+    color: #0C4A1A !important;
 }
 
 .cart-success{
@@ -1125,9 +1126,11 @@ ul li{
     text-transform: uppercase;
     font-size:30px;
     margin-bottom:35px;
-    line-height:32px;
+    line-height:1.3;
 }
-
+.order-success-code{
+    font-size: 15px;
+}
 .cart-success__description{
     margin: 50px 0;
     text-align: justify;
@@ -1160,10 +1163,9 @@ ul li{
 }
 .order-summary__heading .code{
     font-size: 14px;
-    color: #005599;
+    color: red;
     font-weight: 600;
     text-transform: uppercase;
-    font-family: Play;
 }
 
 .order-summary__body{
@@ -1267,7 +1269,6 @@ ul li{
     margin-bottom:0;
     font-size:15px;
     font-weight: 800;
-    font-family: Play;
 }
 .final-total .cart-price-label{
     text-transform: uppercase;
@@ -1295,12 +1296,15 @@ ul li{
 .voucher-value{
     color: red;
 }
+.order-item{
+    color: red;
+}
 input[readonly]{
     background-color: #eee !important;
     opacity: 1;
 }
 .order-success_note{
-    font-size:16px;
+    font-size:15px;
 }
 .product-price{
     padding-bottom: 20px;

@@ -63,7 +63,7 @@
                 <div class="panel-register">
                     <div class="uk-grid uk-grid-collapse">
                         <div class="uk-width-medium-1-2">
-                            <div class="register-form">
+                            <div class="register-frm">
                                 <h2 class="heading-1"><span>Đăng ký</span></h2>
                                 <div class="subtitle">Đăng ký ngay để nhận ưu đãi từ chúng tôi</div>
                                 <form action="{{ route('customer.reg') }}" method="POST" class="rf">
@@ -104,7 +104,7 @@
                                     </p>
                                     <button type="submit" class="submit-btn">Đăng ký</button>
                                     <div class="login-link">
-                                        Bạn đã có tài khoản? <a href="#" id="loginLink">Đăng nhập</a>
+                                        Bạn đã có tài khoản ? <a href="#modal-login" id="loginLink" data-uk-modal>Đăng nhập</a>
                                     </div>
                                 </form>
                             </div>

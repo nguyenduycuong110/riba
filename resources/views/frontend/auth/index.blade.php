@@ -7,6 +7,7 @@
             <div class="error-message" id="errorMessage"></div>
             <div class="success-message" id="successMessage"></div>
             <form action="{{ route('fe.auth.dologin') }}" method="POST" id="loginForm">
+                @csrf
                 <div class="form-group">
                     <label for="email">Email <span class="required">*</span></label>
                     <input type="text" id="email" name="email" required>

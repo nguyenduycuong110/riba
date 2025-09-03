@@ -61,6 +61,9 @@ class ProductController extends FrontendController
     }
 
     private function promotionLeft($product = null){
+        if(empty($product->promotions)){
+            return;
+        }
         $end = Carbon::parse($product->promotions->endDate);
         $now = Carbon::now();
         $dayLefts = $now->diffInDays($end, false);
@@ -82,8 +85,8 @@ class ProductController extends FrontendController
         if (!is_null($product->seller_id)) {
             $seller = $this->customerRepository->findById($product->seller_id);
         }
-        $promotionLeft = $this->promotionLeft($product);
 
+        $promotionLeft = $this->promotionLeft($product) ?? null;
 
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $this->language);
 

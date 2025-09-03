@@ -154,10 +154,11 @@
 /* BUYER PAGE */
 .buyer-page {
     padding: 40px 0;
+    padding-top: 20pxhe;
 }
-.buyer-task > ul > li{
+/* .buyer-task > ul > li{
     margin-bottom:15px;
-}
+} */
 .buyer-task > ul > li > span{
     font-family: 'Inter';
     font-weight: 600;
@@ -177,7 +178,8 @@
 .buyer-wrapper{
     padding:20px;
     background: #fff;
-    box-shadow: 0px 1px 2px #b7b7b7;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
 .buyer-wrapper .panel-head{
@@ -197,7 +199,7 @@
 .profile-content .panel-body .form-row .label-name{
     width:120px;
     display: inline-block;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .change-info{
@@ -427,4 +429,77 @@ div.edit{
 
 .text-right{
     text-align: right;
+}
+.buyer-task{
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(63, 28, 28, 0.08);
+    overflow: hidden;
+}
+.buyer-task .title{
+    padding: 20px 20px 8px 20px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.main-task{
+    padding-left: 0 !important;
+}
+.main-task li a{
+    padding: 12px 20px;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #f8f9fa;
+}
+.main-task li:last-child{
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+.main-task li a{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.main-task li{
+    margin-bottom: 0 !important;
+}
+.profile-content .heading-2 > *{
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.main-task li a:hover{
+    background: #f8f9fa;
+    transition: 0.1s ease all;
+    color: var(--primary-color);
+}
+.form .change-info{
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    border-radius: 6px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+.form .change-info:hover{
+    transition: 0.1 ease;
+    background: #0C4A1A;
+    opacity: 0.9;
+}
+#buyer-signup .uk-flex{
+    justify-content: left;
+}
+@media(max-width:756px){
+    .buyer-page{
+        padding-top: 10px;
+    }
+    .buyer-task{
+        margin-bottom: 40px !important;
+    }
+    .profile-content .panel-body .form-row .label-name{
+        margin-bottom: 5px;
+    }
 }

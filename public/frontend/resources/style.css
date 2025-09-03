@@ -278,6 +278,18 @@ ul li,ol li{
     background: #fff;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+.header-lower .profile{
+    width: max-content;
+    padding: 0 10px;
+    gap: 6px;
+}
+.header-lower .profile:hover{
+    color: rgba(89, 89, 89, 1);
+    background: rgba(255, 215, 70, 1);
+    border-color: rgba(230, 180, 30, 1);
+    box-shadow: 0 5px 15px rgba(254, 200, 40, 0.3);
+    transition: 0.2s ease all;
+}
 .navigation li.children > a::before{
     content: '';
     display: block;
@@ -1816,7 +1828,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     margin-left: auto;
     margin-right: auto;
 }
-.panel-register .register-form{
+.panel-register .register-frm{
     background: rgba(241, 241, 241, 1);
     padding: 30px;
     border-top-left-radius: 20px;
@@ -2108,10 +2120,14 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
+    font-family: 'Inter', sans-serif !important;
 }
 .frm-ct .btn button:hover{
     opacity: 0.8;
     transition: 0.5s ease all;
+}
+button{
+    font-family: 'Inter', sans-serif !important;
 }
 .contact-page .contact-info{
     margin-bottom: 40px;
@@ -2520,6 +2536,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 20px;
+    font-family: "Inter", sans-serif !important;
 }
 
 .login-btn:hover {
@@ -2659,6 +2676,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
 }
 .caption{
     font-size: 14px;
+    font-family: "Inter", sans-serif !important;
 }
 .caption strong{
     color: rgba(255, 205, 41, 1);
@@ -2750,7 +2768,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     font-size: 14px;
     cursor: pointer;
     display: flex;
-    gap: 4px;
+    gap: 6px;
 }
 .filter-list__item input{
     cursor: pointer;
@@ -3703,6 +3721,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     cursor:pointer;
     border:1px solid transparent;
     transition: all 0.4s linear;
+    font-family: "Inter", sans-serif !important;
 }
 .product-price-box .cart-button button:nth-child(1){
     background: rgba(255, 205, 41, 1);
@@ -3903,3 +3922,4 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
 .text-overlay h1{
     color:#fff !important;
 }
+/*Buyer*/

@@ -37,7 +37,7 @@
                     {{ $customer->customer_catalogues->name }}
                 </td>
                 <td class="text-center">
-                    {{ $customer->sources->name }}
+                    {{ $customer->sources->name ?? null }}
                 </td>
                 <td class="text-center js-switch-{{ $customer->id }}"> 
                     <input type="checkbox" value="{{ $customer->publish }}" class="js-switch status " data-field="publish" data-model="{{ $config['model'] }}" {{ ($customer->publish == 2) ? 'checked' : '' }} data-modelId="{{ $customer->id }}" />

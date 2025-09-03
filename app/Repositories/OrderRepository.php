@@ -300,5 +300,13 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return $this->model->where('customer_id', $buyer->id)->find($orderId);
     }
 
+    public function getOrderByDate($request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $query = $this->model->whereBetween('created_at', [$startDate, $endDate])->get();
+        return $query;
+    }
+
     
 }

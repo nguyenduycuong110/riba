@@ -78,7 +78,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="5" class="text-right" ><strong>Tổng cuối</strong></td>
-                                            <td class="text-right" style="font-size:18px;"><strong style="color:blue;">{{ convert_price($order->cart['cartTotal'] - $order->promotion['discount'] + $order->shipping, true) }} ₫</strong></td>
+                                            <td class="text-right" style="font-size:18px;"><strong style="color:#2962ff;">{{ convert_price($order->cart['cartTotal'] - $order->promotion['discount'] + $order->shipping, true) }} ₫</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>

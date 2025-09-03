@@ -3,14 +3,18 @@
 
 @section('content')
     <div id="buyer-signup"> 
-        <div class="page-breadcrumb background">      
-            <div class="uk-container uk-container-center">
+        <div class="uk-container uk-container-center">
+            <div class="page-breadcrumb background">   
                 <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                     <li>
-                        <a href="/"><i class="fi-rs-home mr5"></i>Trang chủ</a>
-                        <span><i class="fi-rs-angle-right"></i></span>
+                        <a href="/" title="Trang chủ">Trang chủ</a>
                     </li>
-                    <li><a href="{{ route('buyer.profile') }}" title="">Thông tin tài khoản</a></li>
+                    <li>    
+                        <span class="slash">/</span>
+                    </li>
+                    <li>
+                        <a href="{{ route('buyer.profile.password') }}" title="Thay đổi mật khẩu">Thay đổi mật khẩu</a>
+                    </li>
                 </ul>
             </div>
         </div>

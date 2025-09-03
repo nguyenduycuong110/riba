@@ -40,7 +40,6 @@ class BuyerController extends FrontendController
     }
 
     public function profile(Request $request){ 
-
         $buyer = $this->getBuyer();
         $viettelPost = new ViettelPost(
             $this->system['homepage_viettelpost_email'],
@@ -49,7 +48,6 @@ class BuyerController extends FrontendController
 
         $viettelToken = $viettelPost->getToken();
         $provinces = $viettelPost->getProvinces($viettelToken);
-
         $config = $this->config();
         $system = $this->system;
         $seo = [
@@ -60,6 +58,7 @@ class BuyerController extends FrontendController
             'canonical' => route('buyer.profile')
         ];
         return view('buyer.buyer.profile', compact(
+            'buyer',
             'seo',
             'system',
             'config',
@@ -130,8 +129,6 @@ class BuyerController extends FrontendController
         $buyer = $this->getBuyer();
         $order = $this->orderRepository->findOrderDetailByBuyer($buyer, $orderId);
         $order = $this->orderService->getOrderItemImage($order);
-        // dd($order);
-
         $config = $this->config();
         $system = $this->system;
         $seo = [
