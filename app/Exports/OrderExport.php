@@ -6,7 +6,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-
 class OrderExport
 {
     protected $orders;
@@ -20,16 +19,13 @@ class OrderExport
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-
         // Set default font
         $spreadsheet->getDefaultStyle()->getFont()->setName('Times New Roman')->setSize(13);
-
         // Tiêu đề
         $sheet->mergeCells('A1:G1');
         $sheet->setCellValue('A1', 'Danh sách đơn hàng');
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
         // Header
         $headings = [
             'Mã đơn hàng', 
@@ -46,11 +42,9 @@ class OrderExport
         $sheet->getStyle('A3:G3')->getFont()->setBold(true);
         $sheet->getStyle('A3:G3')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('A3:G3')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-
         // Ghi dữ liệu
         $row = 4;
         $index = 1;
-
         foreach ($this->orders as $order) {
             $sheet->setCellValue('A' . $row, $order->code);
             $sheet->setCellValue('B' . $row, $order->created_at ?? '');
@@ -61,11 +55,9 @@ class OrderExport
             $sheet->setCellValue('G' . $row, $order->group->name ?? 'Chờ thanh toán');
             $sheet->setCellValue('H' . $row, $order->group->name ?? 'Chưa giao');
             $sheet->setCellValue('I' . $row, $order->method ?? '');
-
             $index++;
             $row++;
         }
-
         // Border
         $lastRow = $row - 1;
         $sheet->getStyle("A3:I$lastRow")->applyFromArray([

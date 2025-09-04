@@ -46,7 +46,6 @@ if(!function_exists('pre')){
 if(!function_exists('image')){
     function image($image){
         
-
         if(is_null($image)) return 'backend/img/not-found.jpg';
 
         $image = str_replace('/public/', '/', $image);
@@ -693,7 +692,9 @@ if(!function_exists('thumb')){
             $params['h'] = $height;
         }
         
-        return route('thumb', $params);
+        // return route('thumb', $params);
+
+        return $path;
     }
 }
 
