@@ -33,12 +33,36 @@
 	
 	/* MAIN VARIABLE */
 	HT.swiper = () => {
-		if($('.panel-slide').length){
-			let setting = JSON.parse($('.panel-slide').attr('data-setting'))
-			let option = HT.swiperOption(setting)
-			var swiper = new Swiper(".panel-slide .swiper-container", option);
-		}
-		
+		var swiper = new Swiper(".panel-slide .swiper-container", {
+			loop: true,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+            autoplay: {
+                delay : 3000,
+            },
+			spaceBetween: 15,
+			slidesPerView: 1.5,
+			breakpoints: {
+				415: {
+					slidesPerView: 1,
+				},
+				500: {
+				  slidesPerView: 1,
+				},
+				768: {
+				  slidesPerView: 1,
+				},
+				1280: {
+					slidesPerView: 1,
+				}
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			
+		});
 	}
 
 

@@ -2,13 +2,13 @@
     $slideKeyword = App\Enums\SlideEnum::MAIN;
 @endphp
 @if(count($slides[$slideKeyword]['item']))
-    <div class="panel-slide page-setup" data-setting="{{ json_encode($slides[$slideKeyword]['setting']) }}">
+    <div class="panel-slide page-setup" data-setting="">
         <div class="uk-container uk-container-center">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     @foreach($slides[$slideKeyword]['item'] as $key => $val )
                         <div class="swiper-slide">
-                            <div class="slide-item">
+                            
                                 <div class="uk-grid uk-grid-collapse">
                                     <div class="uk-width-medium-1-2">
                                         <div class="text">
@@ -35,7 +35,6 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     @endforeach
                 </div>
