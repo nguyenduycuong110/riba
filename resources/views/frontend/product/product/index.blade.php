@@ -150,14 +150,23 @@
                                 </ul>
                                 @endif
                             </div>
-                            <div class="lecturer-info">
+                            <div class="lecturer-bl">
                                 @php
-                                   $lec_name = $product->lecturers->name;
-                                   $lec_image = $product->lecturers->image;
-                                   $lec_position = $product->lecturers->position;
-                                    $lec_des = $product->lecturers->description;
+                                    $lec_name = $product->lecturers->name;
+                                    $lec_image = $product->lecturers->image;
+                                    $lec_position = $product->lecturers->position;
                                 @endphp
-                                
+                                <div class="lecturer-content">
+                                    <div class="uk-flex uk-flex-middle">
+                                        <a href="" class="image img-scaledown">
+                                            <img src="{{ $lec_image }}" alt="">
+                                        </a>
+                                        <div class="info">
+                                            <h4 class="heading-3"><span>{{ $lec_name }}</span></h4>
+                                            <p class="postition">{{ $lec_position }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

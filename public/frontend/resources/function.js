@@ -65,19 +65,6 @@
 		});
 	}
 
-
-	// HT.carousel = () => {
-	// 	$carousel.each(function(){
-	// 		let _this = $(this);
-	// 		let option = _this.find('.owl-carousel').attr('data-owl');
-	// 		let owlInit = atob(option);
-	// 		owlInit = JSON.parse(owlInit);
-	// 		_this.find('.owl-carousel').owlCarousel(owlInit);
-	// 	});
-		
-	// } 
-
-
 	HT.category = () => {
 		var swiper = new Swiper(".panel-category .swiper-container", {
 			loop: true,

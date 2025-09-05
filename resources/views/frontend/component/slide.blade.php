@@ -3,8 +3,15 @@
 @endphp
 @if(count($slides[$slideKeyword]['item']))
     <div class="panel-slide page-setup" data-setting="">
+        <div class="swiper-button-prev">
+            <img src="/frontend/resources/img/prev.svg" alt="">
+        </div>
+        <div class="swiper-button-next">
+            <img src="/frontend/resources/img/next.svg" alt="">
+        </div>
         <div class="uk-container uk-container-center">
             <div class="swiper-container">
+                
                 <div class="swiper-wrapper">
                     @foreach($slides[$slideKeyword]['item'] as $key => $val )
                         <div class="swiper-slide">
