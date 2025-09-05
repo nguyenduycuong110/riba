@@ -4006,3 +4006,7 @@ button{
     background: var(--primary-color);
     transition: 0.3s ease all;
 }
+.panel-slide .swiper-button-prev:hover img,
+.panel-slide .swiper-button-next:hover img{
+    filter: invert(1);
+}
