@@ -3961,3 +3961,9 @@ button{
 .filters-category .bucket{
     margin-bottom: 20px;
 }
+.thumb-video-item{
+    margin-bottom: 15px;
+}
+.thumb-video-item .name{
+    width: calc(1000% - 95px);
+}

@@ -390,7 +390,7 @@
                                                             <span class="image img-cover">
                                                                 <img src="{{ $val->image }}" alt="">
                                                             </span>
-                                                            <span>{{ $name }}</span>
+                                                            <span class="name">{{ $name }}</span>
                                                         </a>
                                                     </div>
                                                 </li>

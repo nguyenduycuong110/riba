@@ -257,6 +257,7 @@
 .product-preview .product-title{
     margin-bottom:20px;
     font-size:18px;
+    line-height: 1.2;
     color:#000;
     font-weight: 500;
 }
@@ -287,8 +288,8 @@
     margin-right:10px;
 }
 .gender-item input[type=radio]{
-    margin-top:3px;
     margin-right:5px;
+    margin-top: 1px;
 }
 .btn-send-review{
     padding:10px 25px;

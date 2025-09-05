@@ -77,7 +77,11 @@
                                     <div class="review-toolbox">
                                         <div class="uk-flex uk-flex-middle">
                                             <div class="created_at">Ngày {{ $created_at }}</div>
-                                            <div class="review-reply" data-uk-modal="{target:'#review'}">Trả lời</div>
+                                            @if(!is_null($customerAuth))
+                                                <div class="review-reply" data-uk-modal="{target:'#review'}">Trả lời</div>
+                                            @else
+                                                <div class="review-reply" data-uk-modal="{target:'#modal-login'}">Trả lời</div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -89,9 +93,15 @@
         </div>
     </div>
     <div class="panel-foot" style="padding-bottom:25px;">
-        <div class="review-action uk-text-center">
-            <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
-        </div>
+        @if(!is_null($customerAuth))
+            <div class="review-action uk-text-center">
+                <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
+            </div>
+        @else
+            <div class="review-action uk-text-center">
+                <button class="btn btn-review" data-uk-modal="{target:'#modal-login'}">Gửi đánh giá</button>
+            </div>
+        @endif
     </div>
 </div>
 
