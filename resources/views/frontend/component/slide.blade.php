@@ -19,10 +19,10 @@
                                             </div>
                                             <div class="group-btn">
                                                 <div class="uk-flex uk-flex-middle">
-                                                    <a href="" title="" class="btn btn-view wow pulse" data-wow-iteration="3">
+                                                    <a href="{{ write_url('khoa-hoc') }}" title="" class="btn btn-view wow pulse" data-wow-iteration="3">
                                                         <span>Xem khóa học</span>
                                                     </a>
-                                                    <a href="" title="" class="btn btn-register wow tada" data-wow-delay="1s">
+                                                    <a href="{{ write_url('lien-he') }}" title="" class="btn btn-register wow tada" data-wow-delay="1s">
                                                         <span>Đăng ký ngay</span>
                                                     </a>
                                                 </div>

@@ -13,12 +13,12 @@ use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use App\Repositories\Interfaces\CustomerRepositoryInterface as CustomerRepository;
 use App\Repositories\Interfaces\ReviewRepositoryInterface as ReviewRepository;
 use App\Repositories\Interfaces\VoucherRepositoryInterface as VoucherRepository;
+use App\Repositories\Interfaces\OrderRepositoryInterface as OrderRepository;
 use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
 use Illuminate\Support\Facades\Auth;
 use Cart;
-use Jenssegers\Agent\Facades\Agent;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends FrontendController
 {
@@ -34,6 +34,7 @@ class ProductController extends FrontendController
     protected $voucherRepository;
     protected $widgetService;
     protected $customerRepository;
+    protected $orderRepository;
 
     public function __construct(
         ProductCatalogueRepository $productCatalogueRepository,
@@ -46,6 +47,7 @@ class ProductController extends FrontendController
         VoucherService $voucherService,
         PromotionService $promotionService,
         CustomerRepository $customerRepository,
+        OrderRepository $orderRepository,
     ) {
         $this->productCatalogueRepository = $productCatalogueRepository;
         $this->productCatalogueService = $productCatalogueService;
@@ -57,6 +59,7 @@ class ProductController extends FrontendController
         $this->voucherService = $voucherService;
         $this->promotionService = $promotionService;
         $this->customerRepository = $customerRepository;
+        $this->orderRepository = $orderRepository;
         parent::__construct();
     }
 
@@ -70,6 +73,27 @@ class ProductController extends FrontendController
         return $dayLefts;
     }
 
+    private function calculateStudent($product){
+        $order = DB::table('order_product')->where('product_id', $product->id)->get();
+        if ($order->isEmpty()) {
+            return;
+        }
+        $orderIds = $order->pluck('order_id')->toArray();
+        $orders = $this->orderRepository->findByCondition(
+            condition: [],
+            flag: true, 
+            relation: [],
+            orderBy: ['id', 'desc'],
+            param: [
+                'whereInField' => 'id',       
+                'whereIn' => $orderIds         
+            ],
+            withCount: []
+        );
+        $students = $orders->count('customer_id');
+        return $students;
+    }
+
     public function index($id, $request)
     {
         $language = $this->language;
@@ -78,6 +102,7 @@ class ProductController extends FrontendController
             abort(404);
         }
         $product = $this->productService->combineProductAndPromotion([$id], $product, true);
+        $students = $this->calculateStudent($product);
         $promotion_gifts = null;
         $promotion_gifts = $this->promotionService->getProTakeGiftBuyProduct($id);
         $product['promotion_gifts'] = $promotion_gifts;
@@ -177,7 +202,8 @@ class ProductController extends FrontendController
             'schema',
             'productRelated',
             'children',
-            'promotionLeft'
+            'promotionLeft',
+            'students'
         ));
     }
 

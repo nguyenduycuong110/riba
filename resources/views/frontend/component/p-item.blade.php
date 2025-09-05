@@ -1,6 +1,6 @@
 @php
-    $name = $product->name;
-    $canonical = write_url($product->canonical);
+    $name = !is_null($product->name) ? $product->name : $product->languages->first()->pivot->name;
+    $canonical = !is_null($product->canonical) ?  write_url($product->canonical) : write_url($product->languages->first()->pivot->canonical);
     $image = thumb(image($product->image), 600, 400);
     $price = getPrice($product);
     $total_lesson = $product->total_lesson;

@@ -965,8 +965,10 @@
 				data: filterOptions, 
 				dataType: 'json', 
 				success: function(res) {
-					console.log(res);
                     let html = res.data
+                    let countProduct = res.countProduct
+                    $('.caption strong').html('')
+                    $('.caption strong').html(`${countProduct} sản phẩm`)
                     $('.product-catalogue .product-list').html(html);
                     HT.skeleton()
 				},

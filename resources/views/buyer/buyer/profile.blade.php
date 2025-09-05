@@ -60,7 +60,7 @@
                                         <span class="label-value">{{ $buyer->email }}</span>
                                     </div>
 
-                                    <div class="form-row">
+                                    {{-- <div class="form-row">
                                         <span class="label-name">Thành phố:</span>
                                         <span class="label-value">
                                             <select name="province_id" class="input-text city">
@@ -127,7 +127,7 @@
                                                 class="input-text"
                                             >
                                         </span>
-                                    </div>
+                                    </div> --}}
                                    
                                     <button type="submit" href="" class="button-shop change-info">Thay đổi thông tin</button>
                                 </form>

@@ -12,7 +12,7 @@ i[class^=fi-rs-],span[class^=fi-rs-]{line-height:0 !important}i[class^=fi-rs-]:b
 
 
 :root {
-    --primary-color: #F69425;
+    --primary-color: #0C4A1A;
     --secondary-color: #8C4E39;
     --hover-cover:#8C4E39;
     --border-color:#ececec;
@@ -182,7 +182,7 @@ ul li{
     left:0;
 }
 .ui-slider-horizontal .ui-slider-range{
-    background: var(--primary-color);
+    background: #FFCD29;
 }
 .ui-slider-horizontal .ui-slider-handle{
     border-radius: 50%;
@@ -203,7 +203,7 @@ ul li{
 }
 .ui-slider-horizontal .ui-slider-handle{
     top:-6px;
-    background: #fff;
+    background: var(--primary-color);
 }
 .input-value{
     padding:5px 15px;

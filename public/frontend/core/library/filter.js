@@ -13,19 +13,17 @@
 			step: 50000,
 			range: true, 
 			min: 0, 
-			max: 20000000, 
-			values: [0, 20000000], 
+			max: 10000000, 
+			values: [0, 10000000], 
 			slide: function(event, ui){
-				$('.min-value').val(addCommas(ui.values[0]))
-				$('.max-value').val(addCommas(ui.values[1]))
-
+				$('.min-value').val(addCommas(ui.values[0]) + 'đ')
+				$('.max-value').val(addCommas(ui.values[1]) + 'đ')
 			},
             create: function(event, ui) {
                 isInitialized = true;
             },
             change: function(event, ui) {
                 if (isInitialized) {
-                //   let filterOption = HT.filterOption();
                     HT.sendDataToFilter();
                 }
               }
@@ -57,7 +55,6 @@
                     
                 },
                 success: function(res) {
-    
                     let html = res.data
                     $('.product-catalogue .product-list').html(html);
                 },
@@ -107,8 +104,10 @@
                 
             },
             success: function(res) {
-
                 let html = res.data
+                let countProduct = res.countProduct
+                $('.caption strong').html('')
+                $('.caption strong').html(`${countProduct} sản phẩm`)
                 $('.product-catalogue .product-list').html(html);
             },
         });

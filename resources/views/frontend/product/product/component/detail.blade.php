@@ -10,7 +10,6 @@
     $gallery = json_decode($product->album);
     $iframe = $product->iframe;
     $total_lesson = $product->total_lesson;
-    // dd($price);
 @endphp
 <div class="info">
     <div class="popup">
@@ -31,7 +30,7 @@
                         </div>
                         <div class="stat-item students">
                             <img src="/frontend/resources/img/user.svg" alt="">
-                            <span>0 học viên</span>
+                            <span>{{ $students ?? 0 }} học viên</span>
                         </div>
                         <div class="stat-item duration">
                             <img src="/frontend/resources/img/time1.svg" alt="">

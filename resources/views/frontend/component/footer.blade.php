@@ -69,19 +69,16 @@
         <li>
             <a href="{{ $system['social_messenger'] }}" title="Messenger" target="_blank" class="messenger image img-scaledown">
                 <img src="/userfiles/image/slide/messenger%20(1).png" alt="Messenger">
-                <span>(8 - 21h)</span>
             </a>
         </li>
         <li>
             <a href="https://zalo.me/{{ $system['social_zalo'] }}" title="Zalo" target="_blank" class="zalo image img-scaledown">
                 <img src="/userfiles/image/slide/icons8-zalo-96.png" alt="Zalo">
-                <span>(8 - 21h)</span>
             </a>
         </li>
         <li>
             <a href="tel:{{ $system['contact_hotline'] }}" title="Phone" target="_blank" class="phone image img-scaledown">
                 <img src="/userfiles/image/slide/31e1db46a01a8bfbacce603d73f98e36a94fcc9b.png" alt="Phone">
-                <span>(8 - 21h)</span>
             </a>
         </li>
         

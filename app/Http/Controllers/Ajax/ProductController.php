@@ -131,12 +131,16 @@ class ProductController extends Controller
     
 
     public function filter(Request $request){
+
         $products = $this->productService->filter($request);
+
+        $countProduct = $products->count();
 
         $html = $this->renderFilterProduct($products);
 
         return response()->json([
             'data' => $html ,
+            'countProduct' => $countProduct
         ]);
     }
 
