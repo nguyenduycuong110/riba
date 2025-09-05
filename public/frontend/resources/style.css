@@ -3962,8 +3962,8 @@ button{
     margin-bottom: 20px;
 }
 .thumb-video-item{
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
 }
 .thumb-video-item .name{
-    width: calc(1000% - 95px);
+    width: calc(100% - 95px);
 }
