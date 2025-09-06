@@ -7,7 +7,7 @@
                     <img src="{{ $system['background_1'] }}" alt="">
                 </a>
                 <div class="text-overlay">
-                    <div class="page-breadcrumb">      
+                    {{-- <div class="page-breadcrumb">      
                         <div class="uk-container uk-container-center">
                             <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                                 <li>
@@ -21,7 +21,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                     <h2 class="heading-1"><span>Liên hệ với chúng tôi</span></h2>
                     <div class="description">
                         <p>Bạn đang có những thắc mắc, nan giải về khóa học hãy chia sẻ vấn đề với chúng tôi</p>

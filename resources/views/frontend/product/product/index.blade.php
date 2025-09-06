@@ -167,6 +167,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- <div class="lecturer-review">
+                                    <div class="review">
+                                        <p class="average">{{ $lecturer['reviews']['average'] }} / 5 </p>
+                                        <p class="count">({{ $lecturer['reviews']['count'] }} đánh giá)</p>
+                                    </div>
+                                    <div class="students">
+                                        {{ $lecturer['total_students'] }}
+                                    </div>
+                                    <div class="courses">
+                                        {{ $lecturer['total_courses'] }}
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

@@ -200,7 +200,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'products.id',
             'products.price',
             'products.image',
-            'products.lecturer_id'
+            'products.lecturer_id',
+            'product_language.name as name'
         );
 
         if(isset($param['select']) && count($param['select'])){
@@ -225,7 +226,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
         }
        
-        // dd($param['whereRaw']);
         if (!empty($param['whereRaw']) && !is_null($param['whereRaw'][0])) {
             $query->where(function ($q) use ($param) {
                 foreach ($param['whereRaw'] as $raw) {
@@ -238,7 +238,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             foreach($param['whereIn'] as $key => $val){
                 $query->whereIn($val['field'], $val['value']);
             }
-            // dd(123);
         }
 
         if(isset($param['having']) && count($param['having'])){
@@ -247,11 +246,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 $query->having($val);
             }
         }
-
-        $query->groupBy($orderBy);
+        [$column, $direction] = $orderBy;
+        $query->orderBy($column, $direction);
+        $query->groupBy('products.id');
         $query->with(['reviews', 'languages', 'product_catalogues', 'lecturers']);
-
-        // dd($query->toSql()) ;
         return $query->paginate($perpage);
     }    
 

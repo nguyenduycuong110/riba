@@ -10,10 +10,10 @@
                     <img src="{{ $system['background_1'] }}" alt="">
                 </a>
                 <div class="text-overlay">
-                    @include('frontend.component.breadcrumb', [
+                    {{-- @include('frontend.component.breadcrumb', [
                         'model' => $productCatalogue,
                         'breadcrumb' => $breadcrumb,
-                    ])
+                    ]) --}}
                     <h2 class="heading-1"><span>{{ $productCatalogue->name }}</span></h2>
                     <div class="description">
                         {!! $productCatalogue->description !!}
@@ -31,29 +31,57 @@
                                 <div class="filters-category">
                                     <div class="bucket">
                                         <div class="filter-item">
-                                            <div class="filter-item__title">Loại khóa học</div>
-                                            <div class="filter-item__content filter-group">
-                                                <ul class="filter-list">
-                                                    @if(!is_null($children))
-                                                        @foreach($children as $item)
-                                                            @php
-                                                                $name = $item->languages->first()->pivot->name;
-                                                                $canonical= write_url($item->languages->first()->pivot->canonical);
-                                                                $product_count = $item->product_count;
-                                                            @endphp
-                                                            <li class="filter-list__item">
-                                                                <div class="uk-flex uk-flex-middle">
-                                                                    <input id="product-catalogue-{{ $item->id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $item->id }}">
-                                                                    <label for="product-catalogue-{{ $item->id }}">
-                                                                        <i class="fa"></i>
-                                                                        {{ $name }}
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                        @endforeach
-                                                    @endif
-                                                </ul>
-                                            </div>
+                                            @if(!is_null($descendantTree))
+                                                <div class="filter-item__title">Loại khóa học <span class="count">({{ $descendantTree['item']['product_count']}})</span></div>
+                                                <div class="filter-item__content filter-group">
+                                                    <ul class="filter-list">
+                                                        @if(!empty($descendantTree['children']))
+                                                            @foreach($descendantTree['children'] as $catP)
+                                                                @php
+                                                                    $cat_id = $catP['item']->id;
+                                                                    $cat_name = $catP['item']->name;
+                                                                @endphp
+                                                                <li class="filter-list__item">
+                                                                    <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                                                                        <div class="lft">
+                                                                            <input id="product-catalogue-{{ $cat_id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $cat_id }}">
+                                                                            <label for="product-catalogue-{{ $cat_id }}">
+                                                                                <i class="fa"></i>
+                                                                                {{ $cat_name }}
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="rgt">
+                                                                            <span class="count">({{ $catP['item']['product_count']}})</span>
+                                                                            @if(!empty($catP['children']))
+                                                                                <button class="toggle" aria-label="Chuyển đổi"><i class="fa fa-angle-down"></i></button>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    @if(!empty($catP['children']))
+                                                                        <ul class="children">
+                                                                            @foreach($catP['children'] as $k => $v)
+                                                                                @php
+                                                                                    $id = $v['item']->id;
+                                                                                    $name = $v['item']->name;
+                                                                                @endphp
+                                                                                <li class="cat-item">
+                                                                                    <div class="uk-flex uk-flex-middle">
+                                                                                        <input id="product-catalogue-{{ $id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $id }}">
+                                                                                        <label for="product-catalogue-{{ $id }}">
+                                                                                            <i class="fa"></i>
+                                                                                            {{ $name }}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="bucket mb20">
@@ -109,6 +137,21 @@
                                         <button class="button button-outline button-pill toggle-filters">
                                             <span class="icon icon-filters"></span><span class="caption">Hiển thị <strong>{{ $products->count() }} kết quả</strong></span>
                                         </button>
+                                    </div>
+                                    <div class="dropdown dropdown-align-right sort-options">
+                                        <button class="button button-outline button-pill dropdown-toggle" title="Sort" aria-label="Sort">
+                                            <span class="overflow">Phổ Biến Nhất</span>
+                                            <span class="icon icon-dropdown indicator"></span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-large dropdown-menu-gap dropdown-menu-span dropdown-menu-icons">
+                                            <div class="menu-items">
+                                                <div class="menu-item"><a href="" data-sort="popular"><span class="icon icon-check"></span>Phổ biến nhất</a></div>
+                                                <div class="menu-item"><a href="" data-sort="name-asc">Tên A -> Z</a></div>
+                                                <div class="menu-item"><a href="" data-sort="name-desc">Tên Z -> A</a></div>
+                                                <div class="menu-item"><a href="" data-sort="price-asc">Giá tăng dần</a></div>
+                                                <div class="menu-item"><a href="" data-sort="price-desc">Giá giảm dần</a></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

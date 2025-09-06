@@ -94,6 +94,40 @@ class ProductController extends FrontendController
         return $students;
     }
 
+    private function getInfoLecturer($lecturer_id){
+        $totatStudents = 0;
+        $courses = $this->productRepository->findByCondition([
+            [
+                'lecturer_id', '=', $lecturer_id
+            ]
+        ], true);
+        $courseIds = $courses->pluck('id')->toArray();
+        $order = DB::table('order_product')->whereIn('product_id', $courseIds)->get();
+        if(!$order->isEmpty()){
+            $orderIds = $order->pluck('order_id')->toArray();
+                $orders = $this->orderRepository->findByCondition(
+                condition: [],
+                flag: true, 
+                relation: [],
+                orderBy: ['id', 'desc'],
+                param: [
+                    'whereInField' => 'id',       
+                    'whereIn' => $orderIds         
+                ],
+                withCount: []
+            );
+            $totatStudents = $orders->count('customer_id');
+        }
+        $reviews = $this->productService->calculateReviewForLecturer($courses);
+        $totalCourses = $courses->count();
+        $lecturer = [
+            'reviews' => $reviews,
+            'total_students' => $totatStudents,
+            'total_courses' => $totalCourses
+        ];
+        return $lecturer;
+    }
+
     public function index($id, $request)
     {
         $language = $this->language;
@@ -103,6 +137,7 @@ class ProductController extends FrontendController
         }
         $product = $this->productService->combineProductAndPromotion([$id], $product, true);
         $students = $this->calculateStudent($product);
+        $lecturer = $this->getInfoLecturer($product->lecturer_id);
         $promotion_gifts = null;
         $promotion_gifts = $this->promotionService->getProTakeGiftBuyProduct($id);
         $product['promotion_gifts'] = $promotion_gifts;
@@ -203,7 +238,8 @@ class ProductController extends FrontendController
             'productRelated',
             'children',
             'promotionLeft',
-            'students'
+            'students',
+            'lecturer'
         ));
     }
 

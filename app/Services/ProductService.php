@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\ProductServiceInterface;
 use App\Services\BaseService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
+use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
 use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
 use App\Repositories\Interfaces\ProductVariantLanguageRepositoryInterface as ProductVariantLanguageRepository;
 use App\Repositories\Interfaces\ProductVariantAttributeRepositoryInterface as ProductVariantAttributeRepository;
@@ -28,6 +29,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class ProductService extends BaseService implements ProductServiceInterface
 {
     protected $productRepository;
+    protected $productCatalogueRepository;
     protected $routerRepository;
     protected $productVariantLanguageRepository;
     protected $productVariantAttributeRepository;
@@ -39,6 +41,7 @@ class ProductService extends BaseService implements ProductServiceInterface
     
     public function __construct(
         ProductRepository $productRepository,
+        ProductCatalogueRepository $productCatalogueRepository,
         RouterRepository $routerRepository,
         ProductVariantLanguageRepository $productVariantLanguageRepository,
         ProductVariantAttributeRepository $productVariantAttributeRepository,
@@ -49,6 +52,7 @@ class ProductService extends BaseService implements ProductServiceInterface
         ProductCatalogueService $productCatalogueService,
     ){
         $this->productRepository = $productRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
         $this->lecturerRepository = $lecturerRepository;
         $this->routerRepository = $routerRepository;
         $this->promotionRepository = $promotionRepository;
@@ -89,7 +93,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             });
         }
 
-        $perPage = (!is_null($productCatalogue))  ? 24 : 24;
+        $perPage = (!is_null($productCatalogue))  ? 6 : 24;
 
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
@@ -466,36 +470,28 @@ class ProductService extends BaseService implements ProductServiceInterface
     }
 
     public function filter($request){
-
         $perpage = $request->input('perpage');
         $param['priceQuery'] = $this->priceQuery($request);
         $param['attributeQuery'] = $this->attributeQuery($request);
         $param['rateQuery'] = $this->rateQuery($request);
         $param['productCatalogueQuery'] = $this->productCatalogueQuery($request);
-
-       
-       
-
         $query = $this->combineFilterQuery($param);
         if($request->has('lectureId')){
             $query['whereIn'] = [
                 ['field' => 'lecturer_id', 'value' => $request->input('lectureId')]
             ];
         }
-        // dd($query);
         $orderBy = $this->orderByQuery($query['join'], $request);
-
         $products = $this->productRepository->filter($query, $perpage, $orderBy);
         $productId = $products->pluck('id')->toArray();
         if(count($productId) && !is_null($productId)){
             $products = $this->combineProductAndPromotion($productId, $products);
         }
-
         return $products;
-       
     }
 
     private function orderByQuery($joins, $request){
+        $sortType = $request->input('sortType');
         $flag = false;
         $attributes = $request->input('attributes');
         if(is_array($joins) && count($joins)){
@@ -506,13 +502,22 @@ class ProductService extends BaseService implements ProductServiceInterface
                 }
             }
         }
-        // return ($flag == true && count($attributes) > 1) ? 'variant_id' : 'products.id';
-        return 'products.id';
+        switch ($sortType) {
+            case 'name-asc':
+                return ['product_language.name', 'asc']; 
+            case 'name-desc':
+                return ['product_language.name', 'desc'];
+            case 'price-asc':
+                return ['products.price', 'asc'];
+            case 'price-desc':
+                return ['products.price', 'desc'];
+            default:
+                return ['products.id', 'desc'];
+        }
     }
 
     private function combineFilterQuery($param){
         $query = [];
-        // dd($param);
 
         foreach ($param as $array) {
             if (empty($array) || !is_array($array)) continue; 
@@ -531,46 +536,20 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $query;
     }
 
-    // private function productCatalogueQuery($request){
-
-    //     $productCatalogueId = (array)$request->input('productCatalogueId');
-    //     $query['join'] = null;
-    //     $query['whereRaw'] = null;
-    //     if($productCatalogueId > 0){
-    //         $query['join'] = [
-    //             ['product_catalogue_product as pcp', 'pcp.product_id', '=', 'products.id']
-    //         ];
-    //         $query['whereRaw'] = [
-    //             [
-    //                 'pcp.product_catalogue_id IN (
-    //                     SELECT id
-    //                     FROM product_catalogues
-    //                     WHERE lft >= (SELECT lft FROM product_catalogues as pc WHERE pc.id = ?)
-    //                     AND rgt <= (SELECT rgt FROM product_catalogues as pc WHERE pc.id = ?)
-    //                 )',
-    //                 [$productCatalogueId, $productCatalogueId]
-    //             ]
-    //         ];
-    //     }
-    //     return $query;
-    // }
-
     private function productCatalogueQuery($request) {
         $productCatalogueIds = (array)$request->input('productCatalogueId'); // Cast to array to handle single or multiple IDs
         $query = [
-            'join' => null,
+            'join' => [
+                ['product_language', 'product_language.product_id','=', 'products.id']
+            ],
             'whereRaw' => null,
         ];
-
+   
         if (!empty($productCatalogueIds)) {
-            $query['join'] = [
-                ['product_catalogue_product as pcp', 'pcp.product_id', '=', 'products.id']
-            ];
+            $query['join'][] = ['product_catalogue_product as pcp', 'pcp.product_id', '=', 'products.id'];
 
-            // Initialize whereRaw as an array
             $query['whereRaw'] = [];
 
-            // Generate a whereRaw condition for each productCatalogueId
             foreach ($productCatalogueIds as $id) {
                 $query['whereRaw'][] = [
                     'pcp.product_catalogue_id IN (
@@ -793,6 +772,24 @@ class ProductService extends BaseService implements ProductServiceInterface
         ); 
 
         return $products;
+    }
+
+
+    public function calculateReviewForLecturer($courses){
+        $totalCourses = $courses->count();
+        $reviewCount = 0;
+        $reviewAverage = null;
+        $reviewAverageLecturer = null;
+        foreach($courses as $item){
+            $reviewCount += $item->reviews->count();
+            $reviewAverage += $item->reviews->avg('score');
+        }
+        $reviewAverageLecturer = round($reviewAverage / $totalCourses, 1);
+        $reviews = [
+            'count' => $reviewCount,
+            'average' => $reviewAverageLecturer
+        ];
+        return $reviews;
     }
 
 }

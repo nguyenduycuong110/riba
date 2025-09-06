@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\ProductCatalogueServiceInterface;
 use App\Services\BaseService;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
+use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use App\Repositories\Interfaces\AttributeCatalogueRepositoryInterface as AttributeCatalogueRepository;
 use App\Repositories\Interfaces\AttributeRepositoryInterface as AttributeRepository;
 use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
@@ -23,7 +24,7 @@ use Illuminate\Support\Str;
 class ProductCatalogueService extends BaseService implements ProductCatalogueServiceInterface
 {
 
-
+    protected $productRepository;
     protected $productCatalogueRepository;
     protected $attributeCatalogueRepository;
     protected $attributeRepository;
@@ -34,11 +35,13 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
     
 
     public function __construct(
+        ProductRepository $productRepository,
         ProductCatalogueRepository $productCatalogueRepository,
         AttributeCatalogueRepository $attributeCatalogueRepository,
         AttributeRepository $attributeRepository,
         RouterRepository $routerRepository,
     ){
+        $this->productRepository = $productRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
         $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->attributeRepository = $attributeRepository;
@@ -296,6 +299,77 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
             'canonical'
         ];
     }
+
+    public function getChildren($productCatalogue, $languageId){
+        $rootNode = ($productCatalogue->parent_id != 0) ? $this->productCatalogueRepository->getParent($productCatalogue, $languageId) : $productCatalogue;
+        $descendantTree = recursive($this->productCatalogueRepository->getChildren($rootNode), $rootNode->parent_id);
+        $productCatalogueIds = [];
+        $productCounts = [];
+        if (!empty($descendantTree)) {
+            $this->collectCatalogueIds($descendantTree, $productCatalogueIds);
+            $productCatalogueIds = array_unique($productCatalogueIds); 
+            $products = $this->productRepository->findByCondition(
+                condition: [],
+                flag: true, 
+                relation: [],
+                orderBy: ['id', 'desc'],
+                param: [
+                    'whereInField' => 'product_catalogue_id',       
+                    'whereIn' => $productCatalogueIds         
+                ],
+                withCount: []
+            );
+            if($products){
+                foreach ($products as $product) {
+                    $catalogueId = $product->product_catalogue_id;
+                    $productCounts[$catalogueId] = ($productCounts[$catalogueId] ?? 0) + 1;
+                }
+            }
+            $this->injectProductCountsAndSum($descendantTree, $productCounts);
+        }
+        return reset($descendantTree);
+    }
+
+    private function collectCatalogueIds(array $nodes, array &$ids)
+    {
+        foreach ($nodes as $node) {
+            $id = $node['item']->id;
+
+            if (!in_array($id, $ids)) {
+                $ids[] = $id;
+            }
+
+            if (!empty($node['children'])) {
+                $this->collectCatalogueIds($node['children'], $ids);
+            }
+        }
+    }
+
+    private function injectProductCountsAndSum(array &$nodes, array $productCounts): int
+    {
+        $total = 0;
+
+        foreach ($nodes as &$node) {
+            $id = $node['item']->id;
+
+            $selfCount = $productCounts[$id] ?? 0;
+
+            $childrenTotal = 0;
+            
+            if (!empty($node['children'])) {
+                $childrenTotal = $this->injectProductCountsAndSum($node['children'], $productCounts);
+            }
+
+            $totalForThisNode = $selfCount + $childrenTotal;
+
+            $node['item']->product_count = $totalForThisNode;
+
+            $total += $totalForThisNode;
+        }
+
+        return $total;
+    }
+
 
 
 }

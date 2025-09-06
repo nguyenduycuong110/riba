@@ -34,7 +34,7 @@
     <div class="intro-container">
         <div class="intro-section-1" style="background:url({{ $introduce['block_1_background'] }})">
             <div class="breadcrumb uk-text-center uk-flex uk-flex-center">
-                <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
+                {{-- <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                     <li>
                         <a href="/">{{ __('frontend.home') }}</a>
                     </li>
@@ -52,7 +52,7 @@
                             </li>
                         @endforeach
                     @endif
-                </ul>
+                </ul> --}}
             </div>
             <div class="section-1-info uk-text-center">
                 <h2 class="heading wow fadeInDown" data-wow-duration="1s">{{ $introduce['block_1_title'] }}</h2>

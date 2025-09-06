@@ -92,6 +92,12 @@ class CartController extends FrontendController
 
         $cartPromotion = $this->cartService->cartPromotion($cartCaculate['cartTotal']);
 
+        $discountTotalProduct = 0;
+
+        foreach ($carts as $cart) {
+            $discountTotalProduct += ($cart->priceOriginal - $cart->price) * $cart->qty;
+        }
+ 
         $buyer = $this->getBuyer();
 
         $shipping = $this->cartService->totalShipping($buyer);
@@ -136,6 +142,7 @@ class CartController extends FrontendController
             'totalVoucherProduct',
             'voucher',
             'shipping',
+            'discountTotalProduct'
         ));
         
     }

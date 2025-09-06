@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\ProductCatalogue;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class UserService
@@ -86,12 +87,14 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
                 'product_catalogues.publish',
                 'product_catalogues.follow',
                 'product_catalogues.attribute',
+                'tb2.name',
+                'tb2.canonical',
             ]
         )
         ->join('product_catalogue_language as tb2', 'tb2.product_catalogue_id', '=','product_catalogues.id')
-        ->where('parent_id' , '>=', $productCatalogue->id)
         ->where('lft' , '>=', $productCatalogue->lft)
         ->where('rgt', '<=', $productCatalogue->rgt)
+        ->orderBy('product_catalogues.lft')
         ->get();
     }
 

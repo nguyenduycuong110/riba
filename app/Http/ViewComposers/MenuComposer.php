@@ -45,11 +45,11 @@ class MenuComposer
                 if($type == 'html'){
                     $menus['mobile'] = $recursiveMenus;
                     
-                    $menus[$val->keyword] = frontend_recursive_menu($recursiveMenus, 0, 1, 'html');
+                    $menus[$val->keyword] = frontend_recursive_menu($recursiveMenus, 0, 2, 'html');
                     
-                    $menus[$val->keyword . '_array'] = frontend_recursive_menu($recursiveMenus, 0, 1, 'array');
+                    $menus[$val->keyword . '_array'] = frontend_recursive_menu($recursiveMenus, 0, 2, 'array');
                 } else {
-                    $menus[$val->keyword] = frontend_recursive_menu($recursiveMenus, 0, 1, 'array');
+                    $menus[$val->keyword] = frontend_recursive_menu($recursiveMenus, 0, 2, 'array');
                 }
             }
         }

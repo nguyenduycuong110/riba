@@ -46,7 +46,7 @@
                             @include('frontend.cart.component.voucher')
                             @include('frontend.cart.component.summary')
                             @if(count($carts) && !is_null($carts) )
-                            <button type="submit" class="cart-checkout" value="create" name="create">Thanh toán đơn hàng</button>
+                                <button type="submit" class="cart-checkout" value="create" name="create">Thanh toán đơn hàng</button>
                             @endif
                         </div>
                     </div>

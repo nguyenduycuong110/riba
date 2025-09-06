@@ -3,7 +3,7 @@
         <div class="cart-summary-item">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <span class="summay-title">Giảm giá khuyến mại</span>
-                <div class="summary-value discount-value">-{{ convert_price($cartPromotion['discount'], true) }}đ</div>
+                <div class="summary-value discount-value">-{{ convert_price($cartPromotion['discount'] + $discountTotalProduct, true)  }}đ</div>
             </div>
         </div>
         @php

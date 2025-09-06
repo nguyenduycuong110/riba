@@ -49,13 +49,10 @@ class ProductCatalogueController extends FrontendController
 
         $parent = null;
 
-        $children = null;
+        $descendantTree = null;
 
-        if ($productCatalogue->parent_id != 0) {
-            $parent = $this->productCatalogueRepository->getParent($productCatalogue, $this->language);
-            $children = $this->productCatalogueRepository->getChildren($parent);
-        } else {
-            $children = $this->productCatalogueRepository->getChildren($productCatalogue);
+        if($productCatalogue->rgt - $productCatalogue->lft > 1){
+            $descendantTree = $this->productCatalogueService->getChildren($productCatalogue, $this->language);
         }
 
         $filters = $this->filter($productCatalogue);
@@ -95,7 +92,7 @@ class ProductCatalogueController extends FrontendController
         $template = 'frontend.product.catalogue.index';
 
         return view($template, compact(
-            'children',
+            'descendantTree',
             'config',
             'seo',
             'system',

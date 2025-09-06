@@ -73,7 +73,8 @@
                 price_min : clickedElement.data('from'),
                 price_max : clickedElement.data('to')
             },
-            productCatalogueId: $('.product_catalogue_id').val(),
+            sortType : clickedElement.data('sort'),
+            productCatalogueId: $('input[name="product_catalogue_id[]"]:checked').val(),
             attributes:  {}
         }
 
@@ -126,6 +127,7 @@
                 price_min : $('.min-value').val(),
                 price_max : $('.max-value').val()
             },
+            sortType : $(this).data('sort'),
             productCatalogueId: $('.product_catalogue_id').val(),
             attributes:  {}
         }
@@ -164,9 +166,34 @@
 			filterContainer.addClass('filter-minimize')
 		})
 	}
+
+    HT.sortProduct = () => {
+        $(document).on('click', '.sort-options .menu-item a', function(e){
+            e.preventDefault()
+            let _this = $(this)
+            let option = HT.filterOptionInput(_this)
+            $.ajax({
+                url: 'ajax/product/filter', 
+                type: 'GET', 
+                data: option, 
+                dataType: 'json', 
+                beforeSend: function() {
+                    
+                },
+                success: function(res) {
+                    let html = res.data
+                    let countProduct = res.countProduct
+                    $('.caption strong').html('')
+                    $('.caption strong').html(`${countProduct} sản phẩm`)
+                    $('.product-catalogue .product-list').html(html);
+                },
+            });
+        })
+    }
     
 
 	$(document).ready(function(){
+        HT.sortProduct()
         HT.priceRange()
         HT.filter()
         HT.openFilter()

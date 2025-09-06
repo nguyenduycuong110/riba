@@ -10,10 +10,10 @@
                     <img src="{{ $system['background_1'] }}" alt="">
                 </a>
                 <div class="text-overlay">
-                    @include('frontend.component.breadcrumb', [
+                    {{-- @include('frontend.component.breadcrumb', [
                         'model' => $postCatalogue,
                         'breadcrumb' => $breadcrumb,
-                    ])
+                    ]) --}}
                     <h1 class="heading-1"><span>{{ $postCatalogue->name }}</span></h1>
                     <div class="description">
                         {!! $postCatalogue->description !!}
