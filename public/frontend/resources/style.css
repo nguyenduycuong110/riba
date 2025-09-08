@@ -560,6 +560,7 @@ ul li,ol li{
     line-height: 20px;
 }
 @media (max-width: 1024px) {
+
     /* .panel-product-catalogue .uk-width-large-1-4 {
         width: 50%;
     } */
@@ -584,11 +585,11 @@ ul li,ol li{
     }
 
     .product-catalogue-item h4.heading-3 > * {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .product-catalogue-item .description > * {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 18px;
     }
 }
@@ -3442,6 +3443,9 @@ button{
 }
 
 @media (max-width: 1024px){
+    body{
+        font-family: Arial, Helvetica, sans-serif !important;
+    }
     .intro-container .intro-section-1{
         min-height: 415px;
     }
