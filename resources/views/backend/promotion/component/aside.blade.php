@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="ibox">
+    <div class="ibox" style="display: none;">
         <div class="ibox-title">
             <h5>Nguồn khách áp dụng</h5>
         </div>
@@ -105,7 +105,7 @@
             @endif
         </div>
     </div>
-    <div class="ibox">
+    <div class="ibox" style="display: none;">
         <div class="ibox-title">
             <h5>Đối tượng áp dụng</h5>
         </div>

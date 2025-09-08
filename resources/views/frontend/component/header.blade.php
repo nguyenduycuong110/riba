@@ -105,7 +105,10 @@
                         <img src="{{ $system['homepage_logo'] }}" alt="Mobile Logo">
                     </a>
                     <form action="tim-kiem" class="search">
-                            <input type="text" name="keyword" placeholder="Tìm kiếm">
+                        <input type="text" name="keyword" placeholder="Tìm kiếm">
+                        <button type="submit" class="btn-search">
+                            <img src="/frontend/resources/img/search.svg" alt="">
+                        </button>
                     </form>
                 </div>
                 <div class="tool">

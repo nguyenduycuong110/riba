@@ -120,10 +120,14 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
                 'tb2.canonical',
             ]
         )
-        ->join('product_catalogue_language as tb2', 'tb2.product_catalogue_id', '=','product_catalogues.id')
-        ->where('product_catalogues.lft','<', $productCatalogue->lft)
+        ->join('product_catalogue_language as tb2', function ($join) use ($language_id) {
+            $join->on('tb2.product_catalogue_id', '=', 'product_catalogues.id')
+                ->where('tb2.language_id', '=', $language_id);
+        })
         ->where('product_catalogues.parent_id', 0)
-        ->where('tb2.language_id', '=', $language_id)
+        ->where('product_catalogues.lft', '<', $productCatalogue->lft)
+        ->where('product_catalogues.rgt', '>', $productCatalogue->rgt)
+        ->orderBy('product_catalogues.lft', 'desc')
         ->first();
     }
 

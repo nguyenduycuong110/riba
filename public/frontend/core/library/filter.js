@@ -6,7 +6,6 @@
     var filterContainer = $('.filter-content');
 
 
-
     HT.priceRange = () => {
         let isInitialized = false;
 		$("#price-range").slider({
@@ -92,8 +91,6 @@
         return filterOption
     }
 
-
-
     HT.sendDataToFilter = () => {
         let option = HT.filterOption()
         $.ajax({
@@ -113,8 +110,6 @@
             },
         });
     }
-
-   
 
     HT.filterOption = () => {
         var filterOption = {

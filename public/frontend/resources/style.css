@@ -3958,8 +3958,8 @@ button{
     padding-bottom: 12px;
     border-bottom: 1px solid #ececec;
 }
-.ui-slider-handle.start{
-    left: 3% !important;
+.ui-slider-horizontal .ui-slider-handle.start{
+    margin-left: -4px;
 }
 .filters-category .bucket{
     margin-bottom: 20px;
@@ -4223,4 +4223,16 @@ button{
 }
 .lecturer-bl .btn:hover a{
     color: #fff;
+}
+.mobile-logo .btn-search{
+    cursor: pointer;
+    border: none;
+    background: none;
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+.mobile-logo .btn-search img{
+    height: 20px;
+    width: 20px;
 }

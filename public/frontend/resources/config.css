@@ -1323,4 +1323,5 @@ input[readonly]{
 }
 .mobile-logo .search{
     margin-bottom: 0;
+    position: relative;
 }
