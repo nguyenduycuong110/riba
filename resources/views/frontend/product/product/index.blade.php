@@ -167,18 +167,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <div class="lecturer-review">
-                                    <div class="review">
-                                        <p class="average">{{ $lecturer['reviews']['average'] }} / 5 </p>
+                                <div class="lecturer-review mb20">
+                                    <div class="review mb10">
+                                        ⭐
+                                        <p class="average">{{ $lecturer['reviews']['average'] }}/5 </p>
                                         <p class="count">({{ $lecturer['reviews']['count'] }} đánh giá)</p>
                                     </div>
-                                    <div class="students">
-                                        {{ $lecturer['total_students'] }}
+                                    <div class="students mb10">
+                                        👥 {{ $lecturer['total_students'] }} học viên
                                     </div>
+                                    
                                     <div class="courses">
-                                        {{ $lecturer['total_courses'] }}
+                                        🏆 {{ $lecturer['total_courses'] }} khóa học
                                     </div>
-                                </div> --}}
+                                </div>
+                                <div class="btn">
+                                    <a href="" class="btn-view">Xem thông tin GV</a>
+                                </div>
                             </div>
                         </div>
                     </div>

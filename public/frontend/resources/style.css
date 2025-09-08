@@ -4185,3 +4185,40 @@ button{
     background: var(--primary-color) !important;
     color: #fff !important;
 }
+.lecturer-review{
+    color: #666666;
+    font-size: 14px;
+}
+.lecturer-review .review{
+    display: flex;
+}
+.lecturer-review .review > *{
+    margin-bottom: 0;
+}
+.lecturer-bl .lecturer-content{
+    margin-bottom: 20px;
+}
+.lecturer-review .average{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.lecturer-bl .btn{
+    border-radius: 20px;
+    border: 0.5px solid #22C55E;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lecturer-bl .btn .btn-view{
+    font-weight: 600;
+    color: #22C55E;
+}
+.lecturer-bl .btn:hover{
+    background: #22C55E;
+    color: #fff;
+    transition: 0.5s ease all;
+}
+.lecturer-bl .btn:hover a{
+    color: #fff;
+}
