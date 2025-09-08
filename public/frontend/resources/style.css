@@ -4067,6 +4067,8 @@ button{
 }
 .children .menu-level__3 li a::before{
     right: 15px;
+    top: 38%;
+    transform: rotate(-90deg);
 }
 .children .menu-level__3 li:hover a::before
 {
