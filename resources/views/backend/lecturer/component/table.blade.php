@@ -25,7 +25,7 @@
                 <td>
                     {{ $lecturer->position }}
                 </td>
-                <td>
+                <td style="width:300px;">
                     {{ $lecturer->description }}
                 </td>
                 <td class="text-center js-switch-{{ $lecturer->id }}"> 

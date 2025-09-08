@@ -72,7 +72,7 @@
                         </div>
                     @endif
                     <div class="btn">
-                        <a href="{{ write_url('khoa-hoc') }}" title="" class="btn-rm">Xem thêm</a>
+                        <a href="{{ write_url('khoa-hoc-ban-chay') }}" title="" class="btn-rm">Xem thêm</a>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                         </div>
                     @endif
                     <div class="btn">
-                        <a href="{{ write_url('khoa-hoc') }}" title="" class="btn-rm">Xem thêm</a>
+                        <a href="{{ write_url('khoa-hoc-moi-ra-mat') }}" title="" class="btn-rm">Xem thêm</a>
                     </div>
                 </div>
             </div>
@@ -229,7 +229,7 @@
                                                 <img src="{{ $val->image }}" alt="">
                                             </div>
                                             <div class="text-content">
-                                                <div class="name">{{ $val->name }}</div>
+                                                <a href="{{ write_url('giao-vien/' . $val->canonical) }}" title="" class="name">{{ $val->name }}</a>
                                                 <div class="description">{{ $val->position }}</div>
                                             </div>
                                         </div>

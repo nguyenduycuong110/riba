@@ -51,9 +51,7 @@ class ProductCatalogueController extends FrontendController
 
         $descendantTree = null;
 
-        if($productCatalogue->rgt - $productCatalogue->lft > 1){
-            $descendantTree = $this->productCatalogueService->getChildren($productCatalogue, $this->language);
-        }
+        $descendantTree = $this->productCatalogueService->getChildren($productCatalogue, $this->language);
 
         $filters = $this->filter($productCatalogue);
 

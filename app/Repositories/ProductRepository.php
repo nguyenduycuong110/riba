@@ -296,7 +296,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'tb2.content',
             'tb2.meta_title',
             'tb3.name as lecturer_name',
-            'tb3.image as lecturer_avatar'
+            'tb3.image as lecturer_avatar',
+            'tb3.canonical as lecturer_canonical'
         ])
         ->whereHas('product_catalogues', function ($query) use ($productCatalogue) {
             $query->where('product_catalogue_id', $productCatalogue);

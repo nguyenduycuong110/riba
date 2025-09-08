@@ -17,6 +17,7 @@ class Lecturer extends Authenticatable
         'name',
         'position',
         'description',
+        'canonical',
         'image',
         'publish'
     ];

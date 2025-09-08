@@ -640,7 +640,7 @@ ul li,ol li{
     padding: 10px;
 }
 .product-item h3.title{
-    height: 44px;
+    /* height: 44px; */
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2; /* số dòng muốn hiển thị */
@@ -1135,6 +1135,7 @@ input[name="captcha"]{
     border-radius: 10px;
 }
 .panel-tech-staff .text-content{
+    text-align: center;
     padding: 20px 0 30px 0;
 }
 .panel-tech-staff .text-content .name{
@@ -1654,7 +1655,7 @@ input[name="captcha"]{
 }
 @media(max-width:767px){
     #footer{
-        padding-bottom: 70px;
+        padding-bottom: 45px;
     }
     .contact-fixed {
         background: rgba(254, 250, 241, 1);
@@ -3778,13 +3779,20 @@ button{
     height:14px;
     background: url('img/checked.png');
 }
-
+.teacher-description{
+    text-align: justify;
+}
 @media (max-width: 600px){
     .product-main-content{
         padding:0;
     }
+    .product-tabs-content h2{
+        font-size: 24px;
+    }
     .product-tabs-content{
+        font-size: 14px;
         padding: 10px;
+        text-align: justify;
     }
     .lesstion-item{
         padding-left:15px;
@@ -4235,4 +4243,38 @@ button{
 .mobile-logo .btn-search img{
     height: 20px;
     width: 20px;
+}
+@media(max-width:767px){
+    .popup-product .product-main-title {
+        text-align: justify;
+    }
+    .popup-product .product-main-title > *{
+        font-size: 22px;
+    }
+    .popup-product .description {
+        text-align: justify;
+    }
+}
+.lecturer-page{
+    padding: 50px 0;
+}
+.lecturer-page .lecturer-info{
+    margin-bottom: 40px;
+}
+.lecturer-page .lecturer-info img,
+.lecturer-page .lecturer-info .image{
+    border-radius: 15px;
+    height: 400px;
+}
+.lecturer-page h2.heading-1 {
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+.lecturer-page h2.heading-1 > *{
+    font-size: 28px;
+}
+.lecturer-info .description{
+    text-align: justify;
+    line-height: 1.4;
+    font-size: 16px;
 }

@@ -5,7 +5,7 @@ use App\Services\Interfaces\LecturerServiceInterface;
 use App\Repositories\Interfaces\LecturerRepositoryInterface as LecturerRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Str;
 /**
  * Class UserService
  * @package App\Services
@@ -39,6 +39,7 @@ class LecturerService extends BaseService implements LecturerServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except(['_token','send']);
+            $payload['canonical'] = Str::slug($request->input('name'));
             $lecturer = $this->lecturerRepository->create($payload);
             DB::commit();
             return true;
@@ -54,6 +55,7 @@ class LecturerService extends BaseService implements LecturerServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except(['_token','send']);
+            $payload['canonical'] = Str::slug($request->input('name'));
             $lecturer = $this->lecturerRepository->update($id, $payload);
             DB::commit();
             return true;
@@ -86,6 +88,7 @@ class LecturerService extends BaseService implements LecturerServiceInterface
             'position',
             'description',
             'image',
+            'canonical',
             'publish'
         ];
     }

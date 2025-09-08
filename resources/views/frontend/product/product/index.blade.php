@@ -155,6 +155,7 @@
                                     $lec_name = $product->lecturers->name;
                                     $lec_image = $product->lecturers->image;
                                     $lec_position = $product->lecturers->position;
+                                    $lec_canonical = $product->lecturers->canonical;
                                 @endphp
                                 <div class="lecturer-content">
                                     <div class="uk-flex uk-flex-middle">
@@ -182,7 +183,7 @@
                                     </div>
                                 </div>
                                 <div class="btn">
-                                    <a href="" class="btn-view">Xem thông tin GV</a>
+                                    <a href="{{ write_url('giao-vien/' . $lec_canonical) }}" class="btn-view">Xem thông tin GV</a>
                                 </div>
                             </div>
                         </div>

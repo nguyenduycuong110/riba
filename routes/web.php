@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\User\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
-
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Backend\User\UserController;
 use App\Http\Controllers\Backend\User\UserCatalogueController;
@@ -52,6 +51,7 @@ use App\Http\Controllers\Frontend\CrawlerController;
 use App\Http\Controllers\Frontend\AuthController as FeAuthController;
 use App\Http\Controllers\Frontend\DistributionController as FeDistributionController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
+use App\Http\Controllers\Frontend\LecturerController as FeLecturerController;
 use App\Http\Controllers\Ajax\ConstructController as AjaxConstructController;
 use App\Http\Controllers\Ajax\CustomerController as AjaxCustomerController;
 use App\Http\Controllers\Ajax\ContactController as AjaxContactController;
@@ -143,6 +143,8 @@ Route::post('cart/create', [CartController::class, 'store'])->name('cart.store')
 Route::post('cart/createPay', [CartController::class, 'storePay'])->name('cart.storePay');
 
 Route::get('cart/success'.config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
+
+Route::get('giao-vien/{canonical}'.config('apps.general.suffix'), [FeLecturerController::class, 'index'])->name('lecturer.index');
 
 /* FRONTEND SYSTEM */
 

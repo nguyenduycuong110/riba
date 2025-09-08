@@ -517,6 +517,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             $sql .= ",
                     l.name as lecturer_name,
                     l.image as lecturer_image,
+                    l.canonical as lecturer_canonical,
                     COUNT(DISTINCT r.id) as review_count,
                     COALESCE(AVG(r.score), 0) as review_average,
                     GROUP_CONCAT(DISTINCT pv.id) as variant_ids
@@ -666,6 +667,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             $sql .= ",
                 l.name as lecturer_name,
                 l.image as lecturer_image,
+                l.canonical as lecturer_canonical,
                 COUNT(DISTINCT r.id) as review_count,
                 COALESCE(AVG(r.score), 0) as review_average
             ";
