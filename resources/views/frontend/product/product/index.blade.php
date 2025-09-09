@@ -10,7 +10,7 @@
     $gallery = json_decode($product->album);
     $iframe = $product->iframe;
     $total_lesson = $product->total_lesson;
-    $lessionContent = explode(',', $product->lession_content);
+    $lessionContent = !is_null($product->lession_content) ? explode(',', $product->lession_content) : null;
 @endphp
 @extends('frontend.homepage.layout')
 @section('content')
@@ -142,12 +142,16 @@
                             </div>
                             <div class="course-content">
                                 <div class="title">Khóa học bao gồm:</div>
-                                @if(is_array($lessionContent) && count($lessionContent))
-                                <ul class="uk-list uk-clearfix">
-                                    @foreach($lessionContent as $key => $val)
-                                    <li><span>{{ $val }}</span></li>
-                                    @endforeach
-                                </ul>
+                                @if(!is_null($lessionContent) && is_array($lessionContent) && count($lessionContent))
+                                    <ul class="uk-list uk-clearfix">
+                                        @foreach($lessionContent as $key => $val)
+                                            <li><span>{{ $val }}</span></li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="uk-list uk-clearfix">
+                                        <li><span>Chứng chỉ hoàn thành</span></li>
+                                    </ul>
                                 @endif
                             </div>
                             <div class="lecturer-bl">
