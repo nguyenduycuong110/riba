@@ -28,7 +28,12 @@
                             <div class="img-scaledown image-product"><img src="{{ thumb(image($product->image), 80, 50) }}" alt=""></div>
                         </div>
                         <div class="main-info">
-                            <div class="name"><span class="maintitle">{{ $product->name }}</span></div>
+                            <div class="name uk-flex" style="align-items: center;gap:10px;">
+                                <span class="maintitle">{{ $product->name }}</span>
+                                <a href="{{ write_url($product->languages->first()->pivot->canonical) }}" title="" target="_blank">
+                                    <i class="fa fa-external-link"></i>
+                                </a>
+                            </div>
                             <div class="catalogue">
                                 <span class="text-danger">{{ __('messages.tableGroup') }} </span>
                                 @foreach($product->product_catalogues as $val)

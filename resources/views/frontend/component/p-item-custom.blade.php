@@ -1,17 +1,17 @@
 @php
-    $name = !is_null($product->name) ? $product->name : $product->languages->first()->pivot->name;
-    $canonical = !is_null($product->canonical) ?  write_url($product->canonical) : write_url($product->languages->first()->pivot->canonical);
+    $name = $product->languages->first()->name;
+    $canonical = write_url($product->languages->first()->canonical);
     $image = thumb(image($product->image), 600, 400);
     $price = getPrice($product);
     $total_lesson = !is_null($product->chapter) ? calculateCourses($product)['totalSession'] : '';
     $duration = !is_null($product->chapter) ? calculateCourses($product)['durationText'] : ''; 
-    $lecturer_name = $product->lecturer_name ?? $product->lecturers->name;
-    $lecturer_image = $product->lecturer_image ??  $product->lecturers->image;
-    $lecturer_canonical = $product->lecturer_canonical ??  $product->lecturers->canonical;
+    $lecturer_name = $product->lecturer_name ?? null;
+    $lecturer_image = $product->lecturer_image ?? null;
+    $lecturer_canonical = $product->lecturer_canonical ?? null;
     $review['star'] = ($product->review_count == 0) ? '0' : $product->review_average/5*100;
 @endphp
 <div class="product-item">
-    <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
+    <a href="{{ $canonical }}" title="{{ $name }}" class="image img-scaledown img-zoomin">
         <div class="skeleton-loading"></div>
         <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
     </a>

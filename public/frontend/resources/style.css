@@ -641,7 +641,7 @@ ul li,ol li{
     padding: 10px;
 }
 .product-item h3.title{
-    /* height: 44px; */
+    height: 44px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2; /* số dòng muốn hiển thị */
@@ -4281,4 +4281,36 @@ button{
     text-align: justify;
     line-height: 1.4;
     font-size: 16px;
+}
+.filter-list.lv2{
+    padding-left: 10px;
+}
+.toggle{
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.toggle i{
+    font-size: 16px;
+    color: rgba(85, 85, 85, 1);
+}
+.filter-group{
+    cursor: pointer;
+}
+.chapter-content{
+    max-width: 85%;
+}
+.p-r{
+    position: relative;
+}
+.p-r .bg{
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    right: 0;
+}
+.p-r .bg svg{
+    border-top-right-radius: 10px;
 }

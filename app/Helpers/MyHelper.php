@@ -748,3 +748,41 @@ if (!function_exists('convertImgToAnchor')) {
         return $html;
     }
 }
+
+if (!function_exists('calculateCourses')) {
+    function calculateCourses($product) {
+        $totalMinutes = 0;
+        $totalSession = 0;
+        $temp = $product->chapter;
+        if (!is_array($temp)) {
+            $temp = json_decode($temp, true); 
+        }
+        foreach ($temp as $chapter) {
+            if (isset($chapter['content']) && is_array($chapter['content'])) {
+                foreach ($chapter['content'] as $lesson) {
+                    $totalSession++;
+                    if (isset($lesson['time'])) {
+                        $totalMinutes += (int)$lesson['time'];
+                    }
+                }
+            }
+        }
+        
+        $hours = floor($totalMinutes / 60);
+        $minutes = $totalMinutes % 60;
+        
+        $durationText = '';
+        if ($hours > 0 && $minutes > 0) {
+            $durationText = $hours . ' giờ ' . $minutes . ' phút';
+        } elseif ($hours > 0) {
+            $durationText = $hours . ' giờ';
+        } else {
+            $durationText = $minutes . ' phút';
+        }
+        $chapters = [
+            'durationText' => $durationText,
+            'totalSession' => $totalSession
+        ];
+        return $chapters;
+    }
+}

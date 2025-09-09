@@ -9,7 +9,7 @@
     $attributeCatalogue = $product->attributeCatalogue;
     $gallery = json_decode($product->album);
     $iframe = $product->iframe;
-    $total_lesson = $product->total_lesson;
+    $total_lesson = !is_null($product->chapter) ? calculateCourses($product)['durationText'] : '';
 @endphp
 <div class="info">
     <div class="popup">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="stat-item duration">
                             <img src="/frontend/resources/img/time1.svg" alt="">
-                            <span>{{ $total_lesson }} giờ học</span>
+                            <span>{{ $total_lesson }}</span>
                         </div>
                     </div>
                     <div class="buttons">
@@ -44,8 +44,14 @@
                 </div>
             </div>
             <div class="uk-width-large-1-2">
+                @php
+                    $qrcode = $product->qrcode;
+                @endphp
                 @if(!empty($product->iframe))
-                    <div class="video-feature product-video-feature">
+                    <div class="video-feature product-video-feature p-r">
+                        <div class="bg">
+                            {!! $qrcode !!}
+                        </div>
                         <a href="" data-video="{{ json_encode($product->iframe) }}" class="image img-cover wow fadeInUp video preview-video" data-wow-delay="0.2s" target="_blank" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                             <img src="{{ $product->image }}" alt="{{ $product->name }}">
                             <button class="btn-play">
@@ -54,7 +60,12 @@
                         </a>
                     </div>
                 @else 
-                    <span class="image img-cover product-preview-image"><img src="{{ $product->image }}" alt="{{ $product->name }}"></span>
+                    <span class="image img-cover product-preview-image p-r">
+                        <div class="bg">
+                            {!! $qrcode !!}
+                        </div>
+                        <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                    </span>
                 @endif
             </div>
         </div>

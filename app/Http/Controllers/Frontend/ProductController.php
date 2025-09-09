@@ -239,7 +239,7 @@ class ProductController extends FrontendController
             'children',
             'promotionLeft',
             'students',
-            'lecturer'
+            'lecturer', 
         ));
     }
 

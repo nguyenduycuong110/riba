@@ -92,7 +92,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request){
         if($this->productService->create($request, $this->language)){
-            return redirect()->route('product.index')->with('success','Thêm mới bản ghi thành công');
+            return redirect()->route('product.create')->with('success','Thêm mới bản ghi thành công');
         }
         return redirect()->route('product.index')->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
     }

@@ -23,8 +23,8 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'total_lesson' => 'required',
-            'duration' => 'required',
+            // 'total_lesson' => 'required',
+            // 'duration' => 'required',
             'lecturer_id' => 'gt:0',
             'canonical' => 'required|unique:routers',
             'product_catalogue_id' => 'gt:0',
@@ -35,8 +35,8 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập vào ô tiêu đề.',
-            'total_lesson.required' => 'Bạn chưa nhập vào số lượng.',
-            'duration.required' => 'Bạn chưa nhập vào thời lượng.',
+            // 'total_lesson.required' => 'Bạn chưa nhập vào số lượng.',
+            // 'duration.required' => 'Bạn chưa nhập vào thời lượng.',
             'lecturer_id.gt' => 'Bạn chưa chọn giảng viên.',
             'canonical.required' => 'Bạn chưa nhập vào ô đường dẫn',
             'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',

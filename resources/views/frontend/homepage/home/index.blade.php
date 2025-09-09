@@ -59,14 +59,20 @@
                     </div>
                     @if(count($widgets['best-selling-course']->object))
                         @php
-                            $time = 1.5;
+                            $time = 0.3;
+                            $globalIndex = 0;
                         @endphp
                         <div class="panel-body">
                             <div class="uk-grid uk-grid-medium">
                                 @foreach($widgets['best-selling-course']->object as $key => $val)
-                                    <div class="uk-width-medium-1-4 wow fadeInDown" data-wow-delay="{{ $time.($key + 1)  }}">
-                                        @include('frontend.component.product-item', ['product' => $val])
-                                    </div>
+                                    @foreach($val->products as $k => $product)
+                                        @if($globalIndex < 8)
+                                            <div class="uk-width-medium-1-4 wow fadeInDown" data-wow-delay="{{ $time * ($key + 1)  }}s">
+                                                @include('frontend.component.p-item-custom', ['product' => $product])
+                                            </div>
+                                            @php $globalIndex++; @endphp
+                                        @endif
+                                    @endforeach
                                 @endforeach
                             </div>
                         </div>
@@ -106,7 +112,7 @@
                                                     $ct_id = $val->id;
                                                     $ct_name = $val->languages->name;
                                                 @endphp
-                                                <li data-product-catalogue-id="{{ $ct_id }}"><span>{{ $ct_name }}</span></li>
+                                                <li  data-product-catalogue-id="{{ json_encode([41, $ct_id]) }}"><span>{{ $ct_name }}</span></li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -116,14 +122,20 @@
                     </div>
                     @if(count($widgets['new-course-launch']->object))
                         @php
-                            $time = 2;
+                            $time = 0.3;
+                            $globalIndex = 0;
                         @endphp
                         <div class="panel-body all-pd">
                             <div class="uk-grid uk-grid-medium">
-                                @foreach($widgets['new-course-launch']->object as $k => $product)
-                                    <div class="uk-width-medium-1-4 wow fadeInDown" data-wow-delay="{{ $time.($k + 1)  }}">
-                                        @include('frontend.component.product-item',['product' => $product])
-                                    </div>
+                                @foreach($widgets['new-course-launch']->object as $key => $val)
+                                    @foreach($val->products as $k => $product)
+                                        @if($globalIndex < 8)
+                                            <div class="uk-width-medium-1-4 wow fadeInDown" data-wow-delay="{{ $time * ($key + 1)  }}s">
+                                                @include('frontend.component.p-item-custom',['product' => $product])
+                                            </div>
+                                            @php $globalIndex++; @endphp
+                                        @endif
+                                    @endforeach
                                 @endforeach
                             </div>
                         </div>

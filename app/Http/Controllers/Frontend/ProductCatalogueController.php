@@ -49,9 +49,9 @@ class ProductCatalogueController extends FrontendController
 
         $parent = null;
 
-        $descendantTree = null;
+        $descendantTrees = null;
 
-        $descendantTree = $this->productCatalogueService->getChildren($productCatalogue, $this->language);
+        $descendantTrees = $this->productCatalogueService->getChildren();
 
         $filters = $this->filter($productCatalogue);
 
@@ -90,7 +90,7 @@ class ProductCatalogueController extends FrontendController
         $template = 'frontend.product.catalogue.index';
 
         return view($template, compact(
-            'descendantTree',
+            'descendantTrees',
             'config',
             'seo',
             'system',

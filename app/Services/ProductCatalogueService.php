@@ -300,76 +300,24 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
         ];
     }
 
-    public function getChildren($productCatalogue, $languageId){
-        $rootNode = ($productCatalogue->parent_id != 0) ? $this->productCatalogueRepository->getParent($productCatalogue, $languageId) : $productCatalogue;
-        $descendantTree = recursive($this->productCatalogueRepository->getChildren($rootNode), $rootNode->parent_id);
-        $productCatalogueIds = [];
-        $productCounts = [];
-        if (!empty($descendantTree)) {
-            $this->collectCatalogueIds($descendantTree, $productCatalogueIds);
-            $productCatalogueIds = array_unique($productCatalogueIds); 
-            $products = $this->productRepository->findByCondition(
-                condition: [],
-                flag: true, 
-                relation: [],
-                orderBy: ['id', 'desc'],
-                param: [
-                    'whereInField' => 'product_catalogue_id',       
-                    'whereIn' => $productCatalogueIds         
-                ],
-                withCount: []
-            );
-            if($products){
-                foreach ($products as $product) {
-                    $catalogueId = $product->product_catalogue_id;
-                    $productCounts[$catalogueId] = ($productCounts[$catalogueId] ?? 0) + 1;
-                }
-            }
-            $this->injectProductCountsAndSum($descendantTree, $productCounts);
-        }
-        return reset($descendantTree);
-    }
+    public function getChildren(){
+        $originalCategory = $this->productCatalogueRepository->all(['languages', 'products'])->keyBy('id');
+        if(count($originalCategory)){
+            foreach($originalCategory as $category){
+                $descendant = $originalCategory->filter(function($item) use ($category){
+                    return $item->lft >= $category->lft && $item->rgt <= $category->rgt;
+                });
+                $directProductCount = $category->products->count();
+                $totalProducts = $descendant->sum(function($cate){
+                    return $cate->products->count();
+                });
 
-    private function collectCatalogueIds(array $nodes, array &$ids)
-    {
-        foreach ($nodes as $node) {
-            $id = $node['item']->id;
-
-            if (!in_array($id, $ids)) {
-                $ids[] = $id;
-            }
-
-            if (!empty($node['children'])) {
-                $this->collectCatalogueIds($node['children'], $ids);
+                $category->direct_product_count = $directProductCount;
+                $category->total_product_count = $totalProducts;
             }
         }
+        
+        return recursive($originalCategory);
     }
-
-    private function injectProductCountsAndSum(array &$nodes, array $productCounts): int
-    {
-        $total = 0;
-
-        foreach ($nodes as &$node) {
-            $id = $node['item']->id;
-
-            $selfCount = $productCounts[$id] ?? 0;
-
-            $childrenTotal = 0;
-            
-            if (!empty($node['children'])) {
-                $childrenTotal = $this->injectProductCountsAndSum($node['children'], $productCounts);
-            }
-
-            $totalForThisNode = $selfCount + $childrenTotal;
-
-            $node['item']->product_count = $totalForThisNode;
-
-            $total += $totalForThisNode;
-        }
-
-        return $total;
-    }
-
-
 
 }

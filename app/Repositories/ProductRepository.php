@@ -280,32 +280,39 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $this->model->where('publish' , 2)->where('product_catalogue_id', $productCatalogueId)->where('id', '!=', $productId)->orderBy('id', 'desc')->limit($limit)->get();
     }
 
-    public function getProductByProductCatalogue(int $productCatalogue = 0, $language_id = 0)
+    public function getProductByProductCatalogue(array $productCatalogue = [], $language_id = 0) 
     {
+        $catalogueIds = implode(',', $productCatalogue);
+        $catalogueCount = count($productCatalogue);
         $products = Product::withCount(['reviews as review_count'])
-        ->withAvg('reviews as review_average', 'score')
-        ->select([
-            'products.id',
-            'products.price', 
-            'products.image',
-            'products.total_lesson',
-            'products.duration',
-            'tb2.name',
-            'tb2.canonical',
-            'tb2.description', 
-            'tb2.content',
-            'tb2.meta_title',
-            'tb3.name as lecturer_name',
-            'tb3.image as lecturer_avatar',
-            'tb3.canonical as lecturer_canonical'
-        ])
-        ->whereHas('product_catalogues', function ($query) use ($productCatalogue) {
-            $query->where('product_catalogue_id', $productCatalogue);
-        })
-        ->join('product_language as tb2', 'tb2.product_id', '=','products.id')
-        ->leftJoin('lecturers as tb3','tb3.id', '=', 'products.lecturer_id')
-        ->where('tb2.language_id', '=', $language_id)
-        ->get();
+            ->withAvg('reviews as review_average', 'score')
+            ->select([
+                'products.id',
+                'products.price',
+                'products.image',
+                'products.total_lesson',
+                'products.duration',
+                'tb2.name',
+                'tb2.canonical',
+                'tb2.description',
+                'tb2.content',
+                'tb2.meta_title',
+                'tb3.name as lecturer_name',
+                'tb3.image as lecturer_avatar',
+                'tb3.canonical as lecturer_canonical'
+            ])
+            ->whereRaw("products.id IN (
+                SELECT product_id 
+                FROM product_catalogue_product 
+                WHERE product_catalogue_id IN ({$catalogueIds})
+                GROUP BY product_id 
+                HAVING COUNT(DISTINCT product_catalogue_id) = {$catalogueCount}
+            )")
+            ->join('product_language as tb2', 'tb2.product_id', '=', 'products.id')
+            ->leftJoin('lecturers as tb3', 'tb3.id', '=', 'products.lecturer_id')
+            ->where('tb2.language_id', '=', $language_id)
+            ->get();
+            
         return $products;
     }
 

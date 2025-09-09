@@ -79,7 +79,7 @@
                                                                 </div>
                                                                 <div class="lession-info">
                                                                     <div class="uk-flex uk-flex-middle">
-                                                                        <span class="time">{{ $chapterContent['time'] }}</span>
+                                                                        <span class="time">{{ $chapterContent['time'] }} phút</span>
                                                                         <span class="lession-type">{{ $chapterContent['type'] }}</span>
                                                                     </div>
                                                                 </div>

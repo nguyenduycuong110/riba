@@ -10,10 +10,6 @@
                     <img src="{{ $system['background_1'] }}" alt="">
                 </a>
                 <div class="text-overlay">
-                    {{-- @include('frontend.component.breadcrumb', [
-                        'model' => $productCatalogue,
-                        'breadcrumb' => $breadcrumb,
-                    ]) --}}
                     <h2 class="heading-1"><span>{{ $productCatalogue->name }}</span></h2>
                     <div class="description">
                         {!! $productCatalogue->description !!}
@@ -31,56 +27,75 @@
                                 <div class="filters-category">
                                     <div class="bucket">
                                         <div class="filter-item">
-                                            @if(!is_null($descendantTree))
-                                                <div class="filter-item__title">Loại khóa học <span class="count">({{ $descendantTree['item']['product_count']}})</span></div>
-                                                <div class="filter-item__content filter-group">
-                                                    <ul class="filter-list">
-                                                        @if(!empty($descendantTree['children']))
-                                                            @foreach($descendantTree['children'] as $catP)
-                                                                @php
-                                                                    $cat_id = $catP['item']->id;
-                                                                    $cat_name = $catP['item']->name;
-                                                                @endphp
-                                                                <li class="filter-list__item">
-                                                                    <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                                                                        <div class="lft">
-                                                                            <input id="product-catalogue-{{ $cat_id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $cat_id }}">
-                                                                            <label for="product-catalogue-{{ $cat_id }}">
-                                                                                <i class="fa"></i>
-                                                                                {{ $cat_name }}
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="rgt">
-                                                                            <span class="count">({{ $catP['item']['product_count']}})</span>
-                                                                            @if(!empty($catP['children']))
-                                                                                <button class="toggle" aria-label="Chuyển đổi"><i class="fa fa-angle-down"></i></button>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                    @if(!empty($catP['children']))
-                                                                        <ul class="children">
-                                                                            @foreach($catP['children'] as $k => $v)
-                                                                                @php
-                                                                                    $id = $v['item']->id;
-                                                                                    $name = $v['item']->name;
-                                                                                @endphp
-                                                                                <li class="cat-item">
-                                                                                    <div class="uk-flex uk-flex-middle">
-                                                                                        <input id="product-catalogue-{{ $id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $id }}">
-                                                                                        <label for="product-catalogue-{{ $id }}">
-                                                                                            <i class="fa"></i>
-                                                                                            {{ $name }}
-                                                                                        </label>
-                                                                                    </div>
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
+                                            @if(!is_null($descendantTrees))
+                                                <div class="filter-item__title">Loại khóa học <span class="count"></span></div>
+                                                <ul class="filter-list">
+                                                    @foreach($descendantTrees as $key => $descendantTree)
+                                                        <li class="filter-list__item filter-group">
+                                                            <div class="uk-flex uk-flex-middle uk-flex-space-between mb10">
+                                                                <div class="lft">
+                                                                    <input id="product-catalogue-{{ $descendantTree['item']->id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $descendantTree['item']->id }}">
+                                                                    <label for="product-catalogue-{{ $descendantTree['item']->id }}" style="color:#555555;">
+                                                                        <i class="fa"></i>
+                                                                        {{ $descendantTree['item']->languages->first()->pivot->name  }}
+                                                                    </label>
+                                                                </div>
+                                                                <div class="rgt">
+                                                                    <span class="count">({{ $descendantTree['item']['total_product_count'] }})</span>
+                                                                    @if(!empty($descendantTree['children']))
+                                                                        <button class="toggle" aria-label="Chuyển đổi"><i class="fa fa-angle-down"></i></button>
                                                                     @endif
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
-                                                    </ul>
-                                                </div>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="filter-list lv2 children">
+                                                                @if(!empty($descendantTree['children']))
+                                                                    @foreach($descendantTree['children'] as $catP)
+                                                                        @php
+                                                                            $cat_id = $catP['item']->id;
+                                                                            $cat_name = $catP['item']->languages->first()->pivot->name;
+                                                                        @endphp
+                                                                        <li class="filter-list__item">
+                                                                            <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                                                                                <div class="lft">
+                                                                                    <input id="product-catalogue-{{ $cat_id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $cat_id }}">
+                                                                                    <label for="product-catalogue-{{ $cat_id }}">
+                                                                                        <i class="fa"></i>
+                                                                                        {{ $cat_name }}
+                                                                                    </label>
+                                                                                </div>
+                                                                                <div class="rgt">
+                                                                                    <span class="count">({{ $catP['item']['total_product_count']}})</span>
+                                                                                    @if(!empty($catP['children']))
+                                                                                        <button class="toggle" aria-label="Chuyển đổi"><i class="fa fa-angle-down"></i></button>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                            @if(!empty($catP['children']))
+                                                                                <ul class="children">
+                                                                                    @foreach($catP['children'] as $k => $v)
+                                                                                        @php
+                                                                                            $id = $v['item']->id;
+                                                                                            $name = $v['item']->languages->first()->pivot->name;
+                                                                                        @endphp
+                                                                                        <li class="cat-item">
+                                                                                            <div class="uk-flex uk-flex-middle">
+                                                                                                <input id="product-catalogue-{{ $id }}" type="checkbox" class="input-value p-filter" name="product_catalogue_id[]" value="{{ $id }}">
+                                                                                                <label for="product-catalogue-{{ $id }}">
+                                                                                                    <i class="fa"></i>
+                                                                                                    {{ $name }}
+                                                                                                </label>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            @endif
+                                                                        </li>
+                                                                    @endforeach
+                                                                @endif
+                                                            </ul>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                             @endif
                                         </div>
                                     </div>
