@@ -8,9 +8,9 @@
                 <div class="product-list mb30">
                     <div class="uk-grid uk-grid-medium">
                         @foreach($products as $product)
-                        <div class="uk-width-small-1-2 uk-width-medium-1-4 mb20">
-                            @include('frontend.component.p-item', ['product'  => $product])
-                        </div>
+                            <div class="uk-width-small-1-2 uk-width-medium-1-4 mb20">
+                                @include('frontend.component.p-item', ['product'  => $product])
+                            </div>
                         @endforeach
                     </div>
                     <div class="uk-text-center search-paginate">

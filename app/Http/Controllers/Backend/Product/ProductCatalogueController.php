@@ -85,11 +85,17 @@ class ProductCatalogueController extends Controller
         ));
     }
 
-    public function store(StoreProductCatalogueRequest $request){
-        if($this->productCatalogueService->create($request, $this->language)){
-            return redirect()->route('product.catalogue.index')->with('success','Thêm mới bản ghi thành công');
+    public function store(StoreProductCatalogueRequest $request)
+    {
+        $success = $this->productCatalogueService->create($request, $this->language);
+
+        if ($success) {
+            if ($request->input('send') == 'send_and_stay') {
+                return redirect()->back()->with('success', 'Thêm mới bản ghi thành công');
+            }
+            return redirect()->route('product.catalogue.index')->with('success', 'Thêm mới bản ghi thành công');
         }
-        return redirect()->route('product.catalogue.index')->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
+        return redirect()->back()->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
     }
 
     public function edit($id, Request $request){
@@ -110,13 +116,27 @@ class ProductCatalogueController extends Controller
         ));
     }
 
-    public function update($id, UpdateProductCatalogueRequest $request){
+    public function update($id, UpdateProductCatalogueRequest $request)
+    {
         $queryString = base64_decode($request->getQueryString());
-        if($this->productCatalogueService->update($id, $request, $this->language)){
-            return redirect()->route('product.catalogue.index', $queryString)->with('success','Cập nhật bản ghi thành công');
+
+        if ($this->productCatalogueService->update($id, $request, $this->language)) {
+            if ($request->input('send') == 'send_and_stay') {
+                return redirect()
+                    ->route('product.catalogue.edit', [$id, 'query' => base64_encode($queryString)])
+                    ->with('success', 'Cập nhật bản ghi thành công');
+            }
+
+            return redirect()
+                ->route('product.catalogue.index', $queryString)
+                ->with('success', 'Cập nhật bản ghi thành công');
         }
-        return redirect()->route('product.catalogue.index')->with('error','Cập nhật bản ghi không thành công. Hãy thử lại');
+
+        return redirect()
+            ->back()
+            ->with('error', 'Cập nhật bản ghi không thành công. Hãy thử lại');
     }
+
 
     public function delete($id){
         $this->authorize('modules', 'product.catalogue.destroy');

@@ -49,6 +49,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 'tb2.canonical',
                 'tb3.name as lecturer_name',
                 'tb3.image as lecturer_image',
+                'tb3.canonical as lecturer_canonical',
             ]
         )
         ->join('product_language as tb2', 'tb2.product_id', '=','products.id')

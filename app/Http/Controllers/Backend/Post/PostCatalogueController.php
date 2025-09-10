@@ -85,11 +85,17 @@ class PostCatalogueController extends Controller
         ));
     }
 
-    public function store(StorePostCatalogueRequest $request){
-        if($this->postCatalogueService->create($request, $this->language)){
-            return redirect()->route('post.catalogue.index')->with('success','Thêm mới bản ghi thành công');
+    public function store(StorePostCatalogueRequest $request)
+    {
+        $success = $this->postCatalogueService->create($request, $this->language);
+
+        if ($success) {
+            if ($request->input('send') == 'send_and_stay') {
+                return redirect()->back()->with('success', 'Thêm mới bản ghi thành công');
+            }
+            return redirect()->route('post.catalogue.index')->with('success', 'Thêm mới bản ghi thành công');
         }
-        return redirect()->route('post.catalogue.index')->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
+        return redirect()->back()->with('error', 'Thêm mới bản ghi không thành công. Hãy thử lại');
     }
 
     public function edit($id){
@@ -108,11 +114,25 @@ class PostCatalogueController extends Controller
         ));
     }
 
-    public function update($id, UpdatePostCatalogueRequest $request){
-        if($this->postCatalogueService->update($id, $request, $this->language)){
-            return redirect()->route('post.catalogue.index')->with('success','Cập nhật bản ghi thành công');
+    public function update($id, UpdatePostCatalogueRequest $request)
+    {
+        $queryString = base64_decode($request->getQueryString());
+
+        if ($this->postCatalogueService->update($id, $request, $this->language)) {
+            if ($request->input('send') == 'send_and_stay') {
+                return redirect()
+                    ->route('post.catalogue.edit', [$id, 'query' => base64_encode($queryString)])
+                    ->with('success', 'Cập nhật bản ghi thành công');
+            }
+
+            return redirect()
+                ->route('post.catalogue.index', $queryString)
+                ->with('success', 'Cập nhật bản ghi thành công');
         }
-        return redirect()->route('post.catalogue.index')->with('error','Cập nhật bản ghi không thành công. Hãy thử lại');
+
+        return redirect()
+            ->back()
+            ->with('error', 'Cập nhật bản ghi không thành công. Hãy thử lại');
     }
 
     public function delete($id){

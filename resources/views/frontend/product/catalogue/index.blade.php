@@ -29,7 +29,7 @@
                                         <div class="filter-item">
                                             @if(!is_null($descendantTrees))
                                                 <div class="filter-item__title">Loại khóa học <span class="count"></span></div>
-                                                <ul class="filter-list">
+                                                <ul class="filter-list lv1">
                                                     @foreach($descendantTrees as $key => $descendantTree)
                                                         <li class="filter-list__item filter-group">
                                                             <div class="uk-flex uk-flex-middle uk-flex-space-between mb10">
@@ -47,7 +47,7 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <ul class="filter-list lv2 children">
+                                                            <ul class="filter-list lv2 children {{ $key == 0 ? 'active' : '' }}">
                                                                 @if(!empty($descendantTree['children']))
                                                                     @foreach($descendantTree['children'] as $catP)
                                                                         @php

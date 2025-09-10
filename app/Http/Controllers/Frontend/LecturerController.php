@@ -34,6 +34,8 @@ class LecturerController extends FrontendController
             ['canonical','=', $canonical]
         ]);
 
+        $allLecturers = $this->lecturerRepository->all();
+
         $products = $this->productRepository->findByCondition([
             ['lecturer_id','=', $lecturer->id]
         ], true);
@@ -51,6 +53,7 @@ class LecturerController extends FrontendController
         ];
 
         $language = $this->language;
+
         $template = 'frontend.lecturer.index';
 
         return view($template, compact(
@@ -59,7 +62,8 @@ class LecturerController extends FrontendController
             'system',
             'language',
             'lecturer',
-            'products'
+            'products',
+            'allLecturers'
         ));
     }
 
