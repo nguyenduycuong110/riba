@@ -65,17 +65,10 @@
                 </div>
                 <div class="toolbox">
                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                        @if(isset($customerAuth) && !is_null($customerAuth))
-                            <a href="{{ write_url('gio-hang') }}" title="" class="toolbox-item cart wow fadeInUp" data-wow-delay="0.35s">
-                                <img src="/frontend/resources/img/cart.svg" alt="">
-                                <span class="count">0</span>
-                            </a>
-                        @else
-                            <a href="#modal-login" title="" class="toolbox-item cart wow fadeInUp" data-wow-delay="0.35s" data-uk-modal>
-                                <img src="/frontend/resources/img/cart.svg" alt="">
-                                <span class="count">0</span>
-                            </a>
-                        @endif
+                        <a href="{{ write_url('gio-hang') }}" title="" class="toolbox-item cart wow fadeInUp" data-wow-delay="0.35s">
+                            <img src="/frontend/resources/img/cart.svg" alt="">
+                            <span class="count">0</span>
+                        </a>
                         @if(isset($customerAuth) && !is_null($customerAuth))
                             <a href="{{ route('buyer.profile') }}" title="" class="toolbox-item register profile wow fadeInUp" data-wow-delay="0.45s">
                                 <img src="/frontend/resources/img/login.svg" alt="">

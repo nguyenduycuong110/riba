@@ -7,14 +7,14 @@
                 'title' => 'Thanh toán khi nhận hàng (COD)'
             ],
             // [
-            //     'name' => 'zalo',
-            //     'image' => 'frontend/resources/core/img/logo-zalopay.svg',
-            //     'title' => 'Thanh toán qua ví điện tử ZaloPay'
+            //     'name' => 'bank',
+            //     'image' => '/userfiles/image/other.png',
+            //     'title' => 'Thanh toán qua ngân hàng'
             // ],
             // [
-            //     'name' => 'momo',
-            //     'image' => 'frontend/resources/core/img/momo-icon.webp',
-            //     'title' => 'Thanh toán qua Ví Momo'
+            //     'name' => 'qr_bank',
+            //     'image' => 'frontend/resources/core/img/qr_code.svg',
+            //     'title' => 'Chuyển khoản qua QR'
             // ],
             // [
             //     'name' => 'shopee',

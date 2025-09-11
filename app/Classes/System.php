@@ -162,6 +162,17 @@ class System{
                 '2' => ['type' => 'textarea', 'label' => 'Script Body'],
             ]
         ];
+
+        $data['bank'] = [
+            'label' => 'Cấu hình thanh toán',
+            'description' => '',
+            'value' => [
+                '1' => ['type' => 'text', 'label' => 'Ngân hàng'],
+                '2' => ['type' => 'text', 'label' => 'Số tài khoản'],
+                '3' => ['type' => 'text', 'label' => 'Chủ tài khoản'],
+                '4' => ['type' => 'images', 'label' => 'QR code'],
+            ]
+        ];
        
         return $data;
     }

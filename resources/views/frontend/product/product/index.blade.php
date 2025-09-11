@@ -128,13 +128,8 @@
                                     @endif
                                 </div>
                                 <div class="cart-button">
-                                    @if(!is_null($customerAuth))
-                                        <button class="addToCart" data-id="{{ $product->id }}">Thêm vào giỏ hàng</button>
-                                        <button class="addToCart" data-redirect="1" data-id="{{ $product->id }}">Mua ngay</button>
-                                    @else
-                                        <a class="" href="#modal-login" data-id="{{ $product->id }}" data-uk-modal>Thêm vào giỏ hàng</a>
-                                        <a class=""  href="#modal-login" data-redirect="1" data-id="{{ $product->id }}" data-uk-modal>Mua ngay</a>
-                                    @endif
+                                    <button class="addToCart" data-id="{{ $product->id }}">Thêm vào giỏ hàng</button>
+                                    <button class="addToCart" data-redirect="1" data-id="{{ $product->id }}">Mua ngay</button>
                                 </div>
                                 @if($price['percent'] > 0)
                                     <div class="discount-time">⏰ Ưu đãi kết thúc sau {{ $promotionLeft }} ngày</div>

@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="buy-more">
-            <a href="{{ write_url('san-pham') }}" class="btn-buymore">Chọn thêm sản phẩm khác</a>
+            <a href="{{ write_url('khoa-hoc') }}" class="btn-buymore">Chọn thêm sản phẩm khác</a>
         </div>
     </div>
 </div>
