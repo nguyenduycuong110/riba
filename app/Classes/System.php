@@ -152,9 +152,17 @@ class System{
                 '7' => ['type' => 'text', 'label' => 'Text_7'],
             ]
         ];
+
+        
+        $data['script'] = [
+            'label' => 'Cấu hình script',
+            'description' => '',
+            'value' => [
+                '1' => ['type' => 'textarea', 'label' => 'Script Head'],
+                '2' => ['type' => 'textarea', 'label' => 'Script Body'],
+            ]
+        ];
        
-
-
         return $data;
     }
 	

@@ -2,6 +2,23 @@
 @section('content')
     <div class="lecturer-page">
         <div class="uk-container uk-container-center">
+            <div class="page-breadcrumb background">      
+                <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
+                    <li>
+                        <a href="/">{{ __('frontend.home') }}</a>
+                    </li>
+                    <li>
+                        <span class="slash">/</span>
+                    </li>
+                    <li>
+                        <a href="">Giáo viên</a>
+                    </li>
+                    <li>
+                        <span class="slash">/</span>
+                    </li>
+                    <li><a href="{{ write_url('giao-vien/'. $lecturer->canonical) }}">{{ $lecturer->name }}</a></li>
+                </ul>
+            </div>
             <div class="uk-grid uk-grid-large">
                 <div class="uk-width-large-1-4">
                     @if($allLecturers)

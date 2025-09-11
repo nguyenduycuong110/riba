@@ -3474,8 +3474,19 @@ button{
 }
 
 @media (max-width: 600px){
-    .intro-section-1{
-        background: transparent !important;
+    .intro-container .intro-section-1 .section-1-list {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .intro-container  .intro-section-1{
+        background: linear-gradient(135deg, #FACC15 0%, #187A3D 100%) !important;
+        padding-bottom: 50px;
+    }
+    .intro-container .section-1-item:hover{
+        transform: scale(1);
+    }
+    .section-1-list .uk-width-medium-1-3{
+        margin-bottom: 25px;
     }
     .intro-container .intro-section-1 .description,
     .intro-container .intro-section-1 .heading,
@@ -3487,6 +3498,8 @@ button{
     }
     .person-item{
         height:143px;
+        margin-bottom: 15px !important;
+        border-radius: 0;
     }
     .person-item .title{
         font-size:12px;
@@ -3499,6 +3512,9 @@ button{
     }
     .intro-section-6 .heading{
         font-size:26px;
+    }
+    .intro-section-5 .uk-grid{
+        justify-content: center;
     }
 
 }
@@ -4261,9 +4277,25 @@ button{
     .lecturer-info .uk-width-medium-1-3{
         margin-bottom: 20px;
     }
+    .lecturer-page h2.heading-1 > * {
+        font-size: 18px !important;
+    }
+    .lecturer-page .page-breadcrumb .uk-flex{
+        flex-wrap: wrap;
+    }
 }
 .lecturer-page{
     padding: 50px 0;
+    padding-top: 0;
+}
+.lecturer-page .page-breadcrumb{
+    padding: 30px 0;
+}
+.lecturer-page .page-breadcrumb .uk-flex{
+    justify-content: left;
+}
+.lecturer-page .page-breadcrumb a{
+    font-size: 16px;
 }
 .lecturer-page .lecturer-info{
     margin-bottom: 40px;
