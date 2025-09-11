@@ -372,6 +372,9 @@ ul li,ol li{
     border-radius: 5px;
     font-size: 13px;
 }
+.panel-slide .group-btn .btn-register{
+    width: 230px;
+}
 .panel-slide .group-btn .btn-view{
     background: rgba(12, 74, 26, 1);
     color: #fff;
@@ -2059,8 +2062,13 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover{
     margin-right: auto;
 }
 .contact-form h3.heading-2{
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     text-align: center;
+}
+.contact-form .des{
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 15px;
 }
 .contact-form h3.heading-2 > *{
     font-size: 20px;

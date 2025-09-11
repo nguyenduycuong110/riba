@@ -7,21 +7,6 @@
                     <img src="{{ $system['background_1'] }}" alt="">
                 </a>
                 <div class="text-overlay">
-                    {{-- <div class="page-breadcrumb">      
-                        <div class="uk-container uk-container-center">
-                            <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                                <li>
-                                    <a href="/">Trang chủ</a>
-                                </li>
-                                <li>
-                                    <span class="slash">/</span>
-                                </li>
-                                <li>
-                                    <a href="">Liên hệ</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> --}}
                     <h2 class="heading-1"><span>Liên hệ với chúng tôi</span></h2>
                     <div class="description">
                         <p>Bạn đang có những thắc mắc, nan giải về khóa học hãy chia sẻ vấn đề với chúng tôi</p>
@@ -32,6 +17,7 @@
                 <div class="wrapper">
                     <div class="frm-ct">
                         <h3 class="heading-2"><span>Liên hệ ngay</span></h3>
+                        <p class="des">{{ $system['text_12'] }}</p>
                         <form action="{{ url('contact/save') }}" method="POST" class="ct-form">
                             @csrf
                             <div class="form-group">
@@ -43,11 +29,15 @@
                                 <input type="text" id="email" name="email" placeholder="email@example.com" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Tiêu đề</label>
-                                <input type="text" id="email" name="email" placeholder="Tôi cần hỗ trợ về..." required>
+                                <label for="phone">Số điện thoại</label>
+                                <input type="text" id="phone" name="phone" placeholder="" required>
                             </div>
                             <div class="form-group">
-                                <label for="description">Nội dung</label>
+                                <label for="content">Tiêu đề</label>
+                                <input type="text" id="content" name="content" placeholder="Tôi cần hỗ trợ về..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Nội dung cần hỗ trợ</label>
                                 <textarea name="description" id="description" cols="30" rows="10"></textarea>
                             </div>
                             <div class="btn">

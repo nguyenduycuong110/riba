@@ -150,6 +150,11 @@ class System{
                 '5' => ['type' => 'text', 'label' => 'Text_5'],
                 '6' => ['type' => 'textarea', 'label' => 'Text_6'],
                 '7' => ['type' => 'text', 'label' => 'Text_7'],
+                '8' => ['type' => 'text', 'label' => 'Text_8'],
+                '9' => ['type' => 'text', 'label' => 'Text_9'],
+                '10' => ['type' => 'text', 'label' => 'Text_10'],
+                '11' => ['type' => 'text', 'label' => 'Text_11'],
+                '12' => ['type' => 'text', 'label' => 'Text_12'],
             ]
         ];
 

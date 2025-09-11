@@ -146,7 +146,7 @@
                 </div>
             </div>
         @endif
-        <div class="panel-contact">
+        <div class="panel-contact" id="panel-contact">
             <div class="uk-container uk-container-center">
                 <div class="uk-grid uk-grid-collapse">
                     <div class="uk-width-medium-2-3">

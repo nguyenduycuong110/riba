@@ -29,8 +29,8 @@
                                                     <a href="{{ write_url('khoa-hoc') }}" title="" class="btn btn-view wow pulse" data-wow-iteration="3">
                                                         <span>Xem khóa học</span>
                                                     </a>
-                                                    <a href="{{ write_url('lien-he') }}" title="" class="btn btn-register wow tada" data-wow-delay="1s">
-                                                        <span>Đăng ký ngay</span>
+                                                    <a href="#panel-contact" title="" class="btn btn-register wow tada" data-wow-delay="1s">
+                                                        <span>Đăng ký nhận tư vấn miễn phí</span>
                                                     </a>
                                                 </div>
                                             </div>
