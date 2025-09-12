@@ -153,12 +153,6 @@ return [
             ]
         ],
         [
-            'title' => 'QL Giảng Viên',
-            'icon' => 'fa fa-user',
-            'name' => ['lecturer'],
-            'route' => 'lecturer/index'
-        ],
-        [
             'title' => 'Giới thiệu',
             'icon' => 'fa fa-user',
             'name' => ['introduce'],
