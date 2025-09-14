@@ -48,6 +48,11 @@ class RepositoryServiceProvider extends ServiceProvider
         'App\Repositories\Interfaces\VoucherRepositoryInterface' => 'App\Repositories\VoucherRepository',
         'App\Repositories\Interfaces\ContactRepositoryInterface' => 'App\Repositories\ContactRepository',
         'App\Repositories\Interfaces\LecturerRepositoryInterface' => 'App\Repositories\LecturerRepository',
+        'App\Repositories\Interfaces\SchoolRepositoryInterface' => 'App\Repositories\SchoolRepository',
+        'App\Repositories\Interfaces\ScholarshipRepositoryInterface' => 'App\Repositories\ScholarshipRepository',
+        'App\Repositories\Interfaces\ScholarshipCatalogueRepositoryInterface' => 'App\Repositories\ScholarshipCatalogueRepository',
+        'App\Repositories\Interfaces\TrainRepositoryInterface' => 'App\Repositories\TrainRepository',
+        'App\Repositories\Interfaces\PolicyRepositoryInterface' => 'App\Repositories\PolicyRepository',
     ];
 
     public function register(): void
@@ -58,11 +63,9 @@ class RepositoryServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Bootstrap services.
-     */
+    
     public function boot(): void
     {
-        //
+        
     }
 }

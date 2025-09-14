@@ -86,12 +86,10 @@
 </div>
 <div class="ibox w">
     <div class="ibox-title">
-       
-            <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                <h5>Video Clip</h5>
-                <a href="" class="upload-video">Upload Video</a>
-            </div>
-        
+        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+            <h5>Video Clip</h5>
+            <a href="" class="upload-video">Upload Video</a>
+        </div>
     </div>
     <div class="ibox-content">
         <div class="row mb15">

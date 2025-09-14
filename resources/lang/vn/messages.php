@@ -368,6 +368,81 @@ return [
             'title' => 'Xóa Giảng viên'
         ],
     ],
+    'school' => [
+        'index' => [
+            'title' => 'Quản lý Trường',
+            'table' => 'Danh sách Trường'
+        ],
+        'create' => [
+            'title' => 'Thêm mới Trường'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật Trường'
+        ],
+        'delete' => [
+            'title' => 'Xóa Trường'
+        ],
+    ],
+    'train' => [
+        'index' => [
+            'title' => 'Quản lý thể loại đào tạo',
+            'table' => 'Danh sách thể loại đào tạo'
+        ],
+        'create' => [
+            'title' => 'Thêm mới thể loại đào tạo'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật thể loại đào tạo'
+        ],
+        'delete' => [
+            'title' => 'Xóa thể loại đào tạo'
+        ],
+    ],
+    'policy' => [
+        'index' => [
+            'title' => 'Quản lý chính sách',
+            'table' => 'Danh sách chính sách'
+        ],
+        'create' => [
+            'title' => 'Thêm mới chính sách'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật chính sách'
+        ],
+        'delete' => [
+            'title' => 'Xóa chính sách'
+        ],
+    ],
+    'scholarship' => [
+        'index' => [
+            'title' => 'Quản lý học bổng',
+            'table' => 'Danh sách học bổng'
+        ],
+        'create' => [
+            'title' => 'Thêm mới học bổng'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật học bổng'
+        ],
+        'delete' => [
+            'title' => 'Xóa học bổng'
+        ],
+    ],
+    'scholarshipCatalogue' => [
+        'index' => [
+            'title' => 'Quản lý nhóm học bổng',
+            'table' => 'Danh sách nhóm học bổng'
+        ],
+        'create' => [
+            'title' => 'Thêm mới nhóm học bổng'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật nhóm học bổng'
+        ],
+        'delete' => [
+            'title' => 'Xóa nhóm học bổng'
+        ],
+    ],
     'parent' => 'Chọn danh mục cha',
     'parentNotice' => 'Chọn Root nếu không có danh mục cha',
     'subparent' => 'Chọn danh mục phụ (nếu có)',

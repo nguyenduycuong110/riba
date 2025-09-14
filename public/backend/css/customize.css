@@ -396,7 +396,7 @@ a{
 .niceSelect{
     width:100% !important;
 }
-
+.add-policy,
 .add-program,
 .add-variant{
     height:42px;
@@ -1452,14 +1452,14 @@ div.edit{
     padding-bottom:10px;
     border-bottom:1px solid #eaeaea;
 }
-
+.remove-policy-item,
 .remove-chapter-item,
 .add-chapter-item{
     background: transparent;
     border:0;
     color:blue;
 }
-
+.remove-policy-item,
 .remove-chapter-item{
     color:#ec4758;
 }

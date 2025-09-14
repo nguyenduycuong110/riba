@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\VoucherController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\LecturerController;
 use App\Http\Controllers\Backend\IntroduceController;
+use App\Http\Controllers\Backend\SchoolController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
@@ -40,6 +41,10 @@ use App\Http\Controllers\Backend\Product\ProductCatalogueController;
 use App\Http\Controllers\Backend\Product\ProductController;
 use App\Http\Controllers\Backend\Attribute\AttributeCatalogueController;
 use App\Http\Controllers\Backend\Attribute\AttributeController;
+use App\Http\Controllers\Backend\Scholarship\ScholarshipCatalogueController;
+use App\Http\Controllers\Backend\Scholarship\ScholarshipController;
+use App\Http\Controllers\Backend\Scholarship\TrainController;
+use App\Http\Controllers\Backend\Scholarship\PolicyController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
@@ -188,6 +193,49 @@ Route::get('ajax/dashboard/findProductObject', [AjaxDashboardController::class, 
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
     Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
+    
+    /*SCHORLARSHIP*/
+
+    Route::group(['prefix' => 'scholarship'], function () {
+        Route::get('index', [ScholarshipController::class, 'index'])->name('scholarship.index');
+        Route::get('create', [ScholarshipController::class, 'create'])->name('scholarship.create');
+        Route::post('store', [ScholarshipController::class, 'store'])->name('scholarship.store');
+        Route::get('{id}/edit', [ScholarshipController::class, 'edit'])->where(['id' => '[0-9]+'])->name('scholarship.edit');
+        Route::post('{id}/update', [ScholarshipController::class, 'update'])->where(['id' => '[0-9]+'])->name('scholarship.update');
+        Route::get('{id}/delete', [ScholarshipController::class, 'delete'])->where(['id' => '[0-9]+'])->name('scholarship.delete');
+        Route::delete('{id}/destroy', [ScholarshipController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('scholarship.destroy');
+    });
+
+    Route::group(['prefix' => 'scholarship/catalogue'], function () {
+        Route::get('index', [ScholarshipCatalogueController::class, 'index'])->name('scholarship.catalogue.index');
+        Route::get('create', [ScholarshipCatalogueController::class, 'create'])->name('scholarship.catalogue.create');
+        Route::post('store', [ScholarshipCatalogueController::class, 'store'])->name('scholarship.catalogue.store');
+        Route::get('{id}/edit', [ScholarshipCatalogueController::class, 'edit'])->where(['id' => '[0-9]+'])->name('scholarship.catalogue.edit');
+        Route::post('{id}/update', [ScholarshipCatalogueController::class, 'update'])->where(['id' => '[0-9]+'])->name('scholarship.catalogue.update');
+        Route::get('{id}/delete', [ScholarshipCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('scholarship.catalogue.delete');
+        Route::delete('{id}/destroy', [ScholarshipCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('scholarship.catalogue.destroy');
+    });
+
+    Route::group(['prefix' => 'train'], function () {
+        Route::get('index', [TrainController::class, 'index'])->name('train.index');
+        Route::get('create', [TrainController::class, 'create'])->name('train.create');
+        Route::post('store', [TrainController::class, 'store'])->name('train.store');
+        Route::get('{id}/edit', [TrainController::class, 'edit'])->where(['id' => '[0-9]+'])->name('train.edit');
+        Route::post('{id}/update', [TrainController::class, 'update'])->where(['id' => '[0-9]+'])->name('train.update');
+        Route::get('{id}/delete', [TrainController::class, 'delete'])->where(['id' => '[0-9]+'])->name('train.delete');
+        Route::delete('{id}/destroy', [TrainController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('train.destroy');
+    });
+
+    Route::group(['prefix' => 'policy'], function () {
+        Route::get('index', [PolicyController::class, 'index'])->name('policy.index');
+        Route::get('create', [PolicyController::class, 'create'])->name('policy.create');
+        Route::post('store', [PolicyController::class, 'store'])->name('policy.store');
+        Route::get('{id}/edit', [PolicyController::class, 'edit'])->where(['id' => '[0-9]+'])->name('policy.edit');
+        Route::post('{id}/update', [PolicyController::class, 'update'])->where(['id' => '[0-9]+'])->name('policy.update');
+        Route::get('{id}/delete', [PolicyController::class, 'delete'])->where(['id' => '[0-9]+'])->name('policy.delete');
+        Route::delete('{id}/destroy', [PolicyController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('policy.destroy');
+    });
+
 
     /* USER */
     Route::group(['prefix' => 'user'], function () {
@@ -449,6 +497,16 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
         Route::post('{id}/update', [IntroduceController::class, 'update'])->where(['id' => '[0-9]+'])->name('introduce.update');
         Route::get('{id}/delete', [IntroduceController::class, 'delete'])->where(['id' => '[0-9]+'])->name('introduce.delete');
         Route::delete('{id}/destroy', [IntroduceController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('introduce.destroy');
+    });
+
+    Route::group(['prefix' => 'school'], function () {
+        Route::get('index', [SchoolController::class, 'index'])->name('school.index');
+        Route::get('create', [SchoolController::class, 'create'])->name('school.create');
+        Route::post('store', [SchoolController::class, 'store'])->name('school.store');
+        Route::get('{id}/edit', [SchoolController::class, 'edit'])->where(['id' => '[0-9]+'])->name('school.edit');
+        Route::post('{id}/update', [SchoolController::class, 'update'])->where(['id' => '[0-9]+'])->name('school.update');
+        Route::get('{id}/delete', [SchoolController::class, 'delete'])->where(['id' => '[0-9]+'])->name('school.delete');
+        Route::delete('{id}/destroy', [SchoolController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('school.destroy');
     });
 
    /* AJAX */
