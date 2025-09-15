@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\School;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\SchoolServiceInterface  as SchoolService;
 use App\Repositories\Interfaces\SchoolRepositoryInterface as SchoolRepository;
-
+use App\Repositories\Interfaces\AreaRepositoryInterface as AreaRepository;
+use App\Repositories\Interfaces\CityRepositoryInterface as CityRepository;
 use App\Http\Requests\School\StoreSchoolRequest;
 use App\Http\Requests\School\UpdateSchoolRequest;
 
@@ -17,12 +18,20 @@ class SchoolController extends Controller
     
     protected $schoolRepository;
 
+    protected $areaRepository;
+
+    protected $cityRepository;
+
     public function __construct(
         SchoolService $schoolService,
         SchoolRepository $schoolRepository,
+        AreaRepository $areaRepository,
+        CityRepository $cityRepository,
     ){
         $this->schoolService = $schoolService;
         $this->schoolRepository = $schoolRepository;
+        $this->areaRepository = $areaRepository;
+        $this->cityRepository = $cityRepository;
     }
 
     public function index(Request $request){
@@ -30,7 +39,7 @@ class SchoolController extends Controller
         $schools = $this->schoolService->paginate($request);
         $config = $this->config();
         $config['seo'] = __('messages.school');
-        $template = 'backend.school.index';
+        $template = 'backend.school.school.index';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
@@ -40,11 +49,15 @@ class SchoolController extends Controller
 
     public function create(){
         $this->authorize('modules', 'school.create');
+        $areas = $this->areaRepository->all([]);
+        $cities = $this->cityRepository->all([]);
         $config = $this->config();
         $config['seo'] = __('messages.school');
         $config['method'] = 'create';
-        $template = 'backend.school.store';
+        $template = 'backend.school.school.store';
         return view('backend.dashboard.layout', compact(
+            'areas',
+            'cities',
             'template',
             'config',
         ));
@@ -63,7 +76,7 @@ class SchoolController extends Controller
         $config = $this->config();
         $config['seo'] = __('messages.school');
         $config['method'] = 'edit';
-        $template = 'backend.school.store';
+        $template = 'backend.school.school.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
@@ -82,7 +95,7 @@ class SchoolController extends Controller
         $this->authorize('modules', 'school.destroy');
         $config['seo'] = __('messages.school');
         $school = $this->schoolRepository->findById($id);
-        $template = 'backend.school.delete';
+        $template = 'backend.school.school.delete';
         return view('backend.dashboard.layout', compact(
             'template',
             'school',

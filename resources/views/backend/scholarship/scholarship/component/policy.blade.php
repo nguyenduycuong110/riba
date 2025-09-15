@@ -10,7 +10,7 @@
         </div>
         <div class="program-content mt20">
             @php
-                $scholarship_policies = old('scholarship_policy', json_decode($scholarship->scholarship_policy) ?? []);
+                $scholarship_policies = old('scholarship_policy', isset($scholarship->scholarship_policy) ? json_decode($scholarship->scholarship_policy) : []);
             @endphp
             @if(isset($scholarship_policies) && is_array($scholarship_policies) && count($scholarship_policies))
                 @foreach($scholarship_policies as $index => $scholarship_policy)
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-row">
                                 <label for="" class="control-label text-left">Nội dung</label>
-                                <textarea name="scholarship_policy[{{ $index }}][description]" class="ck-editor" id="scholarship_policy[{{ $index }}]" placeholder="Nhập mô tả chính sách" style="width:100%; margin-top:10px;">{{ $scholarship_policy->description ?? '' }}</textarea>
+                                <textarea name="scholarship_policy[{{ $index }}][description]" data-height="200" class="ck-editor" id="scholarship_policy[{{ $index }}]" placeholder="Nhập mô tả chính sách" style="width:100%; margin-top:10px;">{{ $scholarship_policy->description ?? '' }}</textarea>
                             </div>
                         </div>
                     </div>

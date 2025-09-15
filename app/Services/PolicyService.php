@@ -39,7 +39,8 @@ class PolicyService extends BaseService implements PolicyServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except(['_token','send','re_password']);
-            $policy = $this->policyRepository->create($payload);
+            $data = $this->convertData($payload);
+            $policy = count($data) == 1 ? $this->policyRepository->create($data[0]) : $this->policyRepository->updateOrInsert($data);
             DB::commit();
             return true;
         }catch(\Exception $e ){
@@ -77,6 +78,14 @@ class PolicyService extends BaseService implements PolicyServiceInterface
             echo $e->getMessage();die();
             return false;
         }
+    }
+
+    private function convertData($payload){
+        $temp = [];
+        foreach($payload['name'] as $k => $v){
+            $temp[$k]['name'] = $v;
+        }
+        return $temp;
     }
 
     private function paginateSelect(){

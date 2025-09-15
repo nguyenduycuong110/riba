@@ -1,6 +1,6 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo']['create']['title']])
 
-<form action="{{ route('school.destroy', $school->id) }}" method="post" class="box">
+<form action="{{ route('project.destroy', $project->id) }}" method="post" class="box">
     @csrf
     @method('DELETE')
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -9,7 +9,7 @@
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>Bạn đang muốn xóa trường: {{ $school->name }}</p>
+                        <p>Bạn đang muốn xóa dự án: {{ $project->name }}</p>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                                     <input 
                                         type="text"
                                         name="name"
-                                        value="{{ old('name', ($school->name) ?? '' ) }}"
+                                        value="{{ old('name', ($project->name) ?? '' ) }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"

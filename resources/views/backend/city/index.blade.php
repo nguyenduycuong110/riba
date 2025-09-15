@@ -10,8 +10,8 @@
                 </div>
             </div>
             <div class="ibox-content">
-                @include('backend.school.component.filter')
-                @include('backend.school.component.table')
+                @include('backend.city.component.filter')
+                @include('backend.city.component.table')
             </div>
         </div>
     </div>

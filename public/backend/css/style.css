@@ -8604,3 +8604,8 @@ td.sort{
     text-decoration: none;
     cursor: not-allowed;
 }
+.add-item{
+    background: none;
+    border: none;
+    color: #1ab394;
+}

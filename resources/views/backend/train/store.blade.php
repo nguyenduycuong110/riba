@@ -26,32 +26,61 @@
                     </div>
                     <div class="ibox-content">
                         <div class="row mb15">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-left">Thể loại đào tạo<span class="text-danger">(*)</span></label>
-                                    <input 
-                                        type="text"
-                                        name="name"
-                                        value="{{ old('name', ($train->name) ?? '' ) }}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label for="" class="control-label text-left">Ghi chú</label>
-                                    <div class="note">
+                                    @if($config['method'] == 'create')
+                                        <div class="uk-flex uk-flex-middle uk-flex-space-between mb5">
+                                            <label for="" class="control-label text-left">Thể loại đào tạo <span class="text-danger">(*)</span></label>
+                                            <button type="button" class="add-item">+ Thêm thể loại đào tạo</button>
+                                        </div>
                                         <input 
                                             type="text"
-                                            name="note"
-                                            value="{{ old('note', ($train->note) ?? '' ) }}"
+                                            name="name[]"
+                                            value="{{ old('name.0', '') }}"
                                             class="form-control"
-                                            placeholder=""
+                                            placeholder="Nhập thể loại đào tạo"
                                             autocomplete="off"
                                         >
-                                    </div>
+                                        <div class="group-input">
+                                            @if(old('name'))
+                                                @foreach(old('name') as $index => $value)
+                                                    @if($index > 0) 
+                                                        <div class="input-item">
+                                                            <div class="row">
+                                                                <div class="col-lg-11">
+                                                                    <div class="form-row">
+                                                                        <input 
+                                                                            type="text"
+                                                                            name="name[]"
+                                                                            value="{{ $value }}"
+                                                                            class="form-control mt10"
+                                                                            placeholder="Nhập thể loại đào tạo"
+                                                                            autocomplete="off"
+                                                                        >
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-1">
+                                                                    <button type="button" class="form-control btn btn-danger remove-item mt10">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    @else
+                                        <label for="" class="control-label text-left">Thể loại đào tạo <span class="text-danger">(*)</span></label>
+                                        <input 
+                                            type="text"
+                                            name="name"
+                                            value="{{ old('name', isset($train) ? $train->name : '') }}"
+                                            class="form-control"
+                                            placeholder="Nhập thể loại đào tạo"
+                                            autocomplete="off"
+                                        >
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -65,3 +94,4 @@
         </div>
     </div>
 </form>
+

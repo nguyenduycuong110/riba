@@ -38,7 +38,8 @@ class TrainService extends BaseService implements TrainServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except(['_token','send','re_password']);
-            $train = $this->trainRepository->create($payload);
+            $data = $this->convertData($payload);
+            $train = count($data) == 1 ? $this->trainRepository->create($data[0]) : $this->trainRepository->updateOrInsert($data);
             DB::commit();
             return true;
         }catch(\Exception $e ){
@@ -76,6 +77,14 @@ class TrainService extends BaseService implements TrainServiceInterface
             echo $e->getMessage();die();
             return false;
         }
+    }
+
+    private function convertData($payload){
+        $temp = [];
+        foreach($payload['name'] as $k => $v){
+            $temp[$k]['name'] = $v;
+        }
+        return $temp;
     }
 
     private function paginateSelect(){

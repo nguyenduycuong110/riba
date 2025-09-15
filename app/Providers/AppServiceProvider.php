@@ -49,10 +49,14 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\ContactServiceInterface' => 'App\Services\ContactService',
         'App\Services\Interfaces\LecturerServiceInterface' => 'App\Services\LecturerService',
         'App\Services\Interfaces\SchoolServiceInterface' => 'App\Services\SchoolService',
+        'App\Services\Interfaces\SchoolCatalogueServiceInterface' => 'App\Services\SchoolCatalogueService',
         'App\Services\Interfaces\ScholarshipServiceInterface' => 'App\Services\ScholarshipService',
         'App\Services\Interfaces\ScholarshipCatalogueServiceInterface' => 'App\Services\ScholarshipCatalogueService',
         'App\Services\Interfaces\TrainServiceInterface' => 'App\Services\TrainService',
         'App\Services\Interfaces\PolicyServiceInterface' => 'App\Services\PolicyService',
+        'App\Services\Interfaces\AreaServiceInterface' => 'App\Services\AreaService',
+        'App\Services\Interfaces\CityServiceInterface' => 'App\Services\CityService',
+        'App\Services\Interfaces\ProjectServiceInterface' => 'App\Services\ProjectService',
     ];
 
     /**

@@ -160,9 +160,30 @@ return [
         // ],
         [
             'title' => 'QL Trường',
-            'icon' => 'fa fa-user',
-            'name' => ['school'],
-            'route' => 'school/index'
+            'icon' => 'fa fa-instagram',
+            'name' => ['school', 'area', 'project'],
+            'subModule' => [
+                [
+                    'title' => 'Quản lý loại hình trường',
+                    'route' => 'school/catalogue/index'
+                ],
+                [
+                    'title' => 'Quản lý trường',
+                    'route' => 'school/index'
+                ],
+                [
+                    'title' => 'Quản lý khu vực',
+                    'route' => 'area/index'
+                ],
+                [
+                    'title' => 'Quản lý thành phố',
+                    'route' => 'city/index'
+                ],
+                [
+                    'title' => 'Quản lý dự án',
+                    'route' => 'project/index'
+                ],
+            ]
         ],
         [
             'title' => 'QL Học bổng',
@@ -187,17 +208,17 @@ return [
                 ],
             ]
         ],
-        // [
-        //     'title' => 'QL Banner & Slide',
-        //     'icon' => 'fa fa-picture-o',
-        //     'name' => ['slide'],
-        //     'subModule' => [
-        //         [
-        //             'title' => 'Cài đặt Slide',
-        //             'route' => 'slide/index'
-        //         ],
-        //     ]
-        // ],
+        [
+            'title' => 'QL Banner & Slide',
+            'icon' => 'fa fa-picture-o',
+            'name' => ['slide'],
+            'subModule' => [
+                [
+                    'title' => 'Cài đặt Slide',
+                    'route' => 'slide/index'
+                ],
+            ]
+        ],
         // [
         //     'title' => 'QL Menu',
         //     'icon' => 'fa fa-bars',
