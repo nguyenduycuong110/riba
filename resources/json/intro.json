@@ -1,0 +1,10 @@
+[
+    {
+        "category": "Về chúng tôi",
+        "image": "frontend/resources/img/project/intro-image.png",
+        "canonical": "/",
+        "name": "Chào mừng bạn đến với <br> hệ thống CTIHSK",
+        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025",
+        "content": "<p>Tỉ lệ đỗ học bổng cao</p><p>Thương hiệu du học uy tín nhất</p><p>Chi phí tốt nhất thị trường</p><p>Hỗ trợ hậu mãi tốt nhất</p><p>Hợp tác hơn 50 trường Đại học</p><p>Đội ngũ nhân sự tận tâm</p><p>Có hệ thống tra cứu thông tin</p>"
+    }
+]

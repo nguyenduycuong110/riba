@@ -139,25 +139,6 @@ class System{
             ]
         ];
 
-        $data['text'] = [
-            'label' => 'Cấu hình text',
-            'description' => '',
-            'value' => [
-                '1' => ['type' => 'text', 'label' => 'Text_1'],
-                '2' => ['type' => 'text', 'label' => 'Text_2'],
-                '3' => ['type' => 'textarea', 'label' => 'Text_3'],
-                '4' => ['type' => 'text', 'label' => 'Text_4'],
-                '5' => ['type' => 'text', 'label' => 'Text_5'],
-                '6' => ['type' => 'textarea', 'label' => 'Text_6'],
-                '7' => ['type' => 'text', 'label' => 'Text_7'],
-                '8' => ['type' => 'text', 'label' => 'Text_8'],
-                '9' => ['type' => 'text', 'label' => 'Text_9'],
-                '10' => ['type' => 'text', 'label' => 'Text_10'],
-                '11' => ['type' => 'text', 'label' => 'Text_11'],
-                '12' => ['type' => 'text', 'label' => 'Text_12'],
-            ]
-        ];
-
         
         $data['script'] = [
             'label' => 'Cấu hình script',

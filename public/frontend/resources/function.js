@@ -65,8 +65,8 @@
 		});
 	}
 
-	HT.category = () => {
-		var swiper = new Swiper(".panel-category .swiper-container", {
+	HT.major = () => {
+		var swiper = new Swiper(".panel-major .swiper-container", {
 			loop: true,
 			pagination: {
 				el: '.swiper-pagination',
@@ -78,13 +78,13 @@
 			slidesPerView: 1.5,
 			breakpoints: {
 				415: {
-					slidesPerView: 1.5,
+					slidesPerView: 1,
 				},
 				500: {
-				  slidesPerView: 2,
+				  slidesPerView: 1,
 				},
 				768: {
-				  slidesPerView: 3,
+				  slidesPerView: 2,
 				},
 				1280: {
 					slidesPerView: 3,
@@ -97,130 +97,6 @@
 			
 		});
 		
-	}
-
-	HT.service = () => {
-		const swiper = new Swiper('.panel-service-1 .swiper-container', {
-            centeredSlides: true,
-            loop: true,
-            speed: 500,
-            slidesPerView: 1.5,
-            spaceBetween: 120,
-            // autoplay: {
-            //     delay: 3000,
-            // },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-        
-                640: {
-                    slidesPerView: 2.5,
-                },
-                768: {
-                    slidesPerView: 2.75,
-                },
-                1080: {
-                    slidesPerView: 3.25,
-                },
-                1280: {
-                    slidesPerView: 2.75,
-                },
-            },
-        });
-		
-	}
-
-
-	HT.swiperCategory = () => {
-		var swiper = new Swiper(".panel-category .swiper-container", {
-			loop: false,
-			pagination: {
-				el: '.swiper-pagination',
-			},
-			spaceBetween: 20,
-			slidesPerView: 1.5,
-			breakpoints: {
-				415: {
-					slidesPerView: 1.5,
-				},
-				500: {
-				  slidesPerView: 2.5,
-				},
-				768: {
-				  slidesPerView: 4,
-				},
-				1280: {
-					slidesPerView: 5,
-				}
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			
-		});
-	}
-
-	HT.swiperAsideFeature = () => {
-		var swiper = new Swiper(".aside-feature .swiper-container", {
-			loop: false,
-			pagination: {
-				el: '.swiper-pagination',
-			},
-			spaceBetween: 0,
-			slidesPerView: 1,
-			breakpoints: {
-				415: {
-					slidesPerView: 1,
-				},
-				500: {
-				  slidesPerView: 1,
-				},
-				768: {
-				  slidesPerView: 1,
-				},
-				1280: {
-					slidesPerView: 1,
-				}
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			
-		});
-	}
-
-	HT.swiperBestSeller = () => {
-		var swiper = new Swiper(".catalogue-slide .swiper-container", {
-			loop: false,
-			pagination: {
-				el: '.swiper-pagination',
-			},
-			spaceBetween: 20,
-			slidesPerView: 2,
-			breakpoints: {
-				415: {
-					slidesPerView: 1,
-				},
-				500: {
-				  slidesPerView: 2,
-				},
-				768: {
-				  slidesPerView: 3,
-				},
-				1280: {
-					slidesPerView: 4,
-				}
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			
-		});
 	}
 
 	
@@ -410,33 +286,7 @@
         });
     }
 
-    HT.requestConsult = () => {
-        $(document).on('click', '#advise button', function(e){
-            e.preventDefault()
-            let phone =  $('#advise input[name=phone]').val()
-            if (!phone || !/^(0[3|5|7|8|9][0-9]{8})$/.test(phone)) {
-                alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số, bắt đầu bằng 0).');
-                return;
-            }
-            toastr.success('Gửi thông tin thành công. Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất', 'Thông báo từ hệ thống')
-            $.ajax({
-				url: 'ajax/contact/requestConsult', 
-				type: 'POST', 
-				data: {
-					'phone' : phone,
-                    '_token' : _token
-				}, 
-				dataType: 'json', 
-				success: function(res) {
-					if(res.status == true){
-                        // toastr.success(res.messages, 'Thông báo từ hệ thống !')
-                        $('#advise input[name=phone]').val('')
-                    }
-				},
-			});
-        })
-    }
-
+ 
 
     HT.scrollHeading = () => {
         $(document).on('click', '.widget-toc a', function(e) {
@@ -498,185 +348,7 @@
         });
     }
 
-    HT.updateHeaderColor = (slideIndex) => {
-        const updateHeaderBasedOnSlide = (currentSlideIndex) => {
-            const $slides = $('.panel-slide .swiper-slide');
-            const $header = $('.pc-header');
-            
-            console.log('Updating header color for slide index:', currentSlideIndex);
-            
-            const $currentSlide = $slides.eq(currentSlideIndex);
-            
-            if($currentSlide.length) {
-                console.log('Current slide classes:', $currentSlide.attr('class'));
-                
-                if($currentSlide.hasClass('slide-item-2')) {
-                    console.log('Slide 2 active - adding white-text-mode class');
-                    
-                    // CHỈ CẦN ADD CLASS - CSS SẼ LO PHẦN CÒN LẠI
-                    $header.addClass('white-text-mode');
-                    
-                } else {
-                    console.log('Other slide active - removing white-text-mode class');
-                    
-                    // CHỈ CẦN REMOVE CLASS
-                    $header.removeClass('white-text-mode');
-                }
-            }
-        };
-        
-        if(typeof slideIndex !== 'undefined') {
-            updateHeaderBasedOnSlide(slideIndex);
-        }
-        
-        return updateHeaderBasedOnSlide;
-    };
-
-    HT.manualSlide = () => {
-        if($('.panel-slide').length){
-            console.log('Setting up manual slide system...');
-            
-            let currentSlide = 0;
-            let $slides = $('.panel-slide .swiper-slide');
-            let totalSlides = $slides.length;
-            let $container = $('.panel-slide .swiper-container');
-            let $wrapper = $('.panel-slide .swiper-wrapper');
-            
-            // Initialize header color updater
-            const updateHeaderColor = HT.updateHeaderColor();
-            
-            console.log('Total slides found:', totalSlides);
-            
-            if(totalSlides <= 1) {
-                console.log('Only 1 slide, hiding navigation');
-                $('.panel-slide .swiper-button-next, .panel-slide .swiper-button-prev').hide();
-                return;
-            }
-            
-            // Reset CSS của wrapper và slides
-            $wrapper.css({
-                'display': 'block',
-                'position': 'relative',
-                'width': '100%',
-                'height': '100%'
-            });
-            
-            // Thiết lập slides - ẩn tất cả trừ slide đầu
-            $slides.each(function(index) {
-                $(this).css({
-                    'position': 'absolute',
-                    'top': '0',
-                    'left': '0',
-                    'width': '100%',
-                    'height': '100%',
-                    'opacity': index === 0 ? '1' : '0',
-                    'transition': 'opacity 0.5s ease-in-out',
-                    'z-index': index === 0 ? '2' : '1'
-                });
-            });
-            
-            // Set initial header color for first slide
-            updateHeaderColor(0);
-            
-            // Function để chuyển slide
-            const goToSlide = (newIndex) => {
-                if(newIndex === currentSlide) return;
-                
-                console.log('Changing from slide', currentSlide, 'to slide', newIndex);
-                
-                // Fade out current slide
-                $slides.eq(currentSlide).css({
-                    'opacity': '0',
-                    'z-index': '1'
-                });
-                
-                // Fade in new slide
-                $slides.eq(newIndex).css({
-                    'opacity': '1',
-                    'z-index': '2'
-                });
-                
-                currentSlide = newIndex;
-                
-                // *** FIX: TRUYỀN newIndex VÀO updateHeaderColor ***
-                console.log('Updating header for slide index:', newIndex);
-                updateHeaderColor(newIndex);
-            };
-            
-            // Next button click
-            $('.panel-slide .swiper-button-next').off('click').on('click', function(e) {
-                e.preventDefault();
-                console.log('Next button clicked, current slide:', currentSlide);
-                let nextSlide = (currentSlide + 1) % totalSlides;
-                console.log('Going to next slide:', nextSlide);
-                goToSlide(nextSlide);
-            });
-            
-            // Prev button click  
-            $('.panel-slide .swiper-button-prev').off('click').on('click', function(e) {
-                e.preventDefault();
-                console.log('Prev button clicked, current slide:', currentSlide);
-                let prevSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                console.log('Going to prev slide:', prevSlide);
-                goToSlide(prevSlide);
-            });
-            
-            // Debug: Log tất cả slides và classes
-            console.log('=== DEBUG SLIDES ===');
-            $slides.each(function(index) {
-                console.log(`Slide ${index}:`, $(this).attr('class'));
-            });
-            console.log('==================');
-            
-            // Keyboard navigation
-            $(document).on('keydown', function(e) {
-                if($('.panel-slide').is(':visible')) {
-                    if(e.key === 'ArrowRight') {
-                        $('.panel-slide .swiper-button-next').click();
-                    } else if(e.key === 'ArrowLeft') {
-                        $('.panel-slide .swiper-button-prev').click();
-                    }
-                }
-            });
-            
-            // Touch/swipe support
-            let startX = 0;
-            let startY = 0;
-            let isTouch = false;
-            
-            $container.on('touchstart mousedown', function(e) {
-                isTouch = true;
-                startX = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
-                startY = e.type === 'touchstart' ? e.originalEvent.touches[0].clientY : e.clientY;
-            });
-            
-            $container.on('touchend mouseup', function(e) {
-                if(!isTouch) return;
-                
-                let endX = e.type === 'touchend' ? e.originalEvent.changedTouches[0].clientX : e.clientX;
-                let endY = e.type === 'touchend' ? e.originalEvent.changedTouches[0].clientY : e.clientY;
-                
-                let deltaX = endX - startX;
-                let deltaY = endY - startY;
-                
-                // Check if horizontal swipe is stronger than vertical
-                if(Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-                    if(deltaX > 0) {
-                        // Swipe right - previous slide
-                        $('.panel-slide .swiper-button-prev').click();
-                    } else {
-                        // Swipe left - next slide
-                        $('.panel-slide .swiper-button-next').click();
-                    }
-                }
-                
-                isTouch = false;
-            });
-            
-            console.log('Manual slide system initialized successfully');
-        }
-    };
-
+  
     
     HT.popupSwiperSlide = () => {
 		document.querySelectorAll(".popup-gallery").forEach(popup => {
@@ -707,125 +379,7 @@
 
    
 
-    HT.loadProject = () => {
-        $(document).on('click', '.project-tab li a', function(e){
-            e.preventDefault()
-            const _this = $(this)
-            const id = _this.attr('data-id')
-            $.ajax({
-				url: 'ajax/projects', 
-				type: 'GET', 
-				data: {id: id}, 
-				dataType: 'json', 
-				beforeSend: function() {
-					
-				},
-				success: function(res) {
-                    console.log(res.html);
-                    
-                    if(res.html.length > 0){
-                        $('.panel-project-body').html(res.html)
-                    }else{
-                        $('.panel-project-body').html('<div class="uk-text-center">Không tìm thấy dữ liệu hợp lệ</div>')
-                    }
-					
-				},
-			});
-
-        })
-    }
-
-    HT.renderProductFromProductCatalogue = () => {
-        $(document).on('click','.filter-category li', function(e){
-			e.preventDefault()
-			let _this = $(this)
-            $('.panel-new-course .btn').hide()
-            $('.filter-category li').removeClass('active');
-            _this.addClass('active')
-            if(_this.hasClass('all')){
-                $('.panel-new-course .panel-body').hide()
-                $('.panel-new-course .btn').show()
-                $('.panel-new-course .all-pd').show()
-                return;
-            }
-            let option = {
-                product_catalogue_id : _this.data('product-catalogue-id')
-            }
-            $.ajax({
-                url: 'ajax/dashboard/findProductObject', 
-                type: 'GET', 
-                data: option,
-                dataType: 'json', 
-                success: function(res){
-                    $('.panel-new-course .panel-body').hide()
-                    $('.panel-new-course .uk-container').append(res.html)
-                },
-                beforeSend: function(){
-
-                },
-            });
-		})
-	}
-
-    HT.techStaff = () => {
-        var swiper = new Swiper(".panel-tech-staff .swiper-container", {
-			loop: false,
-			pagination: {
-				el: '.swiper-pagination',
-			},
-			spaceBetween: 25,
-			slidesPerView: 2,
-			breakpoints: {
-				315: {
-					slidesPerView: 1,
-				},
-				500: {
-				  slidesPerView: 2,
-				},
-				768: {
-				  slidesPerView: 3,
-				},
-				1280: {
-					slidesPerView: 4,
-				}
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			
-		});
-    }
-
-    HT.video = () => {
-        var swiper = new Swiper(".videos .swiper-container", {
-			loop: false,
-			pagination: {
-				el: '.swiper-pagination',
-			},
-			spaceBetween: 25,
-			slidesPerView: 2,
-			breakpoints: {
-				315: {
-					slidesPerView: 1,
-				},
-				500: {
-				  slidesPerView: 2,
-				},
-				768: {
-				  slidesPerView: 3,
-				},
-				1280: {
-					slidesPerView: 1,
-				}
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			
-		});
-    }
+    
 
     HT.partner = () => {
         var swiper = new Swiper(".panel-partner .swiper-container", {
@@ -857,35 +411,7 @@
 		});
     }
 
-    HT.whyChoose = () => {
-        var swiper = new Swiper(".panel-why-choose .swiper-container", {
-			loop: false,
-			pagination: {
-				el: '.swiper-pagination',
-			},
-			spaceBetween: 45,
-			slidesPerView: 2,
-			breakpoints: {
-				315: {
-					slidesPerView: 1,
-				},
-				500: {
-				  slidesPerView: 2,
-				},
-				768: {
-				  slidesPerView:2,
-				},
-				1280: {
-					slidesPerView: 3
-                }
-			},
-			navigation: {
-				nextEl: '.swiper-button-next',
-				prevEl: '.swiper-button-prev',
-			},
-			
-		});
-    }
+    
 
     HT.register = () => {
         $('.register-form').on('submit', function(e){
@@ -954,41 +480,7 @@
         })
     }
 
-    HT.filterCourse = () => {
-        
-        $('.p-filter').on('change', function(){
-            let _this = $(this)
-            let productCatalogueId = $('input[name="product_catalogue_id[]"]:checked').map(function() {
-                return $(this).val()
-            }).get();
-            let lectureId = $('input[name="lecture_id[]"]:checked').map(function() {
-                return $(this).val()
-            }).get();
-
-            const filterOptions = {
-                productCatalogueId: productCatalogueId,
-                lectureId: lectureId
-            }
-            
-            $.ajax({
-				url: 'ajax/product/filter', 
-				type: 'GET', 
-				data: filterOptions, 
-				dataType: 'json', 
-				success: function(res) {
-                    let html = res.data
-                    let countProduct = res.countProduct
-                    $('.caption strong').html('')
-                    $('.caption strong').html(`${countProduct} sản phẩm`)
-                    $('.product-catalogue .product-list').html(html);
-                    HT.skeleton()
-				},
-			});
-          
-            
-
-        })
-    }
+    
 
     HT.changeStatusChildren = () => {
         $(document).on('click', '.toggle', function () {
@@ -1040,24 +532,24 @@
         HT.changeStatusDropdownMenu()
         HT.changeStatusPass()
         HT.changeStatusChildren()
-        HT.whyChoose()
-        HT.partner()
-        HT.video()
-        HT.techStaff ()
-        HT.renderProductFromProductCatalogue ()
-        HT.loadProject();
-        HT.popupSwiperSlide();
+        // HT.whyChoose()
+        // HT.partner()
+        // HT.video()
+        // HT.techStaff ()
+        // HT.renderProductFromProductCatalogue ()
+        // HT.loadProject();
+        // HT.popupSwiperSlide();
         HT.highlightTocOnScroll();
         HT.scrollHeading()
-        HT.requestConsult()
+        // HT.requestConsult()
         HT.scroll()
-        HT.advise()
+        // HT.advise()
         HT.addVoucher()
 		HT.removePagination()
 		HT.wow()
-		HT.category()
-		HT.swiperBestSeller()
-		HT.swiperAsideFeature()
+		// HT.category()
+		// HT.swiperBestSeller()
+		// HT.swiperAsideFeature()
 		
 		/* CORE JS */
         HT.swiper()
@@ -1065,13 +557,16 @@
 		HT.select2()
 		HT.loadDistribution()
 		HT.wrapTable()
-        HT.service()
+        // HT.service()
         HT.skeleton()
 
         /** ACTION  */
         HT.register()
         HT.previewVideo()
-        HT.filterCourse()
+        // HT.filterCourse()
+
+
+        HT.major()
 
         // $(window).on('load', function() {
         //     HT.swiper();
