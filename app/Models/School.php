@@ -15,6 +15,7 @@ class School extends Authenticatable
 
     protected $fillable = [
         'id',
+        'rate',
         'code',
         'name',
         'email',

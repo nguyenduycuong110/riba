@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-row">
                         <label for="" class="control-label text-left">Nội dung</label>
-                        <textarea name="scholarship_policy[${chapterIndex}][description]" class="ck-editor" id="${textareaId}" placeholder="Nhập mô tả chính sách" style="width:100%; margin-top:10px;"></textarea>
+                        <textarea name="scholarship_policy[${chapterIndex}][description]" data-height="200" class="ck-editor" id="${textareaId}" placeholder="Nhập mô tả chính sách" style="width:100%; margin-top:10px;"></textarea>
                     </div>
                 </div>
             </div>`

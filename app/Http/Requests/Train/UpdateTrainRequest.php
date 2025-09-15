@@ -3,34 +3,37 @@
 namespace App\Http\Requests\Train;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTrainRequest extends FormRequest
 {
-    /**
-     * Determine if the customer is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
-     */
     public function rules(): array
     {
+        $areaId = $this->route('id'); 
         return [
-            'name' => 'required|string',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('trains', 'name')
+                    ->whereNull('deleted_at')
+                    ->ignore($areaId)
+            ],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'Bạn chưa nhập  tên trường',
-            'name.string' => 'Tên trường phải là dạng ký tự',
+            'name.required' => 'Bạn chưa nhập tên thể loại đào tạo',
+            'name.string' => 'Tên thể loại đào tạo phải là dạng ký tự',
+            'name.max' => 'Tên thể loại đào tạo không được vượt quá 255 ký tự',
+            'name.unique' => 'Tên thể loại đào tạo ":input" đã tồn tại trong hệ thống',
         ];
     }
 }

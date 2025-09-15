@@ -430,7 +430,7 @@ return [
     ],
     'scholarshipCatalogue' => [
         'index' => [
-            'title' => 'Quản lý nhóm học bổng',
+            'title' => 'Quản lý khu vực',
             'table' => 'Danh sách nhóm học bổng'
         ],
         'create' => [
@@ -441,6 +441,66 @@ return [
         ],
         'delete' => [
             'title' => 'Xóa nhóm học bổng'
+        ],
+    ],
+    'area' => [
+        'index' => [
+            'title' => 'Quản lý khu vực',
+            'table' => 'Danh sách khu vực'
+        ],
+        'create' => [
+            'title' => 'Thêm mới khu vực'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật khu vực'
+        ],
+        'delete' => [
+            'title' => 'Xóa khu vực'
+        ],
+    ],
+    'city' => [
+        'index' => [
+            'title' => 'Quản lý thành phố',
+            'table' => 'Danh sách thành phố'
+        ],
+        'create' => [
+            'title' => 'Thêm mới thành phố'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật thành phố'
+        ],
+        'delete' => [
+            'title' => 'Xóa thành phố'
+        ],
+    ],
+    'schoolCatalogue' => [
+        'index' => [
+            'title' => 'Quản lý loại hình trường',
+            'table' => 'Danh sách loại hình trường'
+        ],
+        'create' => [
+            'title' => 'Thêm mới loại hình trường'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật loại hình trường'
+        ],
+        'delete' => [
+            'title' => 'Xóa loại hình trường'
+        ],
+    ],
+    'project' => [
+        'index' => [
+            'title' => 'Quản lý dự án',
+            'table' => 'Danh sách dự án'
+        ],
+        'create' => [
+            'title' => 'Thêm mới dự án'
+        ],
+        'edit' => [
+            'title' => 'Cập nhật dự án'
+        ],
+        'delete' => [
+            'title' => 'Xóa dự án'
         ],
     ],
     'parent' => 'Chọn danh mục cha',

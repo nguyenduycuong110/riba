@@ -49,10 +49,14 @@ class RepositoryServiceProvider extends ServiceProvider
         'App\Repositories\Interfaces\ContactRepositoryInterface' => 'App\Repositories\ContactRepository',
         'App\Repositories\Interfaces\LecturerRepositoryInterface' => 'App\Repositories\LecturerRepository',
         'App\Repositories\Interfaces\SchoolRepositoryInterface' => 'App\Repositories\SchoolRepository',
+        'App\Repositories\Interfaces\SchoolCatalogueRepositoryInterface' => 'App\Repositories\SchoolCatalogueRepository',
         'App\Repositories\Interfaces\ScholarshipRepositoryInterface' => 'App\Repositories\ScholarshipRepository',
         'App\Repositories\Interfaces\ScholarshipCatalogueRepositoryInterface' => 'App\Repositories\ScholarshipCatalogueRepository',
         'App\Repositories\Interfaces\TrainRepositoryInterface' => 'App\Repositories\TrainRepository',
         'App\Repositories\Interfaces\PolicyRepositoryInterface' => 'App\Repositories\PolicyRepository',
+        'App\Repositories\Interfaces\AreaRepositoryInterface' => 'App\Repositories\AreaRepository',
+        'App\Repositories\Interfaces\CityRepositoryInterface' => 'App\Repositories\CityRepository',
+        'App\Repositories\Interfaces\ProjectRepositoryInterface' => 'App\Repositories\ProjectRepository',
     ];
 
     public function register(): void

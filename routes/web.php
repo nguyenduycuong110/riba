@@ -24,7 +24,6 @@ use App\Http\Controllers\Backend\VoucherController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\LecturerController;
 use App\Http\Controllers\Backend\IntroduceController;
-use App\Http\Controllers\Backend\SchoolController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
@@ -45,6 +44,11 @@ use App\Http\Controllers\Backend\Scholarship\ScholarshipCatalogueController;
 use App\Http\Controllers\Backend\Scholarship\ScholarshipController;
 use App\Http\Controllers\Backend\Scholarship\TrainController;
 use App\Http\Controllers\Backend\Scholarship\PolicyController;
+use App\Http\Controllers\Backend\Area\AreaController;
+use App\Http\Controllers\Backend\Area\CityController;
+use App\Http\Controllers\Backend\School\SchoolController;
+use App\Http\Controllers\Backend\School\SchoolCatalogueController;
+use App\Http\Controllers\Backend\ProjectController;
 use App\Http\Controllers\Backend\SystemController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
@@ -192,6 +196,7 @@ Route::get('ajax/dashboard/findProductObject', [AjaxDashboardController::class, 
 /* BACKEND ROUTES */
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
+    
     Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
     
     /*SCHORLARSHIP*/
@@ -236,6 +241,82 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
         Route::delete('{id}/destroy', [PolicyController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('policy.destroy');
     });
 
+    /*AREA*/
+
+    Route::group(['prefix' => 'area'], function () {
+        Route::get('index', [AreaController::class, 'index'])->name('area.index');
+        Route::get('create', [AreaController::class, 'create'])->name('area.create');
+        Route::post('store', [AreaController::class, 'store'])->name('area.store');
+        Route::get('{id}/edit', [AreaController::class, 'edit'])->where(['id' => '[0-9]+'])->name('area.edit');
+        Route::post('{id}/update', [AreaController::class, 'update'])->where(['id' => '[0-9]+'])->name('area.update');
+        Route::get('{id}/delete', [AreaController::class, 'delete'])->where(['id' => '[0-9]+'])->name('area.delete');
+        Route::delete('{id}/destroy', [AreaController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('area.destroy');
+    });
+
+    Route::group(['prefix' => 'city'], function () {
+        Route::get('index', [CityController::class, 'index'])->name('city.index');
+        Route::get('create', [CityController::class, 'create'])->name('city.create');
+        Route::post('store', [CityController::class, 'store'])->name('city.store');
+        Route::get('{id}/edit', [CityController::class, 'edit'])->where(['id' => '[0-9]+'])->name('city.edit');
+        Route::post('{id}/update', [CityController::class, 'update'])->where(['id' => '[0-9]+'])->name('city.update');
+        Route::get('{id}/delete', [CityController::class, 'delete'])->where(['id' => '[0-9]+'])->name('city.delete');
+        Route::delete('{id}/destroy', [CityController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('city.destroy');
+    });
+
+
+    /*SCHOOL*/
+
+    Route::group(['prefix' => 'school'], function () {
+        Route::get('index', [SchoolController::class, 'index'])->name('school.index');
+        Route::get('create', [SchoolController::class, 'create'])->name('school.create');
+        Route::post('store', [SchoolController::class, 'store'])->name('school.store');
+        Route::get('{id}/edit', [SchoolController::class, 'edit'])->where(['id' => '[0-9]+'])->name('school.edit');
+        Route::post('{id}/update', [SchoolController::class, 'update'])->where(['id' => '[0-9]+'])->name('school.update');
+        Route::get('{id}/delete', [SchoolController::class, 'delete'])->where(['id' => '[0-9]+'])->name('school.delete');
+        Route::delete('{id}/destroy', [SchoolController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('school.destroy');
+    });
+
+    Route::group(['prefix' => 'school/catalogue'], function () {
+        Route::get('index', [SchoolCatalogueController::class, 'index'])->name('school.catalogue.index');
+        Route::get('create', [SchoolCatalogueController::class, 'create'])->name('school.catalogue.create');
+        Route::post('store', [SchoolCatalogueController::class, 'store'])->name('school.catalogue.store');
+        Route::get('{id}/edit', [SchoolCatalogueController::class, 'edit'])->where(['id' => '[0-9]+'])->name('school.catalogue.edit');
+        Route::post('{id}/update', [SchoolCatalogueController::class, 'update'])->where(['id' => '[0-9]+'])->name('school.catalogue.update');
+        Route::get('{id}/delete', [SchoolCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('school.catalogue.delete');
+        Route::delete('{id}/destroy', [SchoolCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('school.catalogue.destroy');
+    });
+
+    Route::group(['prefix' => 'project'], function () {
+        Route::get('index', [ProjectController::class, 'index'])->name('project.index');
+        Route::get('create', [ProjectController::class, 'create'])->name('project.create');
+        Route::post('store', [ProjectController::class, 'store'])->name('project.store');
+        Route::get('{id}/edit', [ProjectController::class, 'edit'])->where(['id' => '[0-9]+'])->name('project.edit');
+        Route::post('{id}/update', [ProjectController::class, 'update'])->where(['id' => '[0-9]+'])->name('project.update');
+        Route::get('{id}/delete', [ProjectController::class, 'delete'])->where(['id' => '[0-9]+'])->name('project.delete');
+        Route::delete('{id}/destroy', [ProjectController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('project.destroy');
+    });
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     /* USER */
     Route::group(['prefix' => 'user'], function () {
@@ -497,16 +578,6 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
         Route::post('{id}/update', [IntroduceController::class, 'update'])->where(['id' => '[0-9]+'])->name('introduce.update');
         Route::get('{id}/delete', [IntroduceController::class, 'delete'])->where(['id' => '[0-9]+'])->name('introduce.delete');
         Route::delete('{id}/destroy', [IntroduceController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('introduce.destroy');
-    });
-
-    Route::group(['prefix' => 'school'], function () {
-        Route::get('index', [SchoolController::class, 'index'])->name('school.index');
-        Route::get('create', [SchoolController::class, 'create'])->name('school.create');
-        Route::post('store', [SchoolController::class, 'store'])->name('school.store');
-        Route::get('{id}/edit', [SchoolController::class, 'edit'])->where(['id' => '[0-9]+'])->name('school.edit');
-        Route::post('{id}/update', [SchoolController::class, 'update'])->where(['id' => '[0-9]+'])->name('school.update');
-        Route::get('{id}/delete', [SchoolController::class, 'delete'])->where(['id' => '[0-9]+'])->name('school.delete');
-        Route::delete('{id}/destroy', [SchoolController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('school.destroy');
     });
 
    /* AJAX */

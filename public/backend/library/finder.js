@@ -174,8 +174,47 @@
         })
     }
 
+    HT.addItem = () => {
+        $(document).on('click', '.add-item', function(){
+            let _this = $(this)
+            let html = `
+                <div class="input-item">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <div class="form-row">
+                                <input 
+                                    type="text"
+                                    name="name[]"
+                                    value=""
+                                    class="form-control mt10"
+                                    placeholder=""
+                                    autocomplete="off"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="button" class="form-control btn btn-danger remove-item mt10">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('.group-input').append(html)
+        })
+    }
+
+    HT.removeItem = () => {
+        $(document).on('click', '.remove-item', function(){
+            let _this = $(this)
+            _this.closest('.input-item').remove()
+        })
+    }
+
     
 	$(document).ready(function(){
+        HT.addItem()
+        HT.removeItem()
         HT.uploadImageToInput();
         HT.setupCkeditor();
         HT.uploadImageAvatar();

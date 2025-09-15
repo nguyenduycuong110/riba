@@ -83,6 +83,7 @@ class SchoolService extends BaseService implements SchoolServiceInterface
     private function paginateSelect(){
         return [
             'id',
+            'rate',
             'code',
             'name',
             'email',

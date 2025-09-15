@@ -3,26 +3,27 @@
 namespace App\Http\Requests\Policy;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePolicyRequest extends FormRequest
 {
-    /**
-     * Determine if the customer is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
-     */
     public function rules(): array
     {
+        $areaId = $this->route('id'); 
         return [
-            'name' => 'required|string',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('policies', 'name')
+                    ->whereNull('deleted_at')
+                    ->ignore($areaId)
+            ],
         ];
     }
 
@@ -31,6 +32,8 @@ class UpdatePolicyRequest extends FormRequest
         return [
             'name.required' => 'Bạn chưa nhập tên chính sách',
             'name.string' => 'Tên chính sách phải là dạng ký tự',
+            'name.max' => 'Tên chính sách không được vượt quá 255 ký tự',
+            'name.unique' => 'Tên chính sách ":input" đã tồn tại trong hệ thống',
         ];
     }
 }

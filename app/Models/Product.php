@@ -58,6 +58,8 @@ class Product extends Model
             'url',
         )->withTimestamps();
     }
+
+    
     public function product_catalogues(){
         return $this->belongsToMany(ProductCatalogue::class, 'product_catalogue_product' , 'product_id', 'product_catalogue_id');
     }

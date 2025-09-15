@@ -34,7 +34,8 @@ class ScholarshipCatalogueService extends BaseService implements ScholarshipCata
         DB::beginTransaction();
         try{
             $payload = $request->except(['_token','send','re_password']);
-            $scholarshipCatalogue = $this->scholarshipCatalogueRepository->create($payload);
+            $data = $this->convertData($payload);
+            $scholarshipCatalogue = count($data) == 1 ? $this->scholarshipCatalogueRepository->create($data[0]) : $this->scholarshipCatalogueRepository->updateOrInsert($data);
             DB::commit();
             return true;
         }catch(\Exception $e ){
@@ -72,6 +73,14 @@ class ScholarshipCatalogueService extends BaseService implements ScholarshipCata
             echo $e->getMessage();die();
             return false;
         }
+    }
+
+    private function convertData($payload){
+        $temp = [];
+        foreach($payload['name'] as $k => $v){
+            $temp[$k]['name'] = $v;
+        }
+        return $temp;
     }
 
     private function paginateSelect(){
