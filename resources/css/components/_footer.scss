@@ -1,0 +1,127 @@
+// Footer
+.footer-upper {
+    background: rgba(12, 74, 26, 1);
+    padding: 40px 0;
+    
+    .name-company {
+        margin-bottom: 30px;
+        
+        @media (max-width: 767px) {
+            margin-bottom: 20px;
+        }
+    }
+    
+    h3.heading-2 {
+        line-height: 1.2;
+        
+        > * {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            
+            @media (max-width: 567px) {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            line-height: 1.4;
+        }
+    }
+    
+    .info-company {
+        color: #fff;
+        
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        .office {
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            
+            @media (max-width: 1024px) {
+                font-size: 16px;
+            }
+            
+            @media (max-width: 767px) {
+                font-size: 14px;
+            }
+        }
+        
+        p {
+            margin-bottom: 15px;
+            
+            @media (max-width: 1024px) {
+                font-size: 12px;
+            }
+            
+            @media (max-width: 767px) {
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    
+    .website {
+        margin-bottom: 0;
+    }
+    
+    .office {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    
+    @media (max-width: 767px) {
+        .uk-width-medium-1-2 {
+            margin-bottom: 20px;
+        }
+        
+        .uk-width-medium-1-6:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.footer-menu__item {
+    li {
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+        
+        a {
+            color: #fff;
+            
+            @media (max-width: 1024px) {
+                font-size: 12px;
+            }
+        }
+    }
+    
+    h3.heading-2 {
+        margin-bottom: 15px;
+    }
+}
+
+.copyright {
+    padding: 20px 0;
+    background: rgba(9, 61, 21, 1);
+    color: #fff;
+    font-size: 13px;
+    line-height: 24px;
+    
+    p {
+        margin-bottom: 0;
+        width: 90%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        
+        @media (max-width: 767px) {
+            font-size: 13px;
+        }
+    }
+}

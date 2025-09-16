@@ -19,7 +19,7 @@
                         @foreach($socialItem as $item)
                         <li>
                             <a href="{{ $system['social_'.$item] }}" class="{{ $item }} wow fadeInLeft"  title="{{ $item }}" target="_blank">
-                            <img src="/frontend/resources/img/{{ $item }}.svg" alt="{{ $item }}">
+                            <img src="/vendor/frontend/img/{{ $item }}.svg" alt="{{ $item }}">
                             </a>
                         </li>
                         @endforeach
@@ -41,7 +41,7 @@
                     <form action="tim-kiem" class="form-search">
                         <input type="text" name="keyword" value="" placeholder="Nhập từ khóa muốn tìm kiếm ?">
                         <button type="submit" class="btn-search">
-                            <img src="/frontend/resources/img/search.svg" alt="">
+                            <img src="/vendor/frontend/img/search.svg" alt="">
                         </button>
                     </form>
                 </div>
@@ -51,4 +51,4 @@
 </div>
 
 @include('frontend.component.header-mobile')
-@include('frontend.auth.index')
+{{-- @include('frontend.auth.index') --}}

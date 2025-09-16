@@ -9,7 +9,7 @@
                     <form action="tim-kiem" class="search">
                         <input type="text" name="keyword" placeholder="Tìm kiếm">
                         <button type="submit" class="btn-search">
-                            <img src="/frontend/resources/img/search.svg" alt="">
+                            <img src="/vendor/frontend/img/search.svg" alt="">
                         </button>
                     </form>
                 </div>

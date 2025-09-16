@@ -27,35 +27,7 @@
 <meta name="twitter:title" content="{{ $seo['meta_title'] }}" />
 <meta name="twitter:description" content="{{ $seo['meta_description'] }}" />
 <meta name="twitter:image" content="{{ $seo['meta_image'] }}" />
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&family=Questrial&family=Quicksand:wght@300..700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
-
-{{-- <meta name="p:domain_verify" content="bbf6b87e5e83b6aa8d4bc6dab42cba0a"/> --}}
-
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-<!-- <link href="backend/css/bootstrap.min.css" rel="stylesheet"> -->
-@php
-    $coreCss = [
-        'backend/css/plugins/toastr/toastr.min.css',
-        'frontend/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css',
-        'frontend/resources/uikit/css/uikit.modify.css',
-        'frontend/resources/library/css/library.css',
-        'frontend/resources/plugins/wow/css/libs/animate.css',
-        'frontend/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css',
-        'frontend/resources/config.css',
-        'frontend/resources/style.css',
-    ];
-    if(isset($config['css'])){
-        foreach($config['css'] as $key => $val){
-            array_push($coreCss, $val);
-        }
-    }
-@endphp
-@foreach ($coreCss as $item)
-    <link rel="stylesheet" href="{{ asset($item) }}">
-@endforeach
-<script src="{{ asset('frontend/resources/library/js/jquery.js') }}"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js?ver=6.8.1" id="pbmit-lottiefiles-script-js"></script>
+
+{{-- <script src="{{ asset('frontend/resources/library/js/jquery.js') }}"></script> --}}
+{{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js?ver=6.8.1" id="pbmit-lottiefiles-script-js"></script> --}}

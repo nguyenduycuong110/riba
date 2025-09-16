@@ -96,21 +96,21 @@ return [
         //         ],
         //     ]
         // ],
-        // [
-        //     'title' => 'QL Bài viết',
-        //     'icon' => 'fa fa-file',
-        //     'name' => ['post'],
-        //     'subModule' => [
-        //         [
-        //             'title' => 'QL Nhóm Bài Viết',
-        //             'route' => 'post/catalogue/index'
-        //         ],
-        //         [
-        //             'title' => 'QL Bài Viết',
-        //             'route' => 'post/index'
-        //         ]
-        //     ]
-        // ],
+        [
+            'title' => 'QL Bài viết',
+            'icon' => 'fa fa-file',
+            'name' => ['post'],
+            'subModule' => [
+                [
+                    'title' => 'QL Nhóm Bài Viết',
+                    'route' => 'post/catalogue/index'
+                ],
+                [
+                    'title' => 'QL Bài Viết',
+                    'route' => 'post/index'
+                ]
+            ]
+        ],
         // [
         //     'title' => 'QL Bình Luận',
         //     'icon' => 'fa fa-comment',
@@ -122,17 +122,17 @@ return [
         //         ]
         //     ]
         // ],
-        // [
-        //     'title' => 'QL Liên Hệ',
-        //     'icon' => 'fa fa-github',
-        //     'name' => ['contacts'],
-        //     'subModule' => [
-        //         [
-        //             'title' => 'QL Liên Hệ',
-        //             'route' => 'contact/index'
-        //         ]
-        //     ]
-        // ],
+        [
+            'title' => 'QL Liên Hệ',
+            'icon' => 'fa fa-github',
+            'name' => ['contacts'],
+            'subModule' => [
+                [
+                    'title' => 'QL Liên Hệ',
+                    'route' => 'contact/index'
+                ]
+            ]
+        ],
         [
             'title' => 'QL Nhóm Thành Viên',
             'icon' => 'fa fa-user',
@@ -191,19 +191,19 @@ return [
             'name' => ['scholarship', 'policy'],
             'subModule' => [
                 [
-                    'title' => 'Quản lý nhóm học bổng',
+                    'title' => 'Loại Học Bổng',
                     'route' => 'scholarship/catalogue/index'
                 ],
                 [
-                    'title' => 'Quản lý học bổng',
+                    'title' => 'Tin học bổng',
                     'route' => 'scholarship/index'
                 ],
                 [
-                    'title' => 'Quản lý chính sách',
+                    'title' => 'Chính sách',
                     'route' => 'policy/index'
                 ],
                 [
-                    'title' => 'Quản lý thể loại đào tạo',
+                    'title' => 'Hệ đào tạo',
                     'route' => 'train/index'
                 ],
             ]
@@ -219,36 +219,36 @@ return [
                 ],
             ]
         ],
-        // [
-        //     'title' => 'QL Menu',
-        //     'icon' => 'fa fa-bars',
-        //     'name' => ['menu'],
-        //     'subModule' => [
-        //         [
-        //             'title' => 'Cài đặt Menu',
-        //             'route' => 'menu/index'
-        //         ],
-        //     ]
-        // ],
-        // [
-        //     'title' => 'Cấu hình chung',
-        //     'icon' => 'fa fa-file',
-        //     'name' => ['language', 'generate', 'system', 'widget'],
-        //     'subModule' => [
-        //         [
-        //             'title' => 'QL Ngôn ngữ',
-        //             'route' => 'language/index'
-        //         ],
-        //         [
-        //             'title' => 'Cấu hình hệ thống',
-        //             'route' => 'system/index'
-        //         ],
-        //         [
-        //             'title' => 'Quản lý Widget',
-        //             'route' => 'widget/index'
-        //         ],
+        [
+            'title' => 'QL Menu',
+            'icon' => 'fa fa-bars',
+            'name' => ['menu'],
+            'subModule' => [
+                [
+                    'title' => 'Cài đặt Menu',
+                    'route' => 'menu/index'
+                ],
+            ]
+        ],
+        [
+            'title' => 'Cấu hình chung',
+            'icon' => 'fa fa-file',
+            'name' => ['language', 'generate', 'system', 'widget'],
+            'subModule' => [
+                [
+                    'title' => 'QL Ngôn ngữ',
+                    'route' => 'language/index'
+                ],
+                [
+                    'title' => 'Cấu hình hệ thống',
+                    'route' => 'system/index'
+                ],
+                [
+                    'title' => 'Quản lý Widget',
+                    'route' => 'widget/index'
+                ],
                 
-        //     ]
-        // ]
+            ]
+        ]
     ],
 ];

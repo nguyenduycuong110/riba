@@ -1,21 +1,21 @@
  {
     "commit": [
         {
-            "image": "frontend/resources/img/project/commit-1.png",
+            "image": "/vendor/frontend/img/project/commit-1.png",
             "languages": {
                 "name": "Tin cậy",
                 "description": "Với kinh nghiệm hơn 5 năm hoạt động và phục vụ du khách trong - ngoài nước, CTIHSK tự tin là thương hiệu lữ hành tin cậy hàng đầu trên thị trường"
             }
         },
         {
-            "image": "frontend/resources/img/project/commit-2.png",
+            "image": "/vendor/frontend/img/project/commit-2.png",
             "languages": {
                 "name": "Chất lượng",
                 "description": "Luôn đặt chất lượng và lợi ích của khách hàng lên hàng đầu để mang lại những hành trình trọn vẹn cùng chi phí tối ưu"
             }
         },
         {
-            "image": "frontend/resources/img/project/commit-3.png",
+            "image": "/vendor/frontend/img/project/commit-3.png",
             "languages": {
                 "name": "Tận tâm",
                 "description": "Lắng nghe và giải đáp mọi mong muốn của khách hàng để không ngừng cải thiện chất lượng cho mỗi sản phẩm/dịch vụ"
@@ -24,7 +24,7 @@
     ],
     "intro": [
         {
-            "image": "frontend/resources/img/project/intro-image.png",
+            "image": "/vendor/frontend/img/project/intro-image.png",
             "category": "Về chúng tôi",
             "languages": {
                 "canonical": "/",
@@ -57,10 +57,10 @@
     "event": [
         {
             "album": [
-                "frontend/resources/img/project/event-1.png",
-                "frontend/resources/img/project/event-2.png",
-                "frontend/resources/img/project/event-3.png",
-                "frontend/resources/img/project/event-4.png"
+                "/vendor/frontend/img/project/event-1.png",
+                "/vendor/frontend/img/project/event-2.png",
+                "/vendor/frontend/img/project/event-3.png",
+                "/vendor/frontend/img/project/event-4.png"
             ],
             "languages": {
                 "canonical": "/",
@@ -110,7 +110,7 @@
             ],
             "items": [
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/"
@@ -172,22 +172,6 @@
                         "canonical": "/"
                     },
                     "rate": "73.7"
-                },
-                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
-                    "languages": {
-                        "name": "Chongqing Information Technology College Scholarship",
-                        "canonical": "/"
-                    },
-                    "rate": "73.7"
-                },
-                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
-                    "languages": {
-                        "name": "Chongqing Information Technology College Scholarship",
-                        "canonical": "/"
-                    },
-                    "rate": "73.7"
                 }
             ]
         }
@@ -201,7 +185,7 @@
             },
             "items": [
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -209,7 +193,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -217,7 +201,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -225,7 +209,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -233,7 +217,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -241,7 +225,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -249,7 +233,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -257,23 +241,7 @@
                     }
                 },
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
-                    "languages": {
-                        "name": "Chongqing Information Technology College Scholarship",
-                        "canonical": "/",
-                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025"
-                    }
-                },
-                {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
-                    "languages": {
-                        "name": "Chongqing Information Technology College Scholarship",
-                        "canonical": "/",
-                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025"
-                    }
-                },
-                {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "languages": {
                         "name": "Chongqing Information Technology College Scholarship",
                         "canonical": "/",
@@ -285,7 +253,7 @@
     ],
     "major": [
         {
-            "image": "frontend/resources/img/project/major-image.png",
+            "image": "/vendor/frontend/img/project/major-image.png",
             "languages": {
                 "name": "Chuyên Ngành Học",
                 "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025",
@@ -293,7 +261,7 @@
             },
             "items": [
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "rate": "65",
                     "languages": {
                         "name": "Tâm lý học",
@@ -358,9 +326,9 @@
             },
             "items": [
                 {
-                    "image": "frontend/resources/img/project/hoc-bong.png",
+                    "image": "/vendor/frontend/img/project/hoc-bong.png",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -371,7 +339,7 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/6200e43a-b51f-46a7-8a3a-a55e18f50629.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -382,7 +350,7 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -393,7 +361,7 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -404,7 +372,7 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -415,7 +383,7 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -426,7 +394,7 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
@@ -437,34 +405,59 @@
                 {
                     "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
                     "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "logo": "/vendor/frontend/img/project/logo-truong.png",
                     "languages": {
                         "name": "Đại học Bắc Kinh",
                         "canonical": "/",
                         "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025",
                         "extraDescription": "<p>Truong tong hop</p><p>Khu Vuc: Bac Kinh</p><p>Ma Truong: 0001</p>"
                     }
-                },
+                }
+            ]
+        }
+    ],
+    "news": [
+        {
+            "languages": {
+                "name": "Cẩm nang - sự kiện",
+                "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025",
+                "canonical": "/"
+            },
+            "items": [
                 {
-                    "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
-                    "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "image": "/vendor/frontend/img/project/news.png",
+                    "created_at": "16/09/2025",
                     "languages": {
-                        "name": "Đại học Bắc Kinh",
+                        "name": "Top 8 chuyên ngành đào tạo thế mạnh của Trung Quốc",
                         "canonical": "/",
-                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025",
-                        "extraDescription": "<p>Truong tong hop</p><p>Khu Vuc: Bac Kinh</p><p>Ma Truong: 0001</p>"
+                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025"
                     }
                 },
                 {
-                    "image": "https://cdn.studyinchina.io/school/449d086e-f90e-436e-856b-ff28ad6abf30.jpeg",
-                    "rate": "65",
-                    "logo": "frontend/resources/img/project/logo-truong.png",
+                    "image": "/vendor/frontend/img/project/news.png",
+                    "created_at": "16/09/2025",
                     "languages": {
-                        "name": "Đại học Bắc Kinh",
+                        "name": "Top 8 chuyên ngành đào tạo thế mạnh của Trung Quốc",
                         "canonical": "/",
-                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025",
-                        "extraDescription": "<p>Truong tong hop</p><p>Khu Vuc: Bac Kinh</p><p>Ma Truong: 0001</p>"
+                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025"
+                    }
+                },
+                {
+                    "image": "/vendor/frontend/img/project/news.png",
+                    "created_at": "16/09/2025",
+                    "languages": {
+                        "name": "Top 8 chuyên ngành đào tạo thế mạnh của Trung Quốc",
+                        "canonical": "/",
+                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025"
+                    }
+                },
+                {
+                    "image": "/vendor/frontend/img/project/news.png",
+                    "created_at": "16/09/2025",
+                    "languages": {
+                        "name": "Top 8 chuyên ngành đào tạo thế mạnh của Trung Quốc",
+                        "canonical": "/",
+                        "description": "CTIHSK rất hân hạnh và vinh dự khi được đồng hành cùng bạn trong hành trình chinh phục ước mơ DU HỌC TRUNG QUỐC 2025"
                     }
                 }
             ]

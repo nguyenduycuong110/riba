@@ -78,6 +78,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        $this->publishes([
+            resource_path('vendor/frontend/resources') => public_path('vendor/frontend'),
+            resource_path('vendor/backend') => public_path('vendor/backend'),
+        ], 'assets');
+
+
+
         
         $locale = app()->getLocale(); // vn en cn
         $language = Language::where('canonical', $locale)->first();

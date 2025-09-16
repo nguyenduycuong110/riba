@@ -3,12 +3,8 @@
 @endphp
 @if(count($slides[$slideKeyword]['item']))
     <div class="panel-slide page-setup" data-setting="">
-        <div class="swiper-button-prev">
-            <img src="/frontend/resources/img/prev.svg" alt="">
-        </div>
-        <div class="swiper-button-next">
-            <img src="/frontend/resources/img/next.svg" alt="">
-        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 @foreach($slides[$slideKeyword]['item'] as $key => $val )
@@ -26,7 +22,7 @@
                                 </a>
                                 <div class="phone-call ml20  wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                                     <div class="phone-icon">
-                                        <img src="/frontend/resources/img/project/phone-call-1.png" alt="">
+                                        <img src="/vendor/frontend/img/project/phone-call-1.png" alt="">
                                     </div>
                                     <div class="phone-info">
                                         <div class="phone-label">Hoặc gọi trực tiếp</div>

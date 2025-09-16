@@ -6,7 +6,7 @@
     </a>
     <div class="phone-call ml20  wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
         <div class="phone-icon">
-            <img src="/frontend/resources/img/project/phone-call-1.png" alt="">
+            <img src="/vendor/frontend/img/project/phone-call-1.png" alt="">
         </div>
         <div class="phone-info">
             <div class="phone-label">Hoặc gọi trực tiếp</div>

@@ -129,48 +129,12 @@ class HomeController extends FrontendController
     {
         return [
             'language' => $this->language,
-            'css' => [
-                'frontend/resources/plugins/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css',
-                'frontend/resources/plugins/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css',
-                'frontend/resources/css/custom.css'
-            ],
-            'js' => [
-                'frontend/resources/plugins/OwlCarousel2-2.3.4/dist/owl.carousel.min.js',
-                'frontend/resources/library/js/carousel.js',
-                'https://getuikit.com/v2/src/js/components/sticky.js'
-            ]
+            'css' => [],
+            'js' => []
         ];
     }
 
-    public function ajaxProject(Request $request){
-        $id = $request->id;
-        $posts = Post::where('publish', 2)->with(['languages'])->where('post_catalogue_id', $id)->orderBy('order', 'desc')->get();
-        $html = '';
-        if($posts && count($posts)){
-            $html .= '<div class="uk-grid uk-grid-medium">';
-
-            foreach ($posts as $post) {
-                $name = $post->languages->first()->pivot->name ?? '';
-                $canonical = write_url($post->languages->first()->pivot->canonical ?? '');
-                $image = thumb(image($post->image), 600, 400);
-
-                $html .= '
-                    <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 mb20">
-                        <div class="post-item">
-                            <a href="' . $canonical . '" title="' . e($name) . '" class="image img-cover">
-                                <img  src="' . $image . '" alt="' . e($name) . '">
-                            </a>
-                            <div class="info">
-                                <h3 class="title"><a href="' . $canonical . '" title="' . e($name) . '">' . e($name) . '</a></h3>
-                            </div>
-                        </div>
-                    </div>';
-            }
-
-            $html .= '</div>';
-        }
-        return response()->json(['html' => $html]);
-    }
+   
 
 
 

@@ -185,7 +185,7 @@
                                 $image = $item->image;
                                 $rate = $item->rate;
                             @endphp
-                            <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-5 mb25">
+                            <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4 mb25">
                                 <div class="scholarship-item">
                                     <a href="{{ $canonical }}" class="image img-cover img-zoomin">
                                         <img src="{{ $image }}" alt="{{ $name }}">
@@ -249,7 +249,7 @@
                                 $image = $item->image;
                                 $description = $item->languages->description;
                             @endphp
-                                <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-5 mb25">
+                                <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-4 mb25">
                                     <div class="type-item">
                                         <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                         <div class="info">
@@ -339,36 +339,100 @@
             )['review'];
         @endphp
         @if(isset($review) && !is_null($review) && count($review))
-        @foreach($review as $key => $val)
-        @php
-            $name = $val->languages->name;
-            $canonical = write_url($val->languages->canonical);
-            $description = $val->languages->description;
-        @endphp
-        <div class="panel-review">
-            <div class="uk-container uk-container-center">
-                <div class="panel-head">
-                    <div class="special-violet">Review</div>
-                    <h2 class="heading-2"><span>{{ $name }}</span></h2>
-                    <div class="description">
-                        {!! $description !!}
-                    </div>
-                </div>
-                <div class="panel-body">
-                    @if(isset($val->items) && count($val->items))
-                    <div class="uk-grid uk-grid-medium">
-                        @foreach($val->items as $item)
-                        <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-5 mb25">
-                            <x-review :item="$item" />
+            @foreach($review as $key => $val)
+            @php
+                $name = $val->languages->name;
+                $canonical = write_url($val->languages->canonical);
+                $description = $val->languages->description;
+            @endphp
+            <div class="panel-review">
+                <div class="uk-container uk-container-center">
+                    <div class="panel-head">
+                        <div class="special-violet">Review</div>
+                        <h2 class="heading-2"><span>{{ $name }}</span></h2>
+                        <div class="description">
+                            {!! $description !!}
                         </div>
-                        @endforeach
                     </div>
-                    @endif
+                    <div class="panel-body">
+                        @if(isset($val->items) && count($val->items))
+                        <div class="uk-grid uk-grid-medium">
+                            @foreach($val->items as $item)
+                            <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-4 mb25">
+                                <x-review :item="$item" />
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
-        @endforeach
+            @endforeach
         @endif
 
+
+        @php
+            $news =  collect(
+                json_decode(file_get_contents(resource_path('json/mock.json')))
+            )['news'];
+        @endphp
+        @if(isset($news) && !is_null($news) && count($news))
+            @foreach($news as $key => $val)
+            @php
+                $catName = $val->languages->name;
+                $catDes = $val->languages->description;
+            @endphp
+            <div class="panel-news">
+                <div class="uk-container uk-container-center">
+                    <div class="panel-head">
+                        <h2 class="heading-2"><span>{{ $catName }}</span></h2>
+                        <div class="description">{!! $catDes !!}</div>
+                    </div>
+                    <div class="panel-body">
+                        @if(isset($val->items) && count($val->items))
+                        <div class="uk-grid uk-grid-medium">
+                            <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2">
+                                @foreach($val->items as $item)
+                                    @if($loop->first)
+                                        <x-article-overlay-card 
+                                            :class="'overlay'" 
+                                            :name="$item->languages->name"
+                                            :canonical="write_url($item->languages->canonical)"
+                                            :description="$item->languages->description"
+                                            :image="$item->image"
+                                            :created="$item->created_at"
+                                        />
+                                    @endif
+                                @endforeach
+                            </div> 
+                            <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2">
+                                <div class="list-posts">
+                                    @foreach($val->items as $keyItem => $item)
+                                    @if($keyItem === 0) @continue @endif
+                                    @if($keyItem > 3) @break @endif
+                                    
+                                    <x-article-left-image-card 
+                                        :class="'article-custom mb25'"
+                                        :name="$item->languages->name"
+                                        :description="$item->languages->description"
+                                        :created="$item->created_at"
+                                        :image="$item->image"
+                                        :canonical="write_url($item->languages->canonical)"
+                                    />
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        @endif
+
+        <x-partner-card 
+            :data="$slides['partner']"
+        />
+            
     </div>
 @endsection
