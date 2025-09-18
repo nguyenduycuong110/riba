@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use App\Repositories\Interfaces\SystemRepositoryInterface as SystemRepository;
-use App\Repositories\Interfaces\LecturerRepositoryInterface as LecturerRepository;
-use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
+
+use App\Repositories\Core\SystemRepository;
+use App\Repositories\Core\LecturerRepository;
+use App\Repositories\Product\ProductRepository;
+
 use Illuminate\Http\Request;
 
 class LecturerController extends FrontendController
 {
     protected $language;
     protected $systemRepository;
+    protected $lecturerRepository;
+    protected $productRepository;
 
     public function __construct(
         SystemRepository $systemRepository,

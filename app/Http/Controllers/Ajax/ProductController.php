@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\ProductServiceInterface  as ProductService;
-use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface  as ProductCatalogueRepository;
-use App\Repositories\Interfaces\ProductVariantRepositoryInterface  as ProductVariantRepository;
-use App\Repositories\Interfaces\PromotionRepositoryInterface  as PromotionRepository;
-use App\Repositories\Interfaces\AttributeRepositoryInterface  as AttributeRepository;
+
+
+use App\Services\V1\Product\ProductService;
+use App\Repositories\Product\ProductCatalogueRepository;
+use App\Repositories\Product\ProductVariantRepository;
+use App\Repositories\Product\PromotionRepository;
+use App\Repositories\Attribute\AttributeRepository;
+
 use App\Models\Language;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class ProductController extends Controller

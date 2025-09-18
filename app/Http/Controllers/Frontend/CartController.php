@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
-use App\Services\CartService;
-use App\Repositories\Interfaces\ProvinceRepositoryInterface  as ProvinceRepository;
-use App\Repositories\Interfaces\PromotionRepositoryInterface  as PromotionRepository;
-use App\Repositories\Interfaces\OrderRepositoryInterface  as OrderRepository;
-use App\Repositories\Interfaces\VoucherRepositoryInterface  as VoucherRepository;
-use App\Repositories\Interfaces\ProductRepositoryInterface  as ProductRepository;
-use App\Services\Interfaces\VoucherServiceInterface as VoucherService;
-use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
-use App\Services\Interfaces\ContactServiceInterface  as ContactService;
+use App\Repositories\User\ProvinceRepository;
+use App\Repositories\Product\PromotionRepository;
+use App\Repositories\Core\OrderRepository;
+use App\Repositories\Product\VoucherRepository;
+use App\Repositories\Product\ProductRepository;
+use App\Services\V1\Product\VoucherService;
+use App\Services\V1\Core\WidgetService;
+use App\Services\V1\Core\ContactService;
+use App\Services\V1\Core\CartService;
+
 use App\Http\Requests\StoreCartRequest;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Classes\Vnpay;
 use App\Classes\Momo;
 use App\Classes\Paypal;

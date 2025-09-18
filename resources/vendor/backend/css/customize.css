@@ -86,8 +86,9 @@ table strong{
 }
 .filter-wrapper .form-control{
     height:32px;
-    max-width: 200px;
+    width: 200px;
     font-size:13px;
+    margin-left:10px;
 }
 .mr10{
     margin-right:10px;
@@ -1462,4 +1463,11 @@ div.edit{
 .remove-policy-item,
 .remove-chapter-item{
     color:#ec4758;
+}
+
+.filter-wrapper .select2-container{
+    margin-right:10px;
+}
+.text-sm{
+    font-size:12px;
 }

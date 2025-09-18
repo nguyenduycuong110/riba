@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Frontend\Payment;
 
 use App\Http\Controllers\FrontendController;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\OrderRepositoryInterface  as OrderRepository;
-use App\Services\Interfaces\OrderServiceInterface  as OrderService;
+
+
+use App\Repositories\Core\OrderRepository;
+use App\Services\V1\Core\OrderService;
+
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 

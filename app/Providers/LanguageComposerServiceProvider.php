@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Repositories\Interfaces\LanguageRepositoryInterface  as LanguageRepository;
+use App\Repositories\Core\LanguageRepository;
 
 class LanguageComposerServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,7 @@ class LanguageComposerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('App\Repositories\Interfaces\LanguageRepositoryInterface', 'App\Repositories\LanguageRepository');
+        
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
+use App\Repositories\Core\RouterRepository;
 
 class RouterController extends FrontendController
 {

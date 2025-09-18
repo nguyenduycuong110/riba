@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\MenuCatalogueRepositoryInterface  as MenuCatalogueRepository;
-use App\Services\Interfaces\MenuCatalogueServiceInterface  as MenuCatalogueService;
-use App\Services\Interfaces\MenuServiceInterface  as MenuService;
-use App\Repositories\Interfaces\MenuRepositoryInterface  as MenuRepository;
+
+use App\Repositories\Menu\MenuCatalogueRepository;
+use App\Services\V1\Menu\MenuCatalogueService;
+use App\Services\V1\Menu\MenuService;
+use App\Repositories\Menu\MenuRepository;
+
 use App\Models\Language;
 use App\Http\Requests\Menu\StoreMenuCatalogueRequest;
 

@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use App\Repositories\Interfaces\SlideRepositoryInterface as SlideRepository;
-use App\Repositories\Interfaces\SystemRepositoryInterface as SystemRepository;
-use App\Repositories\Interfaces\LecturerRepositoryInterface as LecturerRepository;
-use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
-use App\Services\Interfaces\SlideServiceInterface as SlideService;
+
+
+use App\Repositories\Core\SlideRepository;
+use App\Repositories\Core\SystemRepository;
+use App\Repositories\Core\LecturerRepository;
+use App\Services\V1\Core\WidgetService;
+use App\Services\V1\Core\SlideService;
+use App\Services\V1\Post\PostService;
+
 use App\Enums\SlideEnum;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\PostServiceInterface as PostService;
 use App\Models\Post;
 use App\Models\Lecturer;
 

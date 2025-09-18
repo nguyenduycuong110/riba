@@ -3,20 +3,22 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
-use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
-use App\Services\Interfaces\ProductCatalogueServiceInterface as ProductCatalogueService;
-use App\Services\Interfaces\ProductServiceInterface as ProductService;
-use App\Services\Interfaces\VoucherServiceInterface as VoucherService;
-use App\Services\Interfaces\PromotionServiceInterface as PromotionService;
-use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
-use App\Repositories\Interfaces\CustomerRepositoryInterface as CustomerRepository;
-use App\Repositories\Interfaces\ReviewRepositoryInterface as ReviewRepository;
-use App\Repositories\Interfaces\VoucherRepositoryInterface as VoucherRepository;
-use App\Repositories\Interfaces\OrderRepositoryInterface as OrderRepository;
-use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
+
+use App\Repositories\Product\ProductCatalogueRepository;
+use App\Services\V1\Product\ProductCatalogueService;
+use App\Services\V1\Product\ProductService;
+use App\Services\V1\Product\VoucherService;
+use App\Services\V1\Product\PromotionService;
+use App\Repositories\Product\ProductRepository;
+use App\Repositories\Customer\CustomerRepository;
+use App\Repositories\Core\ReviewRepository;
+use App\Repositories\Product\VoucherRepository;
+use App\Repositories\Core\OrderRepository;
+use App\Services\V1\Core\WidgetService;
+
+
 use Illuminate\Support\Facades\Auth;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\SourceRepositoryInterface  as SourceRepository;
+use Illuminate\Support\Facades\Log;
+use App\Repositories\Customer\SourceRepository;
 
 class SourceController extends Controller
 {

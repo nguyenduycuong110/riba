@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\ReviewServiceInterface  as ReviewService;
 use App\Models\Language;
 use App\Models\Review;
+
+use App\Services\V1\Core\ReviewService;
 
 
 class ReviewController extends Controller

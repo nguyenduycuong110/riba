@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Customer\EditProfileRequest;
 use App\Http\Requests\Customer\RecoverCustomerPasswordRequest;
-use App\Services\Interfaces\CustomerServiceInterface  as CustomerService;
-use App\Services\Interfaces\ConstructServiceInterface  as ConstructService;
-use App\Repositories\Interfaces\ConstructRepositoryInterface  as ConstructRepository;
+use Illuminate\Support\Facades\Hash;
+use App\Services\V1\Customer\CustomerService;
 
 class CustomerController extends FrontendController
 {
@@ -21,14 +20,10 @@ class CustomerController extends FrontendController
 
     public function __construct(
         CustomerService $customerService,
-        ConstructRepository $constructRepository,
-        ConstructService $constructService,
 
     ){
 
         $this->customerService = $customerService;
-        $this->constructService = $constructService;
-        $this->constructRepository = $constructRepository;
 
         parent::__construct();
     
@@ -80,19 +75,19 @@ class CustomerController extends FrontendController
         ));
     }
 
-    public function recovery(RecoverCustomerPasswordRequest $request){
-        $customer = Auth::guard('customer')->user();
+    // public function recovery(RecoverCustomerPasswordRequest $request){
+    //     $customer = Auth::guard('customer')->user();
 
-        if (!Hash::check($request->password, $customer->password)) {
-            return redirect()->back()->with('error', 'Mật khẩu hiện tại không chính xác.');
-        }
-        // Thay đổi mật khẩu
-        $customer->update([
-            'password' => Hash::make($request->new_password),
-        ]);
+    //     if (!Hash::check($request->password, $customer->password)) {
+    //         return redirect()->back()->with('error', 'Mật khẩu hiện tại không chính xác.');
+    //     }
+    //     // Thay đổi mật khẩu
+    //     $customer->update([
+    //         'password' => Hash::make($request->new_password),
+    //     ]);
 
-        return redirect()->route('customer.profile')->with('success', 'Mật khẩu đã được thay đổi thành công.');
-    }
+    //     return redirect()->route('customer.profile')->with('success', 'Mật khẩu đã được thay đổi thành công.');
+    // }
 
     public function logout(){
         Auth::guard('customer')->logout();

@@ -2,7 +2,7 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Repositories\Interfaces\MenuCatalogueRepositoryInterface  as MenuCatalogueRepository;
+use App\Repositories\Menu\MenuCatalogueRepository;
 
 class MenuComposer
 {

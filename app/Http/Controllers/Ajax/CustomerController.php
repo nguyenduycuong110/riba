@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\CustomerRepositoryInterface  as CustomerRepository;
-use App\Services\Interfaces\CustomerServiceInterface  as CustomerService;
+
+use App\Services\V1\Customer\CustomerService;
+
 use App\Http\Requests\Customer\StoreCustomerRequest;
 
 

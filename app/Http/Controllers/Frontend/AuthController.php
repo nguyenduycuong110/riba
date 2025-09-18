@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use App\Services\Interfaces\CustomerServiceInterface  as CustomerService;
-use App\Services\Interfaces\SlideServiceInterface as SlideService;
 use App\Http\Requests\AuthRegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +10,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordMail; 
 use App\Models\Customer;
 use App\Enums\SlideEnum;
+
+use App\Services\V1\Customer\CustomerService;
+use App\Services\V1\Core\SlideService;
 
 
 class AuthController extends FrontendController

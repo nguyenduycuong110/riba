@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
-use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
-use App\Services\Interfaces\PostServiceInterface as PostService;
-use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
-use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
+use App\Repositories\Post\PostCatalogueRepository;
+use App\Services\V1\Post\PostCatalogueService;
+use App\Services\V1\Post\PostService;
+use App\Repositories\Post\PostRepository;
+use App\Services\V1\Core\WidgetService;
+
 use Jenssegers\Agent\Facades\Agent;
 use App\Models\Post;
 use App\View\Components\TableOfContents;

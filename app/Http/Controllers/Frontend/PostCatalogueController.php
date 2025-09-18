@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
-use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
-use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
-use App\Services\Interfaces\PostServiceInterface as PostService;
-use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
-use App\Services\Interfaces\SlideServiceInterface as SlideService;
+use App\Repositories\Post\PostCatalogueRepository;
+use App\Services\V1\Post\PostCatalogueService;
+use App\Services\V1\Post\PostService;
+use App\Services\V1\Core\WidgetService;
+use App\Services\V1\Core\SlideService;
+
 use App\Models\System;
 use App\Enums\SlideEnum;
 use Jenssegers\Agent\Facades\Agent;

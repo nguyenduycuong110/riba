@@ -5,6 +5,16 @@ use Illuminate\Support\Facades\Auth;
 
 class Nestedsetbie{
 
+
+    private $params;
+    private $checked;
+    private $data;
+    private $count;
+    private $count_level;
+    private $lft;
+    private $rgt;
+    private $level;
+
 	function __construct($params = NULL){
 		$this->params = $params;
 		$this->checked = NULL;

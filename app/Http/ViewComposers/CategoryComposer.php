@@ -2,12 +2,13 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface  as ProductCatalogueRepository;
+use App\Repositories\Product\ProductCatalogueRepository;
 
 class CategoryComposer
 {
 
     protected $language;
+    protected $productCatalogueRepository;
 
     public function __construct(
         ProductCatalogueRepository $productCatalogueRepository,

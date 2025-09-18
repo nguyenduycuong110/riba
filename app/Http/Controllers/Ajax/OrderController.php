@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\OrderServiceInterface  as OrderService;
-use App\Repositories\Interfaces\OrderRepositoryInterface  as OrderRepository;
 use App\Classes\ViettelPost;
 use Illuminate\Support\Facades\Auth;
+
+use App\Services\V1\Core\OrderService;
+use App\Repositories\Core\OrderRepository;
 
 class OrderController extends Controller
 {
     protected $orderService;
+    protected $orderRepository;
 
     public function __construct(
         OrderService $orderService,

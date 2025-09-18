@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\FrontendController;
-use App\Repositories\Interfaces\PostRepositoryInterface  as PostRepository;
-use App\Repositories\Interfaces\PostCatalogueRepositoryInterface  as PostCatalogueRepository;
+
+
+use App\Repositories\Post\PostRepository;
+use App\Repositories\Post\PostCatalogueRepository;
+
 use Illuminate\Http\Request;
 
 
@@ -12,6 +15,7 @@ class PostController extends FrontendController
 {
    
     protected $postRepository;
+    protected $postCatalogueRepository;
 
     public function __construct(
         PostRepository $postRepository,

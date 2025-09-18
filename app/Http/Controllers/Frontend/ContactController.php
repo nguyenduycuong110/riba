@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use Jenssegers\Agent\Facades\Agent;
 use Illuminate\Support\Facades\DB;
 use App\Models\Contact;
+
+use App\Services\V1\Core\WidgetService;
 
 class ContactController extends FrontendController
 {

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Base;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\DB;
  * Class BaseService
  * @package App\Services
  */
-class BaseRepository implements BaseRepositoryInterface
+class BaseRepository
 {
     protected $model;
 
@@ -107,7 +106,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     public function findById(
-        int $modelId,
+        $modelId,
         array $column = ['*'],
         array $relation = [],
     ){
@@ -261,6 +260,31 @@ class BaseRepository implements BaseRepositoryInterface
             $query->{$condition[3] ?? 'where'}($condition[0], $condition[1], $condition[2]);
         }
         return $query->get();
+    }
+
+
+    public function getFillable(){
+        return $this->model->getFillable();
+    }
+
+    public function getRelation(){
+        return $this->model->getRelationable() ?? [];
+    }
+
+     public function customPagination(array $specs = []){
+        return $this->model
+        ->keyword($specs['filter']['keyword'])
+        ->simpleFilter($specs['filter']['simple'])
+        // ->complexFilter($specs['filter']['complex'])
+        ->dateFilter($specs['filter']['date'] ?? [])
+        ->with($specs['with'])
+        ->take($specs['take'])
+        ->orderBy($specs['sort'][0], $specs['sort'][1])
+        ->when(
+            $specs['type'],
+            fn($q) => $q->get(),
+            fn($q) => $q->paginate($specs['perpage'])
+        );
     }
 
 }

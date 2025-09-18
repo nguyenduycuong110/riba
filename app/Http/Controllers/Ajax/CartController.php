@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\FrontendController;
-use App\Services\CartService;
-use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+
+use App\Repositories\Product\ProductRepository;
+use App\Services\V1\Core\CartService;
 
 
 class CartController extends FrontendController

@@ -534,8 +534,8 @@ return [
     'save' => 'Lưu lại',
     'publish' => [
         '0' => 'Chọn tình trạng',
-        '1' => 'Đã xác nhận',
-        '2' => 'Chờ xác nhận',
+        '1' => 'Không hoạt động',
+        '2' => 'Hoạt động',
     ],
     'confirm' => [
         '0' => 'Chọn tình trạng',

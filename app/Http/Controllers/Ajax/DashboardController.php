@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Language;
 use Illuminate\Support\Str;
-use App\Repositories\Interfaces\PromotionRepositoryInterface as PromotionRepository;
+use Illuminate\Support\Facades\Log;
+
+use App\Repositories\Product\PromotionRepository;
 
 class DashboardController extends Controller
 {
@@ -33,7 +35,6 @@ class DashboardController extends Controller
             $serviceInstance = app($serviceInterfaceNamespace);
         }
         $flag = $serviceInstance->updateStatus($post);
-
         return response()->json(['flag' => $flag]); 
         
     }

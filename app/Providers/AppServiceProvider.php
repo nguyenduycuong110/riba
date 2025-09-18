@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->bind($key, $val);
         }
 
-        $this->app->register(RepositoryServiceProvider::class);
+        // $this->app->register(RepositoryServiceProvider::class);
 
     }
 
@@ -84,7 +84,9 @@ class AppServiceProvider extends ServiceProvider
             resource_path('vendor/backend') => public_path('vendor/backend'),
         ], 'assets');
 
-
+        if (app()->environment(['local', 'testing'])) {
+            error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+        }
 
         
         $locale = app()->getLocale(); // vn en cn
@@ -106,7 +108,6 @@ class AppServiceProvider extends ServiceProvider
             $composerClasses = [
                 MenuComposer::class,
                 CartComposer::class,
-                CustomerComposer::class,
             ];
 
             foreach($composerClasses as $key => $val){

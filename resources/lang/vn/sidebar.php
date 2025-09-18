@@ -158,53 +158,41 @@ return [
         //     'name' => ['introduce'],
         //     'route' => 'introduce/index'
         // ],
-        [
-            'title' => 'QL Trường',
-            'icon' => 'fa fa-instagram',
-            'name' => ['school', 'area', 'project'],
-            'subModule' => [
-                [
-                    'title' => 'Quản lý loại hình trường',
-                    'route' => 'school/catalogue/index'
-                ],
-                [
-                    'title' => 'Quản lý trường',
-                    'route' => 'school/index'
-                ],
-                [
-                    'title' => 'Quản lý khu vực',
-                    'route' => 'area/index'
-                ],
-                [
-                    'title' => 'Quản lý thành phố',
-                    'route' => 'city/index'
-                ],
-                [
-                    'title' => 'Quản lý dự án',
-                    'route' => 'project/index'
-                ],
-            ]
-        ],
+        // [
+        //     'title' => 'QL Trường',
+        //     'icon' => 'fa fa-instagram',
+        //     'name' => ['school', 'area', 'project'],
+        //     'subModule' => [
+        //         [
+        //             'title' => 'Quản lý loại hình trường',
+        //             'route' => 'school/catalogue/index'
+        //         ],
+        //         [
+        //             'title' => 'Quản lý trường',
+        //             'route' => 'school/index'
+        //         ],
+        //         [
+        //             'title' => 'Quản lý khu vực',
+        //             'route' => 'area/index'
+        //         ],
+        //         [
+        //             'title' => 'Quản lý thành phố',
+        //             'route' => 'city/index'
+        //         ],
+        //         [
+        //             'title' => 'Quản lý dự án',
+        //             'route' => 'project/index'
+        //         ],
+        //     ]
+        // ],
         [
             'title' => 'QL Học bổng',
             'icon' => 'fa fa-github',
-            'name' => ['scholarship', 'policy'],
+            'name' => ['scholar'],
             'subModule' => [
                 [
-                    'title' => 'Loại Học Bổng',
-                    'route' => 'scholarship/catalogue/index'
-                ],
-                [
-                    'title' => 'Tin học bổng',
-                    'route' => 'scholarship/index'
-                ],
-                [
-                    'title' => 'Chính sách',
-                    'route' => 'policy/index'
-                ],
-                [
-                    'title' => 'Hệ đào tạo',
-                    'route' => 'train/index'
+                    'title' => 'QL Loại Học Bổng',
+                    'route' => 'scholar/catalogue/index'
                 ],
             ]
         ],

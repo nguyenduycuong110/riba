@@ -2,12 +2,13 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Repositories\Interfaces\SystemRepositoryInterface  as SystemRepository;
+use App\Repositories\Core\SystemRepository;
 
 class SystemComposer
 {
 
     protected $language;
+    protected $systemRepository;
 
     public function __construct(
         SystemRepository $systemRepository,

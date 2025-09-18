@@ -2,8 +2,8 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Services\CartService;
-use Cart;
+use App\Services\V1\Core\CartService;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartComposer
 {

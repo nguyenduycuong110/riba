@@ -17,4 +17,12 @@ class Router extends Model
         'controllers',
         'language_id',
     ];
+
+     protected $relationable = [
+       
+    ];
+
+    public function getRelationable(){
+        return $this->relationable;
+    }
 }

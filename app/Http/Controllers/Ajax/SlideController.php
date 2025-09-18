@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Interfaces\SlideServiceInterface  as SlideService;
 use App\Models\Language;
+
+use App\Services\V1\Core\SlideService;
 
 
 class SlideController extends Controller

@@ -2,12 +2,13 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
-use App\Repositories\Interfaces\LanguageRepositoryInterface  as LanguageRepository;
+use App\Repositories\Core\LanguageRepository;
 
 class LanguageComposer
 {
 
     protected $language;
+    protected $languageRepository;
 
     public function __construct(
         LanguageRepository $languageRepository,

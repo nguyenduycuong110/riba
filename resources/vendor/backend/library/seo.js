@@ -1,9 +1,6 @@
 // "use strict";
 var HT = {}; 
 
-console.log(12345);
-
-
 HT.seoPreview = () => {
     $('input[name=meta_title]').on('keyup', function(){
         let input = $(this)

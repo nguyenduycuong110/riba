@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Ajax;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Interfaces\ContactServiceInterface as ContactService;
 use Illuminate\Support\Facades\Validator;
+use App\Services\V1\Core\ContactService;
 
 class ContactController extends Controller
 {

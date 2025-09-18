@@ -78,15 +78,6 @@
                     @endif
                 </li>
 			@endforeach
-            @if(!is_null($customerAuth))
-                <li>
-                    <a href="{{ route('buyer.profile') }}" title="">Xin chào : {{ $customerAuth->name }}</a>
-                </li>
-            @else
-                <li>
-                    <a href="#modal-login" title="" data-uk-modal>Đăng nhập</a>
-                </li>
-            @endif
 		</ul>
 		@endif
 	</div>

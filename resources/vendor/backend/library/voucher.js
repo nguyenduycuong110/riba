@@ -1,6 +1,4 @@
-(function($) {
-	"use strict";
-	var HT = {}; 
+var HT = {}; 
     var typingTimer;
     var doneTyingInterval = 500; // 1s
 
@@ -760,20 +758,20 @@
     }
 
     HT.removeModal = () => {
-        $(document).ready(function () {
+        $(document).on('ready', function () {
             $('.readonly').removeAttr('data-toggle data-target');
         });
     };
     
     HT.checked = () => {
-        $(document).ready(function () {
+        $(document).on('ready', function () {
             $('input[name="combine_promotion"]').on('change', function () {
                 $(this).val($(this).is(':checked') ? 1 : 0);
             });
         });
     }
    
-	$(document).ready(function(){
+	$(document).on('ready', function(){
         HT.checked()
         HT.removeModal()
         HT.disableSelect()
@@ -792,6 +790,3 @@
         HT.changePromotionMethod()
         HT.checkConditionItemSet()
 	});
-
-
-})(jQuery);
