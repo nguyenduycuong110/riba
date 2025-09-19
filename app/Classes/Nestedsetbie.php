@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 
 class Nestedsetbie{
 
-
     private $params;
     private $checked;
     private $data;

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasQuery;
 
-class ScholarPolicy extends Model
+class ScholarTrain extends Model
 {
     use HasFactory, SoftDeletes, HasQuery;
 
-    protected $table = 'scholar_policies';
+    protected $table = 'scholar_trains';
 
     protected $fillable = [
         'name',

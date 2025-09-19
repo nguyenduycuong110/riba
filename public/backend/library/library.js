@@ -307,10 +307,9 @@ HT.exportExcel = () => {
     });
 }
 
-
 $(document).ready(function(){
-    console.log(12345);
-    
+    HT.addProgram()
+    HT.removeProgram()
     HT.exportExcel()
     HT.changeOrder()
     HT.approve()

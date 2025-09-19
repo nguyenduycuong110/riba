@@ -8,7 +8,7 @@
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>Bạn đang muốn xóa bản ghi: {{ $model->name }}</p>
+                        <p>Bạn đang muốn xóa bản ghi: {{ $model->name ?? $model->languages?->first()->pivot->name }}</p>
                         <p>Lưu ý: Không thể khôi phục bản ghi sau khi xóa. Hãy chắc chắn bạn muốn thực hiện chức năng này</p>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                                     <input 
                                         type="text"
                                         name="name"
-                                        value="{{ old('name', ($model->name) ?? '' ) }}"
+                                        value="{{ old('name', ($model->name ?? $model->languages?->first()->pivot->name) ?? '' ) }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"

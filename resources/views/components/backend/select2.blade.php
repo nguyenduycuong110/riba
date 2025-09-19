@@ -1,5 +1,4 @@
 @props(['heading' => '', 'name', 'options', 'selectedValue'])
-
 <div {{ $attributes->merge(['class' => 'row']) }}>
     <div class="col-lg-12">
         <div class="form-row">

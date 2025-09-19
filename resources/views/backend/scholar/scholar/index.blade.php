@@ -9,20 +9,20 @@
             </div>
             <div class="ibox-content">
                 <x-backend.filter 
-                    createRoute="scholar.catalogue.create"
-                    submitRoute="scholar.catalogue.index"
+                    createRoute="scholar.create"
+                    submitRoute="scholar.index"
                 />
                 <x-backend.customtable 
                     :records="$scholars->getCollection()"
                     :columns="[
-                        'name' => ['label' => 'Loại Học Bổng', '', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
+                        'name' => ['label' => 'Học Bổng', '', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
                         'creator' => ['class' => 'text-center w-200px', 'label' => 'Người tạo', 'render' => fn($item) => $item->users->name],
                         'created_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày tạo', 'render' => fn($item) => $item->created_at->format('d-m-Y')],
                         'updated_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at->format('d-m-Y')],
                     ]"
                     :actions="[
-                        ['route' => 'scholar.catalogue.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],
-                        ['route' => 'scholar.catalogue.delete', 'class' => 'btn-danger', 'icon' => 'fa-trash'],
+                        ['route' => 'scholar.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],
+                        ['route' => 'scholar.delete', 'class' => 'btn-danger', 'icon' => 'fa-trash'],
                     ]"
                     :model="$config['model']"
                 />

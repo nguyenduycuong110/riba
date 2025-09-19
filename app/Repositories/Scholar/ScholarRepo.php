@@ -1,14 +1,15 @@
 <?php   
 namespace App\Repositories\Scholar;
 use App\Repositories\BaseRepository;
-use App\Models\ScholarPolicy;
 
-class PolicyRepo extends BaseRepository {
+use App\Models\Scholar;
+
+class ScholarRepo extends BaseRepository {
     protected $model;
 
     public function __construct(
-        ScholarPolicy $model
-    )   
+        Scholar $model
+    )
     {
         $this->model = $model;
     }

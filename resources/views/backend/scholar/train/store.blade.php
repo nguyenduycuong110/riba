@@ -9,7 +9,7 @@
     </div>
 @endif
 @php
-    $url = ($config['method'] == 'create') ? route('scholar.policy.store') : route('scholar.policy.update', $policy->id);
+    $url = ($config['method'] == 'create') ? route('scholar.train.store') : route('scholar.train.update', $train->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
@@ -19,7 +19,7 @@
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>Nhập thông tin chung của chính sách</p>
+                        <p>Nhập thông tin chung của hệ đào tạo</p>
                         <p>Lưu ý: Những trường đánh dấu <span class="text-danger">(*)</span> là bắt buộc</p>
                     </div>
                 </div>
@@ -30,11 +30,11 @@
                         <div class="row mb15">
                             <div class="col-lg-9">
                                 <div class="form-row">
-                                    <label for="" class="control-label text-left">Tên chính sách<span class="text-danger">(*)</span></label>
+                                    <label for="" class="control-label text-left">Tên hệ đào tạo<span class="text-danger">(*)</span></label>
                                     <input 
                                         type="text"
                                         name="name"
-                                        value="{{ old('name', ($policy->name) ?? '' ) }}"
+                                        value="{{ old('name', ($train->name) ?? '' ) }}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -47,7 +47,7 @@
                                     <div class="mb15">
                                         <select name="publish" class="form-control setupSelect2" id="">
                                             @foreach(__('messages.publish') as $key => $val)
-                                            <option {{ $key == old('publish', (isset($policy->publish)) ? $policy->publish : '2') ? 'selected' : '' }} value="{{ $key }}">{{ $val }}</option>
+                                            <option {{ $key == old('publish', (isset($train->publish)) ? $train->publish : '2') ? 'selected' : '' }} value="{{ $key }}">{{ $val }}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -2,24 +2,34 @@
 namespace App\Http\Controllers\Backend\V2\Scholar;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Scholar\Catalogue\StoreRequest;
-use App\Http\Requests\Scholar\Catalogue\UpdateRequest;
+use App\Http\Requests\Scholar\Scholar\StoreRequest;
+use App\Http\Requests\Scholar\Scholar\UpdateRequest;
+use App\Services\V2\Impl\Scholar\ScholarService;
 use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
+use App\Services\V2\Impl\Scholar\PolicyService;
+use App\Services\V2\Impl\Scholar\TrainService;
 use App\Models\Language;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Http\Resources\ScholarCatalogueResource;
 
-class ScholarCatalogueController extends Controller {
+class ScholarController extends Controller {
 
 
     private $service;
+    private $scholarCatalogueService;
+    private $policyService;
+    private $trainService;
     protected $language;
 
     public function __construct(
-        ScholarCatalogueService $service
+        ScholarService $service,
+        ScholarCatalogueService $scholarCatalogueService,
+        PolicyService $policyService,
+        TrainService $trainService
     )
     {
         $this->service = $service;
+        $this->scholarCatalogueService = $scholarCatalogueService;
+        $this->policyService = $policyService;
+        $this->trainService = $trainService;
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -31,11 +41,11 @@ class ScholarCatalogueController extends Controller {
     public function index(Request $request){
         $scholars = $this->service->pagination($request);
         $config = [
-            'model' => 'ScholarCatalogue',
+            'model' => 'Scholar',
             'seo' => $this->seo(),
             'extendJs' => true
         ];
-        $template = 'backend.scholar.catalogue.index';
+        $template = 'backend.scholar.scholar.index';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
@@ -44,43 +54,51 @@ class ScholarCatalogueController extends Controller {
     }
 
     public function create(){
-         // $this->authorize('modules', 'scholar.option.catalogue.create');
+         // $this->authorize('modules', 'scholar.option.scholar.create');
+        $scholarCatalogues = $this->scholarCatalogueService->all(['languages']);
+        $policies = $this->policyService->all();
+        $trains = $this->trainService->all();
         $config = [
-            'model' => 'ScholarCatalogue',
+            'model' => 'Scholar',
             'seo' => $this->seo(),
             'method' => 'create',
             'extendJs' => true
         ];
-        $dropdown = $this->service->dropdown();
-        $template = 'backend.scholar.catalogue.store';
+        $template = 'backend.scholar.scholar.store';
         return view('backend.dashboard.layout', compact(
+            'scholarCatalogues',
+            'policies',
+            'trains',
             'template',
             'config',
-            'dropdown'
         ));
     }
 
     public function edit($id){
-         // $this->authorize('modules', 'scholar.option.catalogue.update');
+         // $this->authorize('modules', 'scholar.option.scholar.update');
         if(!$scholar = $this->service->findById($id)){
-            return redirect()->route('scholar.catalogue.index')->with('error','Bản ghi không tồn tại'); 
+            return redirect()->route('scholar.index')->with('error','Bản ghi không tồn tại'); 
         }
+        $scholarCatalogues = $this->scholarCatalogueService->all(['languages']);
+        $policies = $this->policyService->all();
+        $trains = $this->trainService->all();
         $config = [
-            'model' => 'ScholarCatalogue',
+            'model' => 'Scholar',
             'seo' => $this->seo(),
             'method' => 'update',
             'extendJs' => true
         ];
-        $dropdown = $this->service->dropdown();
-        $template = 'backend.scholar.catalogue.store';
+        $template = 'backend.scholar.scholar.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'scholar',
-            'dropdown'
+            'scholarCatalogues',
+            'policies',
+            'trains',
         ));     
     }
-
+    
     public function store(StoreRequest $request)
     {
         $response = $this->service->save($request, 'store');
@@ -88,35 +106,35 @@ class ScholarCatalogueController extends Controller {
             if ($request->input('send') == 'send_and_stay') {
                 return redirect()->back()->with('success', 'Khởi tạo bản ghi thành công');
             }
-            return redirect()->route('scholar.catalogue.index')->with('success', 'Khởi tạo bản ghi thành công');
+            return redirect()->route('scholar.index')->with('success', 'Khởi tạo bản ghi thành công');
         }
         return redirect()->back()->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
     }
 
 
     public function update($id, UpdateRequest $request){
-         // $this->authorize('modules', 'scholar.option.catalogue.update');
+         // $this->authorize('modules', 'scholar.option.scholar.update');
         $response = $this->service->save($request, 'update', $id);
         if($response){
             if ($request->input('send') == 'send_and_stay') {
                 return redirect()->back()->with('success', 'Cập nhật bản ghi thành công');
             }
-            return redirect()->route('scholar.catalogue.index')->with('success', 'Cập nhật bản ghi thành công');
+            return redirect()->route('scholar.index')->with('success', 'Cập nhật bản ghi thành công');
         }
         return redirect()->back()->with('error','Cập nhật bản ghi không thành công. Hãy thử lại');
     }
 
     public function delete($id){
-        //  $this->authorize('modules', 'scholar.option.catalogue.destroy');
+        //  $this->authorize('modules', 'scholar.option.scholar.destroy');
         if(!$scholar = $this->service->findById($id)){
-            return redirect()->route('scholar.catalogue.index')->with('error','Bản ghi không tồn tại'); 
+            return redirect()->route('scholar.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
-            'model' => 'ScholarCatalogue',
+            'model' => 'Scholar',
             'seo' => $this->seo(),
             'method' => 'update'
         ];
-        $template = 'backend.scholar.catalogue.delete';
+        $template = 'backend.scholar.scholar.delete';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
@@ -125,9 +143,9 @@ class ScholarCatalogueController extends Controller {
     }
 
     public function destroy($id){
-        //  $this->authorize('modules', 'scholar.option.catalogue.destroy');
+        //  $this->authorize('modules', 'scholar.option..destroy');
         if($response = $this->service->destroy($id)){
-            return redirect()->route('scholar.catalogue.index')->with('success', 'Xóa bản ghi thành công');
+            return redirect()->route('scholar.index')->with('success', 'Xóa bản ghi thành công');
         }
         return redirect()->back()->with('error','Xóa bản ghi không thành công. Hãy thử lại');
     }
@@ -136,17 +154,17 @@ class ScholarCatalogueController extends Controller {
     private function seo(){
         return [
             'index' => [
-                'title' => 'Quản lý loại học bổng',
-                'table' => 'Danh sách loại học bổng'
+                'title' => 'Quản lý học bổng',
+                'table' => 'Danh sách học bổng'
             ],
             'create' => [
-                'title' => 'Thêm mới loại học bổng'
+                'title' => 'Thêm mới học bổng'
             ],
             'update' => [
-                'title' => 'Cập nhật loại học bổng'
+                'title' => 'Cập nhật học bổng'
             ],
             'delete' => [
-                'title' => 'Xóa loại học bổng'
+                'title' => 'Xóa học bổng'
             ]
         ];
     }

@@ -563,5 +563,14 @@ return [
     'generalTitle' => 'Thông tin chung',
     'generalDescription' => 'Bạn đang muốn xóa ngôn ngữ có tên là:
     Lưu ý: Không thể khôi phục dữ liệu sau khi xóa. Hãy chắc chắn bạn muốn thực hiện chức năng này',
-   
+    /*Scholar*/
+    'scholar_catalogue' =>  'Chọn nhóm học bổng',
+    'policy' =>  'Chọn chính sách',
+    'train' =>  'Chọn hệ đào tạo',
+    'choose' => 'Vui lòng chọn',
+    'add_policy' => 'Thêm chính sách mới',
+    'delete_policy' => 'Xóa chính sách',
+    'add_scholar_policy' => 'Tạo chính sách học bổng',
+    'enter_main_name' => 'Nhập vào tên chính sách',
+    'enter_des_name' => 'Nhập vào tên chính sách'
 ];

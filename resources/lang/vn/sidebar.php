@@ -191,12 +191,20 @@ return [
             'name' => ['scholar'],
             'subModule' => [
                 [
+                    'title' => 'QL Học Bổng',
+                    'route' => 'scholar/index'
+                ],
+                [
                     'title' => 'QL Loại Học Bổng',
                     'route' => 'scholar/catalogue/index'
                 ],
                 [
                     'title' => 'QL Chính Sách',
                     'route' => 'scholar/policy/index'
+                ],
+                [
+                    'title' => 'QL Hệ Đào Tạo',
+                    'route' => 'scholar/train/index'
                 ],
             ]
         ],

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasQuery;
 
-class ScholarCatalogue extends Model
+class Scholar extends Model
 {
     use HasFactory, SoftDeletes, HasQuery;
 
@@ -16,26 +16,19 @@ class ScholarCatalogue extends Model
 
     protected $fillable = [
         'id',
-        'parent_id',
-        'lft',
-        'rgt',
-        'level',
-        'image',
-        'icon',
         'album',
+        'scholar_catalogue_id',
+        'policy_id',
+        'train_id',
+        'scholar_policy',
+        'image',
         'publish',
         'order',
         'user_id',
     ];
 
-    
-
-    protected $casts = [
-        'album' => 'json'
-    ];
-
     protected $relationable = [
-        'users', 'languages'
+        'users', 'scholar_catalogues', 'policies', 'trains', 'languages'
     ];
 
     public function getRelationable(){
@@ -46,10 +39,22 @@ class ScholarCatalogue extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function scholar_catalogues(): BelongsTo{
+        return $this->belongsTo(ScholarCatalogue::class, 'scholar_catalogue_id', 'id');
+    }
+
+    public function policies(): BelongsTo{
+        return $this->belongsTo(Policy::class, 'policy_id', 'id');
+    }
+
+    public function trains(): BelongsTo{
+        return $this->belongsTo(Train::class, 'train_id', 'id');
+    }
+
     public function languages(){
-        return $this->belongsToMany(Language::class, 'scholar_catalogue_language' , 'scholar_catalogue_id', 'language_id')
+        return $this->belongsToMany(Language::class, 'scholar_language' , 'scholar_id', 'language_id')
         ->withPivot(
-            'scholar_catalogue_id',
+            'scholar_id',
             'language_id',
             'name',
             'canonical',
@@ -65,8 +70,5 @@ class ScholarCatalogue extends Model
         $this->languageId = $language;
         return $this;
     }
-
-   
-   
 
 }

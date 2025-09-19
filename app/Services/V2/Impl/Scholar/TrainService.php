@@ -1,10 +1,10 @@
 <?php  
 namespace App\Services\V2\Impl\Scholar;
 use App\Services\V2\BaseService;
-use App\Repositories\Scholar\PolicyRepo;
+use App\Repositories\Scholar\TrainRepo;
 use Illuminate\Support\Facades\Auth;
 
-class PolicyService extends BaseService {
+class TrainService extends BaseService {
 
     protected $repository;
 
@@ -13,7 +13,7 @@ class PolicyService extends BaseService {
     protected $with = ['users'];
 
     public function __construct(
-        PolicyRepo $repository,
+        TrainRepo $repository,
     )
     {
         $this->repository = $repository;

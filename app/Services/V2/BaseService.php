@@ -58,7 +58,6 @@ abstract class BaseService implements BaseServiceInterface{
 
     public function save(Request $request,  string $action = 'store', ?int $id = null){
         $context = ['action' => $action, 'id' => $id, 'request' => $request, 'languageId' => config('app.language_id')];
-        // dd($context);
         return $this->beginTransaction()
         ->setContext($context)
         ->prepareModelData()
@@ -99,6 +98,10 @@ abstract class BaseService implements BaseServiceInterface{
 
     public function getResult(){
         return $this->result;
+    }
+
+    public function all(array $relation = [], string $selectRaw = ''){
+        return $this->repository->all($relation, $selectRaw);
     }
 
 }

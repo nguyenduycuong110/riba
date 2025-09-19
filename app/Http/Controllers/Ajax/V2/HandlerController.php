@@ -59,7 +59,11 @@ class HandlerController {
     }
 
     private function setTable($model){
-        return  Str::snake($model). 's';
+        $snake = Str::snake($model);
+        if (str_ends_with($snake, 'y')) {
+            return substr($snake, 0, -1) . 'ies';
+        }
+        return $snake . 's';
     }
 
 }
