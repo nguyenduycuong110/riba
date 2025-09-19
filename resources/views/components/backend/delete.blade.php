@@ -1,5 +1,5 @@
 @props(['model', 'submitRoute'])
-<form action="{{ route('scholar.catalogue.destroy', $model->id) }}" method="post" class="box">
+<form action="{{ route($submitRoute, $model->id) }}" method="post" class="box">
     @csrf
     @method('DELETE')
     <div class="wrapper wrapper-content animated fadeInRight">

@@ -194,6 +194,10 @@ return [
                     'title' => 'QL Loại Học Bổng',
                     'route' => 'scholar/catalogue/index'
                 ],
+                [
+                    'title' => 'QL Chính Sách',
+                    'route' => 'scholar/policy/index'
+                ],
             ]
         ],
         [
