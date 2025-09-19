@@ -121,5 +121,7 @@ trait HasQuery {
         }
         return $query;
     }
+    
+
 
 }

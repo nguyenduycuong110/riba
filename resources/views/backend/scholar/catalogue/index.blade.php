@@ -15,8 +15,10 @@
                 <x-backend.customtable 
                     :records="$scholars->getCollection()"
                     :columns="[
-                        'name' => ['label' => 'Tên Học Bổng', 'render' => fn($item) => e($item->name)],
-                        'description' => ['label' => 'Mô tả', 'render' => fn($item) => strip_tags(html_entity_decode($item->description))]
+                        'name' => ['label' => 'Tên Học Bổng', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
+                        'creator' => ['label' => 'Người tạo', 'render' => fn($item) => $item->users->name],
+                        'created_at' => ['label' => 'Ngày tạo', 'render' => fn($item) => $item->created_at->format('d-m-Y')],
+                        'updated_at' => ['label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at->format('d-m-Y')],
                     ]"
                     :actions="[
                         ['route' => 'scholar.catalogue.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],

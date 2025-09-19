@@ -1,23 +1,33 @@
+
+{{-- @dd($config); --}}
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo'][$config['method']]['title']])
 @include('backend.dashboard.component.formError')
 @php
-    $url = ($config['method'] == 'create') ? route('scholar.catalogue.store') : route('scholar.catalogue.update', $scholarCatalogue->id);
+    $url = ($config['method'] == 'create') ? route('scholar.catalogue.store') : route('scholar.catalogue.update', $scholar->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-9">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.tableHeading') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        @include('backend.dashboard.component.content', ['model' => ($postCatalogue) ?? null])
-                    </div>
-                </div>
-               @include('backend.dashboard.component.album', ['model' => ($postCatalogue) ?? null])
-               @include('backend.dashboard.component.seo', ['model' => ($postCatalogue) ?? null])
+                @php
+                    $translation = (isset($scholar)) ? $scholar->languages->first()->pivot : null;
+                @endphp
+                <x-backend.content 
+                    :name="$translation?->name"
+                    description="{!! $translation?->description !!}"
+                    content="{!! $translation?->content !!}"
+                />
+                <x-backend.album 
+                    :model="$scholar ?? null"
+                />
+
+                <x-backend.seo 
+                    :meta_title="$translation?->meta_title"
+                    :meta_keyword="$translation?->meta_keyword"
+                    :meta_description="$translation?->meta_description"
+                    :canonical="$translation?->canonical"
+                />
             </div>
             <div class="col-lg-3">
                 <div class="ibox w">
@@ -25,23 +35,45 @@
                         <h5>{{ __('messages.parent') }}</h5>
                     </div>
                     <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-row">
-                                    <span class="text-danger notice" >*{{ __('messages.parentNotice') }}</span>
-                                    <select name="parent_id" class="form-control setupSelect2" id="">
-                                        @foreach($dropdown as $key => $val)
-                                        <option {{ 
-                                            $key == old('parent_id', (isset($postCatalogue->parent_id)) ? $postCatalogue->parent_id : '') ? 'selected' : '' 
-                                            }} value="{{ $key }}">{{ $val }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                        <x-backend.select2 
+                            :options="$dropdown"
+                            :heading="__('messages.parentNotice')"
+                            name="parent_id"
+                            :selectedValue="$scholar->parent_id"
+                        />
                     </div>
                 </div>
-                @include('backend.dashboard.component.publish', ['model' => ($postCatalogue) ?? null, 'hideImage' => false])
+                
+                <div class="ibox w">
+                    <div class="ibox-title">
+                        <h5>{{ __('messages.image') }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <x-backend.image-preview 
+                            name="image"
+                            :value="$scholar->image"
+                        />
+                    </div>
+                </div>
+
+                <div class="ibox w">
+                    <div class="ibox-title">
+                        <h5>Cấu hình nâng cao</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <x-backend.select2 
+                            :options="__('messages.publish')"
+                            name="publish"
+                            :selectedValue="$scholar->publish"
+                            class="mb10"
+                        />
+                        <x-backend.select2 
+                            :options="__('messages.follow')"
+                            name="follow"
+                            :selectedValue="$scholar->follow"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="text-right mb15 fixed-bottom">

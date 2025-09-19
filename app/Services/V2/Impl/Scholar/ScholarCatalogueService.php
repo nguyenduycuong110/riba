@@ -18,8 +18,9 @@ class ScholarCatalogueService extends BaseService {
 
     protected $nestedset;
 
-
     private $routerService;
+
+    protected $with = ['languages', 'users'];
 
     public function __construct(
         ScholarCatalogueRepo $repository,

@@ -12,51 +12,15 @@ use App\Http\ViewComposers\CartComposer;
 use App\Http\ViewComposers\CustomerComposer;
 use App\Models\Language;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+
+
 class AppServiceProvider extends ServiceProvider
 {
 
     public $bindings = [
-        'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
-        'App\Services\Interfaces\UserCatalogueServiceInterface' => 'App\Services\UserCatalogueService',
-        'App\Services\Interfaces\CustomerServiceInterface' => 'App\Services\CustomerService',
-        'App\Services\Interfaces\CustomerCatalogueServiceInterface' => 'App\Services\CustomerCatalogueService',
-        'App\Services\Interfaces\LanguageServiceInterface' => 'App\Services\LanguageService',
-        'App\Services\Interfaces\PostCatalogueServiceInterface' => 'App\Services\PostCatalogueService',
-        'App\Services\Interfaces\GenerateServiceInterface' => 'App\Services\GenerateService',
-        'App\Services\Interfaces\PermissionServiceInterface' => 'App\Services\PermissionService',
-        'App\Services\Interfaces\PostServiceInterface' => 'App\Services\PostService',
-        'App\Services\Interfaces\ProductCatalogueServiceInterface' => 'App\Services\ProductCatalogueService',
-        'App\Services\Interfaces\ProductServiceInterface' => 'App\Services\ProductService',
-        'App\Services\Interfaces\ProductCatalogueServiceInterface' => 'App\Services\ProductCatalogueService',
-        'App\Services\Interfaces\ProductServiceInterface' => 'App\Services\ProductService',
-        'App\Services\Interfaces\AttributeCatalogueServiceInterface' => 'App\Services\AttributeCatalogueService',
-        'App\Services\Interfaces\AttributeServiceInterface' => 'App\Services\AttributeService',
-        'App\Services\Interfaces\SystemServiceInterface' => 'App\Services\SystemService',
-        'App\Services\Interfaces\IntroduceServiceInterface' => 'App\Services\IntroduceService',
-        'App\Services\Interfaces\MenuCatalogueServiceInterface' => 'App\Services\MenuCatalogueService',
-        'App\Services\Interfaces\MenuServiceInterface' => 'App\Services\MenuService',
-        'App\Services\Interfaces\SlideServiceInterface' => 'App\Services\SlideService',
-        'App\Services\Interfaces\WidgetServiceInterface' => 'App\Services\WidgetService',
-        'App\Services\Interfaces\PromotionServiceInterface' => 'App\Services\PromotionService',
-        'App\Services\Interfaces\SourceServiceInterface' => 'App\Services\SourceService',
-        'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
-        'App\Services\Interfaces\OrderServiceInterface' => 'App\Services\OrderService',
-        'App\Services\Interfaces\ReviewServiceInterface' => 'App\Services\ReviewService',
-        'App\Services\Interfaces\DistributionServiceInterface' => 'App\Services\DistributionService',
-        'App\Services\Interfaces\AgencyServiceInterface' => 'App\Services\AgencyService',
-        'App\Services\Interfaces\ConstructServiceInterface' => 'App\Services\ConstructService',
-        'App\Services\Interfaces\VoucherServiceInterface' => 'App\Services\VoucherService',
-        'App\Services\Interfaces\ContactServiceInterface' => 'App\Services\ContactService',
-        'App\Services\Interfaces\LecturerServiceInterface' => 'App\Services\LecturerService',
-        'App\Services\Interfaces\SchoolServiceInterface' => 'App\Services\SchoolService',
-        'App\Services\Interfaces\SchoolCatalogueServiceInterface' => 'App\Services\SchoolCatalogueService',
-        'App\Services\Interfaces\ScholarshipServiceInterface' => 'App\Services\ScholarshipService',
-        'App\Services\Interfaces\ScholarshipCatalogueServiceInterface' => 'App\Services\ScholarshipCatalogueService',
-        'App\Services\Interfaces\TrainServiceInterface' => 'App\Services\TrainService',
-        'App\Services\Interfaces\PolicyServiceInterface' => 'App\Services\PolicyService',
-        'App\Services\Interfaces\AreaServiceInterface' => 'App\Services\AreaService',
-        'App\Services\Interfaces\CityServiceInterface' => 'App\Services\CityService',
-        'App\Services\Interfaces\ProjectServiceInterface' => 'App\Services\ProjectService',
+       
     ];
 
     /**
@@ -64,12 +28,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        foreach($this->bindings as $key => $val)
-        {
-            $this->app->bind($key, $val);
-        }
+        // foreach($this->bindings as $key => $val)
+        // {
+        //     $this->app->bind($key, $val);
+        // }
 
         // $this->app->register(RepositoryServiceProvider::class);
+
+        /** @noinspection PhpUndefinedMethodInspection */
+
 
     }
 

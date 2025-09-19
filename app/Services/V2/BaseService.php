@@ -25,6 +25,7 @@ abstract class BaseService implements BaseServiceInterface{
 
     protected $with = [];
 
+
     public function __construct(
         $repository
     ){
@@ -32,7 +33,8 @@ abstract class BaseService implements BaseServiceInterface{
     }
 
     public function findById($id){
-        return $this->repository->findById($id);
+        // $fillable = $this->repository->getFillable();
+        return $this->repository->findById($id, ['*'], $this->with);
     }
 
     protected abstract function prepareModelData(): static;

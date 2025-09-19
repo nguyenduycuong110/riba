@@ -12,7 +12,10 @@ class ScholarCatalogue extends Model
 {
     use HasFactory, SoftDeletes, HasQuery;
 
+    protected $languageId;
+
     protected $fillable = [
+        'id',
         'parent_id',
         'lft',
         'rgt',
@@ -24,7 +27,13 @@ class ScholarCatalogue extends Model
         // 'follow',
         'order',
         'user_id',
-        'short_name'
+        // 'short_name'
+    ];
+
+    
+
+    protected $casts = [
+        'album' => 'json'
     ];
 
     protected $relationable = [
@@ -36,7 +45,7 @@ class ScholarCatalogue extends Model
     }
 
     public function users(): BelongsTo{
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function languages(){
@@ -51,12 +60,15 @@ class ScholarCatalogue extends Model
             'meta_description',
             'description',
             'content'
-        );
+        )->where('language_id', config('app.language_id'));
     }
      
-    
-    protected $casts = [
-        'album' => 'json'
-    ];
+    public function setLanguage($language){
+        $this->languageId = $language;
+        return $this;
+    }
+
+   
+   
 
 }

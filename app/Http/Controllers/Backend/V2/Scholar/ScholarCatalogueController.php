@@ -6,6 +6,8 @@ use App\Http\Requests\Scholar\Catalogue\StoreRequest;
 use App\Http\Requests\Scholar\Catalogue\UpdateRequest;
 use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
 use App\Models\Language;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Resources\ScholarCatalogueResource;
 
 class ScholarCatalogueController extends Controller {
 
@@ -27,7 +29,6 @@ class ScholarCatalogueController extends Controller {
     }
 
     public function index(Request $request){
-        // $this->authorize('modules', 'scholar.option.catalogue.index');
         $scholars = $this->service->pagination($request);
         $config = [
             'model' => 'ScholarCatalogue',
@@ -64,16 +65,20 @@ class ScholarCatalogueController extends Controller {
         if(!$scholar = $this->service->findById($id)){
             return redirect()->route('scholar.catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
+        // dd($scholar);
         $config = [
             'model' => 'ScholarCatalogue',
             'seo' => $this->seo(),
-            'method' => 'update'
+            'method' => 'update',
+            'extendJs' => true
         ];
+        $dropdown = $this->service->dropdown($this->language);
         $template = 'backend.scholar.catalogue.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'scholar'
+            'scholar',
+            'dropdown'
         ));     
     }
     
@@ -127,6 +132,9 @@ class ScholarCatalogueController extends Controller {
             ],
             'create' => [
                 'title' => 'Thêm mới loại học bổng'
+            ],
+            'update' => [
+                'title' => 'Cập nhật loại học bổng'
             ],
             'delete' => [
                 'title' => 'Xóa loại học bổng'
