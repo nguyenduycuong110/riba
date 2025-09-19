@@ -39,7 +39,7 @@
                             :options="$dropdown"
                             :heading="__('messages.parentNotice')"
                             name="parent_id"
-                            :selectedValue="$scholar->parent_id"
+                            :selectedValue="$scholar->parent_id ?? 0"
                         />
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <div class="ibox-content">
                         <x-backend.image-preview 
                             name="image"
-                            :value="$scholar->image"
+                            :value="$scholar->image ?? ''"
                         />
                     </div>
                 </div>
@@ -64,13 +64,13 @@
                         <x-backend.select2 
                             :options="__('messages.publish')"
                             name="publish"
-                            :selectedValue="$scholar->publish"
+                            :selectedValue="$scholar->publish ?? 0"
                             class="mb10"
                         />
                         <x-backend.select2 
                             :options="__('messages.follow')"
                             name="follow"
-                            :selectedValue="$scholar->follow"
+                            :selectedValue="$scholar->follow ?? 0"
                         />
                     </div>
                 </div>

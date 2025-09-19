@@ -1,8 +1,8 @@
 <?php  
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Backend\V2\Scholar\PolicyControllerController;
 use App\Http\Controllers\Backend\V2\Scholar\PolicyController;
+use App\Http\Controllers\Backend\V2\Scholar\ScholarCatalogueController;
 
 
 

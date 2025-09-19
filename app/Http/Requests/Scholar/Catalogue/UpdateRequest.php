@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Scholar\Policy;
+namespace App\Http\Requests\Scholar\Catalogue;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -21,14 +21,18 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'name' => 'required',
+            'canonical' => 'required|unique:routers,canonical, '.$this->id.',module_id',
         ];
     }
 
-    public function messages(): array {
+     public function messages(): array
+    {
         return [
-            'name.required' => 'bạn chưa nhập vào trường Tên'
+            'name.required' => 'Bạn chưa nhập vào ô tiêu đề.',
+            'canonical.required' => 'Bạn chưa nhập vào ô đường dẫn',
+            'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',
         ];
     }
 }
