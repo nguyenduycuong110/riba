@@ -51,7 +51,7 @@ class ScholarCatalogueController extends Controller {
             'method' => 'create',
             'extendJs' => true
         ];
-        $dropdown = $this->service->dropdown($this->language);
+        $dropdown = $this->service->dropdown();
         $template = 'backend.scholar.catalogue.store';
         return view('backend.dashboard.layout', compact(
             'template',
@@ -65,14 +65,13 @@ class ScholarCatalogueController extends Controller {
         if(!$scholar = $this->service->findById($id)){
             return redirect()->route('scholar.catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
-        // dd($scholar);
         $config = [
             'model' => 'ScholarCatalogue',
             'seo' => $this->seo(),
             'method' => 'update',
             'extendJs' => true
         ];
-        $dropdown = $this->service->dropdown($this->language);
+        $dropdown = $this->service->dropdown();
         $template = 'backend.scholar.catalogue.store';
         return view('backend.dashboard.layout', compact(
             'template',
@@ -83,7 +82,7 @@ class ScholarCatalogueController extends Controller {
     }
     
     public function store(StoreRequest $request){
-        if($response = $this->service->save($request, 'store', $this->language)){
+        if($response = $this->service->save($request, 'store')){
             return redirect()->back()->with('success', 'Khởi tạo bản ghi thành công');
         }
         return redirect()->back()->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
@@ -91,7 +90,7 @@ class ScholarCatalogueController extends Controller {
 
     public function update($id, UpdateRequest $request){
          // $this->authorize('modules', 'scholar.option.catalogue.update');
-        if($response = $this->service->save($request, 'update', $this->language, $id)){
+        if($response = $this->service->save($request, 'update', $id)){
             return redirect()->back()->with('success', 'Cập nhật bản ghi thành công');
         }
         return redirect()->back()->with('error','Cập nhật bản ghi không thành công. Hãy thử lại');

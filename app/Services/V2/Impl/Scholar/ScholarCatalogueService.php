@@ -29,14 +29,7 @@ class ScholarCatalogueService extends BaseService {
     {
         $this->repository = $repository;
         $this->routerService = $routerService;
-    }
-
-    private function initNestedset($languageId){
-        $this->nestedset = new Nestedsetbie([
-            'table' => 'scholar_catalogues',
-            'foreignkey' => 'scholar_catalogue_id',
-            'language_id' =>  $languageId ,
-        ]);
+        // Lazy load nestedset
     }
 
     public function prepareModelData(): static {
@@ -49,8 +42,8 @@ class ScholarCatalogueService extends BaseService {
         return $this;
     }
 
-    public function dropdown($languageId){
-        $this->initNestedset($languageId);
+    public function dropdown(){
+        $this->initNestedset(table: 'scholar_catalogues', key: 'scholar_catalogue_id'); 
         return $this->nestedset->Dropdown();
     }
 
@@ -60,13 +53,8 @@ class ScholarCatalogueService extends BaseService {
     }
 
     protected function afterSave(): static {
-        $request = $this->context['request'];
-        $languageId = $this->context['languageId'];
-        $payload = $this->createRouterPayload($request->canonical, $this->model->id, $languageId, 'ScholarCatalogueController');
-        $routerRequest = new Request();
-        $routerRequest->merge($payload);
-        $this->routerService->save($routerRequest, 'store');
-        $this->initNestedset($this->context['languageId']);
+        $this->handleRouter(controller: 'ScholarCatalogueController');
+        $this->initNestedset(table: 'scholar_catalogues', key: 'scholar_catalogue_id'); 
         $this->nestedSet();
         return $this;
     }

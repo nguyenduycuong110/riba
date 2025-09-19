@@ -3,13 +3,13 @@
 <table class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th style="width:60px;">
+        <th style="width:30px;">
             <input type="checkbox" value="" id="checkAll" class="input-checkbox">
         </th>
         @foreach($columns as $col)
-        <th>{{ $col['label'] }}</th>
+        <th class="{{ isset($col['class']) ? $col['class'] : '' }}">{{ $col['label'] }}</th>
         @endforeach
-        <th style="width:100px;">Sắp xếp</th>
+        <th style="width:100px;" class="text-center">Sắp xếp</th>
         <th style="width:100px;" class="text-center">Tình Trạng</th>
         <th style="width:100px;" class="text-center">Thao tác</th>
     </tr>
@@ -24,7 +24,7 @@
                 </td>
 
                 @foreach($columns as $col)
-                    <td>
+                    <td class="{{ isset($col['class']) ? $col['class'] : '' }}">
                         {!! $col['render']($record) !!}
                     </td>
                 @endforeach

@@ -56,8 +56,9 @@ abstract class BaseService implements BaseServiceInterface{
     }
 
 
-    public function save(Request $request,  string $action = 'store',?int $languageId = null, ?int $id = null){
-        $context = ['action' => $action, 'id' => $id, 'request' => $request, 'languageId' => $languageId];
+    public function save(Request $request,  string $action = 'store', ?int $id = null){
+        $context = ['action' => $action, 'id' => $id, 'request' => $request, 'languageId' => config('app.language_id')];
+        // dd($context);
         return $this->beginTransaction()
         ->setContext($context)
         ->prepareModelData()

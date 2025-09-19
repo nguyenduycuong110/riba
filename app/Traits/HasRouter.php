@@ -1,6 +1,8 @@
 <?php  
 namespace App\Traits;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\Router;
 
 trait HasRouter {
     public function createRouterPayload(string $canonical = '', int $modelId, int $languageId, string $controllerName = ''){
@@ -26,5 +28,16 @@ trait HasRouter {
             ]
         ];
         $request->merge(['languages' => $payload]);
+    }
+
+    public function handleRouter(string $controller = ''): void{
+        $request = $this->context['request'];
+        // $action = $this->context['action'];
+        $languageId = $this->context['languageId'];
+        $payload = $this->createRouterPayload($request->canonical, $this->model->id, $languageId, $controller);
+        $routerRequest = new Request();
+        $routerRequest->merge($payload);
+        Router::where(['language_id' => $languageId, 'module_id' => $this->context['id']])->forceDelete();
+        $this->routerService->save($routerRequest, 'store');
     }
 }

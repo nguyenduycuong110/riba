@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Classes\Nestedsetbie;
 use App\Traits\HasNested;
+use App\Traits\HasRouter;
 
 class ScholarCatalogueSeeder extends Seeder
 {
-    use HasNested;
+    use HasNested, HasRouter;
 
     protected $nestedset;
 
@@ -186,10 +187,22 @@ class ScholarCatalogueSeeder extends Seeder
 
         foreach ($data as $item) {
             $catalogueId = DB::table('scholar_catalogues')->insertGetId($item['catalogue']);
-            
             $item['language']['scholar_catalogue_id'] = $catalogueId;
-            
             DB::table('scholar_catalogue_language')->insert($item['language']);
+            $routerData = $this->createRouterPayload(
+                $item['language']['canonical'],
+                $catalogueId,
+                $item['language']['language_id'],
+                'ScholarCatalogueController'
+            );
+            DB::table('routers')->updateOrInsert(
+                [
+                    'canonical' => $routerData['canonical'],
+                    'language_id' => $routerData['language_id'],
+                ],
+                $routerData
+            );
+
         }
 
         $this->nestedset = new Nestedsetbie([
