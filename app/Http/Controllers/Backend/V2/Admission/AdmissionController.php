@@ -5,29 +5,29 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admission\Admission\StoreRequest;
 use App\Http\Requests\Admission\Admission\UpdateRequest;
 use App\Services\V2\Impl\Admission\AdmissionService;
+use App\Services\V2\Impl\Admission\AdmissionCatalogueService;
 use App\Services\V2\Impl\Scholar\ScholarService;
-use App\Services\V2\Impl\Scholar\PolicyService;
 use App\Services\V2\Impl\Scholar\TrainService;
 use App\Models\Language;
 
 class AdmissionController extends Controller {
 
     private $service;
+    private $admissionCatalogueservice;
     private $scholarService;
-    private $policyService;
     private $trainService;
     protected $language;
 
     public function __construct(
         AdmissionService $service,
+        AdmissionCatalogueService $admissionCatalogueservice,
         ScholarService $scholarService,
-        PolicyService $policyService,
         TrainService $trainService
     )
     {
         $this->service = $service;
+        $this->admissionCatalogueservice = $admissionCatalogueservice;
         $this->scholarService = $scholarService;
-        $this->policyService = $policyService;
         $this->trainService = $trainService;
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
@@ -53,10 +53,10 @@ class AdmissionController extends Controller {
     }
 
     public function create(){
-         // $this->authorize('modules', 'admission.option.admission.create');
-        $scholars = $this->scholarService->all(['languages']);
-        $policies = $this->policyService->all();
-        $trains = $this->trainService->all();
+        // $this->authorize('modules', 'admission.option.admission.create');
+        $dropdown = $this->admissionCatalogueservice->dropdown();
+        $scholars = $this->scholarService->convertDateSelectBox();
+        $trains = $this->trainService->all()->pluck('name', 'id');
         $config = [
             'model' => 'Admission',
             'seo' => $this->seo(),
@@ -65,8 +65,8 @@ class AdmissionController extends Controller {
         ];
         $template = 'backend.admission.admission.store';
         return view('backend.dashboard.layout', compact(
+            'dropdown',
             'scholars',
-            'policies',
             'trains',
             'template',
             'config',
@@ -74,13 +74,13 @@ class AdmissionController extends Controller {
     }
 
     public function edit($id){
-         // $this->authorize('modules', 'admission.option.admission.update');
+        // $this->authorize('modules', 'admission.option.admission.update');
         if(!$admission = $this->service->findById($id)){
             return redirect()->route('admission.index')->with('error','Bản ghi không tồn tại'); 
         }
-        $scholars = $this->scholarService->all(['languages']);
-        $policies = $this->policyService->all();
-        $trains = $this->trainService->all();
+        $dropdown = $this->admissionCatalogueservice->dropdown();
+        $scholars = $this->scholarService->convertDateSelectBox();
+        $trains = $this->trainService->all()->pluck('name', 'id');
         $config = [
             'model' => 'Admission',
             'seo' => $this->seo(),
@@ -91,9 +91,9 @@ class AdmissionController extends Controller {
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
+            'dropdown',
             'admission',
             'scholars',
-            'policies',
             'trains',
         ));     
     }
@@ -109,7 +109,6 @@ class AdmissionController extends Controller {
         }
         return redirect()->back()->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
     }
-
 
     public function update($id, UpdateRequest $request){
          // $this->authorize('modules', 'admission.option.admission.update');
@@ -133,7 +132,7 @@ class AdmissionController extends Controller {
             'seo' => $this->seo(),
             'method' => 'update'
         ];
-        $template = 'backend.scholar.scholar.delete';
+        $template = 'backend.admission.admission.delete';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
@@ -148,7 +147,6 @@ class AdmissionController extends Controller {
         }
         return redirect()->back()->with('error','Xóa bản ghi không thành công. Hãy thử lại');
     }
-
 
     private function seo(){
         return [

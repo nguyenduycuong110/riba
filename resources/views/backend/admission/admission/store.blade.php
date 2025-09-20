@@ -1,7 +1,7 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo'][$config['method']]['title']])
 @include('backend.dashboard.component.formError')
 @php
-    $url = ($config['method'] == 'create') ? route('scholar.store') : route('scholar.update', $scholar->id);
+    $url = ($config['method'] == 'create') ? route('admission.store') : route('admission.update', $admission->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
@@ -9,19 +9,94 @@
         <div class="row">
             <div class="col-lg-9">
                 @php
-                    $translation = (isset($scholar)) ? $scholar->languages->first()->pivot : null;
+                    $translation = (isset($admission)) ? $admission->languages->first()->pivot : null;
                 @endphp
-                <x-backend.content-scholar
+                <x-backend.content
                     :name="$translation?->name"
                     description="{!! $translation?->description !!}"
                     content="{!! $translation?->content !!}"
                 />
                 <x-backend.album 
-                    :model="$scholar ?? null"
+                    :model="$admission ?? null"
                 />
-                <x-backend.policy 
-                    :model="$scholar ?? null"
-                />
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Thông tin tuyển sinh</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="form-table">
+                            <thead>
+                                <tr>
+                                    <th>Mùa học bổng</th>
+                                    <th>Thời gian tuyển sinh</th>
+                                    <th>Hạn chót nộp đơn</th>
+                                    <th>Vị trí</th>
+                                    <th>Phí nộp đơn</th>
+                                    <th>Chế độ giáo dục</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            name="admissions_info[season]" 
+                                            class="form-control" 
+                                            placeholder="Ví dụ : 2024" 
+                                            value="{{ old('admissions_info.season', $admission->admissions_info['season'] ?? '') }}"
+                                        >
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="admissions_info[admission_time]" 
+                                            class="form-control" 
+                                            placeholder="Ví dụ : tháng 9" 
+                                            value="{{ old('admissions_info.admission_time', $admission->admissions_info['admission_time'] ?? '') }}"
+                                        >
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="date" 
+                                            name="admissions_info[apply_deadline]" 
+                                            value="{{ old('admissions_info.apply_deadline', isset($admission) ? date('Y-m-d', strtotime($admission->admissions_info['apply_deadline'])) : '') }}" 
+                                            class="form-control" 
+                                            placeholder="" 
+                                            autocomplete="off"
+                                        >
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="admissions_info[position]" 
+                                            class="form-control" 
+                                            placeholder="Ví dụ : sinh viên" 
+                                            value="{{ old('admissions_info.position', $admission->admissions_info['position'] ?? '') }}"
+                                        >
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="admissions_info[application_fee]" 
+                                            class="form-control int" 
+                                            placeholder="" 
+                                            value="{{ old('admissions_info.application_fee', $admission->admissions_info['application_fee'] ?? '') }}"
+                                        >
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="admissions_info[education_mode]" 
+                                            class="form-control" 
+                                            placeholder="Ví dụ : ngoại tuyến" 
+                                            value="{{ old('admissions_info.education_mode', $admission->admissions_info['education_mode'] ?? '') }}"
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <x-backend.seo 
                     :meta_title="$translation?->meta_title"
                     :meta_keyword="$translation?->meta_keyword"
@@ -30,73 +105,57 @@
                 />
             </div>
             <div class="col-lg-3">
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.scholar_catalogue') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2-custom
-                            :options="$scholarCatalogues"
-                            :heading="__('messages.scholar_catalogue')"
-                            name="scholar_catalogue_id"
-                            :selectedValue="$scholar->scholar_catalogue_id ?? 0"
-                        />
-                    </div>
-                </div>
+                <x-ibox heading="Chọn Danh mục cha">
+                     <x-backend.select2
+                        :options="$dropdown"
+                        heading="Chọn danh mục cha"
+                        name="admission_catalogue_id"
+                        :selectedValue="$admission->admission_catalogue_id ?? 0"
+                    />
+                </x-ibox>
 
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.policy') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2-custom
-                            :options="$policies"
-                            :heading="__('messages.policy')"
-                            name="policy_id"
-                            :selectedValue="$scholar->policy_id ?? 0"
-                        />
-                    </div>
-                </div>
+                <x-ibox heading="Chọn Học bổng">
+                     <x-backend.select2
+                        :options="$scholars"
+                        heading="Chọn học bổng"
+                        name="scholar_id"
+                        :selectedValue="$admission->scholar_id ?? 0"
+                    />
+                </x-ibox>
 
                 <div class="ibox w">
                     <div class="ibox-title">
                         <h5>{{ __('messages.train') }}</h5>
                     </div>
+                    @php
+                        $admission_train_ids = isset($admission) ? $admission->admission_trains->pluck('id')->toArray() : null;
+                    @endphp
                     <div class="ibox-content">
-                        <x-backend.select2-custom
+                        <x-backend.select2
                             :options="$trains"
                             :heading="__('messages.train')"
-                            name="train_id"
-                            :selectedValue="$scholar->train_id ?? 0"
-                        />
-                    </div>
-                </div>
-                
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.image') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.image-preview 
-                            name="image"
-                            :value="$scholar->image ?? ''"
+                            name="admission_trains"
+                            :selectedValue="$admission_train_ids ?? []"
+                            multiple
                         />
                     </div>
                 </div>
 
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>Cấu hình nâng cao</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2 
-                            :options="__('messages.publish')"
-                            name="publish"
-                            :selectedValue="$scholar->publish ?? 0"
-                            class="mb10"
-                        />
-                    </div>
-                </div>
+                <x-ibox heading="Ảnh đại diện">
+                    <x-backend.image-preview 
+                        name="image"
+                        :value="$admission->image ?? ''"
+                    />
+                </x-ibox>
+
+                <x-ibox heading="Cấu hình nâng cao">
+                    <x-backend.select2 
+                        :options="__('messages.publish')"
+                        name="publish"
+                        :selectedValue="$admission->publish ?? 0"
+                        class="mb10"
+                    />
+                </x-ibox>
             </div>
         </div>
         <div class="text-right mb15 fixed-bottom">
@@ -105,3 +164,24 @@
         </div>
     </div>
 </form>
+<style>
+    .form-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .form-table thead th {
+        background-color: #f8f9fa;
+        padding: 15px 10px;
+        text-align: center;
+        font-weight: 500;
+        color: #495057;
+        border: 1px solid #dee2e6;
+        vertical-align: top;
+    }
+    .form-table tbody td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+        vertical-align: top;
+    }
+</style>

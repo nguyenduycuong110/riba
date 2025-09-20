@@ -27,7 +27,7 @@ class AdmissionCatalogueController extends Controller {
     }
 
     public function index(Request $request){
-        $admissionCatalogues = $this->service->pagination($request);
+        $admissions = $this->service->pagination($request);
         $config = [
             'model' => 'AdmissionCatalogue',
             'seo' => $this->seo(),
@@ -37,7 +37,7 @@ class AdmissionCatalogueController extends Controller {
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'admissionCatalogues'
+            'admissions'
         ));
     }
 
@@ -60,7 +60,7 @@ class AdmissionCatalogueController extends Controller {
 
     public function edit($id){
          // $this->authorize('modules', 'admission.option.catalogue.update');
-        if(!$admissionCatalogue = $this->service->findById($id)){
+        if(!$admission = $this->service->findById($id)){
             return redirect()->route('admission.catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
@@ -74,7 +74,7 @@ class AdmissionCatalogueController extends Controller {
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'admissionCatalogue',
+            'admission',
             'dropdown'
         ));     
     }
@@ -106,7 +106,7 @@ class AdmissionCatalogueController extends Controller {
 
     public function delete($id){
         //  $this->authorize('modules', 'admission.option.catalogue.destroy');
-        if(!$admissionCatalogue = $this->service->findById($id)){
+        if(!$admission = $this->service->findById($id)){
             return redirect()->route('admission.catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
@@ -118,7 +118,7 @@ class AdmissionCatalogueController extends Controller {
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'admissionCatalogue'
+            'admission'
         ));
     }
 

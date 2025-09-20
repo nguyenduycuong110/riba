@@ -16,7 +16,7 @@ class AdmissionService extends BaseService {
 
     private $routerService;
 
-    protected $with = ['languages', 'users'];
+    protected $with = ['languages', 'users', 'admission_trains'];
 
     public function __construct(
         AdmissionRepo $repository,
@@ -32,6 +32,7 @@ class AdmissionService extends BaseService {
         if(!is_null($request)){
             $this->fillable = $this->repository->getFillable();
             $this->modelData = $request->only($this->fillable);
+            $this->modelData['submission_time'] = $request->admissions_info['apply_deadline'];
             $this->modelData['user_id'] = Auth::id();
         }
         return $this;

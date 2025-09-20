@@ -30,73 +30,48 @@
                 />
             </div>
             <div class="col-lg-3">
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.scholar_catalogue') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2
-                            :options="$dropdown"
-                            :heading="__('messages.scholar_catalogue')"
-                            name="scholar_catalogue_id"
-                            :selectedValue="$scholar->scholar_catalogue_id ?? 0"
-                        />
-                    </div>
-                </div>
-
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.policy') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2
-                            :options="$policies"
-                            :heading="__('messages.policy')"
-                            name="policy_id"
-                            :selectedValue="$scholar->policy_id ?? 0"
-                        />
-                    </div>
-                </div>
-
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.train') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2
-                            :options="$trains"
-                            :heading="__('messages.train')"
-                            name="train_id"
-                            :selectedValue="$scholar->train_id ?? 0"
-                        />
-                    </div>
-                </div>
+                <x-ibox heading="Chọn Danh mục cha">
+                     <x-backend.select2
+                        :options="$dropdown"
+                        heading="Chọn danh mục cha"
+                        name="scholar_catalogue_id"
+                        :selectedValue="$scholar->scholar_catalogue_id ?? 0"
+                    />
+                </x-ibox>
                 
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.image') }}</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.image-preview 
-                            name="image"
-                            :value="$scholar->image ?? ''"
-                        />
-                    </div>
-                </div>
+                <x-ibox heading="Chọn Chính sách">
+                     <x-backend.select2
+                        :options="$policies"
+                        heading="Chọn chính sách"
+                        name="policy_id"
+                        :selectedValue="$scholar->policy_id ?? 0"
+                    />
+                </x-ibox>
 
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>Cấu hình nâng cao</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <x-backend.select2 
-                            :options="__('messages.publish')"
-                            name="publish"
-                            :selectedValue="$scholar->publish ?? 0"
-                            class="mb10"
-                        />
-                    </div>
-                </div>
+                <x-ibox heading="Chọn Hệ đào tạo">
+                     <x-backend.select2
+                        :options="$trains"
+                        heading="Chọn chính sách"
+                        name="train_id"
+                        :selectedValue="$scholar->train_id ?? 0"
+                    />
+                </x-ibox>
+                
+                <x-ibox heading="Ảnh đại diện">
+                    <x-backend.image-preview 
+                        name="image"
+                        :value="$scholar->image ?? ''"
+                    />
+                </x-ibox>
+
+                <x-ibox heading="Cấu hình nâng cao">
+                    <x-backend.select2 
+                        :options="__('messages.publish')"
+                        name="publish"
+                        :selectedValue="$scholar->publish ?? 0"
+                        class="mb10"
+                    />
+                </x-ibox>
             </div>
         </div>
         <div class="text-right mb15 fixed-bottom">

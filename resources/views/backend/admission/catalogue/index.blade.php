@@ -9,20 +9,20 @@
             </div>
             <div class="ibox-content">
                 <x-backend.filter 
-                    createRoute="admission.create"
-                    submitRoute="admission.index"
+                    createRoute="admission.catalogue.create"
+                    submitRoute="admission.catalogue.index"
                 />
                 <x-backend.customtable 
                     :records="$admissions->getCollection()"
                     :columns="[
-                        'name' => ['label' => 'Tuyển Sinh', '', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
+                        'name' => ['label' => 'Loại Tuyển Sinh', '', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
                         'creator' => ['class' => 'text-center w-200px', 'label' => 'Người tạo', 'render' => fn($item) => $item->users->name],
                         'created_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày tạo', 'render' => fn($item) => $item->created_at->format('d-m-Y')],
                         'updated_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at->format('d-m-Y')],
                     ]"
                     :actions="[
-                        ['route' => 'admission.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],
-                        ['route' => 'admission.delete', 'class' => 'btn-danger', 'icon' => 'fa-trash'],
+                        ['route' => 'admission.catalogue.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],
+                        ['route' => 'admission.catalogue.delete', 'class' => 'btn-danger', 'icon' => 'fa-trash'],
                     ]"
                     :model="$config['model']"
                 />

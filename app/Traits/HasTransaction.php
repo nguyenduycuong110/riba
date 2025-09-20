@@ -34,7 +34,6 @@ trait HasTransaction {
         if(count($relation)){
             foreach($relation as $key => $val){
                 if($request->has($val)){
-                    // dd($request->{$val});
                     $this->model->{$val}()->sync($request->{$val});
                 }
             }

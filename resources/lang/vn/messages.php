@@ -572,5 +572,7 @@ return [
     'delete_policy' => 'Xóa chính sách',
     'add_scholar_policy' => 'Tạo chính sách học bổng',
     'enter_main_name' => 'Nhập vào tên chính sách',
-    'enter_des_name' => 'Nhập vào tên chính sách'
+    'enter_des_name' => 'Nhập vào tên chính sách',
+    'admission_catalogue' =>  'Chọn loại tuyển sinh',
+    'scholar' =>  'Chọn học bổng',
 ];

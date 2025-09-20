@@ -45,9 +45,9 @@ class AdmissionCatalogue extends Model
     }
 
     public function languages(){
-        return $this->belongsToMany(Language::class, 'scholar_catalogue_language' , 'scholar_catalogue_id', 'language_id')
+        return $this->belongsToMany(Language::class, 'admission_catalogue_language' , 'admission_catalogue_id', 'language_id')
         ->withPivot(
-            'scholar_catalogue_id',
+            'admission_catalogue_id',
             'language_id',
             'name',
             'canonical',
@@ -63,8 +63,6 @@ class AdmissionCatalogue extends Model
         $this->languageId = $language;
         return $this;
     }
-
-   
    
 
 }

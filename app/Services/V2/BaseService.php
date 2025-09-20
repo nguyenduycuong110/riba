@@ -25,7 +25,6 @@ abstract class BaseService implements BaseServiceInterface{
 
     protected $with = [];
 
-
     public function __construct(
         $repository
     ){
@@ -102,6 +101,17 @@ abstract class BaseService implements BaseServiceInterface{
 
     public function all(array $relation = [], string $selectRaw = ''){
         return $this->repository->all($relation, $selectRaw);
+    }
+
+    public function convertDateSelectBox(){
+        $temp = [];
+        $data =  $this->repository->all(['languages']);
+        if(!empty($data)){
+            foreach($data as $item){
+                $temp[$item->id] = $item->languages->first()->pivot->name;
+            }
+        }
+        return $temp;
     }
 
 }

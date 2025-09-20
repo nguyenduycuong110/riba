@@ -1,7 +1,7 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo'][$config['method']]['title']])
 @include('backend.dashboard.component.formError')
 @php
-    $url = ($config['method'] == 'create') ? route('scholar.catalogue.store') : route('scholar.catalogue.update', $scholar->id);
+    $url = ($config['method'] == 'create') ? route('admission.catalogue.store') : route('admission.catalogue.update', $admission->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 @php
-                    $translation = (isset($scholar)) ? $scholar->languages->first()->pivot : null;
+                    $translation = (isset($admission)) ? $admission->languages->first()->pivot : null;
                 @endphp
                 <x-backend.content 
                     :name="$translation?->name"
@@ -17,7 +17,7 @@
                     content="{!! $translation?->content !!}"
                 />
                 <x-backend.album 
-                    :model="$scholar ?? null"
+                    :model="$admission ?? null"
                 />
 
                 <x-backend.seo 
@@ -29,24 +29,26 @@
             </div>
             <div class="col-lg-3">
                 <x-ibox heading="Chọn Danh mục cha">
-                     <x-backend.select2
+                    <x-backend.select2
                         :options="$dropdown"
                         heading="Chọn danh mục cha"
                         name="parent_id"
-                        :selectedValue="$scholar->parent_id ?? 0"
+                        :selectedValue="$admission->parent_id ?? 0"
                     />
                 </x-ibox>
+                
                 <x-ibox heading="Ảnh đại diện">
                     <x-backend.image-preview 
                         name="image"
-                        :value="$scholar->image ?? ''"
+                        :value="$admission->image ?? ''"
                     />
                 </x-ibox>
+
                 <x-ibox heading="Cấu hình nâng cao">
                     <x-backend.select2 
                         :options="__('messages.publish')"
                         name="publish"
-                        :selectedValue="$scholar->publish ?? 0"
+                        :selectedValue="$admission->publish ?? 0"
                         class="mb10"
                     />
                 </x-ibox>

@@ -21,17 +21,19 @@ class Admission extends Model
         'admission_catalogue_id',
         'scholar_id',
         'image',
+        'album',
         'publish',
         'order',
         'user_id',
     ];
 
     protected $casts = [
+        'album' => 'json',
         'admissions_info' => 'json'
     ];
 
     protected $relationable = [
-        'users', 'admission_catalogues', 'scholars', 'languages'
+        'users', 'admission_catalogues', 'admission_trains', 'scholars', 'languages'
     ];
 
     public function getRelationable(){
@@ -48,6 +50,10 @@ class Admission extends Model
 
     public function scholars(): BelongsTo{
         return $this->belongsTo(Scholar::class, 'scholar_id', 'id');
+    }
+
+    public function admission_trains(){
+        return $this->belongsToMany(ScholarTrain::class, 'admission_train', 'admission_id', 'train_id');
     }
 
     public function languages(){

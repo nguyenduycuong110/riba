@@ -56,8 +56,8 @@ class ScholarController extends Controller {
     public function create(){
          // $this->authorize('modules', 'scholar.option.scholar.create');
         $dropdown = $this->scholarCatalogueService->dropdown();
-        $policies = $this->policyService->all()->pluck('name')->toArray();
-        $trains = $this->trainService->all()->pluck('name')->toArray();
+        $policies = $this->policyService->all()->pluck('name', 'id');
+        $trains = $this->trainService->all()->pluck('name', 'id');
         $config = [
             'model' => 'Scholar',
             'seo' => $this->seo(),
@@ -80,8 +80,8 @@ class ScholarController extends Controller {
             return redirect()->route('scholar.index')->with('error','Bản ghi không tồn tại'); 
         }
         $dropdown = $this->scholarCatalogueService->dropdown();
-        $policies = $this->policyService->all()->pluck('name')->toArray();
-        $trains = $this->trainService->all()->pluck('name')->toArray();
+        $policies = $this->policyService->all()->pluck('name', 'id');
+        $trains = $this->trainService->all()->pluck('name', 'id');
         $config = [
             'model' => 'Scholar',
             'seo' => $this->seo(),
