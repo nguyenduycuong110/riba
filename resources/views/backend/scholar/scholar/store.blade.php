@@ -30,33 +30,28 @@
                 />
             </div>
             <div class="col-lg-3">
-                <x-ibox heading="Chọn Danh mục cha">
-                     <x-backend.select2
+                <x-ibox heading="Thông tin học bổng">
+                    <x-backend.select2
                         :options="$dropdown"
                         heading="Chọn danh mục cha"
                         name="scholar_catalogue_id"
                         :selectedValue="$scholar->scholar_catalogue_id ?? 0"
+                        class="mb10"
                     />
-                </x-ibox>
-                
-                <x-ibox heading="Chọn Chính sách">
-                     <x-backend.select2
+                    <x-backend.select2
                         :options="$policies"
                         heading="Chọn chính sách"
                         name="policy_id"
                         :selectedValue="$scholar->policy_id ?? 0"
+                        class="mb10"
                     />
-                </x-ibox>
-
-                <x-ibox heading="Chọn Hệ đào tạo">
-                     <x-backend.select2
+                    <x-backend.select2
                         :options="$trains"
                         heading="Chọn chính sách"
                         name="train_id"
                         :selectedValue="$scholar->train_id ?? 0"
                     />
                 </x-ibox>
-                
                 <x-ibox heading="Ảnh đại diện">
                     <x-backend.image-preview 
                         name="image"

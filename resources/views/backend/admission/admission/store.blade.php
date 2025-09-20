@@ -16,9 +16,6 @@
                     description="{!! $translation?->description !!}"
                     content="{!! $translation?->content !!}"
                 />
-                <x-backend.album 
-                    :model="$admission ?? null"
-                />
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Thông tin tuyển sinh</h5>
@@ -97,6 +94,9 @@
                         </table>
                     </div>
                 </div>
+                <x-backend.album 
+                    :model="$admission ?? null"
+                />
                 <x-backend.seo 
                     :meta_title="$translation?->meta_title"
                     :meta_keyword="$translation?->meta_keyword"
@@ -105,49 +105,38 @@
                 />
             </div>
             <div class="col-lg-3">
-                <x-ibox heading="Chọn Danh mục cha">
-                     <x-backend.select2
+                <x-ibox heading="Thông tin tuyển sinh">
+                    <x-backend.select2
                         :options="$dropdown"
                         heading="Chọn danh mục cha"
                         name="admission_catalogue_id"
                         :selectedValue="$admission->admission_catalogue_id ?? 0"
+                        class="mb10"
                     />
-                </x-ibox>
-
-                <x-ibox heading="Chọn Học bổng">
-                     <x-backend.select2
+                    <x-backend.select2
                         :options="$scholars"
                         heading="Chọn học bổng"
                         name="scholar_id"
                         :selectedValue="$admission->scholar_id ?? 0"
+                        class="mb10"
                     />
-                </x-ibox>
-
-                <div class="ibox w">
-                    <div class="ibox-title">
-                        <h5>{{ __('messages.train') }}</h5>
-                    </div>
                     @php
                         $admission_train_ids = isset($admission) ? $admission->admission_trains->pluck('id')->toArray() : null;
                     @endphp
-                    <div class="ibox-content">
-                        <x-backend.select2
-                            :options="$trains"
-                            :heading="__('messages.train')"
-                            name="admission_trains"
-                            :selectedValue="$admission_train_ids ?? []"
-                            multiple
-                        />
-                    </div>
-                </div>
-
+                    <x-backend.select2
+                        :options="$trains"
+                        :heading="__('messages.train')"
+                        name="admission_trains"
+                        :selectedValue="$admission_train_ids ?? []"
+                        multiple
+                    />
+                </x-ibox>
                 <x-ibox heading="Ảnh đại diện">
                     <x-backend.image-preview 
                         name="image"
                         :value="$admission->image ?? ''"
                     />
                 </x-ibox>
-
                 <x-ibox heading="Cấu hình nâng cao">
                     <x-backend.select2 
                         :options="__('messages.publish')"
