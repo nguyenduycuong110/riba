@@ -38,7 +38,7 @@ class UpdateRequest extends FormRequest
             'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',
             'scholar_catalogue_id.gt' => 'Bạn chưa chọn nhóm học bổng',
             'policy_id.gt' => 'Bạn chưa chọn chính sách',
-            'policy_id.gt' => 'Bạn chưa chọn hệ đào tạo',
+            'train_id.gt' => 'Bạn chưa chọn hệ đào tạo',
         ];
     }
 }

@@ -1,33 +1,32 @@
 <?php  
-namespace App\Http\Controllers\Backend\V2\Scholar;
+namespace App\Http\Controllers\Backend\V2\Admission;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Scholar\Scholar\StoreRequest;
-use App\Http\Requests\Scholar\Scholar\UpdateRequest;
+use App\Http\Requests\Admission\Admission\StoreRequest;
+use App\Http\Requests\Admission\Admission\UpdateRequest;
+use App\Services\V2\Impl\Admission\AdmissionService;
 use App\Services\V2\Impl\Scholar\ScholarService;
-use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
 use App\Services\V2\Impl\Scholar\PolicyService;
 use App\Services\V2\Impl\Scholar\TrainService;
 use App\Models\Language;
 
-class ScholarController extends Controller {
-
+class AdmissionController extends Controller {
 
     private $service;
-    private $scholarCatalogueService;
+    private $scholarService;
     private $policyService;
     private $trainService;
     protected $language;
 
     public function __construct(
-        ScholarService $service,
-        ScholarCatalogueService $scholarCatalogueService,
+        AdmissionService $service,
+        ScholarService $scholarService,
         PolicyService $policyService,
         TrainService $trainService
     )
     {
         $this->service = $service;
-        $this->scholarCatalogueService = $scholarCatalogueService;
+        $this->scholarService = $scholarService;
         $this->policyService = $policyService;
         $this->trainService = $trainService;
         $this->middleware(function($request, $next){
@@ -39,34 +38,34 @@ class ScholarController extends Controller {
     }
 
     public function index(Request $request){
-        $scholars = $this->service->pagination($request);
+        $admissions = $this->service->pagination($request);
         $config = [
-            'model' => 'Scholar',
+            'model' => 'Admission',
             'seo' => $this->seo(),
             'extendJs' => true
         ];
-        $template = 'backend.scholar.scholar.index';
+        $template = 'backend.admission.admission.index';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'scholars'
+            'admissions'
         ));
     }
 
     public function create(){
-         // $this->authorize('modules', 'scholar.option.scholar.create');
-        $dropdown = $this->scholarCatalogueService->dropdown();
-        $policies = $this->policyService->all()->pluck('name')->toArray();
-        $trains = $this->trainService->all()->pluck('name')->toArray();
+         // $this->authorize('modules', 'admission.option.admission.create');
+        $scholars = $this->scholarService->all(['languages']);
+        $policies = $this->policyService->all();
+        $trains = $this->trainService->all();
         $config = [
-            'model' => 'Scholar',
+            'model' => 'Admission',
             'seo' => $this->seo(),
             'method' => 'create',
             'extendJs' => true
         ];
-        $template = 'backend.scholar.scholar.store';
+        $template = 'backend.admission.admission.store';
         return view('backend.dashboard.layout', compact(
-            'dropdown',
+            'scholars',
             'policies',
             'trains',
             'template',
@@ -75,25 +74,25 @@ class ScholarController extends Controller {
     }
 
     public function edit($id){
-         // $this->authorize('modules', 'scholar.option.scholar.update');
-        if(!$scholar = $this->service->findById($id)){
-            return redirect()->route('scholar.index')->with('error','Bản ghi không tồn tại'); 
+         // $this->authorize('modules', 'admission.option.admission.update');
+        if(!$admission = $this->service->findById($id)){
+            return redirect()->route('admission.index')->with('error','Bản ghi không tồn tại'); 
         }
-        $dropdown = $this->scholarCatalogueService->dropdown();
-        $policies = $this->policyService->all()->pluck('name')->toArray();
-        $trains = $this->trainService->all()->pluck('name')->toArray();
+        $scholars = $this->scholarService->all(['languages']);
+        $policies = $this->policyService->all();
+        $trains = $this->trainService->all();
         $config = [
-            'model' => 'Scholar',
+            'model' => 'Admission',
             'seo' => $this->seo(),
             'method' => 'update',
             'extendJs' => true
         ];
-        $template = 'backend.scholar.scholar.store';
+        $template = 'backend.admission.admission.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'scholar',
-            'dropdown',
+            'admission',
+            'scholars',
             'policies',
             'trains',
         ));     
@@ -106,31 +105,31 @@ class ScholarController extends Controller {
             if ($request->input('send') == 'send_and_stay') {
                 return redirect()->back()->with('success', 'Khởi tạo bản ghi thành công');
             }
-            return redirect()->route('scholar.index')->with('success', 'Khởi tạo bản ghi thành công');
+            return redirect()->route('admission.index')->with('success', 'Khởi tạo bản ghi thành công');
         }
         return redirect()->back()->with('error','Thêm mới bản ghi không thành công. Hãy thử lại');
     }
 
 
     public function update($id, UpdateRequest $request){
-         // $this->authorize('modules', 'scholar.option.scholar.update');
+         // $this->authorize('modules', 'admission.option.admission.update');
         $response = $this->service->save($request, 'update', $id);
         if($response){
             if ($request->input('send') == 'send_and_stay') {
                 return redirect()->back()->with('success', 'Cập nhật bản ghi thành công');
             }
-            return redirect()->route('scholar.index')->with('success', 'Cập nhật bản ghi thành công');
+            return redirect()->route('admission.index')->with('success', 'Cập nhật bản ghi thành công');
         }
         return redirect()->back()->with('error','Cập nhật bản ghi không thành công. Hãy thử lại');
     }
 
     public function delete($id){
-        //  $this->authorize('modules', 'scholar.option.scholar.destroy');
-        if(!$scholar = $this->service->findById($id)){
-            return redirect()->route('scholar.index')->with('error','Bản ghi không tồn tại'); 
+        //  $this->authorize('modules', 'admission.option.admission.destroy');
+        if(!$admission = $this->service->findById($id)){
+            return redirect()->route('admission.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
-            'model' => 'Scholar',
+            'model' => 'Admission',
             'seo' => $this->seo(),
             'method' => 'update'
         ];
@@ -138,14 +137,14 @@ class ScholarController extends Controller {
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'scholar'
+            'admission'
         ));
     }
 
     public function destroy($id){
-        //  $this->authorize('modules', 'scholar.option..destroy');
+        //  $this->authorize('modules', 'admission.option.admission.destroy');
         if($response = $this->service->destroy($id)){
-            return redirect()->route('scholar.index')->with('success', 'Xóa bản ghi thành công');
+            return redirect()->route('admission.index')->with('success', 'Xóa bản ghi thành công');
         }
         return redirect()->back()->with('error','Xóa bản ghi không thành công. Hãy thử lại');
     }
@@ -154,17 +153,17 @@ class ScholarController extends Controller {
     private function seo(){
         return [
             'index' => [
-                'title' => 'Quản lý học bổng',
-                'table' => 'Danh sách học bổng'
+                'title' => 'Quản lý tuyển sinh',
+                'table' => 'Danh sách tuyển sinh'
             ],
             'create' => [
-                'title' => 'Thêm mới học bổng'
+                'title' => 'Thêm mới tuyển sinh'
             ],
             'update' => [
-                'title' => 'Cập nhật học bổng'
+                'title' => 'Cập nhật tuyển sinh'
             ],
             'delete' => [
-                'title' => 'Xóa học bổng'
+                'title' => 'Xóa tuyển sinh'
             ]
         ];
     }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasQuery;
 
-class Scholar extends Model
+class Admission extends Model
 {
     use HasFactory, SoftDeletes, HasQuery;
 
@@ -16,11 +16,10 @@ class Scholar extends Model
 
     protected $fillable = [
         'id',
-        'album',
-        'scholar_catalogue_id',
-        'policy_id',
-        'train_id',
-        'scholar_policy',
+        'admissions_info',
+        'submission_time',
+        'admission_catalogue_id',
+        'scholar_id',
         'image',
         'publish',
         'order',
@@ -28,12 +27,11 @@ class Scholar extends Model
     ];
 
     protected $casts = [
-        'album' => 'json',
-        'scholar_policy' => 'json'
+        'admissions_info' => 'json'
     ];
 
     protected $relationable = [
-        'users', 'scholar_catalogues', 'scholar_policies', 'scholar_trains', 'languages'
+        'users', 'admission_catalogues', 'scholars', 'languages'
     ];
 
     public function getRelationable(){
@@ -44,22 +42,18 @@ class Scholar extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function scholar_catalogues(): BelongsTo{
-        return $this->belongsTo(ScholarCatalogue::class, 'scholar_catalogue_id', 'id');
+    public function admission_catalogues(): BelongsTo{
+        return $this->belongsTo(ScholarCatalogue::class, 'admission_catalogue_id', 'id');
     }
 
-    public function scholar_policies(): BelongsTo{
-        return $this->belongsTo(ScholarPolicy::class, 'policy_id', 'id');
-    }
-
-    public function scholar_trains(): BelongsTo{
-        return $this->belongsTo(ScholarTrain::class, 'train_id', 'id');
+    public function scholars(): BelongsTo{
+        return $this->belongsTo(Scholar::class, 'scholar_id', 'id');
     }
 
     public function languages(){
-        return $this->belongsToMany(Language::class, 'scholar_language' , 'scholar_id', 'language_id')
+        return $this->belongsToMany(Language::class, 'admission_language' , 'admission_id', 'language_id')
         ->withPivot(
-            'scholar_id',
+            'admission_id',
             'language_id',
             'name',
             'canonical',

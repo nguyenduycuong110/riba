@@ -209,6 +209,21 @@ return [
             ]
         ],
         [
+            'title' => 'QL Tuyển Sinh',
+            'icon' => 'fa fa-instagram',
+            'name' => ['admission'],
+            'subModule' => [
+                [
+                    'title' => 'QL Tuyển Sinh',
+                    'route' => 'admission/index'
+                ],
+                [
+                    'title' => 'QL Loại Tuyển Sinh',
+                    'route' => 'admission/catalogue/index'
+                ],
+            ]
+        ],
+        [
             'title' => 'QL Banner & Slide',
             'icon' => 'fa fa-picture-o',
             'name' => ['slide'],

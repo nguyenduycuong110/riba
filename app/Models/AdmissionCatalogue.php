@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasQuery;
 
-class Scholar extends Model
+class AdmissionCatalogue extends Model
 {
     use HasFactory, SoftDeletes, HasQuery;
 
@@ -16,24 +16,24 @@ class Scholar extends Model
 
     protected $fillable = [
         'id',
-        'album',
-        'scholar_catalogue_id',
-        'policy_id',
-        'train_id',
-        'scholar_policy',
+        'parent_id',
+        'lft',
+        'rgt',
+        'level',
         'image',
+        'icon',
+        'album',
         'publish',
         'order',
         'user_id',
     ];
 
     protected $casts = [
-        'album' => 'json',
-        'scholar_policy' => 'json'
+        'album' => 'json'
     ];
 
     protected $relationable = [
-        'users', 'scholar_catalogues', 'scholar_policies', 'scholar_trains', 'languages'
+        'users', 'languages'
     ];
 
     public function getRelationable(){
@@ -44,22 +44,10 @@ class Scholar extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function scholar_catalogues(): BelongsTo{
-        return $this->belongsTo(ScholarCatalogue::class, 'scholar_catalogue_id', 'id');
-    }
-
-    public function scholar_policies(): BelongsTo{
-        return $this->belongsTo(ScholarPolicy::class, 'policy_id', 'id');
-    }
-
-    public function scholar_trains(): BelongsTo{
-        return $this->belongsTo(ScholarTrain::class, 'train_id', 'id');
-    }
-
     public function languages(){
-        return $this->belongsToMany(Language::class, 'scholar_language' , 'scholar_id', 'language_id')
+        return $this->belongsToMany(Language::class, 'scholar_catalogue_language' , 'scholar_catalogue_id', 'language_id')
         ->withPivot(
-            'scholar_id',
+            'scholar_catalogue_id',
             'language_id',
             'name',
             'canonical',
@@ -75,5 +63,8 @@ class Scholar extends Model
         $this->languageId = $language;
         return $this;
     }
+
+   
+   
 
 }

@@ -5,8 +5,12 @@ use App\Http\Controllers\Backend\V2\Scholar\ScholarCatalogueController;
 use App\Http\Controllers\Backend\V2\Scholar\ScholarController;
 use App\Http\Controllers\Backend\V2\Scholar\PolicyController;
 use App\Http\Controllers\Backend\V2\Scholar\TrainController;
+use App\Http\Controllers\Backend\V2\Admission\AdmissionController;
+use App\Http\Controllers\Backend\V2\Admission\AdmissionCatalogueController;
 
 Route::middleware(['admin', 'locale', 'backend_default_locale'])->group(function () {
+
+    /*Scholar*/
 
     Route::group(['prefix' => 'scholar'], function () {
         Route::get('index', [ScholarController::class, 'index'])->name('scholar.index')->middleware(['admin','locale']);
@@ -49,6 +53,30 @@ Route::middleware(['admin', 'locale', 'backend_default_locale'])->group(function
         Route::get('{id}/delete', [TrainController::class, 'delete'])->where(['id' => '[0-9]+'])->name('scholar.train.delete');
         Route::delete('{id}/destroy', [TrainController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('scholar.train.destroy');
     });
+
+    /*Admission*/
+
+    Route::group(['prefix' => 'admission'], function () {
+        Route::get('index', [AdmissionController::class, 'index'])->name('admission.index')->middleware(['admin','locale']);
+        Route::get('create', [AdmissionController::class, 'create'])->name('admission.create');
+        Route::post('store', [AdmissionController::class, 'store'])->name('admission.store');
+        Route::get('{id}/edit', [AdmissionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('admission.edit');
+        Route::post('{id}/update', [AdmissionController::class, 'update'])->where(['id' => '[0-9]+'])->name('admission.update');
+        Route::get('{id}/delete', [AdmissionController::class, 'delete'])->where(['id' => '[0-9]+'])->name('admission.delete');
+        Route::delete('{id}/destroy', [AdmissionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('admission.destroy');
+    });
+
+    Route::group(['prefix' => 'admission/catalogue'], function () {
+        Route::get('index', [AdmissionCatalogueController::class, 'index'])->name('admission.catalogue.index')->middleware(['admin','locale']);
+        Route::get('create', [AdmissionCatalogueController::class, 'create'])->name('admission.catalogue.create');
+        Route::post('store', [AdmissionCatalogueController::class, 'store'])->name('admission.catalogue.store');
+        Route::get('{id}/edit', [AdmissionCatalogueController::class, 'edit'])->where(['id' => '[0-9]+'])->name('admission.catalogue.edit');
+        Route::post('{id}/update', [AdmissionCatalogueController::class, 'update'])->where(['id' => '[0-9]+'])->name('admission.catalogue.update');
+        Route::get('{id}/delete', [AdmissionCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('admission.catalogue.delete');
+        Route::delete('{id}/destroy', [AdmissionCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('admission.catalogue.destroy');
+       
+    });
+
 
 });
 

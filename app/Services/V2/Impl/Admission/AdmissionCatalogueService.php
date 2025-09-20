@@ -1,7 +1,7 @@
 <?php  
-namespace App\Services\V2\Impl\Scholar;
+namespace App\Services\V2\Impl\Admission;
 use App\Services\V2\BaseService;
-use App\Repositories\Scholar\ScholarRepo;
+use App\Repositories\Admission\AdmissionCatalogueRepo;
 use Illuminate\Support\Facades\Auth;
 use App\Classes\Nestedsetbie;
 use App\Traits\HasNested;
@@ -9,12 +9,12 @@ use App\Traits\HasRouter;
 use App\Services\V2\Impl\RouterService;
 use Illuminate\Http\Request;
 
-class ScholarService extends BaseService {
+class AdmissionCatalogueService extends BaseService {
 
     use HasNested, HasRouter;
     
     protected $repository;
-
+    
     protected $fillable;
 
     protected $nestedset;
@@ -24,7 +24,7 @@ class ScholarService extends BaseService {
     protected $with = ['languages', 'users'];
 
     public function __construct(
-        ScholarRepo $repository,
+        AdmissionCatalogueRepo $repository,
         RouterService $routerService
     )
     {
@@ -43,6 +43,10 @@ class ScholarService extends BaseService {
         return $this;
     }
 
+    public function dropdown(){
+        $this->initNestedset(table: 'admission_catalogues', key: 'admission_catalogue_id'); 
+        return $this->nestedset->Dropdown();
+    }
 
     protected function beforeSave(): static {
         $this->generatePayloadLanguage();
@@ -50,7 +54,9 @@ class ScholarService extends BaseService {
     }
 
     protected function afterSave(): static {
-        $this->handleRouter(controller: 'ScholarController');
+        $this->handleRouter(controller: 'AdmissionCatalogueController');
+        $this->initNestedset(table: 'admission_catalogues', key: 'admission_catalogue_id'); 
+        $this->nestedSet();
         return $this;
     }
 

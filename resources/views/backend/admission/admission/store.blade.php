@@ -11,7 +11,7 @@
                 @php
                     $translation = (isset($scholar)) ? $scholar->languages->first()->pivot : null;
                 @endphp
-                <x-backend.content
+                <x-backend.content-scholar
                     :name="$translation?->name"
                     description="{!! $translation?->description !!}"
                     content="{!! $translation?->content !!}"
@@ -35,8 +35,8 @@
                         <h5>{{ __('messages.scholar_catalogue') }}</h5>
                     </div>
                     <div class="ibox-content">
-                        <x-backend.select2
-                            :options="$dropdown"
+                        <x-backend.select2-custom
+                            :options="$scholarCatalogues"
                             :heading="__('messages.scholar_catalogue')"
                             name="scholar_catalogue_id"
                             :selectedValue="$scholar->scholar_catalogue_id ?? 0"
@@ -49,7 +49,7 @@
                         <h5>{{ __('messages.policy') }}</h5>
                     </div>
                     <div class="ibox-content">
-                        <x-backend.select2
+                        <x-backend.select2-custom
                             :options="$policies"
                             :heading="__('messages.policy')"
                             name="policy_id"
@@ -63,7 +63,7 @@
                         <h5>{{ __('messages.train') }}</h5>
                     </div>
                     <div class="ibox-content">
-                        <x-backend.select2
+                        <x-backend.select2-custom
                             :options="$trains"
                             :heading="__('messages.train')"
                             name="train_id"

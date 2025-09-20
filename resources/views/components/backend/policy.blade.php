@@ -10,7 +10,7 @@
         </div>
         <div class="program-content mt20">
             @php
-                $scholar_policies = old('scholar_policy', !is_null($model) ? json_decode($model->scholar_policy) : []);
+                $scholar_policies = old('scholar_policy', !is_null($model) ? $model->scholar_policy : []);
             @endphp
             @if(isset($scholar_policies) && is_array($scholar_policies) && count($scholar_policies))
                 @foreach($scholar_policies as $index => $scholar_policy)
@@ -20,7 +20,7 @@
                                 <input type="text" 
                                     name="scholar_policy[{{ $index }}][title]" 
                                     class="form-control" 
-                                    value="{{ $scholar_policy->title ?? '' }}" 
+                                    value="{{ $scholar_policy['title'] ?? '' }}" 
                                     placeholder="{{ __('messages.enter_main_name') }}" style="width:75%;">
                                 <div class="chapter-action">
                                     <button type="button" class="remove-policy-item">{{ __('messages.delete_policy') }}</button>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-row">
                                 <label for="" class="control-label text-left">{{ __('messages.content') }}</label>
-                                <textarea name="scholar_policy[{{ $index }}][description]" class="ck-editor" id="scholar_policy[{{ $index }}]" placeholder="{{ __('messages.enter_desc_name') }}" style="width:100%; margin-top:10px;">{{ $scholar_policy->description ?? '' }}</textarea>
+                                <textarea name="scholar_policy[{{ $index }}][description]" class="ck-editor" id="scholar_policy[{{ $index }}]" placeholder="{{ __('messages.enter_desc_name') }}" style="width:100%; margin-top:10px;">{{ $scholar_policy['description'] ?? '' }}</textarea>
                             </div>
                         </div>
                     </div>
