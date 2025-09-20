@@ -64,11 +64,11 @@ class GenerateModule extends Command
             ->setNamespace($this->option('namespace'))
             ->setTag($this->option('tag'))
             ->setModuleName($this->option('moduleName'))
-            // ->generateController("multiple/controller")
-            // ->generateRequest()
-            // ->generateRepository()
-            // ->generateModel()
-            // ->generateService()
+            ->generateController("multiple/controller")
+            ->generateRequest()
+            ->generateRepository()
+            ->generateModel()
+            ->generateService()
             ->generateView();
             $this->line("🎉 Đã tạo thành công các file cho module: {$this->module}");
             $this->line("📁 Namespace: {$this->namespace}");
