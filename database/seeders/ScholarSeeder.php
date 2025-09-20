@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Traits\HasRouter;
 
-class ScholarCatalogueSeeder extends Seeder
+class ScholarSeeder extends Seeder
 {
     use HasRouter;
 
@@ -20,8 +20,8 @@ class ScholarCatalogueSeeder extends Seeder
             [
                 'scholar' => [
                     'scholar_catalogue_id' => 11,
-                    'policy_id' => 5,
-                    'train_id' => 5,
+                    'policy_id' => 11,
+                    'train_id' => 10,
                     'scholar_policy' => null,
                     'image' => '/userfiles/image/hoc-bong-truong-dai-hoc-quang-chauy.jpeg',
                     'album' => null,

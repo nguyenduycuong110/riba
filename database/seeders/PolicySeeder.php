@@ -10,12 +10,11 @@ class PolicySeeder extends Seeder
 {
     public function run()
     {
-        DB::table('policies')->delete();
+        DB::table('scholar_policies')->delete();
         
         $data = [
             [
                 'name' => 'Bao ăn 3 bữa tại trường',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -25,7 +24,6 @@ class PolicySeeder extends Seeder
             ],
             [
                 'name' => 'Hỗ trợ 12.000 NDT/năm',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -35,7 +33,6 @@ class PolicySeeder extends Seeder
             ],
             [
                 'name' => 'Trợ cấp 3800 tệ/tháng',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -45,7 +42,6 @@ class PolicySeeder extends Seeder
             ],
             [
                 'name' => 'Trợ cấp 1220 tệ/tháng',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -55,7 +51,6 @@ class PolicySeeder extends Seeder
             ],
             [
                 'name' => 'Hỗ trợ 35.000 tệ/năm',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -66,7 +61,7 @@ class PolicySeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            DB::table('policies')->insertGetId($item);
+            DB::table('scholar_policies')->insertGetId($item);
         }
 
     }

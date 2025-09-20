@@ -10,12 +10,11 @@ class TrainSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('trains')->delete();
+        DB::table('scholar_trains')->delete();
         
         $data = [
             [
                 'name' => 'Trại đông',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -25,7 +24,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Trại hè',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -35,7 +33,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Học giả chung',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -45,7 +42,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Nghiên cứu một học kỳ',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -55,7 +51,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Học tập một năm học',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -65,7 +60,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Bậc thầy',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -75,7 +69,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Bác sĩ',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -85,7 +78,6 @@ class TrainSeeder extends Seeder
             ],
             [
                 'name' => 'Cử nhân',
-                'note' => null,
                 'publish' => 2,
                 'order' => 2,
                 'user_id' => 4504,
@@ -96,7 +88,7 @@ class TrainSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            DB::table('trains')->insertGetId($item);
+            DB::table('scholar_trains')->insertGetId($item);
         }
 
     }

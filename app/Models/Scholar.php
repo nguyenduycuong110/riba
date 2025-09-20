@@ -28,7 +28,7 @@ class Scholar extends Model
     ];
 
     protected $relationable = [
-        'users', 'scholar_catalogues', 'policies', 'trains', 'languages'
+        'users', 'scholar_catalogues', 'scholar_policies', 'scholar_trains', 'languages'
     ];
 
     public function getRelationable(){
@@ -43,12 +43,12 @@ class Scholar extends Model
         return $this->belongsTo(ScholarCatalogue::class, 'scholar_catalogue_id', 'id');
     }
 
-    public function policies(): BelongsTo{
-        return $this->belongsTo(Policy::class, 'policy_id', 'id');
+    public function scholar_policies(): BelongsTo{
+        return $this->belongsTo(ScholarPolicy::class, 'policy_id', 'id');
     }
 
-    public function trains(): BelongsTo{
-        return $this->belongsTo(Train::class, 'train_id', 'id');
+    public function scholar_trains(): BelongsTo{
+        return $this->belongsTo(ScholarTrain::class, 'train_id', 'id');
     }
 
     public function languages(){
