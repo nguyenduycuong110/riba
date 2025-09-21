@@ -19,9 +19,9 @@ class ScholarSeeder extends Seeder
         $data = [
             [
                 'scholar' => [
-                    'scholar_catalogue_id' => 11,
-                    'policy_id' => 11,
-                    'train_id' => 10,
+                    'scholar_catalogue_id' => 26,
+                    'policy_id' => 1,
+                    'train_id' => 1,
                     'scholar_policy' => null,
                     'image' => '/userfiles/image/hoc-bong-truong-dai-hoc-quang-chauy.jpeg',
                     'album' => null,

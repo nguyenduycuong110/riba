@@ -7,23 +7,22 @@ use App\Traits\HasGenerate;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class GenerateModule extends Command
+class GenerateCommonModule extends Command
 {
 
     use HasGenerate;
 
     private $module;
     private $namespace;
-    private $fields;
     private $moduleName;
-    private $tag;
+    private $table;
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:generate {module} {--namespace=: The namespace for the CRUD structure} {--tag=} {--moduleName=: The name of module}  ';
+    protected $signature = 'make:crud {module} {--namespace=:} {--table=:} {--moduleName=: The name of module}';
 
     /**
      * The console command description.
@@ -36,102 +35,49 @@ class GenerateModule extends Command
      * Execute the console command.
      */
 
-    protected function setModule($module): static{
+    private function setModule($module): static{
         $this->module = $module;
         return $this;
     }
 
-    protected function setNamespace($namespace): static{
+    private function setNamespace($namespace): static {
         $this->namespace = $namespace;
         return $this;
     }
 
-    protected function setTag($tag): static{
-        $this->tag = $tag;
+    private function setModuleName($name): static {
+        $this->moduleName = $name;
         return $this;
     }
 
-    protected function setModuleName($moduleName): static {
-        $this->moduleName = $moduleName;
+    private function setTable($table): static {
+        $this->table = $table;
         return $this;
     }
 
     public function handle()
     {
-        
         try {
             $this->setModule($this->argument('module'))
             ->setNamespace($this->option('namespace'))
-            ->setTag($this->option('tag'))
             ->setModuleName($this->option('moduleName'))
-            ->generateController("multiple/controller")
+            ->setTable($this->option('table'))
+            ->generateController('common/controller')
             ->generateRequest()
-            ->generateRepository()
             ->generateModel()
             ->generateService()
+            ->generateRepository()
             ->generateView()
+            ->generateMigration()
             ->insertPermission();
+
             $this->line("🎉 Đã tạo thành công các file cho module: {$this->module}");
             $this->line("📁 Namespace: {$this->namespace}");
-            $this->line("🏷️  Tag: {$this->tag}");
-        
-            return Command::SUCCESS; 
+
         } catch (\Throwable $th) {
             $this->error("❌ Có lỗi xảy ra: " . $th->getMessage());
             return Command::FAILURE; 
         }
-    }
-
-    
- 
-    protected function generateModel(): static {
-        $filepath = 'multiple';
-        $filename = $filepath . '/' . 'model';
-        if($this->tag === 'catalogue'){
-            $filename = $filepath . '/' . 'model-catalogue';
-        }
-        $stub = $this->getStub($filename);
-        $target = app_path("Models");
-        $destination = "{$target}/{$this->module}.php";
-        File::ensureDirectoryExists($target);
-        
-        $snakeModule = Str::snake($this->module);
-        $extends = [
-            [
-                '{{snake_module}}',
-            ],
-            [
-                $snakeModule,
-            ]
-        ];
-        $content = $this->createContent($stub, $extends);
-
-        $this->put($destination, $content);
-        return $this;
-    }
-
-    protected function generateService(): static {
-        $filepath = 'multiple';
-        $filename = $filepath. '/' . 'service';
-        if($this->tag === 'catalogue'){
-            $filename = $filepath . '/' . 'service-catalogue';
-        }
-        $stub = $this->getStub($filename);
-        $target = app_path("Services/V2/Impl/{$this->namespace}");
-        $destination = "{$target}/{$this->module}Service.php";
-        File::ensureDirectoryExists($target);
-        $snakeModule = Str::snake($this->module);
-        $extends = [
-            [
-                '{{snake_module}}',
-            ],
-            [
-                $snakeModule,
-            ]
-        ];
-        $content = $this->createContent($stub, $extends);
-        $this->put($destination, $content);
-        return $this;
     }
 
     protected function generateRequest(): static{
@@ -143,23 +89,40 @@ class GenerateModule extends Command
             'StoreRequest' => 'store-request',
             'UpdateRequest' => 'update-request',
         ];
-        $extends = [
-            [
-                '{{table}}',
-            ],
-            [
-                $table
-            ]
-        ];
 
         foreach($stubs as $key => $filename){
-            $stub = $this->getStub("multiple/$filename");
+            $stub = $this->getStub("common/$filename");
             $destination = "{$target}/{$key}.php";
-            $content = $this->createContent($stub, $extends);
+            $content = $this->createContent($stub);
             $this->put($destination, $content);
         }
 
 
+        return $this;
+    }
+
+    protected function generateModel(): static {
+        $filename =  'common/model';
+        $stub = $this->getStub($filename);
+        $target = app_path("Models");
+        $destination = "{$target}/{$this->module}.php";
+        File::ensureDirectoryExists($target);
+        
+        $snakeModule = Str::snake($this->module);
+        $content = $this->createContent($stub);
+        $this->put($destination, $content);
+        return $this;
+    }
+
+    protected function generateService(): static {
+        $filename =  'common/service';
+        $stub = $this->getStub($filename);
+        $target = app_path("Services/V2/Impl/{$this->namespace}");
+        $destination = "{$target}/{$this->module}Service.php";
+        File::ensureDirectoryExists($target);
+        $snakeModule = Str::snake($this->module);
+        $content = $this->createContent($stub);
+        $this->put($destination, $content);
         return $this;
     }
 
@@ -172,39 +135,53 @@ class GenerateModule extends Command
         $table = Str::snake($this->module) . 's'; 
         File::ensureDirectoryExists($target);
         $stubs = [
-            'index', 'delete' 
+            'store', 'delete', 'index'
         ];
         $extends = [
             [
                 '{{camel_module}}',
                 '{{snake_module}}',
+                '{{snake_namespace}}'
             ],
             [
                 $camelModule,
-                $snakeModule
+                $snakeModule,
+                $snakeNamespace
             ]
         ];
 
         foreach($stubs as $key => $filename){
-            $stub = $this->getStub("multiple/view/$filename");
+            $stub = $this->getStub("common/view/$filename");
             $destination = "{$target}/{$filename}.blade.php";
-            
             $content = $this->createContent($stub, $extends);
             $this->put($destination, $content);
         }
-
-        $filepath = 'multiple/view';
-        $filename = $filepath . '/' . 'store';
-        if($this->tag === 'catalogue'){
-            $filename = $filepath . '/' . 'store-catalogue';
-        }
-        $stub = $this->getStub($filename);
-        $destination =  "{$target}/store.blade.php";
-        $content = $this->createContent($stub, $extends);
-        $this->put($destination, $content);
 
         return $this;
 
     }
 
+    protected function generateMigration(): static{
+        $filename = 'common/migration';
+        $stub = $this->getStub($filename);
+        $timestamp = date('Y_m_d_His');
+        $migrationName = "create_{$this->table}_table";
+        $migrationFileName = "{$timestamp}_{$migrationName}.php";
+        $target = database_path('migrations');
+        $destination = "{$target}/{$migrationFileName}";
+        File::ensureDirectoryExists($target);
+        $extends = [
+            [
+                '{{table}}',
+            ],
+            [
+                $this->table,
+            ]
+        ];
+        $content = $this->createContent($stub, $extends);
+        $this->put($destination, $content);
+        return $this;
+    }
+
+    
 }
