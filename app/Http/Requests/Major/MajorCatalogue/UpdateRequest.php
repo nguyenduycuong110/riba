@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\{{namespace}}\{{module}};
+namespace App\Http\Requests\Major\MajorCatalogue;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,9 +21,11 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+
+
         return [
             'name' => 'required',
-            'canonical' => 'required|unique:routers',
+            'canonical' => 'required|unique:routers,canonical, '.$this->id.',module_id',
         ];
     }
 
