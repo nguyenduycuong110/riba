@@ -1,6 +1,6 @@
 <?php  
 namespace App\Repositories\Major;
-use App\Models\Major;
+use App\Models\MajorCatalogue;
 use App\Repositories\BaseRepository;
 
 class MajorCatalogueRepo  extends BaseRepository{

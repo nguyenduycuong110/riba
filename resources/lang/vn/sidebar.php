@@ -186,6 +186,25 @@ return [
         //     ]
         // ],
         [
+            'title' => 'QL Chuyên Ngành',
+            'icon' => 'fa fa-database',
+            'name' => ['major', 'major_catalogue'],
+            'subModule' => [
+                [
+                    'title' => 'Nhóm Chuyên Ngành',
+                    'route' => 'major_catalogue/index'
+                ],
+                [
+                    'title' => 'Chuyên Ngành',
+                    'route' => 'major/index'
+                ],
+                [
+                    'title' => 'Hệ Đào tạo',
+                    'route' => 'major_training/index'
+                ]
+            ]
+        ],
+        [
             'title' => 'QL Học bổng',
             'icon' => 'fa fa-github',
             'name' => ['scholar'],
