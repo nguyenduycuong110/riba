@@ -9,11 +9,11 @@
             </div>
             <div class="ibox-content">
                 <x-backend.filter 
-                    createRoute="{{snake_module}}.create"
-                    submitRoute="{{snake_module}}.index"
+                    createRoute="major.create"
+                    submitRoute="major.index"
                 />
                 <x-backend.customtable 
-                    :records="${{camel_module}}s->getCollection()"
+                    :records="$majors->getCollection()"
                     :columns="[
                         'name' => ['label' => 'Tiêu đề', '', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
                         'creator' => ['class' => 'text-center w-200px', 'label' => 'Người tạo', 'render' => fn($item) => $item->users->name],
@@ -21,12 +21,12 @@
                         'updated_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at->format('d-m-Y')],
                     ]"
                     :actions="[
-                        ['route' => '{{snake_module}}.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],
-                        ['route' => '{{snake_module}}.delete', 'class' => 'btn-danger', 'icon' => 'fa-trash'],
+                        ['route' => 'major.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],
+                        ['route' => 'major.delete', 'class' => 'btn-danger', 'icon' => 'fa-trash'],
                     ]"
                     :model="$config['model']"
                 />
-                {{ ${{camel_module}}s->links('pagination::bootstrap-4') }}
+                {{ $majors->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

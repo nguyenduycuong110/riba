@@ -1,30 +1,24 @@
 <?php  
 namespace App\Services\V2\Impl\Major;
 use App\Services\V2\BaseService;
-use App\Repositories\Major\MajorCatalogueRepo;
+use App\Repositories\Major\MajorRepo;
 use Illuminate\Support\Facades\Auth;
-use App\Traits\HasNested;
 use App\Traits\HasRouter;
 use App\Services\V2\Impl\RouterService;
 use Illuminate\Http\Request;
 
-class MajorCatalogueService extends BaseService {
+class MajorService extends BaseService {
 
-    use HasNested, HasRouter;
+    use HasRouter;
     
     protected $repository;
     protected $fillable;
-
-    protected $nestedset;
-
     private $routerService;
 
     protected $with = ['languages', 'users'];
 
-    protected $defaultSort = ['lft', 'asc'];
-
     public function __construct(
-        MajorCatalogueRepo $repository,
+        MajorRepo $repository,
         RouterService $routerService
     )
     {
@@ -43,20 +37,17 @@ class MajorCatalogueService extends BaseService {
         return $this;
     }
 
-    public function dropdown(){
-        $this->initNestedset(table: 'major_catalogues', key: 'major_catalogue_id'); 
-        return $this->nestedset->Dropdown();
-    }
 
     protected function beforeSave(): static {
+        $request = $this->context['request'] ?? null;
         $this->generatePayloadLanguage();
+        $this->generatePayloadRelation('major_catalogues', [$request->input('major_catalogue_id')]);
         return $this;
     }
 
+
     protected function afterSave(): static {
-        $this->handleRouter(controller: 'MajorCatalogueController');
-        $this->initNestedset(table: 'major_catalogues', key: 'major_catalogue_id'); 
-        $this->nestedSet();
+        $this->handleRouter(controller: 'MajorController');
         return $this;
     }
 

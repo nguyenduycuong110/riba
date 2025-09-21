@@ -30,6 +30,12 @@ trait HasRouter {
         $request->merge(['languages' => $payload]);
     }
 
+    public function generatePayloadRelation(string $relation = '', array $value = []){
+        $request = $this->context['request'];
+        $request->merge([$relation => $value]);
+       
+    }
+
     public function handleRouter(string $controller = ''): void{
         $request = $this->context['request'];
         // $action = $this->context['action'];

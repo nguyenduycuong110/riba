@@ -1,7 +1,7 @@
 @include('backend.dashboard.component.breadcrumb', ['title' => $config['seo'][$config['method']]['title']])
 @include('backend.dashboard.component.formError')
 @php
-    $url = ($config['method'] == 'create') ? route('{{snake_module}}.store') : route('{{snake_module}}.update', ${{camel_module}}->id);
+    $url = ($config['method'] == 'create') ? route('major.store') : route('major.update', $major->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 @php
-                    $translation = (isset(${{camel_module}})) ? ${{camel_module}}->languages->first()->pivot : null;
+                    $translation = (isset($major)) ? $major->languages->first()->pivot : null;
                 @endphp
                 <x-backend.content
                     :name="$translation?->name"
@@ -17,7 +17,7 @@
                     content="{!! $translation?->content !!}"
                 />
                 <x-backend.album 
-                    :model="${{camel_module}} ?? null"
+                    :model="$major ?? null"
                 />
                 <x-backend.seo 
                     :meta_title="$translation?->meta_title"
@@ -31,15 +31,15 @@
                      <x-backend.select2
                         :options="$dropdown"
                         heading="Chọn danh mục cha"
-                        name="{{snake_module}}_catalogue_id"
-                        :selectedValue="${{snake_module}}->{{snake_module}}_catalogue_id ?? 0"
+                        name="major_catalogue_id"
+                        :selectedValue="$major->major_catalogue_id ?? 0"
                     />
                 </x-ibox>
 
                 <x-ibox heading="Ảnh đại diện">
                     <x-backend.image-preview 
                         name="image"
-                        :value="${{snake_module}}->image ?? ''"
+                        :value="$major->image ?? ''"
                     />
                 </x-ibox>
 
@@ -47,7 +47,7 @@
                     <x-backend.select2 
                         :options="__('messages.publish')"
                         name="publish"
-                        :selectedValue="${{snake_module}}->publish ?? 0"
+                        :selectedValue="$major->publish ?? 0"
                         class="mb10"
                     />
                 </x-ibox>

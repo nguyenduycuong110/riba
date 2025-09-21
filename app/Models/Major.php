@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Traits\HasQuery;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class {{module}} extends Model
+class Major extends Model
 {
    use HasFactory, SoftDeletes, HasQuery;
 
@@ -20,26 +20,26 @@ class {{module}} extends Model
         'follow',
         'order',
         'user_id',
-        '{{snake_module}}_catalogue_id',
+        'major_catalogue_id',
         'viewed',
     ];
 
+    protected $table = 'majors';
+
+    protected $with = ['major_catalogues'];
+
     protected $relationable = [
-       
+       'languages', 'major_catalogues'
     ];
 
     public function getRelationable(){
         return $this->relationable;
     }
 
-    protected $table = '{{snake_module}}s';
-
-    protected $with = ['{{snake_module}}_catalogues'];
-
     public function languages(){
-        return $this->belongsToMany(Language::class, '{{snake_module}}_language' , '{{snake_module}}_id', 'language_id')
+        return $this->belongsToMany(Language::class, 'major_language' , 'major_id', 'language_id')
         ->withPivot(
-            '{{snake_module}}_id',
+            'major_id',
             'language_id',
             'name',
             'canonical',
@@ -51,13 +51,14 @@ class {{module}} extends Model
         )->where('language_id', config('app.language_id'));
     }
 
-    public function {{snake_module}}_catalogues(){
-        return $this->belongsToMany({{snake_module}}Catalogue::class, '{{snake_module}}_catalogue_{{snake_module}}' , '{{snake_module}}_id', '{{snake_module}}_catalogue_id');
+    public function major_catalogues(){
+        return $this->belongsToMany(majorCatalogue::class, 'major_catalogue_major' , 'major_id', 'major_catalogue_id');
     }
 
     public function users(): BelongsTo{
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 
 
 }

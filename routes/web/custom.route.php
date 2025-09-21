@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\V2\Scholar\TrainController;
 use App\Http\Controllers\Backend\V2\Admission\AdmissionController;
 use App\Http\Controllers\Backend\V2\Admission\AdmissionCatalogueController;
 use App\Http\Controllers\Backend\V2\Major\MajorCatalogueController;
+use App\Http\Controllers\Backend\V2\Major\MajorController;
 
 Route::middleware(['admin', 'locale', 'backend_default_locale'])->group(function () {
 
@@ -86,6 +87,17 @@ Route::middleware(['admin', 'locale', 'backend_default_locale'])->group(function
         Route::post('{id}/update', [MajorCatalogueController::class, 'update'])->where(['id' => '[0-9]+'])->name('major_catalogue.update');
         Route::get('{id}/delete', [MajorCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('major_catalogue.delete');
         Route::delete('{id}/destroy', [MajorCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('major_catalogue.destroy');
+       
+    });
+
+     Route::group(['prefix' => 'major'], function () {
+        Route::get('index', [MajorController::class, 'index'])->name('major.index')->middleware(['admin','locale']);
+        Route::get('create', [MajorController::class, 'create'])->name('major.create');
+        Route::post('store', [MajorController::class, 'store'])->name('major.store');
+        Route::get('{id}/edit', [MajorController::class, 'edit'])->where(['id' => '[0-9]+'])->name('major.edit');
+        Route::post('{id}/update', [MajorController::class, 'update'])->where(['id' => '[0-9]+'])->name('major.update');
+        Route::get('{id}/delete', [MajorController::class, 'delete'])->where(['id' => '[0-9]+'])->name('major.delete');
+        Route::delete('{id}/destroy', [MajorController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('major.destroy');
        
     });
 
