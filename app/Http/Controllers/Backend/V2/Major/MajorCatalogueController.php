@@ -29,7 +29,7 @@ class MajorCatalogueController extends Controller {
     }
 
     public function index(Request $request){
-         // $this->authorize('modules', 'major.major_catalogue.index');
+         $this->authorize('modules', 'major_catalogue.index');
         $majorCatalogues = $this->service->pagination($request);
         $config = [
             'model' => 'MajorCatalogue',
@@ -45,7 +45,7 @@ class MajorCatalogueController extends Controller {
     }
 
     public function create(){
-         // $this->authorize('modules', 'major.major_catalogue.create');
+         $this->authorize('modules', 'major_catalogue.create');
         $config = [
             'model' => 'MajorCatalogue',
             'seo' => $this->seo(),
@@ -62,7 +62,7 @@ class MajorCatalogueController extends Controller {
     }
 
     public function edit($id){
-         // $this->authorize('modules', 'major.major_catalogue.update');
+         $this->authorize('modules', 'major_catalogue.update');
         if(!$majorCatalogue = $this->service->findById($id)){
             return redirect()->route('major.major_catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
@@ -90,7 +90,7 @@ class MajorCatalogueController extends Controller {
     }
 
     public function update($id, UpdateRequest $request){
-         // $this->authorize('modules', 'major.major_catalogue.update');
+         $this->authorize('modules', 'major_catalogue.update');
         if($response = $this->service->save($request, 'update', $id)){
             return redirect()->back()->with('success', 'Cập nhật bản ghi thành công');
         }
@@ -98,9 +98,9 @@ class MajorCatalogueController extends Controller {
     }
 
     public function delete($id){
-        //  $this->authorize('modules', 'major.major_catalogue.destroy');
+         $this->authorize('modules', 'major_catalogue.destroy');
         if(!$majorCatalogue = $this->service->findById($id)){
-            return redirect()->route('major.major_catalogue.index')->with('error','Bản ghi không tồn tại'); 
+            return redirect()->route('major_catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
             'model' => 'MajorCatalogue',
@@ -116,9 +116,9 @@ class MajorCatalogueController extends Controller {
     }
 
     public function destroy($id){
-        //  $this->authorize('modules', 'major.major_catalogue.destroy');
+         $this->authorize('modules', 'major_catalogue.destroy');
         if($response = $this->service->destroy($id)){
-            return redirect()->route('major.major_catalogue.index')->with('success', 'Xóa bản ghi thành công');
+            return redirect()->route('major_catalogue.index')->with('success', 'Xóa bản ghi thành công');
         }
         return redirect()->back()->with('error','Xóa bản ghi không thành công. Hãy thử lại');
     }
