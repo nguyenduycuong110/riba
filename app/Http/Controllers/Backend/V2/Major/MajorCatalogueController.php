@@ -5,21 +5,23 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Major\MajorCatalogue\StoreRequest;
 use App\Http\Requests\Major\MajorCatalogue\UpdateRequest;
 use App\Services\V2\Impl\Major\MajorCatalogueService;
+use App\Services\V2\Impl\Major\MajorGroupService;
 use App\Models\Language;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Http\Resources\MajorCatalogueResource;
 
 class MajorCatalogueController extends Controller {
 
 
     private $service;
+    private $majorGroupservice;
     protected $language;
 
     public function __construct(
-        MajorCatalogueService $service
+        MajorCatalogueService $service,
+        MajorGroupService $majorGroupservice,
     )
     {
         $this->service = $service;
+        $this->majorGroupservice = $majorGroupservice;
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -29,7 +31,7 @@ class MajorCatalogueController extends Controller {
     }
 
     public function index(Request $request){
-         $this->authorize('modules', 'major_catalogue.index');
+        $this->authorize('modules', 'major_catalogue.index');
         $majorCatalogues = $this->service->pagination($request);
         $config = [
             'model' => 'MajorCatalogue',
@@ -45,7 +47,7 @@ class MajorCatalogueController extends Controller {
     }
 
     public function create(){
-         $this->authorize('modules', 'major_catalogue.create');
+        $this->authorize('modules', 'major_catalogue.create');
         $config = [
             'model' => 'MajorCatalogue',
             'seo' => $this->seo(),
@@ -53,16 +55,18 @@ class MajorCatalogueController extends Controller {
             'extendJs' => true
         ];
         $dropdown = $this->service->dropdown();
+        $majorGroups = $this->majorGroupservice->convertDateSelectBox();
         $template = 'backend.major.major_catalogue.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
-            'dropdown'
+            'dropdown',
+            'majorGroups'
         ));
     }
 
     public function edit($id){
-         $this->authorize('modules', 'major_catalogue.update');
+        $this->authorize('modules', 'major_catalogue.update');
         if(!$majorCatalogue = $this->service->findById($id)){
             return redirect()->route('major.major_catalogue.index')->with('error','Bản ghi không tồn tại'); 
         }
@@ -73,12 +77,14 @@ class MajorCatalogueController extends Controller {
             'extendJs' => true
         ];
         $dropdown = $this->service->dropdown();
+        $majorGroups = $this->majorGroupservice->convertDateSelectBox();
         $template = 'backend.major.major_catalogue.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'majorCatalogue',
-            'dropdown'
+            'dropdown',
+            'majorGroups'
         ));     
     }
     
@@ -127,17 +133,17 @@ class MajorCatalogueController extends Controller {
     private function seo(){
         return [
             'index' => [
-                'title' => 'Quản lý Nhóm Chuyên Ngành',
-                'table' => 'Danh sách Nhóm Chuyên Ngành'
+                'title' => 'Quản lý ngành',
+                'table' => 'Danh sách ngành'
             ],
             'create' => [
-                'title' => 'Thêm mới Nhóm Chuyên Ngành'
+                'title' => 'Thêm mới ngành'
             ],
             'update' => [
-                'title' => 'Cập nhật Nhóm Chuyên Ngành'
+                'title' => 'Cập nhật ngành'
             ],
             'delete' => [
-                'title' => 'Xóa Nhóm Chuyên Ngành'
+                'title' => 'Xóa ngành'
             ]
         ];
     }

@@ -8,6 +8,7 @@ use App\Services\V2\Impl\Admission\AdmissionService;
 use App\Services\V2\Impl\Admission\AdmissionCatalogueService;
 use App\Services\V2\Impl\Scholar\ScholarService;
 use App\Services\V2\Impl\Scholar\TrainService;
+use App\Services\V2\Impl\School\SchoolService;
 use App\Models\Language;
 
 class AdmissionController extends Controller {
@@ -16,19 +17,22 @@ class AdmissionController extends Controller {
     private $admissionCatalogueservice;
     private $scholarService;
     private $trainService;
+    private $schoolService;
     protected $language;
 
     public function __construct(
         AdmissionService $service,
         AdmissionCatalogueService $admissionCatalogueservice,
         ScholarService $scholarService,
-        TrainService $trainService
+        TrainService $trainService,
+        SchoolService $schoolService
     )
     {
         $this->service = $service;
         $this->admissionCatalogueservice = $admissionCatalogueservice;
         $this->scholarService = $scholarService;
         $this->trainService = $trainService;
+        $this->schoolService = $schoolService;
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -57,6 +61,7 @@ class AdmissionController extends Controller {
         $dropdown = $this->admissionCatalogueservice->dropdown();
         $scholars = $this->scholarService->convertDateSelectBox();
         $trains = $this->trainService->all()->pluck('name', 'id');
+        $schools = $this->schoolService->convertDateSelectBox();
         $config = [
             'model' => 'Admission',
             'seo' => $this->seo(),
@@ -68,6 +73,7 @@ class AdmissionController extends Controller {
             'dropdown',
             'scholars',
             'trains',
+            'schools',
             'template',
             'config',
         ));
@@ -81,6 +87,7 @@ class AdmissionController extends Controller {
         $dropdown = $this->admissionCatalogueservice->dropdown();
         $scholars = $this->scholarService->convertDateSelectBox();
         $trains = $this->trainService->all()->pluck('name', 'id');
+        $schools = $this->schoolService->convertDateSelectBox();
         $config = [
             'model' => 'Admission',
             'seo' => $this->seo(),
@@ -95,6 +102,7 @@ class AdmissionController extends Controller {
             'admission',
             'scholars',
             'trains',
+            'schools'
         ));     
     }
     

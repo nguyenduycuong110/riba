@@ -186,22 +186,49 @@ return [
         //     ]
         // ],
         [
+            'title' => 'QL Trường',
+            'icon' => 'fa fa-github',
+            'name' => ['school', 'school_catalogue'],
+            'subModule' => [
+                [
+                    'title' => 'QL Loại Trường',
+                    'route' => 'school_catalogue/index'
+                ],
+                [
+                    'title' => 'QL Trường',
+                    'route' => 'school/index'
+                ],
+                [
+                    'title' => 'QL Khu Vực',
+                    'route' => 'school/area/index'
+                ],
+                [
+                    'title' => 'QL Thành Phố',
+                    'route' => 'school/city/index'
+                ],
+                [
+                    'title' => 'QL Dự Án',
+                    'route' => 'school/project/index'
+                ],
+            ]
+        ],
+        [
             'title' => 'QL Chuyên Ngành',
             'icon' => 'fa fa-database',
             'name' => ['major', 'major_catalogue'],
             'subModule' => [
                 [
-                    'title' => 'Nhóm Chuyên Ngành',
+                    'title' => 'Nhóm Ngành',
+                    'route' => 'major_group/index'
+                ],
+                [
+                    'title' => 'Ngành',
                     'route' => 'major_catalogue/index'
                 ],
                 [
                     'title' => 'Chuyên Ngành',
                     'route' => 'major/index'
                 ],
-                [
-                    'title' => 'Hệ Đào tạo',
-                    'route' => 'major_training/index'
-                ]
             ]
         ],
         [

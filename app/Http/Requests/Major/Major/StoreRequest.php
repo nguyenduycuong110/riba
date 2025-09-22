@@ -23,6 +23,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'total_applications' => 'required',
+            'major_catalogue_id' => 'gt:0',
+            'train_id' => 'gt:0',
             'canonical' => 'required|unique:routers',
         ];
     }
@@ -31,6 +34,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập vào ô tiêu đề.',
+            'total_applications.required' => 'Bạn chưa nhập vào tổng số apply.',
+            'major_catalogue_id.gt' => 'Bạn chưa chọn ngành.',
+            'train_id.gt' => 'Bạn chưa chọn hệ đào tạo.',
             'canonical.required' => 'Bạn chưa nhập vào ô đường dẫn',
             'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',
         ];

@@ -27,12 +27,29 @@
                 />
             </div>
             <div class="col-lg-3">
-                <x-ibox heading="Chọn Danh mục cha">
-                     <x-backend.select2
+                <x-ibox heading="Thông tin chuyên ngành">
+                    <div class="form-row mb10">
+                        <span class="text-danger notice">Tổng số apply</span>
+                        <input 
+                            type="number" 
+                            name="total_applications" 
+                            class="form-control" 
+                            placeholder="Nhập tổng số apply"
+                            value="{{ old('total_applications', $major->total_applications ?? '') }}"
+                        >
+                    </div>
+                    <x-backend.select2
                         :options="$dropdown"
-                        heading="Chọn danh mục cha"
+                        heading="Chọn ngành"
                         name="major_catalogue_id"
-                        :selectedValue="$major->major_catalogue_id ?? 0"
+                        :selectedValue="$major->major_catalogues[0]->id ?? 0"
+                        class="mb10"
+                    />
+                    <x-backend.select2
+                        :options="$trains"
+                        heading="Chọn hệ đào tạo"
+                        name="train_id"
+                        :selectedValue="$major->train_id ?? 0"
                     />
                 </x-ibox>
 

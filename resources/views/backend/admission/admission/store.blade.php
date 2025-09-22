@@ -113,6 +113,17 @@
                         :selectedValue="$admission->admission_catalogue_id ?? 0"
                         class="mb10"
                     />
+                    @php
+                        $admission_school_ids = isset($admission) ? $admission->admission_schools->pluck('id')->toArray() : null;
+                    @endphp
+                    <x-backend.select2
+                        :options="$schools"
+                        heading="Chọn trường"
+                        name="admission_schools"
+                        :selectedValue="$admission_school_ids ?? []"
+                        multiple
+                        class="mb10"
+                    />
                     <x-backend.select2
                         :options="$scholars"
                         heading="Chọn học bổng"

@@ -33,7 +33,7 @@ class Admission extends Model
     ];
 
     protected $relationable = [
-        'users', 'admission_catalogues', 'admission_trains', 'scholars', 'languages'
+        'users', 'admission_catalogues', 'admission_schools', 'admission_trains', 'scholars', 'languages'
     ];
 
     public function getRelationable(){
@@ -54,6 +54,10 @@ class Admission extends Model
 
     public function admission_trains(){
         return $this->belongsToMany(ScholarTrain::class, 'admission_train', 'admission_id', 'train_id');
+    }
+
+    public function admission_schools(){
+        return $this->belongsToMany(School::class, 'admission_school', 'admission_id', 'school_id');
     }
 
     public function languages(){

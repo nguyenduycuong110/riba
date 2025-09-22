@@ -16,6 +16,8 @@ class MajorCatalogue extends Model
 
     protected $fillable = [
         'id',
+        'major_group_id',
+        'code',
         'parent_id',
         'lft',
         'rgt',
@@ -28,14 +30,12 @@ class MajorCatalogue extends Model
         'user_id',
     ];
 
-    
-
     protected $casts = [
         'album' => 'json'
     ];
 
     protected $relationable = [
-        'users', 'languages'
+        'users', 'major_groups', 'languages'
     ];
 
     public function getRelationable(){
@@ -44,6 +44,10 @@ class MajorCatalogue extends Model
 
     public function users(): BelongsTo{
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function major_groups(): BelongsTo{
+        return $this->belongsTo(MajorGroup::class, 'major_group_id', 'id');
     }
 
     public function languages(){

@@ -397,6 +397,8 @@ a{
 .niceSelect{
     width:100% !important;
 }
+.add-train,
+.add-question,
 .add-policy,
 .add-program,
 .add-variant{
@@ -1453,6 +1455,9 @@ div.edit{
     padding-bottom:10px;
     border-bottom:1px solid #eaeaea;
 }
+.add-major-item,
+.remove-train-item,
+.remove-question-item,
 .remove-policy-item,
 .remove-chapter-item,
 .add-chapter-item{
@@ -1460,6 +1465,8 @@ div.edit{
     border:0;
     color:blue;
 }
+.remove-train-item,
+.remove-question-item,
 .remove-policy-item,
 .remove-chapter-item{
     color:#ec4758;

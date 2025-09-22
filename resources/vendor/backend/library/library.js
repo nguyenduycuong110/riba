@@ -397,7 +397,136 @@ HT.removeProgram = () => {
     })
 }
 
+ HT.addQuestion= () => {
+    $(document).on('click', '.add-question', function(){
+
+        let questionIndex = $('.question-wrapper').length
+
+        let textareaId = `ckQuestion_${questionIndex}`; 
+
+        let html = `<div class="ibox mt20 question-wrapper" data-question-index=${questionIndex}>
+            <div class="ibox-title">
+                <div class="uk-flex uk-flex-middle uk-flex-space-between mb15">
+                    <input type="text" name="question_answer[${questionIndex}][question]" class="form-control" placeholder="Nhập câu hỏi" value="" style="width:80%;">
+                    <div class="question-action">
+                        <button type="button" class="remove-question-item">Xóa câu hỏi</button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="" class="control-label text-left">Câu trả lời</label>
+                    <textarea name="question_answer[${questionIndex}][answer]" class="ck-editor" id="${textareaId}" placeholder="Nhập câu trả lời" style="width:100%; margin-top:10px;"></textarea>
+                </div>
+            </div>
+        </div>`
+        $('.ibox-ques .program-content').append(html)
+        CKEDITOR.replace(textareaId);
+    })
+}
+
+HT.removeQuestion= () => {
+    $(document).on('click', '.remove-question-item', function(){
+        let _this = $(this)
+        _this.parents('.question-wrapper').remove()
+    })
+}
+
+HT.addTrain = () => {
+    $(document).on('click', '.add-train', function(){
+
+        let trainIndex = $('.train-wrapper').length
+
+        let html = `<div class="ibox mt20 train-wrapper" data-train-index=${trainIndex}>
+            <div class="ibox-title">
+                <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                    <input type="text" name="training_major[${trainIndex}][train_name]" class="form-control" placeholder="Nhập vào hệ đào tạo" value="" style="width:75%;">
+                    <div class="train-action">
+                        <button type="button" class="add-major-item mr10">+ Thêm ngành đào tạo</button>
+                        <button type="button" class="remove-train-item">Xóa hệ đào tạo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox-content">
+            
+            </div>
+        </div>`
+
+        $('.ibox-train .program-content').append(html)
+            
+    })
+    
+}
+
+HT.removeTrain = () => {
+    $(document).on('click', '.remove-train-item', function(){
+        let _this = $(this)
+        _this.parents('.train-wrapper').remove()
+    })
+}
+
+
+HT.addMajorItem = () => {
+    $(document).on('click', '.add-major-item', function(){
+        let _this = $(this)
+        let trainWrapper = _this.parents('.train-wrapper')
+        let trainIndex = trainWrapper.data('train-index')
+        let majorIndex = trainWrapper.find('.major-item').length
+        let majorItem = `<div class="major-item" data-major-index=${majorIndex}>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="train-content">
+                        <div class="title mb10">
+                            <input type="text" class="form-control" name="training_major[${trainIndex}][major][${majorIndex}][code]" placeholder="Nhập vào mã ngành" value="" > 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="train-info">
+                        <div class="mb10">
+                            <input type="text" class="form-control" name=training_major[${trainIndex}][major][${majorIndex}][name] placeholder="Nhập vào tên ngành" style="width:100% !important;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="train-info">
+                        <div class="mb10">
+                            <input type="text" class="form-control" name=training_major[${trainIndex}][major][${majorIndex}][grade] placeholder="Nhập vào xếp loại" style="width:100% !important;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="train-info">
+                        <div class="mb10">
+                            <input type="text" class="form-control" name=training_major[${trainIndex}][major][${majorIndex}][rank] placeholder="Nhập vào xếp hạng" style="width:100% !important;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <button type="button" class="form-control btn btn-danger remove-major">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>`
+        _this.parents('.train-wrapper').find('.ibox-content').append(majorItem)
+    })
+}
+
+HT.removeMajor = () => {
+    $(document).on('click', '.remove-major', function(){
+        let _this = $(this)
+        _this.parents('.major-item').remove()
+    }) 
+}
+
+
+
 $(document).ready(function(){
+    HT.addMajorItem()
+    HT.removeMajor()
+    HT.addTrain()
+    HT.removeTrain()
+    HT.addQuestion()
+    HT.removeQuestion()
     HT.addProgram()
     HT.removeProgram()
     HT.exportExcel()

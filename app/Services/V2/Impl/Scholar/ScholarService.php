@@ -3,22 +3,15 @@ namespace App\Services\V2\Impl\Scholar;
 use App\Services\V2\BaseService;
 use App\Repositories\Scholar\ScholarRepo;
 use Illuminate\Support\Facades\Auth;
-use App\Classes\Nestedsetbie;
-use App\Traits\HasNested;
 use App\Traits\HasRouter;
 use App\Services\V2\Impl\RouterService;
-use Illuminate\Http\Request;
 
 class ScholarService extends BaseService {
 
-    use HasNested, HasRouter;
+    use HasRouter;
     
     protected $repository;
-
     protected $fillable;
-
-    protected $nestedset;
-
     private $routerService;
 
     protected $with = ['languages', 'users'];
@@ -45,7 +38,9 @@ class ScholarService extends BaseService {
 
 
     protected function beforeSave(): static {
+        $request = $this->context['request'] ?? null;
         $this->generatePayloadLanguage();
+        $this->generatePayloadRelation('scholar_catalogues', [$request->input('scholar_catalogue_id')]);
         return $this;
     }
 
@@ -55,3 +50,4 @@ class ScholarService extends BaseService {
     }
 
 }
+

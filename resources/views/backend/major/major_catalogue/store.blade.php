@@ -28,15 +28,32 @@
                 />
             </div>
             <div class="col-lg-3">
-                 <x-ibox heading="Chọn Danh mục cha">
+                 <x-ibox heading="Thông tin ngành">
+                    <x-backend.select2 
+                        :options="$majorGroups"
+                        :heading="'Chọn nhóm ngành'"
+                        name="major_group_id"
+                        :selectedValue="$majorCatalogue->major_group_id ?? 0"
+                        class="mb10"
+                    />
                     <x-backend.select2 
                         :options="$dropdown"
                         :heading="__('messages.parentNotice')"
                         name="parent_id"
                         :selectedValue="$majorCatalogue->parent_id ?? 0"
+                        class="mb10"
                     />
+                    <div class="form-row">
+                        <span class="text-danger notice">Nhập mã ngành</span>
+                        <input 
+                            type="text" 
+                            name="code" 
+                            class="form-control" 
+                            placeholder="Nhập mã ngành ví dụ : 0101" 
+                            value="{{ old('code', $majorCatalogue->code ?? '' ) }}"
+                        >
+                    </div>
                 </x-ibox>
-
                 <x-ibox heading="Ảnh đại diện">
                     <x-backend.image-preview 
                         name="image"

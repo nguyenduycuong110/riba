@@ -14,14 +14,19 @@ class Major extends Model
    use HasFactory, SoftDeletes, HasQuery;
 
     protected $fillable = [
+        'total_applications',
         'image',
         'album',
         'publish',
         'follow',
         'order',
         'user_id',
-        'major_catalogue_id',
+        'train_id',
         'viewed',
+    ];
+
+    protected $casts = [
+        'album' => 'json',
     ];
 
     protected $table = 'majors';
@@ -29,11 +34,15 @@ class Major extends Model
     protected $with = ['major_catalogues'];
 
     protected $relationable = [
-       'languages', 'major_catalogues'
+       'languages', 'major_catalogues' , 'major_trains'
     ];
 
     public function getRelationable(){
         return $this->relationable;
+    }
+
+    public function major_trains(): BelongsTo{
+        return $this->belongsTo(ScholarTrain::class, 'train_id', 'id');
     }
 
     public function languages(){
@@ -52,13 +61,12 @@ class Major extends Model
     }
 
     public function major_catalogues(){
-        return $this->belongsToMany(majorCatalogue::class, 'major_catalogue_major' , 'major_id', 'major_catalogue_id');
+        return $this->belongsToMany(MajorCatalogue::class, 'major_catalogue_major' , 'major_id', 'major_catalogue_id');
     }
 
     public function users(): BelongsTo{
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
 
 
 }

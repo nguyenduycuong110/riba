@@ -194,6 +194,17 @@ class PostService extends BaseService
     }
     
     
+    public function convertDateSelectBox(){
+        $temp = [];
+        $data =  $this->postRepository->all(['languages']);
+        if(!empty($data)){
+            foreach($data as $item){
+                $temp[$item->id] = $item->languages->first()->pivot->name;
+            }
+        }
+        return $temp;
+    }
+    
 
     private function paginateSelect(){
         return [

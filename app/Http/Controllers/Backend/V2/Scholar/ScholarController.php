@@ -8,6 +8,7 @@ use App\Services\V2\Impl\Scholar\ScholarService;
 use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
 use App\Services\V2\Impl\Scholar\PolicyService;
 use App\Services\V2\Impl\Scholar\TrainService;
+use App\Services\V2\Impl\School\SchoolService;
 use App\Models\Language;
 
 class ScholarController extends Controller {
@@ -17,19 +18,22 @@ class ScholarController extends Controller {
     private $scholarCatalogueService;
     private $policyService;
     private $trainService;
+    private $schoolService;
     protected $language;
 
     public function __construct(
         ScholarService $service,
         ScholarCatalogueService $scholarCatalogueService,
         PolicyService $policyService,
-        TrainService $trainService
+        TrainService $trainService,
+        SchoolService $schoolService
     )
     {
         $this->service = $service;
         $this->scholarCatalogueService = $scholarCatalogueService;
         $this->policyService = $policyService;
         $this->trainService = $trainService;
+        $this->schoolService = $schoolService;
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -54,10 +58,11 @@ class ScholarController extends Controller {
     }
 
     public function create(){
-         // $this->authorize('modules', 'scholar.option.scholar.create');
+        // $this->authorize('modules', 'scholar.option.scholar.create');
         $dropdown = $this->scholarCatalogueService->dropdown();
         $policies = $this->policyService->all()->pluck('name', 'id');
         $trains = $this->trainService->all()->pluck('name', 'id');
+        $schools = $this->schoolService->convertDateSelectBox();
         $config = [
             'model' => 'Scholar',
             'seo' => $this->seo(),
@@ -69,6 +74,7 @@ class ScholarController extends Controller {
             'dropdown',
             'policies',
             'trains',
+            'schools',
             'template',
             'config',
         ));
@@ -82,6 +88,7 @@ class ScholarController extends Controller {
         $dropdown = $this->scholarCatalogueService->dropdown();
         $policies = $this->policyService->all()->pluck('name', 'id');
         $trains = $this->trainService->all()->pluck('name', 'id');
+        $schools = $this->schoolService->convertDateSelectBox();
         $config = [
             'model' => 'Scholar',
             'seo' => $this->seo(),
@@ -96,6 +103,7 @@ class ScholarController extends Controller {
             'dropdown',
             'policies',
             'trains',
+            'schools'
         ));     
     }
     

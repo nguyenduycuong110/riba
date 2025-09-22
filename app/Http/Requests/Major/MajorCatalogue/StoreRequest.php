@@ -23,6 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'code' => 'required',
             'canonical' => 'required|unique:routers',
         ];
     }
@@ -31,6 +32,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập vào ô tiêu đề.',
+            'code.required' => 'Bạn chưa nhập vào mã ngành.',
             'canonical.required' => 'Bạn chưa nhập vào ô đường dẫn',
             'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',
         ];

@@ -5,7 +5,6 @@ use App\Repositories\Major\MajorRepo;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\HasRouter;
 use App\Services\V2\Impl\RouterService;
-use Illuminate\Http\Request;
 
 class MajorService extends BaseService {
 
@@ -44,7 +43,6 @@ class MajorService extends BaseService {
         $this->generatePayloadRelation('major_catalogues', [$request->input('major_catalogue_id')]);
         return $this;
     }
-
 
     protected function afterSave(): static {
         $this->handleRouter(controller: 'MajorController');

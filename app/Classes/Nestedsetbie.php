@@ -26,7 +26,9 @@ class Nestedsetbie{
 	}
 
 	public function Get(){
-		$catalogue = (isset($this->params['isMenu']) && $this->params['isMenu'] == true ) ? '' : '_catalogue';
+        $isMenu = $this->params['isMenu'] ?? false;
+        $isMajorGroups = $this->params['table'] === 'major_groups';
+        $catalogue = $isMajorGroups ? '_group' : ($isMenu ? '' : '_catalogue');
 		$foreignkey = (isset($this->params['foreignkey'])) ? $this->params['foreignkey'] : 'post_catalogue_id';
 		$moduleExtract = explode('_', $this->params['table']);
 		$join = (isset($this->params['isMenu']) && $this->params['isMenu'] == true ) ? substr($moduleExtract[0], 0, -1) : $moduleExtract[0];
