@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\Payment\VnpayController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
 use App\Http\Controllers\Frontend\ContactController as FeContactController;
+use App\Http\Controllers\Frontend\SchoolCatalogueController as FeSchoolCatalogueController;
 
 //@@useController@@
 
@@ -31,31 +32,37 @@ require __DIR__ . '/web/custom.route.php';
 |
 */
 /* FRONTEND ROUTES  */
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('lien-he.html', [FeContactController::class, 'index'])->name('contact.index');
-Route::get('/thumb', [App\Http\Controllers\ImageResizerController::class, 'resize'])->name('thumb');
+Route::group(['middleware' => ['locale']], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
+    Route::get('lien-he.html', [FeContactController::class, 'index'])->name('contact.index');
+    Route::get('/thumb', [App\Http\Controllers\ImageResizerController::class, 'resize'])->name('thumb');
 
-Route::get('tim-kiem', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
-Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');
+    Route::get('tim-kiem', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
+    Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');
 
-/** CART */
-Route::get('gio-hang'.config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
-Route::get('thanh-toan'.config('apps.general.suffix'), [CartController::class, 'pay'])->name('cart.pay');
-Route::post('cart/create', [CartController::class, 'store'])->name('cart.store');
-Route::post('cart/createPay', [CartController::class, 'storePay'])->name('cart.storePay');
-Route::get('cart/success'.config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
-
-
-/* PORT PAYMENT */
-Route::get('return/vnpay'.config('apps.general.suffix'), [VnpayController::class, 'vnpay_return'])->name('vnpay.momo_return');
-Route::get('return/vnpay_ipn'.config('apps.general.suffix'), [VnpayController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
+    /** CART */
+    Route::get('gio-hang'.config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
+    Route::get('thanh-toan'.config('apps.general.suffix'), [CartController::class, 'pay'])->name('cart.pay');
+    Route::post('cart/create', [CartController::class, 'store'])->name('cart.store');
+    Route::post('cart/createPay', [CartController::class, 'storePay'])->name('cart.storePay');
+    Route::get('cart/success'.config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
 
 
-Route::get('paypal/success'.config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
-Route::get('paypal/cancel'.config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
+    /* PORT PAYMENT */
+    Route::get('return/vnpay'.config('apps.general.suffix'), [VnpayController::class, 'vnpay_return'])->name('vnpay.momo_return');
+    Route::get('return/vnpay_ipn'.config('apps.general.suffix'), [VnpayController::class, 'vnpay_ipn'])->name('vnpay.vnpay_ipn');
 
 
-/** DYNAMIC ROUTE */
-Route::get('{canonical}'.config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
-Route::get('{canonical}/trang-{page}'.config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
+    Route::get('paypal/success'.config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
+    Route::get('paypal/cancel'.config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
 
+
+    /** DYNAMIC ROUTE */
+    Route::get('{canonical}'.config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
+    Route::get('{canonical}/trang-{page}'.config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
+
+    /*Schools*/
+
+    Route::get('/pro-tools/schools', [FeSchoolCatalogueController::class, 'index'])->name('school.catalogue.index');
+    
+});

@@ -480,76 +480,15 @@
         })
     }
 
-    
-
-    HT.changeStatusChildren = () => {
-        $(document).on('click', '.toggle', function () {
-            let $item = $(this).closest('.filter-list__item'); 
-            let $children = $item.find('.children').first(); 
-            if ($children.hasClass('active')) {
-                $(this).removeClass('rotate');
-                $children.removeClass('active');
-            } else {
-                $(this).addClass('rotate');
-                $children.addClass('active');
-            }
-        });
-    }
-
-    HT.changeStatusPass = () => {
-        $(document).on('click', '.password-toggle', function(e) {
-            e.preventDefault();
-            const $passwordInput = $(this).siblings('input[type="password"], input[type="text"]');
-            const currentType = $passwordInput.attr('type');
-            const inputId = $passwordInput.attr('id');
-            if (currentType === 'password') {
-                $passwordInput.attr('type', 'text');
-                $(`#eye-${inputId}`).hide();
-                $(`#eye-slash-${inputId}`).show();
-            } else {
-                $passwordInput.attr('type', 'password');
-                $(`#eye-${inputId}`).show();
-                $(`#eye-slash-${inputId}`).hide();
-            }
-        });
-    }
-
-    HT.changeStatusDropdownMenu = () => {
-        $(document).on('click', '.browse-tools .dropdown', function() {
-            let _this = $(this)
-            _this.toggleClass('active')
-            if(_this.hasClass('active')){
-                _this.closest('.browse-tools').find('.dropdown-menu').addClass('open')
-            }else{
-                _this.closest('.browse-tools').find('.dropdown-menu').removeClass('open')
-            }
-        });
-    }
-
-        
 
 	$(document).ready(function(){
-        HT.changeStatusDropdownMenu()
-        HT.changeStatusPass()
-        HT.changeStatusChildren()
-        // HT.whyChoose()
-        // HT.partner()
-        // HT.video()
-        // HT.techStaff ()
-        // HT.renderProductFromProductCatalogue ()
-        // HT.loadProject();
-        // HT.popupSwiperSlide();
+        
         HT.highlightTocOnScroll();
         HT.scrollHeading()
-        // HT.requestConsult()
         HT.scroll()
-        // HT.advise()
         HT.addVoucher()
 		HT.removePagination()
 		HT.wow()
-		// HT.category()
-		// HT.swiperBestSeller()
-		// HT.swiperAsideFeature()
 		
 		/* CORE JS */
         HT.swiper()
@@ -557,20 +496,13 @@
 		HT.select2()
 		HT.loadDistribution()
 		HT.wrapTable()
-        // HT.service()
         HT.skeleton()
 
         /** ACTION  */
         HT.register()
         HT.previewVideo()
-        // HT.filterCourse()
-
-
         HT.major()
 
-        // $(window).on('load', function() {
-        //     HT.swiper();
-        // });
 	});
 
 })(jQuery);

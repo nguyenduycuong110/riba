@@ -6,6 +6,7 @@
 @use "components/article-left-image-card";
 @use "components/partner-card";
 @use "components/footer";
+@use "components/school";
 
 @import "../vendor/backend/css/plugins/toastr/toastr.min.css";
 @import "../vendor/frontend/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css";
@@ -1841,3 +1842,4 @@ ol li {
         display: none;
     }
 }
+

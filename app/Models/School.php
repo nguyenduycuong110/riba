@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Validation\Rule;
 use App\Traits\HasQuery;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -58,7 +57,7 @@ class School extends Model
     protected $table = 'schools';
 
     public function languages(){
-        return $this->belongsToMany(Language::class, 'school_language' , 'school_id', 'language_id')
+        return $this->belongsToMany(Language::class, 'school_language')
         ->withPivot(
             'school_id',
             'language_id',
@@ -86,6 +85,10 @@ class School extends Model
 
     public function school_scholars(){
         return $this->belongsToMany(Scholar::class, 'school_scholar' , 'school_id', 'scholar_id');
+    }
+
+    public function school_areas(): BelongsTo{
+        return $this->belongsTo(SchoolArea::class, 'area_id', 'id');
     }
 
     public function users(): BelongsTo{

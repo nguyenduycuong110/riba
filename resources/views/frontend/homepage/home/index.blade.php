@@ -109,7 +109,6 @@
             $event = collect(
                 json_decode(file_get_contents(resource_path('json/mock.json')))
             )['event'];
-            // dd($event);
         @endphp
         @if(isset($event) && !is_null($event) && count($event))
             @foreach($event as $key => $val)

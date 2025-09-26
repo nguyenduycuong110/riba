@@ -5,7 +5,6 @@ use App\Repositories\School\SchoolRepo;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\HasRouter;
 use App\Services\V2\Impl\RouterService;
-use Illuminate\Http\Request;
 
 class SchoolService extends BaseService {
 
@@ -15,7 +14,7 @@ class SchoolService extends BaseService {
     protected $fillable;
     private $routerService;
 
-    protected $with = ['languages', 'users'];
+    protected $with = ['users', 'school_catalogues', 'school_projects', 'school_areas', 'languages'];
 
     public function __construct(
         SchoolRepo $repository,
@@ -24,7 +23,6 @@ class SchoolService extends BaseService {
     {
         $this->repository = $repository;
         $this->routerService = $routerService;
-        // Lazy load nestedset
     }
 
     public function prepareModelData(): static {
@@ -36,7 +34,6 @@ class SchoolService extends BaseService {
         }
         return $this;
     }
-
 
     protected function beforeSave(): static {
         $this->generatePayloadLanguage();

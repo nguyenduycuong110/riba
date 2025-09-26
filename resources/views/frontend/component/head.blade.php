@@ -29,5 +29,3 @@
 <meta name="twitter:image" content="{{ $seo['meta_image'] }}" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
-{{-- <script src="{{ asset('frontend/resources/library/js/jquery.js') }}"></script> --}}
-{{-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js?ver=6.8.1" id="pbmit-lottiefiles-script-js"></script> --}}

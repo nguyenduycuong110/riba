@@ -4,45 +4,23 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 
-
-use App\Repositories\Core\SlideRepository;
 use App\Repositories\Core\SystemRepository;
-use App\Repositories\Core\LecturerRepository;
-use App\Services\V1\Core\WidgetService;
 use App\Services\V1\Core\SlideService;
-use App\Services\V1\Post\PostService;
-
 use App\Enums\SlideEnum;
-use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\Lecturer;
+
 
 class HomeController extends FrontendController
 {
-    protected $language;
-    protected $slideRepository;
-    protected $lecturerRepository;
     protected $systemRepository;
-    protected $widgetService;
     protected $slideService;
-    protected $system;
-    protected $postService;
 
     public function __construct(
-        SlideRepository $slideRepository,
-        LecturerRepository $lecturerRepository,
-        WidgetService $widgetService,
         SlideService $slideService,
         SystemRepository $systemRepository,
-        PostService $postService,
     ) {
-        $this->slideRepository = $slideRepository;
-        $this->lecturerRepository = $lecturerRepository;
-        $this->widgetService = $widgetService;
         $this->slideService = $slideService;
         $this->systemRepository = $systemRepository;
-        $this->postService = $postService;
-
+        
         parent::__construct(
             $systemRepository,
         );
@@ -53,21 +31,10 @@ class HomeController extends FrontendController
     {
         $config = $this->config();
 
-        $widgets = $this->widgetService->getWidget([
-            ['keyword' => 'product-catalogue', 'object' => true],
-            ['keyword' => 'best-selling-course', 'children' => true, 'object' => true, 'promotion' => true],
-            ['keyword' => 'new-course-launch', 'object' => true, 'promotion' => true],
-            ['keyword' => 'news', 'object' => true],
-            ['keyword' => 'videos', 'object' => true],
-        ], $this->language);
-
-
         $slides = $this->slideService->getSlide(
             [SlideEnum::MAIN, SlideEnum::TECHSTAFF, SlideEnum::PARTNER],
             $this->language
         );
-
-        $lecturers = $this->lecturerRepository->all();
 
         $system = $this->system;
 
@@ -79,24 +46,16 @@ class HomeController extends FrontendController
             'canonical' => config('app.url'),
         ];
 
-        $language = $this->language;
-
         $schema = $this->schema($seo);
-
-        $ishome = true;
 
         $template = 'frontend.homepage.home.index';
 
         return view($template, compact(
             'config',
             'slides',
-            'widgets',
             'seo',
             'system',
-            'language',
-            'ishome',
             'schema',
-            'lecturers'
         ));
     }
 
@@ -132,7 +91,9 @@ class HomeController extends FrontendController
     {
         return [
             'language' => $this->language,
-            'css' => [],
+            'css' => [
+                '__frontend/resources/style.css'
+            ],
             'js' => []
         ];
     }

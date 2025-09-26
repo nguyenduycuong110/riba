@@ -271,11 +271,10 @@ class BaseRepository
         return $this->model->getRelationable() ?? [];
     }
 
-     public function customPagination(array $specs = []){
+    public function customPagination(array $specs = []){
         return $this->model
         ->keyword($specs['filter']['keyword'])
         ->simpleFilter($specs['filter']['simple'])
-        // ->complexFilter($specs['filter']['complex'])
         ->dateFilter($specs['filter']['date'] ?? [])
         ->with($specs['with'])
         ->take($specs['take'])

@@ -525,9 +525,16 @@
         });
     }
 
-        
+    HT.collapse = () => {{
+        $(document).on('click', '[data-bs-toggle="collapse"]', function() {
+            let target = $($(this).data('bs-target'));
+            target.hasClass('show') ? target.removeClass('show') : target.addClass('show');
+        });
+    }}
+
 
 	$(document).ready(function(){
+        HT.collapse()
         HT.changeStatusDropdownMenu()
         HT.changeStatusPass()
         HT.changeStatusChildren()
