@@ -152,8 +152,9 @@ if(!function_exists('getVariantPrice')){
 
 
 if(!function_exists('getReview')){
-    function getReview($product = ''){
+    function getReview($product = null){
 
+        /** @var $product Product */
         $totalReviews = $product->reviews()->count();
         $totalRate = number_format($product->reviews()->avg('score'), 1);
         $starPercent = ($totalReviews == 0) ? '0' : $totalRate/5*100;
@@ -195,7 +196,7 @@ if(!function_exists('convertDateTime')){
 }
 
 if(!function_exists('renderDiscountInformation')){
-    function renderDiscountInformation($promotion = []){
+    function renderDiscountInformation($promotion = null){
         if($promotion->method === 'product_and_quantity'){
             $discountValue = $promotion->discountInformation['info']['discountValue'];
             $discountType = ($promotion->discountInformation['info']['discountType'] == 'percent') ? '%' : 'đ';
@@ -206,7 +207,7 @@ if(!function_exists('renderDiscountInformation')){
 }
 
 if(!function_exists('renderDiscountVoucher')){
-    function renderDiscountVoucher($voucher = []){
+    function renderDiscountVoucher($voucher = null){
         $discount_value = $voucher->discount_value;
         $discount_type = ($voucher->discount_type == 'PERCENTAGE') ? '%' : 'đ';
         return '<span class="label label-success">'.$discount_value.$discount_type.' </span>';
@@ -396,9 +397,17 @@ if(!function_exists('buildMenu')){
     }
 }
 
+use Illuminate\Support\Str;
 if(!function_exists('loadClass')){
     function loadClass(string $model = '', $folder = 'Repositories', $interface = 'Repository'){
-        $serviceInterfaceNamespace = '\App\\'.$folder.'\\' . ucfirst($model) . $interface;
+        $serviceInstance = null;
+        $namespace = Str::words(Str::headline($model), 1, '');
+        $version2 = ['Scholar', 'School', 'Major', 'Admission'];
+        if(in_array($namespace, $version2)){
+            $interface = 'Repo';
+        }
+        // $serviceInterfaceNamespace = '\App\\'.$folder.'\\' . ucfirst($model) . $interface;
+        $serviceInterfaceNamespace = '\App\\' . $folder . '\\' . $namespace . '\\' . $model . $interface;
         if (class_exists($serviceInterfaceNamespace)) {
             $serviceInstance = app($serviceInterfaceNamespace);
         }
@@ -649,7 +658,7 @@ if(!function_exists('convertToK')){
     }
 }
   
-
+use Illuminate\Support\Facades\DB;
 if(!function_exists('convertData')){
     function convertData($data, $type)
     {

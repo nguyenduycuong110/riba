@@ -46,44 +46,62 @@
 </div>
 <div class="ibox w">
     <div class="ibox-title">
-        <h5>Chọn giao diện</h5>
+        <h5>Review</h5>
+        <div class="description text-danger">Dành riêng cho mục review về các trường đại học</div>
     </div>
     <div class="ibox-content">
         <div class="row mb15">
-            <div class="col-lg-12">
+            <div class="col-lg-12 mb10">
                 <div class="form-row">
-                    <select name="template" class="form-control setupSelect2" id="">
-                        <option value="0">Chọn giao diện</option>
-                        @if(isset($post))
-                            <option value="1" {{ $post->template == 1 ? 'selected' : '' }}>Thi công nội thất, thiết kế nội thất</option>
-                        @endif
-                    </select>
+                    <input 
+                        type="text"
+                        name="logo"
+                        value="{{ old('logo', ($post->logo) ?? '' ) }}"
+                        placeholder="Ảnh logo của trường"
+                        class="form-control upload-image"
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-lg-6 mb10">
+                <div class="form-row">
+                    <input 
+                        type="text"
+                        name="rate"
+                        value="{{ old('rate', ($post->rate) ?? '' ) }}"
+                        placeholder="Đánh giá 1 - 100"
+                        class="form-control"
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-lg-6 mb10">
+                <div class="form-row">
+                    <input 
+                        type="text"
+                        name="comments"
+                        value="{{ old('comments', ($post->comments) ?? '' ) }}"
+                        placeholder="Số đánh giá"
+                        class="form-control"
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-lg-12 mb10">
+                <div class="form-row">
+                    <textarea 
+                        name="extra"
+                        class="form-control"
+                        placeholder="Phần nội dung cơ bản, mỗi dòng cách nhau 1 dấu ,"
+                        autocomplete="off"
+                        style="height:100px;"
+                    >{{ old('extra', ($post->extra) ?? '' ) }}</textarea>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="ibox w">
-    <div class="ibox-title">
-        <h5>Trạng thái menu</h5>
-    </div>
-    <div class="ibox-content">
-        <div class="row mb15">
-            <div class="col-lg-12">
-                <div class="form-row">
-                    <select name="status_menu" class="form-control setupSelect2" id="">
-                        @foreach (__('messages.status_menu') as $k => $item)
-                            <option value="{{ $k }}"
-                            {{ isset($post) && $k == $post->status_menu ? 'selected' : '' }}>
-                                {{ $item }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="ibox w">
     <div class="ibox-title">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
@@ -92,10 +110,10 @@
         </div>
     </div>
     <div class="ibox-content">
+        <div class="description text-danger mb10">Upload Video - hoặc copy mã nhúng</div>
         <div class="row mb15">
             <div class="col-lg-12">
                 <div class="form-row">
-                    <label for="" class="control-label text-left">Chọn ảnh đại diện</label>
                     <textarea name="video" class="form-control video-target" style="height:168px;">{{ old('video', (isset($post->video)) ? $post->video : '') }}</textarea>
                 </div>
             </div>

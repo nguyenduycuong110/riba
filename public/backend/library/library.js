@@ -31,6 +31,7 @@ HT.changeStatus = () => {
             'field' : _this.attr('data-field'),
             '_token' : _token
         }
+        
 
         $.ajax({
             url: 'ajax/dashboard/changeStatus', 

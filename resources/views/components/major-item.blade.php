@@ -4,7 +4,7 @@
     $canonical = write_url($item->languages->canonical);
     $description = $item->languages->description;
     $image = $item->image;
-    $rate = $item->rate;
+    $rate = rand(75, 100);
 @endphp
 
 <div class="major-item">

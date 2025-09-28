@@ -1,4 +1,7 @@
 (function($) {
+
+     console.log('library.js loaded');
+
 	"use strict";
 	var HT = {}; 
     var _token = $('meta[name="csrf-token"]').attr('content');
@@ -33,6 +36,9 @@
                 'field' : _this.attr('data-field'),
                 '_token' : _token
             }
+
+            console.log(123);
+            
 
             $.ajax({
                 url: 'ajax/dashboard/changeStatus', 
@@ -311,6 +317,10 @@
     
 
 	$(document).ready(function(){
+
+        console.log(12324234);
+        
+
         HT.exportExcel()
         HT.changeOrder()
         HT.approve()
@@ -329,6 +339,8 @@
 	});
 
 })(jQuery);
+
+console.log(12312342);
 
 
 const addCommas = (nStr) => { 

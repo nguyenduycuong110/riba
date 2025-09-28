@@ -232,7 +232,11 @@ class PostService extends BaseService
             'video',
             'template',
             'status_menu',
-            'short_name'
+            'short_name',
+            'logo',
+            'extra',
+            'comments',
+            'rate'
         ];
     }
 

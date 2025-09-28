@@ -24,7 +24,11 @@ class Post extends Model
         'template',
         'viewed',
         'status_menu',
-        'short_name'
+        'short_name',
+        'logo',
+        'extra',
+        'comments',
+        'rate',
     ];
 
     protected $table = 'posts';

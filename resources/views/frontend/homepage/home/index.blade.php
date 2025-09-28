@@ -5,11 +5,11 @@
         <div class="panel-commit">
             <div class="uk-container uk-container-center">
                 @php
-                    $commit = collect(json_decode(file_get_contents(resource_path('json/mock.json'))))['commit'];
+                    $commit = $widgets['commit'] ?? null;
                 @endphp
-                @if(isset($commit) && !is_null($commit) && count($commit))
+                @if(isset($commit->object) && !is_null($commit->object) && count($commit->object))
                 <div class="uk-grid uk-grid-medium">
-                    @foreach($commit as $key => $val)
+                    @foreach($commit->object as $key => $val)
                     @php
                         $name = $val->languages->name;
                         $image = $val->image;
@@ -23,7 +23,7 @@
                             <div class="info">
                                 <div class="title">{{ $name }}</div>
                                 <div class="description">
-                                    {{ $description }}
+                                    {!! $description !!}
                                 </div>
                             </div>
                         </div>
@@ -34,19 +34,17 @@
             </div>
         </div><!-- .commit -->
         @php
-            $intro = collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['intro'];
+            $intro = $widgets['about-us'] ?? null;
+            $name = strip_tags($intro->description[1]);
         @endphp
-        @if(isset($intro) && !is_null($intro)  && count($intro))
-        @foreach($intro as $key => $val)
+        @if(isset($intro->object) && !is_null($intro->object)  && count($intro->object))
+        @foreach($intro->object as $key => $val)
         @php
             // dd($val);
-            $name = $val->languages->name;
+            $catName = $val->languages->name;
             $description = $val->languages->description;
             $content = $val->languages->content;
             $canonical = write_url($val->languages->canonical);
-            $catName = $val->category;
             $image = $val->image;
         @endphp
         <div class="panel-intro">
@@ -74,9 +72,7 @@
         @endforeach
         @endif
          @php
-            $marquee = collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['marquee'];
+            $marquee = $menu['marquee']
         @endphp
         @if(isset($marquee) && !is_null($marquee) && count($marquee))
         <div class="panel-marquee">
@@ -85,8 +81,8 @@
                 <div class="marquee__group">
                     @foreach($marquee as $key => $val)
                     @php
-                        $name = $val->languages->name;
-                        $canonical = write_url($val->languages->canonical);
+                        $name = $val['item']->languages->first()->pivot->name;
+                        $canonical = write_url($val['item']->languages->first()->pivot->canonical);
                     @endphp
                     <a class="marquee__item" href="{{ $canonical }}">{{ $name }}</a>
                     @endforeach
@@ -95,8 +91,8 @@
                 <div class="marquee__group" aria-hidden="true">
                     @foreach($marquee as $key => $val)
                     @php
-                        $name = $val->languages->name;
-                        $canonical = write_url($val->languages->canonical);
+                        $name = $val['item']->languages->first()->pivot->name;
+                        $canonical = write_url($val['item']->languages->first()->pivot->canonical);
                     @endphp
                     <a class="marquee__item" href="{{ $canonical }}">{{ $name }}</a>
                     @endforeach
@@ -106,17 +102,15 @@
         @endif
 
         @php
-            $event = collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['event'];
+            $event = $widgets['event'] ?? null;
         @endphp
-        @if(isset($event) && !is_null($event) && count($event))
-            @foreach($event as $key => $val)
+        @if(isset($event->object) && !is_null($event->object) && count($event->object))
+            @foreach($event->object as $key => $val)
             @php
                 $name = $val->languages->name;
                 $canonical = write_url($val->languages->canonical);
                 $description = $val->languages->description;
-                $album = $val->album;
+                $album = json_decode($val->album);
             @endphp
             <div class="panel-service">
                 <div class="uk-container uk-container-center">
@@ -146,43 +140,40 @@
         @endif
         
         @php
-            $schoolarship =  collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['schoolarship'];
+            $schoolarship =  $widgets['scholar'] ?? null;
+            // dd($schoolarship->object);
+            $scholarCatalogue = $widgets['scholar-catalogues'] ?? null;
+            $catName = $schoolarship->name;
+            $catCanonical = write_url('hoc-bong');
         @endphp
 
-        @if(isset($schoolarship) && !is_null($schoolarship) && count($schoolarship))
-            @foreach($schoolarship as $key => $val)
-            @php
-                $catName = $val->languages->name;
-                $catCanonical = write_url($val->languages->canonical);
-                $children = $val->children;
-            @endphp
+        @if(isset($schoolarship))
             <div class="panel-scholarship">
                 <div class="uk-container uk-container-center">
                     <div class="panel-head uk-text-center">
                         <div class="heading-2"><span>{{ $catName }}</span></div>
-                        @if(is_array($children) && count($children))
+                        @if(count($scholarCatalogue->object))
                         <div class="sub-category uk-flex uk-flex-middle uk-flex-center">
-                            @foreach($children as $keyChild => $valChild)
+                            <a class="active"  href="{{ $catCanonical }}" title="Tất cả">Tất cả</a>
+                            @foreach($scholarCatalogue->object as $keyChild => $valChild)
                             @php
                                 $childName = $valChild->languages->name;
                                 $childCanonical = write_url($valChild->languages->canonical);
                             @endphp
-                            <a class="{{ ($keyChild === 0) ? 'active' : '' }}"  href="{{ $childCanonical }}" title="{{ $childName }}">{{ $childName }}</a>
+                            <a class=""  href="{{ $childCanonical }}" title="{{ $childName }}">{{ $childName }}</a>
                             @endforeach
                         </div>
                         @endif
                     </div>
                     <div class="panel-body">
-                        @if(isset($val->items) && is_array($val->items) && count($val->items))
+                        @if(isset($schoolarship->object))
                         <div class="uk-grid uk-grid-medium">
-                            @foreach($val->items as $item)
+                            @foreach($schoolarship->object as $item)
                             @php
                                 $name = $item->languages->name;
                                 $canonical = write_url($item->languages->canonical);
                                 $image = $item->image;
-                                $rate = $item->rate;
+                                $rate = rand(75,100);
                             @endphp
                             <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4 mb25">
                                 <div class="scholarship-item">
@@ -216,19 +207,16 @@
                     </div>
                 </div>
             </div>
-            @endforeach
         @endif
 
         
         @php
-            $schoolarshipType =  collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['schoolarshipType'];
+            $schoolarshipType =  $widgets['scholars'] ?? null;
         @endphp
-        @if(isset($schoolarshipType) && !is_null($schoolarshipType) && count($schoolarshipType))
-            @foreach($schoolarshipType as $key => $val)
+        @if(isset($schoolarshipType->object) && !is_null($schoolarshipType->object) && count($schoolarshipType->object))
+            @foreach($schoolarshipType->object as $key => $val)
             @php
-                $nameC = $val->languages->name;
+                $nameC = $schoolarshipType->name;
                 $descriptionC = $val->languages->description;
                 $canonicalC = write_url($val->languages->canonical);
             @endphp
@@ -239,14 +227,14 @@
                         <div class="description">{!! $descriptionC !!}</div>
                     </div>
                     <div class="panel-body">
-                        @if(isset($val->items) && is_array($val->items) && count($val->items))
+                        @if(isset($val->scholars) && !is_null($val->scholars) && !empty($val->scholars))
                         <div class="uk-grid uk-grid-medium ">
-                            @foreach($val->items as $item)
+                            @foreach($val->scholars as $item)
                             @php
-                                $name = $item->languages->name;
-                                $canonical = write_url($item->languages->canonical);
+                                $name = $item->languages[0]->name;
+                                $canonical = write_url($item->languages[0]->canonical);
                                 $image = $item->image;
-                                $description = $item->languages->description;
+                                $description = $item->languages[0]->description;
                             @endphp
                                 <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-4 mb25">
                                     <div class="type-item">
@@ -275,26 +263,18 @@
         @endif
 
         @php
-            $major =  collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['major'];
+            $major =  $widgets['major-catalogue'] ?? null;
+            $imageC = $major->album[0] ?? '';
         @endphp
-        @if(isset($major) && !is_null($major) && count($major))
-            @foreach($major as $key => $val)
-            @php
-                $imageC = $val->image;
-                $nameC = $val->languages->name;
-                $descriptionC = $val->languages->description;
-                $canonicalC = write_url($val->languages->canonical);
-            @endphp
+        @if(isset($major) && !is_null($major))
             <div class="panel-major">
                 <div class="uk-container uk-container-center">
                     <div class="panel-head">
-                        <h2 class="heading-2"><span>{{ $nameC }}</span></h2>
-                        <div class="description">{!! $descriptionC !!}</div>
+                        <h2 class="heading-2"><span>{{ $major->name }}</span></h2>
+                        <div class="description">{!! $major->description[1] !!}</div>
                     </div>
                     <div class="panel-body">
-                        @if(isset($val->items) && count($val->items))
+                        @if(isset($major->object) && count($major->object))
                         <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
                             <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-3-5">
                                 <div class="major-container">
@@ -302,7 +282,7 @@
                                     <div class="swiper-button-next"></div>
                                     <div class="swiper-container">
                                         <div class="swiper-wrapper">
-                                           @foreach($val->items as $keyItem => $item)
+                                           @foreach($major->object as $keyItem => $item)
                                                 @if($keyItem % 2 === 0)
                                                     <div class="swiper-slide">
                                                 @endif
@@ -319,7 +299,7 @@
                             </div>
                             <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-2-5">
                                 <div class="major-image img-zoomin">
-                                    <img src="{{ $imageC }}" alt="{{ $name }}">
+                                    <img src="{{ $imageC }}" alt="{{ $major->name }}">
                                 </div>
                             </div>
                         </div>
@@ -327,18 +307,15 @@
                     </div>
                 </div>
             </div>
-            @endforeach
         @endif
 
-        <x-card-form />
+        <x-card-form :scholars="$scholars" />
 
         @php
-            $review =  collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['review'];
+            $review = $widgets['review'] ?? null;
         @endphp
-        @if(isset($review) && !is_null($review) && count($review))
-            @foreach($review as $key => $val)
+        @if(isset($review) && !is_null($review))
+            @foreach($review->object as $key => $val)
             @php
                 $name = $val->languages->name;
                 $canonical = write_url($val->languages->canonical);
@@ -354,9 +331,10 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        @if(isset($val->items) && count($val->items))
+                        @if(isset($val->posts) && count($val->posts))
                         <div class="uk-grid uk-grid-medium">
-                            @foreach($val->items as $item)
+                            @foreach($val->posts as $keyPost => $item)
+                            @if($keyPost > 9) @break @endif
                             <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-4 mb25">
                                 <x-review :item="$item" />
                             </div>

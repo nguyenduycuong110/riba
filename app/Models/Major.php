@@ -57,7 +57,7 @@ class Major extends Model
             'meta_description',
             'description',
             'content'
-        )->where('language_id', config('app.language_id'));
+        );
     }
 
     public function major_catalogues(){

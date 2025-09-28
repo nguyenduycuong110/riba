@@ -14,6 +14,7 @@ use App\Http\Controllers\Ajax\ExcelController as AjaxExcelController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\V2\HandlerController;
+use App\Http\Controllers\Ajax\ContactController;
 
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
@@ -42,22 +43,27 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
     Route::post('ajax/excel/export', [AjaxExcelController::class, 'export'])->name('ajax.excel.export');
     Route::post('ajax/sort', [HandlerController::class, 'sort'])->name('ajax.sort');
     Route::post('ajax/changeStatusField', [HandlerController::class, 'changeFieldStatus'])->name('ajax.changeFieldStatus');
+    Route::get('ajax/dashboard/findModelObject', [AjaxDashboardController::class, 'findModelObject'])->name('ajax.dashboard.findModelObject');
 });
 
-Route::get('ajax/dashboard/findModelObject', [AjaxDashboardController::class, 'findModelObject'])->name('ajax.dashboard.findModelObject');
-Route::get('ajax/dashboard/findProduct', [AjaxDashboardController::class, 'findProduct'])->name('ajax.dashboard.findProduct');
-Route::get('ajax/dashboard/findProductObject', [AjaxDashboardController::class, 'findProductObject'])->name('ajax.findProductObject');
-Route::post('ajax/cart/pay', [AjaxCartController::class, 'pay'])->name('ajax.cart.pay');
+Route::group(['middleware' => ['locale']], function () {
+    Route::get('ajax/dashboard/findProduct', [AjaxDashboardController::class, 'findProduct'])->name('ajax.dashboard.findProduct');
+    Route::get('ajax/dashboard/findProductObject', [AjaxDashboardController::class, 'findProductObject'])->name('ajax.findProductObject');
+    Route::post('ajax/cart/pay', [AjaxCartController::class, 'pay'])->name('ajax.cart.pay');
 
+    Route::post('ajax/contact/saveContact', [ContactController::class, 'create'])->name('ajax.cart.pay');
 
-Route::post('ajax/review/create', [AjaxReviewController::class, 'create'])->name('ajax.review.create');
-Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
-Route::get('ajax/product/filter', [AjaxProductController::class, 'filter'])->name('ajax.filter');
-Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create');
-Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');
-Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete');
-Route::get('ajax/cart/applyCartVoucher', [AjaxCartController::class, 'applyCartVoucher'])->name('ajax.cart.applyCartVoucher');
-Route::get('ajax/cart/unUseVoucher', [AjaxCartController::class, 'unUseVoucher'])->name('ajax.cart.unUseVoucher');
-Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
-Route::get('ajax/post/video', [AjaxPostController::class, 'video'])->name('post.video');
-Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
+    Route::post('ajax/review/create', [AjaxReviewController::class, 'create'])->name('ajax.review.create');
+    Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+    Route::get('ajax/product/filter', [AjaxProductController::class, 'filter'])->name('ajax.filter');
+    Route::post('ajax/cart/create', [AjaxCartController::class, 'create'])->name('ajax.cart.create');
+    Route::post('ajax/cart/update', [AjaxCartController::class, 'update'])->name('ajax.cart.update');
+    Route::post('ajax/cart/delete', [AjaxCartController::class, 'delete'])->name('ajax.cart.delete');
+    Route::get('ajax/cart/applyCartVoucher', [AjaxCartController::class, 'applyCartVoucher'])->name('ajax.cart.applyCartVoucher');
+    Route::get('ajax/cart/unUseVoucher', [AjaxCartController::class, 'unUseVoucher'])->name('ajax.cart.unUseVoucher');
+    Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
+    Route::get('ajax/post/video', [AjaxPostController::class, 'video'])->name('post.video');
+    Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
+
+});
+

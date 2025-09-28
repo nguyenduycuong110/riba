@@ -43,8 +43,8 @@ class WidgetController extends Controller
         $widgets = $this->widgetService->paginate($request);
       
         $config = [
-            
-            'model' => 'Widget'
+            'model' => 'Widget',
+            'extendJs' => true,
         ];
         $config['seo'] = __('messages.widget');
         $template = 'backend.widget.index';

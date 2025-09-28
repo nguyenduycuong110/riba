@@ -30,8 +30,12 @@ HT.changeStatus = () => {
             'modelId' : _this.attr('data-modelId'),
             'model' : _this.attr('data-model'),
             'field' : _this.attr('data-field'),
+            'namespace': _this.attr('data-namespace'),
             '_token' : _token
         }
+
+        console.log(option);
+        
 
         $.ajax({
             url: 'ajax/dashboard/changeStatus', 
@@ -517,6 +521,8 @@ HT.removeMajor = () => {
         _this.parents('.major-item').remove()
     }) 
 }
+
+
 
 
 

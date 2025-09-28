@@ -44,7 +44,7 @@
                 </td>
                 @endforeach
                 <td class="text-center js-switch-{{ $widget->id }}"> 
-                    <input type="checkbox" value="{{ $widget->publish }}" class="js-switch status " data-field="publish" data-model="{{ $config['model'] }}" {{ ($widget->publish == 2) ? 'checked' : '' }} data-modelId="{{ $widget->id }}" />
+                    <input type="checkbox" value="{{ $widget->publish }}" class="js-switch status" data-namespace="Core" data-field="publish" data-model="{{ $config['model'] }}" {{ ($widget->publish == 2) ? 'checked' : '' }} data-modelId="{{ $widget->id }}" />
                 </td>
                 <td class="text-center"> 
                     <a href="{{ route('widget.edit', $widget->id) }}" class="btn btn-success"><i class="fa fa-edit"></i></a>

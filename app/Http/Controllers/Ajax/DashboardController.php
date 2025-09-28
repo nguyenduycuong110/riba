@@ -29,19 +29,25 @@ class DashboardController extends Controller
     }
 
     public function changeStatus(Request $request){
+        $serviceInstance = null;
         $post = $request->input();
-        $serviceInterfaceNamespace = '\App\Services\\' . ucfirst($post['model']) . 'Service';
+        $flag = false;
+        $namespace = $post['namespace'] ??  Str::words(Str::headline($post['model']), 1, '');
+        $version = $post['version'] ?? 'V1';
+        $serviceInterfaceNamespace = '\App\Services\\' . $version . '\\' . $namespace . '\\'  . ucfirst($post['model']) . 'Service';
         if (class_exists($serviceInterfaceNamespace)) {
             $serviceInstance = app($serviceInterfaceNamespace);
+            $flag = $serviceInstance->updateStatus($post);
         }
-        $flag = $serviceInstance->updateStatus($post);
         return response()->json(['flag' => $flag]); 
         
     }
 
     public function changeStatusAll(Request $request){
         $post = $request->input();
-        $serviceInterfaceNamespace = '\App\Services\\' . ucfirst($post['model']) . 'Service';
+        $version = $post['version'] ?? 'V1';
+        $namespace = Str::words(Str::headline($post['model']), 1, '');
+        $serviceInterfaceNamespace = '\App\Services\\' . $namespace . '\\' . $version . '\\' . ucfirst($post['model']) . 'Service';
         if (class_exists($serviceInterfaceNamespace)) {
             $serviceInstance = app($serviceInterfaceNamespace);
         }
@@ -54,14 +60,19 @@ class DashboardController extends Controller
         $model = $request->input('model');
         $page = ($request->input('page')) ?? 1;
         $keyword = ($request->string('keyword')) ?? null;
+        $object = null;
+        $serviceInstance = null;
+        $namespace = $post['namespace'] ??  Str::words(Str::headline($model), 1, '');
+        $version = 'V1';
+        $serviceInterfaceNamespace = '\App\Repositories\\' . $namespace . '\\'  . ucfirst($model) . 'Repository';
 
-        $serviceInterfaceNamespace = '\App\Repositories\\' . ucfirst($model) . 'Repository';
+
         if (class_exists($serviceInterfaceNamespace)) {
             $serviceInstance = app($serviceInterfaceNamespace);
+            $agruments = $this->paginationAgrument($model, $keyword);
+            $object = $serviceInstance->pagination(...array_values($agruments));
         }
         
-        $agruments = $this->paginationAgrument($model, $keyword);
-        $object = $serviceInstance->pagination(...array_values($agruments));
         
         return response()->json($object); 
     }
@@ -100,10 +111,12 @@ class DashboardController extends Controller
     public function findModelObject(Request $request){
         $get = $request->input();
         $alias = Str::snake($get['model']).'_language';
+        // dd($alias);
         $class = loadClass($get['model']);
         $object = $class->findWidgetItem([
             ['name','LIKE', '%'.$get['keyword'].'%'],
         ], $this->language, $alias);
+        // dd($object);
         return response()->json($object); 
     }
 

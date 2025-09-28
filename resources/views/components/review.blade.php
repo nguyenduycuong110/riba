@@ -1,13 +1,14 @@
 @props(['item'])
 @php
-    $name = $item->languages->name;
-    $description = cutnchar(strip_tags($item->languages->description));
-    $content = $item->languages->extraDescription;
+    $name = $item->languages[0]->name;
+    $description = cutnchar(strip_tags($item->languages[0]->description));
+    $content = explode(',', $item->extra);
     $image = $item->image;
-    $logo = $item->logo;
-    $rank = rand(1,10);
-    $rate = $item->rate;
-    $canonical = write_url($item->languages->canonical);
+    $logo = $item->logo ?? '';
+    // $rank = rand(1,10);
+    $rate = $item->rate ?? rand(75,100);
+    $comments = $item->comments ?? 0;
+    $canonical = write_url($item->languages[0]->canonical);
 @endphp
 <div class="review-item">
     <a href="{{ $canonical }}" class="image img-cover">
@@ -23,9 +24,13 @@
                 {!! $description !!}
             </div>
         </div>
+        @if(count($content))
         <div class="extra-description">
-            {!! $content !!}
+            @foreach($content as $c)
+            <p>{{ $c }}</p>
+            @endforeach
         </div>
+        @endif
         <a href="{{ $canonical }}" class="show-more-3">Xem thêm</a>
     </div>
      <div class="overlay">
@@ -33,13 +38,13 @@
             <div class="review-widget uk-flex uk-flex-middle">
                 <div class="heart-icon"><i class="fa fa-heart-o"></i></div>
                 <div class="uk-flex uk-flex-middle">
-                    <span class="mr10">120 đánh giá </span>
+                    <span class="mr10">{{ $comments }} đánh giá </span>
                     <div class="star-rating uk-flex uk-flex-right">
                         <div class="stars" style="--star-width: {{ $rate }}%"></div>
                     </div>
                 </div>
             </div>
-            <div class="rank">#{{ $rank }}</div>
+            {{-- <div class="rank">#{{ $rank }}</div> --}}
         </div>
     </div>
 </div>

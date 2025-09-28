@@ -292,7 +292,7 @@ ol li {
 // ================
 .header-top {
   padding: 15px 0;
-  background: linear-gradient(to right, #004b35 70%, #8ed32f 30%);
+  background: linear-gradient(to right, #004b35 65%, #8ed32f 30%);
   color: #fff;
 
   .header-contact__item {
@@ -466,7 +466,7 @@ ol li {
   }
 
   input {
-    width: 325px;
+    width: 220px;
     height: 40px;
     padding: 6px 10px;
     font-family: var(--main-font), sans-serif !important;
@@ -688,6 +688,8 @@ ol li {
 
       .description {
         text-align: justify;
+        max-height: 80px;
+        overflow: hidden;
       }
     }
   }
@@ -1186,32 +1188,33 @@ ol li {
     }
 
     .overlay-bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      padding: 10px;
-      margin: 0;
-      -webkit-transform: translateZ(0px);
-      background: linear-gradient(
-          to bottom,
-          transparent 0,
-          rgba(0, 0, 0, 1) 100%
-        )
-        repeat-x;
-      height: 60px;
-      overflow: hidden;
-      transition: all 0.5s ease;
-      border-radius: 0 0 10px 10px;
+        width:100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 10px;
+        margin: 0;
+        -webkit-transform: translateZ(0px);
+        background: linear-gradient(
+            to bottom,
+            transparent 0,
+            rgba(0, 0, 0, 1) 100%
+            )
+            repeat-x;
+        height: 60px;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        border-radius: 0 0 10px 10px;
 
-      .title {
-        font-weight: 200;
-        font-size: 16px;
-        line-height: 22px;
+        .title {
+            font-weight: 200;
+            font-size: 16px;
+            line-height: 22px;
 
-        > * {
-          color: #fff;
+            > * {
+            color: #fff;
+            }
         }
-      }
     }
 
     &:hover .overlay-bottom {
@@ -1489,11 +1492,38 @@ ol li {
 
       .title {
         margin-bottom: 15px;
+        height:40px;
+        overflow: hidden;
 
         > * {
           text-transform: uppercase;
           font-weight: 600;
         }
+      }
+
+      .description{
+        ul{
+            padding-left:0;
+            li{
+                font-size:12px;
+                padding-left:10px;
+                margin-bottom:5px;
+                position: relative;
+                &::before{
+                    content:'';
+                    display: block;
+                    position: absolute;
+                    left:0;
+                    top:50%;
+                    transform: translate(0, -50%);
+                    width:4px;
+                    height:4px;
+                    background: #000;
+                }
+            }
+           
+        }
+
       }
     }
 
@@ -1625,6 +1655,7 @@ ol li {
     color: #fff;
     padding: 10px 10px 10px 35px;
     outline: none;
+    font-size:13px;
 
     &::placeholder {
       color: #fff;
@@ -1639,6 +1670,20 @@ ol li {
     font-family: var(--second-font);
     font-size: 13px;
     font-weight: 200;
+    appearance: none;      /* reset mặc định */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    
+    // background: url("data:image/svg+xml;utf8,<svg fill='%23fff' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") 
+    //             no-repeat right 15px center; /* custom mũi tên */
+    // background-size: 12px;
+    
+    // padding-right: 35px; /* chừa khoảng trống cho arrow */
+
+    option{
+        color:#000;
+    }
   }
 
   button[type="submit"] {

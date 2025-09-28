@@ -4,8 +4,12 @@
         'model' => [
             'PostCatalogue' => 'Nhóm Bài Viết',
             'Post' => 'Bài Viết',
-            'ProductCatalogue' => 'Nhóm Sản Phẩm',
-            'Product' => 'Sản Phẩm',
+            // 'ProductCatalogue' => 'Nhóm Sản Phẩm',
+            // 'Product' => 'Sản Phẩm',
+            'ScholarCatalogue' => 'Nhóm Học Bổng',
+            'Scholar' => 'Học Bổng',
+            'MajorCatalogue' => 'Nhóm Chuyên Ngành',
+            'Major' => 'Chuyên Ngành',
         ],
         'type' => [
             'dropdown-menu' => 'Dropdown Menu',

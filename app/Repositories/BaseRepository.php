@@ -150,7 +150,8 @@ class BaseRepository
 
 
     public function findWidgetItem(array $condition = [],int $language_id = 1, string $alias = ''){
-        return $this->model->with([
+        // dd($condition);
+        $result = $this->model->with([
             'languages' => function($query) use ($language_id){
                 $query->where('language_id', $language_id);
             }
@@ -159,7 +160,10 @@ class BaseRepository
             foreach ($condition as $key => $val) {
                 $query->where($alias . '.' . $val[0], $val[1], $val[2]);
             }
-        })->get(); 
+        })
+        ->get(); 
+        // dd($result);
+        return $result;
     }
 
     // public function recursiveCategory(string $parameter = '', $table = ''){

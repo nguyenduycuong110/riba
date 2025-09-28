@@ -26,3 +26,6 @@ import "../vendor/backend/library/voucher.js";
 import "../vendor/backend/library/widget.js";
 import "../vendor/backend/plugins/nice-select/js/jquery.nice-select.min.js";
 // import "../vendor/backend/js/plugins/nestable/jquery.nestable.js";
+
+
+console.log('App Backend Js loaded');

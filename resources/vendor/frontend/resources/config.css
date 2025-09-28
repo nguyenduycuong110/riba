@@ -999,6 +999,7 @@ ul li{
     width: 250px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 6px;
+    z-index: 20;
 }
 
 .navigation .dropdown-menu li a{
