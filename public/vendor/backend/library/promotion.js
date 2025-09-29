@@ -1,6 +1,4 @@
-(function($) {
-	"use strict";
-	var HT = {}; 
+var HT = {}; 
     var typingTimer;
     var doneTyingInterval = 300; // 1s
 
@@ -1468,7 +1466,7 @@
 
     
    
-	$(document).ready(function(){
+	$(document).on('ready', function(){
 
         HT.searchCombo()
         HT.addProductToCombo()
@@ -1506,6 +1504,3 @@
         HT.changePromotionMethod()
         HT.checkConditionItemSet()
 	});
-
-
-})(jQuery);

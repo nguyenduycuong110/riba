@@ -75,8 +75,14 @@ class BaseService
             ['language_id','=', $languageId],
             ['controllers','=', 'App\Http\Controllers\Frontend\\'.$controllerName],
         ];
+        // dd($condition);
         $router = $this->routerRepository->findByCondition($condition);
-        $res = $this->routerRepository->update($router->id, $payload);
+        $res = null;
+        if($router){
+            $router->forceDeleteWWWW();
+        }
+        $res = $this->routerRepository->create($payload);
+        // $res = $this->routerRepository->update($router->id, $payload);
         return $res;
     }
 

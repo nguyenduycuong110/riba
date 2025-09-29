@@ -53,6 +53,7 @@ class HomeController extends FrontendController
             ['keyword' => 'scholar-catalogues'],
             ['keyword' => 'major-catalogue'],
             ['keyword' => 'review', 'object' => true],
+            ['keyword' => 'share', 'object' => true],
         ], $this->language);
 
 

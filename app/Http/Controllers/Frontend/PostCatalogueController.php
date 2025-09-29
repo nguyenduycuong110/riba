@@ -74,7 +74,7 @@ class PostCatalogueController extends FrontendController
             $this->language
         );
 
-        if($postCatalogue->canonical === 'gioi-thieu'){
+        if($postCatalogue->canonical === 've-chung-toi'){
             $template = 'frontend.post.catalogue.intro';
         }else{
             $template = 'frontend.post.catalogue.index';
@@ -180,6 +180,8 @@ class PostCatalogueController extends FrontendController
             </script>";
         return $schema;
     }
+
+   
 
 
     private function config()

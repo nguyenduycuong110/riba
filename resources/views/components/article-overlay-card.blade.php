@@ -7,7 +7,7 @@
         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
         <div class="created_at">{{ $created }}</div>
         <div class="description">
-            {!! $description !!}
+            {!! strip_tags($description) !!}
         </div>
     </div>
 </div>

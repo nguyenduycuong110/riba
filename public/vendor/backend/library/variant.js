@@ -625,8 +625,11 @@
     };
 
     HT.productVariant = () => {
-        if(variant.lenght){
-             variant = JSON.parse(atob(variant))
+
+        let variant = window.variant || null;
+
+        if(variant && variant.length > 0){
+            variant = JSON.parse(atob(variant))
             $('.variant-row').each(function(index, value){
                 let _this = $(this)
 
@@ -663,7 +666,6 @@
                 }
             })
         }
-       
     }
 
     HT.sortui2 = () => {

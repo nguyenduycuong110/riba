@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
 use App\Http\Controllers\Frontend\ContactController as FeContactController;
 use App\Http\Controllers\Frontend\SchoolCatalogueController as FeSchoolCatalogueController;
+use App\Http\Controllers\Frontend\PostCatalogueController;
 
 //@@useController@@
 
@@ -57,12 +58,16 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('paypal/cancel'.config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
 
 
+     /** CUSTOM ROUTE */
+    // Route::get('ve-chung-toi.html', [PostCatalogueController::class, 'introduce'])->name('introduce.index');
+    // Route::get('/pro-tools/schools', [FeSchoolCatalogueController::class, 'index'])->name('school.catalogue.index');
+
     /** DYNAMIC ROUTE */
     Route::get('{canonical}'.config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
     Route::get('{canonical}/trang-{page}'.config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
 
     /*Schools*/
 
-    Route::get('/pro-tools/schools', [FeSchoolCatalogueController::class, 'index'])->name('school.catalogue.index');
+   
     
 });

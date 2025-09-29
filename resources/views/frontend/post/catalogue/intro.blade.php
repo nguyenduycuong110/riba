@@ -1,309 +1,254 @@
 @extends('frontend.homepage.layout')
 @php
-    $section1 = [
-        [
-            'number' => $introduce['block_1_number_1'],
-            'title' => 'Chuyên Gia'
-        ],
-        [
-            'number' => $introduce['block_1_number_2'],
-            'title' => 'Năm Kinh Nghiệm'
-        ],
-        [
-            'number' => $introduce['block_1_number_3'],
-            'title' => 'Tổ chức hàng đầu'
-        ],
-    ];
-
-    $section2 = [
-        [
-            'icon' => 'frontend/resources/img/intro-icon-1.png',
-            'title' => $introduce['block_2_text_1'],
-        ],
-        [
-            'icon' => 'frontend/resources/img/intro-icon-2.png',
-            'title' => $introduce['block_2_text_2'],
-        ],
-        [
-            'icon' => 'frontend/resources/img/intro-icon-3.png',
-            'title' => $introduce['block_2_text_3'],
-        ]
+    $a = $introduce;
+    $section_array_1 = [
+        ['icon' => 'Ten-tieng-Trung-1.png', 'name' => 'Tên tiếng Trung', 'value' => $introduce['block_1_title']],
+        ['icon' => 'Tax.png', 'name' => 'Mã số thuế', 'value' => $introduce['block_1_tax']],
+        ['icon' => 'Nam-hoat-dong-1.png', 'name' => 'Năm hoạt động', 'value' => $introduce['block_1_year']],
+        ['icon' => 'Top-1-Viet-Nam.png', 'name' => 'Xếp hạng dịch vụ', 'value' => $introduce['block_1_rank']],
+        ['icon' => 'Ten-tieng-Trung-1.png', 'name' => '', 'value' => $introduce['block_1_en']],
+        ['icon' => 'Email.png', 'name' => 'Email', 'value' => $introduce['block_1_email']],
+        ['icon' => 'Hotline.png', 'name' => 'Hotline', 'value' => $introduce['block_1_hotline']],
+        ['icon' => 'Hop-tac.png', 'name' => 'Hợp tác', 'value' => $introduce['block_1_connect_count']],
     ];
 @endphp
 @section('content')
     <div class="intro-container">
-        <div class="intro-section-1" style="background:url({{ $introduce['block_1_background'] }})">
-            <div class="breadcrumb uk-text-center uk-flex uk-flex-center">
-                {{-- <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
-                    <li>
-                        <a href="/">{{ __('frontend.home') }}</a>
-                    </li>
-                    <li>
-                        <span class="slash">/</span>
-                    </li>
-                    @if(!is_null($breadcrumb))
-                        @foreach($breadcrumb as $key => $val)
-                            @php
-                                $name = $val->languages->first()->pivot->name;
-                                $canonical = write_url($val->languages->first()->pivot->canonical, true, true);
-                            @endphp
-                            <li>
-                                <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
-                            </li>
-                        @endforeach
-                    @endif
-                </ul> --}}
-            </div>
-            <div class="section-1-info uk-text-center">
-                <h2 class="heading wow fadeInDown" data-wow-duration="1s">{{ $introduce['block_1_title'] }}</h2>
-                <div class="description wow fadeInLeft" data-wow-delay="0.3s">{{ $introduce['block_1_description'] }}</div>
-                <div class="section-1-list">
-                    <div class="uk-grid uk-grid-medium">
-                        @php
-                            $time = 0.3;
-                        @endphp
-                        @foreach($section1 as $key => $item)
-                            <div class="uk-width-small-1-3 uk-width-medium-1-3 uk-width-large-1-3">
-                                <div class="section-1-item uk-text-center wow fadeInRight" data-wow-delay="{{ $time * ($key + 1)}}s">
-                                    <div class="number">{{ $item['number'] }}</div>
-                                    <div class="title">{{ $item['title'] }}</div>
+        <div class="section-1">
+            <div class="uk-container uk-container-center">
+                <h1 class="heading-10"><span>{{ $introduce['block_1_company'] }}</span></h1>
+                <div class="description">{!! $introduce['block_1_description'] !!}</div>
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                    <div class="uk-width-large-1-3">
+                        @foreach($section_array_1 as $key => $val)
+                        @if($key > 3) @break @endif
+                        <article class="a-item">
+                            <div class="uk-flex uk-flex-middle">
+                                <div class="icon"><img src="{{ asset('vendor/frontend/img/project/'.$val['icon']) }}" alt="Icon"></div>
+                                <div class="title">
+                                    @if(!empty($val['name']))
+                                    <div class="spec-text">{{ $val['name'] }}</div>
+                                    @endif
+                                    <div class="spec-value">{{ $val['value'] }}</div>
                                 </div>
                             </div>
+                        </article>
                         @endforeach
-                    </div>
-                </div>
-                <div class="button-group">
-                    <div class="uk-flex uk-flex-middle uk-flex-center">
-                        <a href="{{ $introduce['block_1_button_1_link'] }}" class="button-style-1 wow fadeInLeft" data-wow-delay="0.4s">{{ $introduce['block_1_button_1'] }}</a>
-                        <a href="{{ $introduce['block_1_button_2_link'] }}" class="button-style-2 wow fadeInLeft" data-wow-delay="0.5s">{{ $introduce['block_1_button_2'] }}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="uk-container uk-container-center">
-            <div class="intro-section-2">
-                <div class="uk-grid uk-grid-medium">
-                    <div class="uk-width-large-2-3">
-                        <h2 class="heading wow fadeInDown" data-wow-delay="0.4s">{{ $introduce['block_2_title'] }}</h2>
-                        <ul class="uk-list uk-clearfix intro-2-list">
-                            @php
-                                $time = 0.2;
-                            @endphp
-                            @foreach($section2 as $k => $item)
-                                <li>
-                                    <a href="" class="uk-flex uk-flex-middle wow fadeInDown" data-wow-delay="{{ $time * ($k + 1) }}s">
-                                        <img src="{{ $item['icon'] }}" alt="{{ $item['title'] }}">
-                                        <span>{{ $item['title'] }}</span>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="intro-2-button">
-                            <a href="{{ $introduce['block_2_button_link'] }}" class="wow fadeInDown" data-wow-delay="0.4s">{{ $introduce['block_2_button'] }}</a>
-                        </div>
                     </div>
                     <div class="uk-width-large-1-3">
-                        <img src="{{ $introduce['block_2_image'] }}" alt="2">
+                        <div class="section-1-image">
+                            <span class="image img-cover img-zoomin"><img src="{{ asset($introduce['block_1_image']) }}" alt=""></span>
+                        </div>
+                        <div class="visit-link"><a href="{{ $introduce['block_1_fanpage_link'] }}" target="_blank">Truy cập vào Fanpage của chúng tôi</a></div>
+                    </div>
+                    <div class="uk-width-large-1-3">
+                         @foreach($section_array_1 as $key => $val)
+                            @if($key <=3) @continue @endif
+                            <article class="a-item">
+                                <div class="uk-flex uk-flex-middle">
+                                    <div class="icon"><img src="{{ asset('vendor/frontend/img/project/'.$val['icon']) }}" alt="Icon"></div>
+                                    <div class="title">
+                                        @if(!empty($val['name']))
+                                        <div class="spec-text">{{ $val['name'] }}</div>
+                                        @endif
+                                        <div class="spec-value">{{ $val['value'] }}</div>
+                                    </div>
+                                </div>
+                            </article>
+                            @endforeach
                     </div>
                 </div>
             </div>
         </div>
-        <div class="intro-section-3">
+        <div class="section-2">
             <div class="uk-container uk-container-center">
-                <h2 class="heading wow fadeInDown" data-wow-delay="0.4s">{{ $introduce['block_3_title'] }}</h2>
-                <div class="number-line">
-                    @php
-                        $time = 0.1;
-                    @endphp
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                    <div class="uk-width-medium-1-2">
+                        <div class="number-container">
+                            <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                                @for($i = 1; $i <= 6; $i++)
+                                <div class="uk-width-small-1-1 uk-width-medium-1-2 mb20">
+                                    <div class="number-box-item color_{{ $i }}">
+                                        <span class="int">{{ $introduce['block_1_box_'.$i.'_number'] }}</span>
+                                        <div class="name">{{ $introduce['block_1_box_'.$i.'_text'] }}</div>
+                                    </div>
+                                </div>
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-medium-1-2">
+                        <div class="description">
+                            {!! $introduce['block_1_content'] !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-3">
+            <div class="uk-container uk-container-center">
+                <h2 class="heading-10"><span>{{ $introduce['block_3_heading'] }}</span></h2>
+                <div class="description">{{ $introduce['block_3_description'] }}</div>
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                    @for($i = 1; $i <= 3; $i++)
+                    <div class="uk-width-large-1-3 image-{{ $i }}">
+                        <span class="image img-cover"><img src="{{ asset($introduce['block_3_image_'.$i]) }}" alt="image"></span>
+                    </div>
+                    @endfor
+                </div>
+            </div>
+        </div>
+        <div class="section-4">
+            <div class="uk-container uk-container-center">
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                    <div class="uk-width-medium-2-5">
+                        <div class="section-4-container">
+                            <h2 class="heading-9"><span>{{ $a['block_4_heading'] }}</span></h2>
+                            <div class="description">{!! $a['block_4_description'] !!}</div>
+                            <div class="video">
+                                {!! $a['block_4_video'] !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-medium-3-5">
+                        <span class="image img-zoomin img-cover">
+                            <img src="{{ $a['block_4_image'] }}" alt="icon">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-5">
+            <div class="uk-container uk-container-center">
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                    <div class="uk-width-medium-2-5">
+                        <span class="image img-cover"><img src="{{ $a['block_5_image'] }}" alt="image"></span>
+                    </div>
+                    <div class="uk-width-medium-3-5">
+                        <div class="section-5-container">
+                            <h3 class="small-text">{{ $a['block_5_small_heading'] }}</h3>
+                            <h2 class="heading-10"><span>{{ $a['block_5_heading'] }}</span></h2>
+                            <div class="description">
+                                {!! $a['block_5_description'] !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-6">
+            <div class="uk-container uk-container-center">
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                    <div class="uk-width-large-1-2">
+                        <div class="section-6-container">
+                            <h2 class="heading-8"><span>{{ $a['block_6_heading'] }}</span></h2>
+                            <div class="description">{!! $a['block_6_description'] !!}</div>
+                            <div class="list-sec">
+                                @for($i = 1; $i <= 3; $i++)
+                                <article class="sec-item item-{{$i}}">
+                                    <span class="icon"><i class="fa fa-star"></i></span>
+                                    <div class="description">
+                                        <div class="title">{{ $a['block_6_block_'.$i.'_title'] }}</div>
+                                        <div class="description">
+                                            {{ $a['block_6_block_'.$i.'_description'] }}
+                                        </div>
+                                    </div>
+                                </article>
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-large-1-2">
+                        <span class="image img-cover"><img src="{{ $a['block_6_image'] }}" alt="icobn"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="section-6">
+            <div class="uk-container uk-container-center">
+                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
+                     <div class="uk-width-large-1-2">
+                        <span class="image img-cover"><img src="{{ $a['block_7_image'] }}" alt="icobn"></span>
+                    </div>
+                    <div class="uk-width-large-1-2">
+                        <div class="section-6-container">
+                            <h2 class="heading-8"><span>{{ $a['block_7_heading'] }}</span></h2>
+                            <div class="description">{!! $a['block_7_description'] !!}</div>
+                            <div class="list-sec">
+                                @for($i = 1; $i <= 2; $i++)
+                                <article class="sec-item item-{{$i}}">
+                                    <span class="icon"><i class="fa fa-star"></i></span>
+                                    <div class="description">
+                                        <div class="title">{{ $a['block_7_block_'.$i.'_title'] }}</div>
+                                        <div class="description">
+                                            {{ $a['block_7_block_'.$i.'_description'] }}
+                                        </div>
+                                    </div>
+                                </article>
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @php
+            $icon = ['fa fa-user', 'fa fa-diamond', 'fa fa-tag']
+        @endphp
+        <div class="section-9">
+            <div class="uk-container uk-container-center">
+                <h2 class="heading-9"><span>{{ $a['block_9_heading'] }}</span></h2>
+                <div class="description-b">
+                    {!! $a['block_9_description'] !!}
+                </div>
+                <div class="why-list">
                     <div class="uk-grid uk-grid-medium">
-                        @for($i = 1; $i<=4; $i++)
-                            <div class="uk-width-1-4 uk-width-small-1-4 uk-width-large-1-4">
-                                <div class="number-item wow fadeInDown" data-wow-delay="{{ $time * ($i + 1) }}s">
-                                    <span class="">{{ $i }}</span>
+                        @for($i = 1; $i <= 3; $i++)
+                        <div class="uk-width-large-1-3">
+                            <div class="i-why-item">
+                                <div class="icon"><i class="{{ $icon[$i - 1] }}"></i></div>
+                                <div class="title">{{ $a['block_9_block_'.$i.'_title'] }}</div>
+                                <div class="description">
+                                    {!! $a['block_9_block_'.$i.'_description'] !!}
                                 </div>
                             </div>
+                        </div>
                         @endfor
                     </div>
                 </div>
-                @php
-                    $time = 0.2;
-                @endphp
-                <div class="uk-grid uk-grid-medium">
-                    @for($i = 1; $i<=4; $i++)
-                        <div class="uk-width-small-1-2 uk-width-medium-1-4 uk-width-large-1-4 mb20">
-                            <div class="section-3-item wow fadeInDown" data-wow-delay="{{ $time * ($i + 1) }}s">
-                                <div class="title">{{ $introduce['block_3_text_'.$i] }}</div>
-                                <div class="description">{{ $introduce['block_3_description_'.$i] }}</div>
-                            </div>
-                        </div>
-                    @endfor
-                </div>
             </div>
         </div>
-        <div class="intro-section-4 intro-section-3 mb30">
+        <div class="section-8">
             <div class="uk-container uk-container-center">
-                <h2 class="heading wow fadeInDown" data-wow-delay="0.4s">{{ $introduce['block_4_title'] }}</h2>
+                <h2 class="heading-10"><span>{{ $a['block_8_heading'] }}</span></h2>
+                <div class="description text-center">{!! $a['block_8_description'] !!}</div>
                 <div class="uk-grid uk-grid-medium">
-                    @php
-                        $time = 0.2;
-                    @endphp
-                    @for($i = 1; $i<=4; $i++)
-                        <div class="uk-width-medium-1-2 mb20">
-                            <div class="whyus-item wow fadeInDown" data-wow-delay="{{ $time * ($i + 1) }}s">
-                                <span class="image img-scaledown">
-                                    <img src="{{ $introduce['block_4_image_'.$i] }}" alt="{{ $introduce['block_4_text_'.$i] }}">
-                                </span>
-                                <div class="info">
-                                    <div class="title">{{ $introduce['block_4_text_'.$i] }}</div>
-                                    <div class="description">{{ $introduce['block_4_description_'.$i] }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-                </div>
-            </div>
-        </div>
-        <div class="intro-section-5 intro-section-3 mb30">
-            <div class="uk-container uk-container-center">
-                <div class="heading mb50 wow fadeInDown" data-wow-delay="0.4s">{{ $introduce['block_5_title'] }}</div>
-                <div class="uk-grid uk-grid-medium">
-                    @php
-                        $time = 0.2;
-                    @endphp
-                    @for($i = 1; $i<=3; $i++)
-                        <div class="uk-width-1-2 uk-width-small-1-3 uk-width-medium-1-3">
-                            <div class="person-item wow fadeInDown" data-wow-delay="{{ $time * ($i + 1) }}s">
-                                <span class="image img-cover img-zoom-in">
-                                    <img src="{{ $introduce['block_5_image_'.$i] }}" alt="{{ $introduce['block_5_text_'.$i] }}">
-                                </span>
-                                <div class="title">{{ $introduce['block_5_text_'.$i] }}</div>
-                            </div>
-                        </div>
-                    @endfor
-                </div>
-            </div>
-        </div>
-        <div class="intro-section-6">
-            <div class="uk-container uk-container-center">
-                <div class="panel-head">
-                    <div class="heading wow fadeInDown" data-wow-delay="0.2s">Bạn đang cần giải pháp phù hợp</div>
-                    <div class="description wow fadeInLeft" data-wow-delay="0.4s">Kết nối ngay với chuyên gia của chúng tôi để nhận giải pháp phù hợp.</div>
-                </div>
-                <div class="panel-body">
-                    <div class="uk-grid uk-grid-medium">
-                        <div class="uk-width-small-1-2 mb20 uk-width-medium-1-3">
-                            <div class="solution-item wow fadeInDown" data-wow-delay="0.3s">
-                                <div class="icon">
-                                    <img src="{{ asset('frontend/resources/img/solution-item.png') }}" alt="">
-                                </div>
-                                <div class="title">Hotline tư vấn trực tiếp</div>
-                                <div class="solution-button">
-                                    <a href="tel:{{ $system['contact_hotline'] }}" title="{{ $system['contact_hotline'] }}">{{ $system['contact_hotline'] }}</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="uk-width-small-1-2 mb20 uk-width-medium-1-3">
-                            <div class="solution-item wow fadeInDown" data-wow-delay="0.6s">
-                                <div class="icon">
-                                    <img src="{{ asset('frontend/resources/img/solution-item.png') }}" alt="">
-                                </div>
-                                <div class="title">Tư vấn khách hàng chat zalo</div>
-                                <div class="solution-button">
-                                    <a href="https://zalo.me/{{ $system['contact_hotline'] }}" title="{{ $system['contact_hotline'] }}">Chat Zalo</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="uk-width-small-1-2 mb20 uk-width-medium-1-3">
-                            <div class="solution-item wow fadeInDown" data-wow-delay="0.9s">
-                                <div class="icon">
-                                    <img src="{{ asset('frontend/resources/img/solution-item.png') }}" alt="">
-                                </div>
-                                <div class="title">Để lại thông tin chúng tôi gọi lại</div>
-                                <div class="solution-button">
-                                    <a href="{{ write_url('lien-he') }}" title="Liên Hệ">Để lại thông tin chúng tôi gọi lại</a>
-                                </div>
-                            </div>
+                    <div class="uk-width-large-1-3">
+                        <div class="item-a i-service-item">
+                            <div class="title">{{ $a['block_8_block_1_title'] }}</div>
+                            <div class="description">{!! $a['block_8_block_1_description'] !!}</div>
                         </div>
                     </div>
-                </div>
-                
-            </div>
-        </div>
-        @if(isset($widgets['students']->object) && !is_null($widgets['students']->object))
-            @foreach($widgets['students']->object as $key => $val)
-            <div class="intro-section-7 intro-section-3">
-                <div class="uk-container uk-container-center">
-                    <div class="panel-head">
-                        <span class="special-text wow fadeInDown" data-wow-delay="0.3s">Đánh giá</span>
-                        <h2 class="heading wow fadeInDown" data-wow-delay="0.4s">{{ $val->languages->name }}</h2>
-                        <div class="description wow fadeInDown" data-wow-delay="0.5s">{!! $val->languages->description !!}</div>
-                    </div>
-                    <div class="panel-body">
-                        @if(isset($val->posts) && count($val->posts) )
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                @foreach($val->posts as $post)
-                                    @php
-                                        $name = $post->languages[0]->name;
-                                        $description = $post->languages[0]->description;
-                                        $image = $post->image;
-                                    @endphp
-                                    <div class="swiper-slide wow fadeInDown" data-wow-delay="0.3s">
-                                        <div class="feedback-item">
-                                            <span><img src="{{ asset('frontend/resources/img/star.png') }}" alt="star"></span>
-                                            <div class="description">
-                                                {!! $description !!}
-                                            </div>
-                                            <div class="info uk-flex uk-flex-right">
-                                                <div class="uk-flex uk-flex-middle">
-                                                    <span class="name">{{ $name }}</span>
-                                                    <span class="image img-cover"><img src="{{ $image }}" alt=""></span>
-                                                </div>
-                                            </div>
+                    <div class="uk-width-large-2-3">
+                        <div class="service-list">
+                            <div class="uk-grid uk-grid-medium">
+                                @for($i = 2; $i<=5; $i++)
+                                <div class="uk-width-large-1-2 mb30">
+                                    <div class="i-service-item">
+                                        <div class="title">{{ $a['block_8_block_'.$i.'_title'] }}</div>
+                                        <div class="description">
+                                            {{ $a['block_8_block_'.$i.'_description'] }}
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
+                                @endfor
                             </div>
-                            <div class="swiper-button-prev wow fadeInUp" data-wow-delay="0.2s">
-                                <img src="/frontend/resources/img/prev.svg" alt="">
-                            </div>
-                            <div class="swiper-button-next wow fadeInUp" data-wow-delay="0.2s">
-                                <img src="/frontend/resources/img/next.svg" alt="">
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        @endif
-        <div class="intro-section-8 intro-section-3">
-            <div class="uk-container uk-container-center">
-                <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
-                    <div class="uk-width-medium-1-2 wow fadeInDown" data-wow-delay="0.3s">
-                        <div class="description">
-                             <h2 class="heading">Đồng hành cùng OM'E trao đi giá trị sức khỏe đích thực cho cộng đông</h2>
-                             <div class="description">
-                                <p>Liên hệ ngay với chúng tôi qua số</p>
-                                <p>hotline <span>{{ $system['contact_hotline'] }}</span> để được cộng tác</p>
-                                <p>Chúng tôi trân trọng và rất hân hạnh được đồng hành!</p>
-                             </div>
-                             <div class="image">
-                                <img src="{{ asset('frontend/resources/img/Image-123.png') }}" alt="">
-                             </div>
-                             <a href="tel:{{ $system['contact_hotline'] }}" class="button-hotlin">
-                                Gọi {{ $system['contact_hotline']  }}
-                             </a>
-                        </div>
-                    </div>
-                    <div class="uk-width-medium-1-2 wow fadeInDown" data-wow-delay="0.4s">
-                        <div class="image">
-                            <img src="{{ asset('frontend/resources/img/section-8-bg.png') }}" alt="icon">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 
 

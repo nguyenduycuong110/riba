@@ -152,12 +152,12 @@ return [
                 ]
             ]
         ],
-        // [
-        //     'title' => 'Giới thiệu',
-        //     'icon' => 'fa fa-user',
-        //     'name' => ['introduce'],
-        //     'route' => 'introduce/index'
-        // ],
+        [
+            'title' => 'Giới thiệu',
+            'icon' => 'fa fa-user',
+            'name' => ['introduce'],
+            'route' => 'introduce/index'
+        ],
         // [
         //     'title' => 'QL Trường',
         //     'icon' => 'fa fa-instagram',

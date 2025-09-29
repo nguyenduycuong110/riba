@@ -101,15 +101,18 @@ class PostCatalogueService extends BaseService
             $flag = $this->updateCatalogue($postCatalogue, $request);
             if($flag == TRUE){
                 $this->updateLanguageForCatalogue($postCatalogue, $request, $languageId);
+                // dd(1234);
                 $this->updateRouter(
                     $postCatalogue, $request, $this->controllerName, $languageId
                 );
+                // dd(123);
                 $this->nestedset = new Nestedsetbie([
                     'table' => 'post_catalogues',
                     'foreignkey' => 'post_catalogue_id',
                     'language_id' =>  $languageId ,
                 ]);
                 $this->nestedset();
+                // dd(123);
             }
             DB::commit();
             return true;
@@ -156,6 +159,7 @@ class PostCatalogueService extends BaseService
     }
 
     private function updateCatalogue($postCatalogue, $request){
+        // dd(123);
         $payload = $request->only($this->payload());
         $payload['album'] = $this->formatAlbum($request);
         $flag = $this->postCatalogueRepository->update($postCatalogue->id, $payload);

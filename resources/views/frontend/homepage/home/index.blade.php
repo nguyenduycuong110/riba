@@ -349,12 +349,10 @@
 
 
         @php
-            $news =  collect(
-                json_decode(file_get_contents(resource_path('json/mock.json')))
-            )['news'];
+            $news =  $widgets['share'] ?? null
         @endphp
-        @if(isset($news) && !is_null($news) && count($news))
-            @foreach($news as $key => $val)
+        @if(isset($news) && !is_null($news))
+            @foreach($news->object as $key => $val)
             @php
                 $catName = $val->languages->name;
                 $catDes = $val->languages->description;
@@ -366,16 +364,16 @@
                         <div class="description">{!! $catDes !!}</div>
                     </div>
                     <div class="panel-body">
-                        @if(isset($val->items) && count($val->items))
+                        @if(isset($val->posts) && count($val->posts))
                         <div class="uk-grid uk-grid-medium">
                             <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2">
-                                @foreach($val->items as $item)
+                                @foreach($val->posts as $item)
                                     @if($loop->first)
                                         <x-article-overlay-card 
                                             :class="'overlay'" 
-                                            :name="$item->languages->name"
-                                            :canonical="write_url($item->languages->canonical)"
-                                            :description="$item->languages->description"
+                                            :name="$item->languages[0]->name"
+                                            :canonical="write_url($item->languages[0]->canonical)"
+                                            description="{!! $item->languages[0]->description !!}"
                                             :image="$item->image"
                                             :created="$item->created_at"
                                         />
@@ -384,17 +382,17 @@
                             </div> 
                             <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2">
                                 <div class="list-posts">
-                                    @foreach($val->items as $keyItem => $item)
+                                    @foreach($val->posts as $keyItem => $item)
                                     @if($keyItem === 0) @continue @endif
                                     @if($keyItem > 3) @break @endif
                                     
                                     <x-article-left-image-card 
                                         :class="'article-custom mb25'"
-                                        :name="$item->languages->name"
-                                        :description="$item->languages->description"
+                                        :name="$item->languages[0]->name"
+                                        description="{!! $item->languages[0]->description !!}"
                                         :created="$item->created_at"
                                         :image="$item->image"
-                                        :canonical="write_url($item->languages->canonical)"
+                                        :canonical="write_url($item->languages[0]->canonical)"
                                     />
                                     @endforeach
                                 </div>

@@ -203,7 +203,8 @@ HT.menuLinks = (links) => {
 }
 
 HT.getPaginationMenu = () => {
-    $(document).on('click', '.page-link', function(e){
+   if($('.search-menu').length > 0){
+     $(document).on('click', '.page-link', function(e){
         e.preventDefault()
         let _this = $(this)
         let option = {
@@ -214,6 +215,7 @@ HT.getPaginationMenu = () => {
         let menuRowClass = HT.checkMenuRowExist()
         HT.sendAjaxGetMenu(option, target, menuRowClass)
     })
+   }
 }
 
 HT.renderModelMenu = (object, renderModelMenu) => {
