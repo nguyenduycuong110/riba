@@ -51,7 +51,7 @@ class PostService extends BaseService
         return $rawCondition;
     }
 
-    public function paginate($request, $languageId, $postCatalogue = null, $page = 1, $extend = []){
+    public function paginate($request, $languageId, $postCatalogue = null, $page = 1, $extend = [], $sort = null){
         if(!is_null($postCatalogue)){
             Paginator::currentPageResolver(function () use ($page) {
                 return $page;
@@ -72,7 +72,7 @@ class PostService extends BaseService
         ];
 
 
-        $orderBy = ['posts.id', 'DESC'];
+        $orderBy = isset($sort) ? $sort : ['posts.id', 'DESC'];
         $relations = ['post_catalogues'];
         $rawQuery = $this->whereRaw($request, $languageId, $postCatalogue);
 
@@ -216,6 +216,8 @@ class PostService extends BaseService
             'posts.template',
             'posts.video',
             'posts.viewed',
+            'posts.recommend',
+            'posts.post_type',
             'tb2.name', 
             'tb2.description',
             'tb2.canonical',
@@ -236,7 +238,9 @@ class PostService extends BaseService
             'logo',
             'extra',
             'comments',
-            'rate'
+            'rate',
+            'recommend',
+            'post_type'
         ];
     }
 

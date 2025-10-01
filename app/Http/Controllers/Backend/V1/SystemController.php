@@ -92,11 +92,7 @@ class SystemController extends Controller
     
     private function config(){
         return [
-            'js' => [
-                'backend/plugins/ckeditor/ckeditor.js',
-                'backend/plugins/ckfinder_2/ckfinder.js',
-                'backend/library/finder.js',
-            ]
+           'extendJs' => true
         ];
     }
 

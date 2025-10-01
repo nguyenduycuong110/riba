@@ -66,6 +66,11 @@ class PostCatalogue extends Model
         return true;
         
     }
+    
+
+    public function direct_children(){
+        return $this->hasMany(PostCatalogue::class, 'parent_id', 'id');
+    }
 
 
 

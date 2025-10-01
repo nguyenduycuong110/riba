@@ -1,133 +1,217 @@
 @extends('frontend.homepage.layout')
 @section('content')
-    @php
-        $breadcrumbImage = !empty($postCatalogue->album) ? json_decode($postCatalogue->album, true)[0] : asset('userfiles/image/system/breadcrumb.png');
-    @endphp
-    <div class="post-catalogue page-wrapper intro-wrapper">
-        <div class="uk-container uk-container-center">
-            <div class="mt40 mb40 banner">
-                <a href="" class="image img-cover">
-                    <img src="{{ $system['background_1'] }}" alt="">
-                </a>
-                <div class="text-overlay">
-                    {{-- @include('frontend.component.breadcrumb', [
-                        'model' => $postCatalogue,
-                        'breadcrumb' => $breadcrumb,
-                    ]) --}}
-                    <h1 class="heading-1"><span>{{ $postCatalogue->name }}</span></h1>
-                    <div class="description">
-                        {!! $postCatalogue->description !!}
-                    </div>
-                </div>
-            </div>
-            <div class="wrapper-bl">
-                <div class="product-catalogue-wrapper">
-                    <div class="uk-container uk-container-center">
-                        @if(isset($postCatalogue->children) && !is_null($postCatalogue->children) )
-                            <ul class="children">
-                                @foreach($postCatalogue->children as $key => $item)
-                                    @php
-                                        $name = $item->short_name;
-                                        $canonical = write_url($item->languages->first()->pivot->canonical);
-                                    @endphp
-                                    <li>
-                                        <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $postCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-                <div class="post-container">
-                    <div class="uk-container uk-container-center" style="padding-top:20px;padding-bottom:20px;">
+    <x-breadcrumb :breadcrumb="$breadcrumb" />
+    <div class="post-catalogue page">
+        <div class="page-catalogue-container">
+            <div class="uk-container uk-container-center">
+                <div class="panel-head">
+                    <h1 class="heading-10"><span>{{ $postCatalogue->name }}</span></h1>
+                    <div class="description">{!! $postCatalogue->description !!}</div>
+                    @if($postCatalogue->direct_children && count($postCatalogue->direct_children))
+                    <div class="catalogue-children">
                         <div class="uk-grid uk-grid-medium">
-                            <div class="uk-width-large-3-4">
-                                <div class="wrapper-1">
-                                    <div class="uk-grid uk-grid-medium">
-                                        @foreach($posts as $keyPost => $post)
-                                        @php
-                                            $name = $post->languages->first()->pivot->name;
-                                            $canonical = write_url($post->languages->first()->pivot->canonical);
-                                            $image = thumb($post->image, 600, 400);
-                                            $description = cutnchar(strip_tags($post['description']), 150);
-                                            $cat = $post->post_catalogues[0]->languages->first()->pivot->name;
-                                        @endphp
-                                        <div class="uk-width-medium-1-3 mb25">
-                                            <div class="news-item">
-                                                <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
-                                                    <div class="skeleton-loading"></div>
-                                                    <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
-                                                </a>
-                                                <div class="info">
-                                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
+                            @foreach($postCatalogue->direct_children as $key => $val)
+                            @php
+                                $name = $val->languages->first()->pivot->name;
+                                $description = $val->languages->first()->pivot->description;
+                                $canonical = write_url($val->languages->first()->pivot->canonical);
+                            @endphp
+                            <div class="uk-width-small-1-2 uk-width-medium-1-3 mb30">
+                                <div class="catalogue-children__item">
+                                    <h2 class="name"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h2>
+                                    <div class="description">{!! $description !!}</div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                <div class="panel-body">
+                    <div class="uk-grid uk-grid-medium">
+                        <div class="uk-width-large-2-3">
+                            <div class="featured-container">
+                                <div class="featured-post">
+                                    <h2 class="heading-7"><span>Bài viết nổi bật</span></h2>
+                                    @foreach($posts as $key => $val)
+                                    @if($val->recommend != 2) @continue @endif
+                                    @if($key > 0) @break @endif
+                                    @php
+                                        $name = $val->languages->first()->pivot->name;
+                                        $description = $val->languages->first()->pivot->description;
+                                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                                        $image = $val->image;
+                                    @endphp
+                                    <div class="featured-post-item">
+                                        <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                        <div class="overlay">
+                                            <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                            <div class="uk-flex uk-flex-middle uk-flex-center mt20 created">
+                                                <span class="mr10">Đăng ngày: </span>
+                                                <span>{{ $val->created_at }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                @if($posts)
+                                <div class="uk-grid uk-grid-medium mt30">
+                                    @foreach($posts as $key => $val)
+                                    @if($val->recommend != 2) @continue @endif
+                                    @if($key == 0) @continue @endif
+                                    @php
+                                        $name = $val->languages->first()->pivot->name;
+                                        $description = $val->languages->first()->pivot->description;
+                                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                                        $image = $val->image;
+                                    @endphp
+                                    <div class="uk-width-medium-1-2 mb20">
+                                        <div class="suggest-post-item">
+                                            <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                            <div class="info">
+                                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                                <div class="uk-flex uk-flex-middle">
+                                                    <span class="mr10">Đăng lúc: </span>
+                                                    <span class="created_at">{{ $val->created_at }}</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
                                     </div>
-                                    <div class="uk-text-center">
-                                        @include('frontend.component.pagination', ['model' => $posts])
-                                    </div>    
+                                    @endforeach
                                 </div>
+                                @endif
                             </div>
-                            <div class="uk-width-large-1-4">
-                                <div class="post-aside">
-                                    <div class="aside-form panel-contact aside-panel style-2">
-                                        <div class="aside-heading">Đăng ký tư vấn</div>
-                                        <div class="aside-body">
-                                            <form action="" method="POST" class="register-form">
-                                                <div class="form-group" bis_skin_checked="1">
-                                                    <label class="form-label" for="email">Email</label>
-                                                    <input type="text" name="email" value="" class="form-input" id="reg_email" placeholder="Nhập vào email của bạn *" required="">
+                        </div>
+                        <div class="uk-width-large-1-3">
+                            <div class="aside">
+                                <x-new-post :data="$lastestNews" />
+                                <x-aside-social :system="$system" />
+                                <x-facebook-page :system="$system" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @if(!is_null($postCatalogue->direct_children) && count($postCatalogue->direct_children))
+                    <div class="children-list-post mt50">
+                        @foreach($postCatalogue->direct_children as $key => $children)
+                            <div class="list-post-item featured-post mb50">
+                                <div class="uk-position-relative">
+                                    <h2 class="heading-7">
+                                        <a href="{{ write_url($children->languages->first()->pivot->canonical) }}">
+                                            {{ $children->languages->first()->pivot->name }}
+                                        </a>
+                                    </h2>
+                                    <a href="{{ write_url($children->languages->first()->pivot->canonical) }}" class="post-read-more">
+                                        Xem toàn bộ
+                                    </a>
+                                </div>
+                                <div class="panel-body">
+                                    @if($key % 2 === 0)
+                                        @if(isset($children->posts) && count($children->posts))
+                                            <div class="uk-grid uk-grid-medium">
+                                                <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2">
+                                                    @foreach($children->posts as $item)
+                                                        @if($loop->first)
+                                                            <x-article-overlay-card 
+                                                                :class="'overlay'" 
+                                                                :name="$item->languages->first()->pivot->name"
+                                                                :canonical="write_url($item->languages->first()->pivot->canonical)"
+                                                                description="{!! $item->languages->first()->pivot->description !!}"
+                                                                :image="$item->image"
+                                                                :created="$item->created_at"
+                                                            />
+                                                        @endif
+                                                    @endforeach
                                                 </div>
-                                                <div class="form-group" bis_skin_checked="1">
-                                                    <label class="form-label" for="name">Họ tên</label>
-                                                    <input type="text" name="name" value="" class="form-input" id="reg_name" placeholder="Nhập vào họ tên của bạn *" required="">
+                                                <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2">
+                                                    <div class="list-posts">
+                                                        @foreach($children->posts as $keyItem => $item)
+                                                            @if($loop->first) @continue @endif
+                                                            @if($keyItem > 3) @break @endif
+                                                            <x-article-left-image-card 
+                                                                :class="'article-custom mb25'"
+                                                                :name="$item->languages->first()->pivot->name"
+                                                                description="{!! $item->languages->first()->pivot->description !!}"
+                                                                :created="$item->created_at"
+                                                                :image="$item->image"
+                                                                :canonical="write_url($item->languages->first()->pivot->canonical)"
+                                                            />
+                                                        @endforeach
+                                                    </div>
                                                 </div>
-                                                <div class="form-group" bis_skin_checked="1">
-                                                    <label class="form-label" for="phone">Số điện thoại</label>
-                                                    <input type="text" name="phone" value="" class="form-input" id="reg_phone" placeholder="Nhập vào số điện thoại của bạn *" required="">
-                                                </div>
-                                                <div class="form-group" bis_skin_checked="1">
-                                                    <label class="form-label" for="product_id">Khóa học quan tâm</label>
-                                                    <input type="text" name="product_id" value="" class="form-input" id="reg_product_name" placeholder="Nhập vào tên khóa học bạn quan tâm *" required="">
-                                                </div>
-                                                <div class="form-group" bis_skin_checked="1">
-                                                    <label class="form-label" for="message">Lời nhắn</label>
-                                                    <textarea name="message" class="form-input" id="reg_message" cols="30" rows="10" placeholder="Lời nhắn của bạn *"></textarea>
-                                                </div>
-                                                
-                                                <button type="submit" class="register-btn" id="">
-                                                    Đăng ký ngay
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    @if(count($widgets['product-catalogue']->object))
-                                
-                                    <div class="aside-product-category aside-panel style-2">
-                                        <div class="aside-heading">Danh mục khóa học</div>
-                                        <div class="aside-body">
-                                            @foreach($widgets['product-catalogue']->object as $key => $val)
+                                            </div>
+                                        @endif
+                                    @else
+                                        @if(isset($children->posts) && count($children->posts))
+                                        <div class="uk-grid uk-grid-medium">
+                                            @foreach($children->posts as $key => $val)
                                             @php
+                                                $name = $val->languages->first()->pivot->name;
+                                                $description = $val->languages->first()->pivot->description;
+                                                $canonical = write_url($val->languages->first()->pivot->canonical);
                                                 $image = $val->image;
-                                                $name = $val->languages->name;
-                                                $canonical = write_url($val->languages->canonical);
-                                                $description = $val->languages->description;
                                             @endphp
-                                            <div class="category-item uk-flex uk-flex-middle">
-                                                <span class="icon"><img src="{{ $image }}" alt="{{ $name }}"></span>
-                                                <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
+                                            <div class="uk-width-medium-1-4 mb20">
+                                                <div class="suggest-post-item">
+                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                                    <div class="info">
+                                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                                        <div class="uk-flex uk-flex-middle">
+                                                            <span class="mr10">Đăng lúc: </span>
+                                                            <span class="created_at">{{ $val->created_at }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             @endforeach
                                         </div>
-                                    </div>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
-                            
+                        @endforeach
+                    </div>
+                    @else
+                    <div class="chilren-list-post mt50 featured-post">
+                        <h2 class="heading-7">
+                            <span>
+                                Tất cả bài viết
+                            </span>
+                        </h2>
+                        <div class="panel-body">
+                           
+                            @php
+                                $posts = $posts->filter(fn($q) => $q->recommend != 2);
+                            @endphp
+                            @if(!is_null($posts) && count($posts))
+                                <div class="uk-grid uk-grid-medium">
+                                    @foreach($posts as $key => $val)
+                                    @php
+                                        $name = $val->languages->first()->pivot->name;
+                                        $description = $val->languages->first()->pivot->description;
+                                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                                        $image = $val->image;
+                                    @endphp
+                                    <div class="uk-width-medium-1-4 mb20">
+                                        <div class="suggest-post-item">
+                                            <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                            <div class="info">
+                                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                                <div class="uk-flex uk-flex-middle">
+                                                    <span class="mr10">Đăng lúc: </span>
+                                                    <span class="created_at">{{ $val->created_at }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            @else
+                            <div class="not-found">Không tìm thấy dữ liệu</div>
+                            @endif
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

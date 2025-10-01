@@ -36,6 +36,10 @@
         width:100%;
         font-weight: 200;
 
+        @media (max-width: 600px){
+            bottom: 15px;
+        }
+
         .title{
             margin-bottom:20px;
             

@@ -13,6 +13,7 @@ use App\Models\System;
 use App\Enums\SlideEnum;
 use Jenssegers\Agent\Facades\Agent;
 use App\Models\Introduce;
+use App\Models\Post;
 
 class PostCatalogueController extends FrontendController
 {
@@ -53,7 +54,6 @@ class PostCatalogueController extends FrontendController
             ['order', 'desc']
         );
         
-
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $this->language);
         $posts = $this->postService->paginate(
             $request,
@@ -61,7 +61,12 @@ class PostCatalogueController extends FrontendController
             $postCatalogue,
             $page,
             ['path' => $postCatalogue->canonical],
+            ['posts.recommend', 'desc']
         );
+
+        // dd($posts->toArray());
+
+        $featuredPost = $this->postCatalogueRepository->getFeaturedPost($postCatalogue);
 
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'students', 'object' => true],
@@ -73,6 +78,8 @@ class PostCatalogueController extends FrontendController
             [SlideEnum::MAIN],
             $this->language
         );
+        $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
+        // dd($lastestNews);
 
         if($postCatalogue->canonical === 've-chung-toi'){
             $template = 'frontend.post.catalogue.intro';
@@ -95,7 +102,8 @@ class PostCatalogueController extends FrontendController
             'widgets',
             'schema',
             'slides',
-            'introduce'
+            'introduce',
+            'lastestNews'
         ));
     }
 

@@ -17,6 +17,8 @@ use App\Repositories\Core\LecturerRepository;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jenssegers\Agent\Facades\Agent;
 
+use App\Models\Post;
+
 class ProductCatalogueController extends FrontendController
 {
     protected $language;
@@ -83,16 +85,13 @@ class ProductCatalogueController extends FrontendController
             ['keyword' => 'showroom-system', 'object' => true],
         ], $this->language);
 
+        
+
         $config = $this->config();
-
         $system = $this->system;
-
         $seo = seo($productCatalogue, $page);
-   
         $schema = $this->schema($productCatalogue, $products, $breadcrumb);
-
         $template = 'frontend.product.catalogue.index';
-
         return view($template, compact(
             'descendantTrees',
             'config',
@@ -104,7 +103,8 @@ class ProductCatalogueController extends FrontendController
             'filters',
             'widgets',
             'schema',
-            'lecturers'
+            'lecturers',
+            'lastestNews'
         ));
     }
 

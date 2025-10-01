@@ -29,6 +29,8 @@ class Post extends Model
         'extra',
         'comments',
         'rate',
+        'recommend',
+        'post_type'
     ];
 
     protected $table = 'posts';

@@ -545,7 +545,14 @@ return [
     'follow' => [
         '1' => 'Follow',
         '2' => 'Nofollow',
-        
+    ],
+    'recommend' => [
+        '1' => 'Không đề xuất',
+        '2' => 'Đề xuất',
+    ],
+    'post_type' => [
+        'normal' => 'Cơ bản',
+        'post' => 'Nổi bật',
     ],
     'status' => [
         '0' => 'Chưa phê duyệt',

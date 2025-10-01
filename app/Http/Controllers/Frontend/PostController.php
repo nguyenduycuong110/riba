@@ -85,6 +85,7 @@ class postController extends FrontendController
         $system = $this->system;
         $seo = seo($post);
         
+        $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
 
 
         $template = 'frontend.post.post.index';
@@ -108,7 +109,8 @@ class postController extends FrontendController
             'asidePost',
             'widgets',
             'schema',
-            'contentWithToc'
+            'contentWithToc',
+            'lastestNews'
         ));
     }
 

@@ -42,6 +42,8 @@ class PostRepository extends BaseRepository
                 'posts.extra',
                 'posts.comments',
                 'posts.rate',
+                'posts.post_type',
+                'posts.recommend',
                 'tb2.name',
                 'tb2.description',
                 'tb2.content',

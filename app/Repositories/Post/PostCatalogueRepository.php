@@ -47,7 +47,12 @@ class PostCatalogueRepository extends BaseRepository
         )
         ->join('post_catalogue_language as tb2', 'tb2.post_catalogue_id', '=','post_catalogues.id')
         ->where('tb2.language_id', '=', $language_id)
+        ->with(['direct_children.languages', 'direct_children.posts'])
         ->find($id);
+    }
+
+    public function getFeaturedPost($postCatalogue){
+
     }
 
 }

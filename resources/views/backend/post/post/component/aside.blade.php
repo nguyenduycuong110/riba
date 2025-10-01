@@ -102,7 +102,7 @@
     </div>
 </div>
 
-<div class="ibox w">
+<div class="ibox w hidden">
     <div class="ibox-title">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
             <h5>Video Clip</h5>
@@ -121,4 +121,65 @@
     </div>
 </div>
 
-@include('backend.dashboard.component.publish', ['model' => ($post) ?? null, 'hideImage' => false])
+<div class="ibox w">
+    <div class="ibox-title">
+        <h5>{{ __('messages.image') }}</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <span class="image img-cover image-target"><img src="{{ (old('image', ($post->image) ?? '' ) ? old('image', ($post->image) ?? '')   :  'backend/img/not-found.jpg') }}" alt=""></span>
+                    <input type="hidden" name="image" value="{{ old('image', ($post->image) ?? '' ) }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ibox w">
+    <div class="ibox-title">
+        <h5>{{ __('messages.advange') }}</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <div class="mb15">
+                        <select name="publish" class="form-control setupSelect2" id="">
+                            @foreach(__('messages.publish') as $key => $val)
+                            <option {{ $key == old('publish', (isset($post->publish)) ? $post->publish : '2') ? 'selected' : '' }} value="{{ $key }}">{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb15">
+                        <select name="follow" class="form-control setupSelect2" id="">
+                            @foreach(__('messages.follow') as $key => $val)
+                            <option {{ 
+                                $key == old('follow', (isset($post->follow)) ? $post->follow : '') ? 'selected' : '' 
+                                }} value="{{ $key }}">{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb15">
+                        <select name="recommend" class="form-control setupSelect2" id="">
+                            @foreach(__('messages.recommend') as $key => $val)
+                            <option {{ 
+                                $key == old('recommend', (isset($post->recommend)) ? $post->recommend : '') ? 'selected' : '' 
+                                }} value="{{ $key }}">{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="">
+                        <select name="post_type" class="form-control setupSelect2" id="">
+                            @foreach(__('messages.post_type') as $key => $val)
+                            <option {{ 
+                                $key == old('post_type', (isset($post->post_type)) ? $post->post_type : '') ? 'selected' : '' 
+                                }} value="{{ $key }}">{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -48,16 +48,6 @@ class System{
                     ]
                 ],
                 'address' => ['type' => 'text', 'label' => 'Văn phòng giao dịch'],
-                'xuong' => ['type' => 'text', 'label' => 'Xưởng'],
-                'xuong_map' => [
-                    'type' => 'textarea', 
-                    'label' => 'Bản đồ xưởng',
-                    'link' => [
-                        'text' => 'Hướng dẫn thiết lập bản đồ',
-                        'href' => 'https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/',
-                        'target' => '_blank'
-                    ]
-                ],
                 'hotline' => ['type' => 'text', 'label' => 'Hotline'],
                 'technical_phone' => ['type' => 'text', 'label' => 'Hotline kỹ thuật'],
                 'sell_phone' => ['type' => 'text', 'label' => 'Hotline kinh doanh'],
@@ -75,28 +65,6 @@ class System{
                     ]
                 ],
                 'intro' => ['type' => 'textarea', 'label' => 'Giới thiệu'],
-            ]
-        ];
-        $data['hcm'] = [
-            'label' => 'Thông tin liên hệ',
-            'description' => 'Cài đặt thông tin liên hệ của website ví dụ: Địa chỉ công ty, Văn phòng giao dịch, Hotline, Bản đồ, vv...',
-            'value' => [
-                'address' => ['type' => 'text', 'label' => 'Địa chỉ Hồ Chí Minh'],
-                'phone' => ['type' => 'text', 'label' => 'Số điện thoại'],
-                'hotline' => ['type' => 'text', 'label' => 'Hotline'],
-                
-            ]
-        ];
-
-
-        $data['nm'] = [
-            'label' => 'Thông tin liên hệ',
-            'description' => 'Cài đặt thông tin liên hệ của website ví dụ: Địa chỉ công ty, Văn phòng giao dịch, Hotline, Bản đồ, vv...',
-            'value' => [
-                'address' => ['type' => 'text', 'label' => 'Địa chỉ Nhà Máy'],
-                'phone' => ['type' => 'text', 'label' => 'Số điện thoại'],
-                'hotline' => ['type' => 'text', 'label' => 'Hotline'],
-                
             ]
         ];
        
@@ -117,6 +85,7 @@ class System{
             'description' => 'Cài đặt đầy đủ thông tin về Mạng xã hội của trang chủ website. Bao gồm tiêu đề Mạng xã hội, Từ Khóa SEO, Mô Tả SEO, Meta images',
             'value' => [
                 'facebook' => ['type' => 'text', 'label' => 'Facebook'],
+                'facebook_image' => ['type' => 'images', 'label' => 'Ảnh Fanpage'],
                 'google' => ['type' => 'text', 'label' => 'Google'],
                 'tiktok' => ['type' => 'text', 'label' => 'Tiktok'],
                 'twitter' => ['type' => 'text', 'label' => 'Twitter'],
@@ -129,16 +98,7 @@ class System{
             ]
         ];
 
-        $data['background'] = [
-            'label' => 'Cấu hình background',
-            'description' => '',
-            'value' => [
-                '1' => ['type' => 'images', 'label' => 'Background (banner)'],
-                '2' => ['type' => 'images', 'label' => 'Background (đăng ký)'],
-                '3' => ['type' => 'images', 'label' => 'Background (logo)'],
-            ]
-        ];
-
+        
         
         $data['script'] = [
             'label' => 'Cấu hình script',
@@ -149,16 +109,6 @@ class System{
             ]
         ];
 
-        $data['bank'] = [
-            'label' => 'Cấu hình thanh toán',
-            'description' => '',
-            'value' => [
-                '1' => ['type' => 'text', 'label' => 'Ngân hàng'],
-                '2' => ['type' => 'text', 'label' => 'Số tài khoản'],
-                '3' => ['type' => 'text', 'label' => 'Chủ tài khoản'],
-                '4' => ['type' => 'images', 'label' => 'QR code'],
-            ]
-        ];
        
         return $data;
     }

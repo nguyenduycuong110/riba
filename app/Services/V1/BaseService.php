@@ -79,7 +79,7 @@ class BaseService
         $router = $this->routerRepository->findByCondition($condition);
         $res = null;
         if($router){
-            $router->forceDeleteWWWW();
+            $router->forceDelete();
         }
         $res = $this->routerRepository->create($payload);
         // $res = $this->routerRepository->update($router->id, $payload);
