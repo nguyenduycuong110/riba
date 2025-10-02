@@ -4,21 +4,13 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 use App\Services\V1\Core\WidgetService;
-use App\Services\V1\Core\SlideService;
-
 use App\Repositories\Scholar\ScholarCatalogueRepo;
-use App\Repositories\Scholar\ScholarRepo;
 use App\Services\V2\Impl\Scholar\ScholarService;
 use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
 use App\Services\V2\Impl\Scholar\PolicyService;
 use App\Services\V2\Impl\Scholar\TrainService;
 use Illuminate\Http\Request;
-
-use App\Enums\SlideEnum;
-
-use Illuminate\Support\Facades\DB;
 use App\Models\Scholar;
-
 
 class ScholarCatalogueController extends FrontendController
 {

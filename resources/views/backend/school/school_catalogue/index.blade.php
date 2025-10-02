@@ -15,7 +15,7 @@
                 <x-backend.customtable 
                     :records="$schoolCatalogues->getCollection()"
                     :columns="[
-                        'name' => ['label' => 'Tiêu đề', '', 'render' => fn($item) => e($item->languages->first()->pivot->name)],
+                        'name' => ['label' => 'Loại Hình Trường', '', 'render' => fn($item) => e(str_repeat('|----', (($item->level > 0)?($item->level - 1):0)).$item->languages->first()->pivot->name)],
                         'creator' => ['class' => 'text-center w-200px', 'label' => 'Người tạo', 'render' => fn($item) => $item->users->name],
                         'created_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày tạo', 'render' => fn($item) => $item->created_at->format('d-m-Y')],
                         'updated_at' => ['class' => 'text-center w-180px', 'label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at->format('d-m-Y')],

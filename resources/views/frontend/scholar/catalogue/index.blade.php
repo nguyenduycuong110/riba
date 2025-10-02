@@ -77,7 +77,7 @@
                                                             type="text" 
                                                             class="form-item-search" 
                                                             value=""
-                                                            placeholder="Nhập từ khóa tìm keiems"
+                                                            placeholder="Nhập từ khóa tìm kiếm"
                                                         />
                                                         <button class="btn--search" value="" type="button"><i class="fa fa-search"></i></button>
                                                     </div>
@@ -111,7 +111,7 @@
                                                             type="text" 
                                                             class="form-item-search" 
                                                             value=""
-                                                            placeholder="Nhập từ khóa tìm keiems"
+                                                            placeholder="Nhập từ khóa tìm kiếm"
                                                         />
                                                         <button class="btn--search" value="" type="button"><i class="fa fa-search"></i></button>
                                                     </div>
@@ -145,7 +145,7 @@
                                                             type="text" 
                                                             class="form-item-search" 
                                                             value=""
-                                                            placeholder="Nhập từ khóa tìm keiems"
+                                                            placeholder="Nhập từ khóa tìm kiếm"
                                                         />
                                                         <button class="btn--search" value="" type="button"><i class="fa fa-search"></i></button>
                                                     </div>

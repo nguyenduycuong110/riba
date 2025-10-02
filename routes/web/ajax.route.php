@@ -16,6 +16,7 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\V2\HandlerController;
 use App\Http\Controllers\Ajax\ContactController;
 use App\Http\Controllers\Frontend\ScholarCatalogueController;
+use App\Http\Controllers\Frontend\SchoolCatalogueController;
 
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
@@ -67,6 +68,7 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('ajax/post/video', [AjaxPostController::class, 'video'])->name('post.video');
     Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
     Route::get('ajax/scholar/filter', [ScholarCatalogueController::class, 'filter'])->name('scholar.filter');
+    Route::get('ajax/school/filter', [SchoolCatalogueController::class, 'filter'])->name('school.filter');
 
 });
 

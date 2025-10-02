@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
 use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
 use App\Services\V2\Impl\Scholar\ScholarService;
 use App\Repositories\Scholar\ScholarCatalogueRepo;
-
-use Jenssegers\Agent\Facades\Agent;
-use App\Models\Post;
 use App\View\Components\TableOfContents;
 use App\Models\Scholar;
 

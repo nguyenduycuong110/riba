@@ -47,7 +47,7 @@ class School extends Model
     ];
 
     protected $relationable = [
-       'users', 'school_catalogues' , 'school_projects' , 'school_posts' , 'school_scholars' , 'reviews' , 'languages'
+       'users', 'school_catalogues' , 'school_projects' , 'school_posts' , 'school_scholars' , 'reviews' , 'languages' , 'school_areas' , 'school_cities'
     ];
 
     public function getRelationable(){
@@ -89,6 +89,10 @@ class School extends Model
 
     public function school_areas(): BelongsTo{
         return $this->belongsTo(SchoolArea::class, 'area_id', 'id');
+    }
+
+    public function school_cities(): BelongsTo{
+        return $this->belongsTo(SchoolCity::class, 'city_id', 'id');
     }
 
     public function users(): BelongsTo{

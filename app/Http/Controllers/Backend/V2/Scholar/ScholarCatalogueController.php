@@ -6,8 +6,6 @@ use App\Http\Requests\Scholar\Catalogue\StoreRequest;
 use App\Http\Requests\Scholar\Catalogue\UpdateRequest;
 use App\Services\V2\Impl\Scholar\ScholarCatalogueService;
 use App\Models\Language;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Http\Resources\ScholarCatalogueResource;
 
 class ScholarCatalogueController extends Controller {
 

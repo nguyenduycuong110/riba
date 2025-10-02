@@ -650,6 +650,58 @@ HT.loadScholarFilter = (url) => {
     });
 }
 
+HT.schoolFilter = () => {
+    if($('.school-catalogue-page').length){
+        $(document).on('change', '.filter-value, .school-keyword', function () {
+            HT.loadSchoolFilter()
+        })
+
+        // sự kiện khi click phân trang
+        $(document).on('click', '.model-paginate a', function (e) {
+            e.preventDefault()
+            let url = $(this).attr('href')
+            HT.loadSchoolFilter()
+        })
+    }
+    
+}
+
+HT.loadSchoolFilter = (url) => {
+    let params = {}
+
+    // gom tất cả filter đang check
+    $('.filter-value:checked').each(function () {
+        let name = $(this).attr('name').replace('[]','')
+        if (!params[name]) params[name] = []
+        params[name].push($(this).val())
+    })
+
+    // gom keyword
+    let keyword = $('.school-keyword').val()
+    if (keyword) {
+        params['keyword'] = keyword
+    }
+
+    $.ajax({
+        url: '/ajax/school/filter', // hoặc route filter
+        type: 'GET',
+        data: params,
+        beforeSend: function() {
+            $('.filter-result-list').addClass('loading');
+        },
+        success: function(res) {
+            // render lại danh sách
+            $('.filter-result-list').html(res.html);
+            $('.filter-count').text(res.count)  
+        },
+        complete: function() {
+            $('.filter-result-list').removeClass('loading');
+        }
+    });
+}
+
+
+
 HT.regScholarForm = () => {
     $(document).on('submit', '.scholar-form', function(e){
         e.preventDefault()
@@ -706,6 +758,7 @@ $(document).ready(function(){
     HT.regScholarForm()
     HT.searchFilterItem()
     HT.scholarFilter()
+    HT.schoolFilter()
     HT.collapse()
     HT.changeStatusDropdownMenu()
     HT.changeStatusPass()
