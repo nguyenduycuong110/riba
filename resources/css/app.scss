@@ -3505,3 +3505,64 @@ ol li {
     }
 
 }
+
+.detail-admission-information{
+    .heading-2{
+        > *{
+            font-size:28px;
+
+        }
+    }
+}
+
+.detail-admission-information{
+    .uk-grid{
+        background: -webkit-radial-gradient(center, 100% 80%, #4b1d5940, transparent 50%);
+        // background: radial-gradient(ellipse at center, rgba(75, 29, 89, 0.25) 0%, transparent 50%);
+         background: radial-gradient(100% 80% at center, #4b1d5940, transparent 50%);
+        // gap: 2px; /* tạo khoảng cách 1px */
+        .uk-width-1-2{
+            padding:1px;
+        }
+    }
+}
+
+.widget-body-item{
+    background: #fff;
+    padding: 30px;
+    width:100%;
+    // margin:1px;
+
+    .label{
+        font-weight: 600;
+        margin-bottom: .5rem;
+        white-space: nowrap;
+        font-size:18px;
+        color:#424242;
+        font-family: var(--four-font);
+    }
+
+    .value{
+        color:#af52de;
+        font-weight: 500;
+        font-size:16px;
+        font-family: var(--second-font);
+    }
+}
+
+.detail-content {
+    ul, ol {
+        ul, ol{
+            padding-left:0;
+            li{
+                &::before{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.scholar-page{
+    padding-bottom:50px;
+}

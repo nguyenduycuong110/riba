@@ -17,7 +17,7 @@ class AdmissionService extends BaseService {
     private $routerService;
 
   
-    protected $with = ['languages', 'users', 'admission_trains'];
+    protected $with = ['languages', 'users', 'admission_trains', 'admission_catalogues.languages', 'scholars.scholar_catalogues.languages', 'scholars.languages'];
 
     public function __construct(
         AdmissionRepo $repository,

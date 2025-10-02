@@ -45,7 +45,7 @@ class Admission extends Model
     }
 
     public function admission_catalogues(): BelongsTo{
-        return $this->belongsTo(ScholarCatalogue::class, 'admission_catalogue_id', 'id');
+        return $this->belongsTo(AdmissionCatalogue::class, 'admission_catalogue_id', 'id');
     }
 
     public function scholars(): BelongsTo{
