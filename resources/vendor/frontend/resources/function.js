@@ -585,18 +585,29 @@ HT.regForm = () => {
 }
 
 HT.searchFilterItem = () => {
-    $(document).on('keyup', '.form-item-search', function(){
-        let keyword = $(this).val().toLowerCase().trim()
-        let $wrapper = $(this).closest('.uk-accordion-content')
+    let debounceTimer = null;
 
-        $wrapper.find('.filter-item').each(function(){
-            let text = $(this).find('label').text().toLowerCase()
-            if(text.indexOf(keyword) > -1){
-                $(this).show()
-            }else{
-                $(this).hide()
-            }
-        })
+    $(document).on('keyup', '.form-item-search', function(){
+        let $input = $(this);
+        let $wrapper = $input.closest('.uk-accordion-content');
+
+        clearTimeout(debounceTimer); 
+        debounceTimer = setTimeout(() => {
+            let keyword = $input.val().toLowerCase().trim();
+
+            $wrapper.find('.filter-item').each(function(){
+                let text = $(this).find('label').text().toLowerCase();
+                if (text.indexOf(keyword) > -1) {
+                    console.log(123);
+                    
+                    $(this).show();
+                } else {
+                    console.log(234);
+                    
+                    $(this).hide();
+                }
+            });
+        }, 300); 
     });
 }
 
@@ -649,6 +660,64 @@ HT.loadScholarFilter = (url) => {
         }
     });
 }
+
+HT.admissionFilter = () => {
+    if($('.admission-catalogue-page').length){
+        $(document).on('change', '.filter-value, .admission-keyword, input[name=min_year], input[name=max_year]', function () {
+            HT.loadAdmissionFilter()
+        })
+
+        // sự kiện khi click phân trang
+        $(document).on('click', '.model-paginate a', function (e) {
+            e.preventDefault()
+            let url = $(this).attr('href')
+            HT.loadAdmissionFilter()
+        })
+    }
+    
+}
+
+HT.loadAdmissionFilter = (url) => {
+    let params = {}
+
+    // gom tất cả filter đang check
+    $('.filter-value:checked').each(function () {
+        let name = $(this).attr('name').replace('[]','')
+        if (!params[name]) params[name] = []
+        params[name].push($(this).val())
+    })
+
+    // gom keyword
+    let keyword = $('.scholar-keyword').val()
+    if (keyword) {
+        params['keyword'] = keyword
+    }
+
+    params['min_year'] = $('input[name=min_year]').val()
+    params['max_year'] = $('input[name=max_year]').val()
+
+
+    $.ajax({
+        url: '/ajax/admission/filter', // hoặc route filter
+        type: 'GET',
+        data: params,
+        beforeSend: function() {
+            $('.filter-result-list').addClass('loading');
+        },
+        success: function(res) {
+            // render lại danh sách
+            $('.filter-result-list').html(res.html);
+            $('.filter-count').text(res.count)  
+            $('html, body').animate({
+                scrollTop: $('.filter-result-list').offset().top
+            }, 500)
+        },
+        complete: function() {
+            $('.filter-result-list').removeClass('loading');
+        }
+    });
+}
+
 
 HT.regScholarForm = () => {
     $(document).on('submit', '.scholar-form', function(e){
@@ -706,6 +775,9 @@ $(document).ready(function(){
     HT.regScholarForm()
     HT.searchFilterItem()
     HT.scholarFilter()
+
+    HT.admissionFilter()
+
     HT.collapse()
     HT.changeStatusDropdownMenu()
     HT.changeStatusPass()

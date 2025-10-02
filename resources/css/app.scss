@@ -2573,7 +2573,7 @@ ol li {
         }
 
         .description{
-            font-size:26px;
+            font-size:21px;
             color: #000;
             line-height:35px;
             margin-bottom:35px;
@@ -3027,7 +3027,9 @@ ol li {
     }
      .filter-item{
         margin-bottom:15px;
-       display: block !Important;
+        // display: block !Important;
+
+        // @media (max-width)
         
         .input-checkbox {
             width: 1.25rem;
@@ -3059,7 +3061,7 @@ ol li {
 
 }
 
-.filter-content-item{
+.filter-content-item:not(:last-child){
     margin-bottom:20px;
     padding-bottom:20px;
     border-bottom:1px solid #eaeaea;
@@ -3476,4 +3478,30 @@ ol li {
     .extend-item:not(:last-child){
         margin-bottom:10px;
     }
+}
+
+.year-item{
+    position: relative;
+
+    > span{
+        position: absolute;
+        display: inline-block;
+        padding: 0px 10px;
+        background: #fff;
+        top: -9px;
+        left: 10px;
+    }
+
+    .input-text{
+        width:100%;
+        border-radius: 8px;
+        height:45px;
+        border: 1px solid #eaeaea;
+        padding:10px;
+        text-align: center;
+        font-size:16px;
+        font-weight: 600;
+        font-family: var(--four-font);
+    }
+
 }

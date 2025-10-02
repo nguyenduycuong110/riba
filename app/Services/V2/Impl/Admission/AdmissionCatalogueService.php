@@ -14,13 +14,12 @@ class AdmissionCatalogueService extends BaseService {
     use HasNested, HasRouter;
     
     protected $repository;
-    
     protected $fillable;
-
     protected $nestedset;
-
     private $routerService;
 
+    protected $simpleFilters = ['level'];
+    protected $complexFilters = ['lft', 'rgt'];
     protected $with = ['languages', 'users'];
 
     public function __construct(
