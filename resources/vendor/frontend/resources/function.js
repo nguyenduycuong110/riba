@@ -661,38 +661,23 @@ HT.loadScholarFilter = (url) => {
     });
 }
 
-<<<<<<< HEAD
-HT.schoolFilter = () => {
-    if($('.school-catalogue-page').length){
-        $(document).on('change', '.filter-value, .school-keyword', function () {
-            HT.loadSchoolFilter()
-=======
 HT.admissionFilter = () => {
     if($('.admission-catalogue-page').length){
         $(document).on('change', '.filter-value, .admission-keyword, input[name=min_year], input[name=max_year]', function () {
             HT.loadAdmissionFilter()
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
         })
 
         // sự kiện khi click phân trang
         $(document).on('click', '.model-paginate a', function (e) {
             e.preventDefault()
             let url = $(this).attr('href')
-<<<<<<< HEAD
-            HT.loadSchoolFilter()
-=======
             HT.loadAdmissionFilter()
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
         })
     }
     
 }
 
-<<<<<<< HEAD
-HT.loadSchoolFilter = (url) => {
-=======
 HT.loadAdmissionFilter = (url) => {
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
     let params = {}
 
     // gom tất cả filter đang check
@@ -703,26 +688,17 @@ HT.loadAdmissionFilter = (url) => {
     })
 
     // gom keyword
-<<<<<<< HEAD
-    let keyword = $('.school-keyword').val()
-=======
     let keyword = $('.scholar-keyword').val()
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
     if (keyword) {
         params['keyword'] = keyword
     }
 
-<<<<<<< HEAD
-    $.ajax({
-        url: '/ajax/school/filter', // hoặc route filter
-=======
     params['min_year'] = $('input[name=min_year]').val()
     params['max_year'] = $('input[name=max_year]').val()
 
 
     $.ajax({
         url: '/ajax/admission/filter', // hoặc route filter
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
         type: 'GET',
         data: params,
         beforeSend: function() {
@@ -732,12 +708,9 @@ HT.loadAdmissionFilter = (url) => {
             // render lại danh sách
             $('.filter-result-list').html(res.html);
             $('.filter-count').text(res.count)  
-<<<<<<< HEAD
-=======
             $('html, body').animate({
                 scrollTop: $('.filter-result-list').offset().top
             }, 500)
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
         },
         complete: function() {
             $('.filter-result-list').removeClass('loading');
@@ -746,10 +719,6 @@ HT.loadAdmissionFilter = (url) => {
 }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
 HT.regScholarForm = () => {
     $(document).on('submit', '.scholar-form', function(e){
         e.preventDefault()
@@ -806,13 +775,9 @@ $(document).ready(function(){
     HT.regScholarForm()
     HT.searchFilterItem()
     HT.scholarFilter()
-<<<<<<< HEAD
-    HT.schoolFilter()
-=======
 
     HT.admissionFilter()
 
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
     HT.collapse()
     HT.changeStatusDropdownMenu()
     HT.changeStatusPass()

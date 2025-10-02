@@ -16,11 +16,8 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\V2\HandlerController;
 use App\Http\Controllers\Ajax\ContactController;
 use App\Http\Controllers\Frontend\ScholarCatalogueController;
-<<<<<<< HEAD
 use App\Http\Controllers\Frontend\SchoolCatalogueController;
-=======
 use App\Http\Controllers\Frontend\AdmissionCatalogueController;
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
 
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
@@ -72,11 +69,8 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('ajax/post/video', [AjaxPostController::class, 'video'])->name('post.video');
     Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
     Route::get('ajax/scholar/filter', [ScholarCatalogueController::class, 'filter'])->name('scholar.filter');
-<<<<<<< HEAD
     Route::get('ajax/school/filter', [SchoolCatalogueController::class, 'filter'])->name('school.filter');
-=======
     Route::get('ajax/admission/filter', [AdmissionCatalogueController::class, 'filter'])->name('scholar.filter');
->>>>>>> dec8d0bf297d4fbb71e3ff8787d36e2f662c713b
 
 });
 
