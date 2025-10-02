@@ -23,7 +23,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 // @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap');
 
 // ================
 // VARIABLES
@@ -41,6 +41,7 @@
   --main-font: "Inter";
   --second-font: "Manrope";
   --third-font: "Unbounded";
+  --four-font: "Montserrat"
 }
 
 // ================
@@ -3051,4 +3052,361 @@ ol li {
     margin-bottom:20px;
     padding-bottom:20px;
     border-bottom:1px solid #eaeaea;
+}
+
+
+
+@mixin block-loading($size: 32px, $border: 3px, $color: #333, $bg: #ccc) {
+  position: relative;
+
+  &.loading {
+    opacity: 0.6;
+    pointer-events: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $size;
+      height: $size;
+      margin: -($size / 2) 0 0 -($size / 2);
+      border: $border solid $bg;
+      border-top-color: $color;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      z-index: 10;
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.filter-result-list {
+    @include block-loading(32px, 3px, #333, #ccc);
+    min-height: 60px;
+}
+
+.record-list{
+    margin-bottom:40px;
+}
+
+.page-header {
+    padding: 80px 0;
+    background: url('../vendor/frontend/resources/img/project/breadcrumb-bg.jpg') no-repeat 50% / cover fixed;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: flex;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    align-items: center;
+
+    .page-title{
+        color:#fff;
+        font-family: var(--four-font);
+        font-size:40px;
+        letter-spacing: 1px;
+        line-height: 45px;
+        font-weight: 700;
+        max-width:800px;
+        // text-transform: uppercase;
+        text-transform: capitalize;
+        text-align: center;
+    }
+
+    &::before{
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgb(142 211 47 / 30%);
+        pointer-events: none;
+    }
+
+    .nav-breadcrumb {
+
+        ol{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            li {
+                display: flex;
+                align-items: center; // căn giữa theo trục dọc
+
+                > *{
+                    color:#fff;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                }
+            }
+
+            li + li::before {
+                content: "/";
+                color:#fff;
+                padding:0 10px;
+            }
+        }
+
+    }
+}
+
+
+.scholar-page-container{
+    padding: 80px 0;
+}
+
+.page-h2{
+    >h2 {
+        font-size:24px;
+        line-height:29px;
+        font-weight: 600;
+        position: relative;
+        font-family: var(--four-font);
+        text-transform: uppercase;
+        color:#32004b;
+        letter-spacing: 1px;
+        margin-bottom:30px;
+
+        &:before{
+            content: "";
+            position: absolute;
+            top: -.25rem;
+            left: -1.25rem;
+            width: 4rem;
+            height: 2.75rem;
+            background-color: rgba(175,82,222, .1);
+            
+        }
+    }
+
+    .policy-item{
+        margin-top:20px;
+
+        .title{
+            margin-bottom:20px;
+            color: #af52de;
+            font-size:18px;
+            font-family: var(--four-font);
+            font-weight: 600;
+        }
+        ul{
+            padding-left:0;
+            li{
+                margin-bottom:10px;
+                font-size:14px;
+                color:#333;
+                padding-left:15px;
+                position: relative;
+                &::before{
+                    content:'';
+                    display: block;
+                    width:4px;
+                    height:4px;
+                    border-radius: 50%;
+                    background: #333;
+                    top:50%;
+                    left:0;
+                    transform: translate(0, -50%);
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    
+}
+
+.scholar-content{
+    .description{
+        padding: 20px 70px;
+        background-color: #f8f9fa;
+        position: relative;
+        line-height: 1.5;
+        font-family: var(--four-font);
+        line-height: 1.8;
+        font-size: 1.125rem;
+        font-family: var(--font);
+        color: 
+        color-mix(in srgb, var(#424242) 75%, transparent);
+
+        &::before{
+            content: "";
+            width: 3rem;
+            height: 3rem;
+            position: absolute;
+            top: 1rem;
+            left: 1.25rem;
+            background: url(../vendor/frontend/resources/img/project/quote.64b3fe4f.svg) no-repeat 50% / contain;
+        }
+    }
+
+    .content {
+        padding:20px 0;
+        #toc-list{
+            padding-left:10px;
+            margin-bottom:20px;
+            li{
+                margin-bottom:15px;
+                font-size:16px;
+                line-height:18px;
+                font-family: var(--four-font);
+            }
+        }
+
+        .detail-content{
+            font-family: var(--four-font);
+            
+
+            font-size:18px;
+            line-height:36px;
+            color: #424242bf;
+
+            blockquote{
+                line-height:36px;
+                margin-bottom:25px;
+            }
+
+            h2{
+                margin-bottom:25px;
+                text-transform: uppercase;
+                font-family: var(--four-font);
+                line-height:45px
+            }
+
+            ul, ol {
+                padding:0;
+                li{
+                    position: relative;
+                    padding-left:20px;
+
+                    &::before{
+                        content:'';
+                        display: block;
+                        width:5px;
+                        height:5px;
+                        // border-radius: 50%;
+                        background: #333;
+                        top:50%;
+                        left:0;
+                        transform: translate(0, -50%);
+                        position: absolute;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.scholar-aside{
+    margin-top:80px;
+}
+
+.register-scholar-form{
+    margin-top:30px;
+
+    .form-row{
+        margin-bottom:15px;
+
+        label{
+            display: block;
+            margin-bottom:10px;
+            font-size:14px;
+            font-family: var(--four-font);
+            font-weight: 600;
+            color:#333;
+        }
+
+        input{
+            height: 45px;
+            border-radius: 10px;
+            width:100%;
+        }
+
+    }
+    button{
+        background: var(--secondary-color);
+        color:#fff;
+        border:0;
+        padding:12px 30px;
+        border-radius: 10px;
+        font-family: var(--four-font);
+        font-size:14px;
+        font-weight: 600;
+        transition: all 0.4s ease;
+        cursor: pointer;
+
+        &:hover{
+            background: var(--primary-color);
+        }
+    }
+}
+
+.scholar-related {
+  margin-top: 30px;
+
+  .page-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #3c015c;
+    text-transform: uppercase;
+  }
+
+  .related-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .related-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+
+      .image {
+        flex: 0 0 133px; // chiều rộng cố định
+        aspect-ratio: 16/9;
+        border-radius: 6px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+      }
+
+      .info {
+        flex: 1;
+
+        .title {
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 1.4;
+
+          a {
+            color: #2d014c;
+            text-decoration: none;
+            font-family: var(--four-font);
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
 }

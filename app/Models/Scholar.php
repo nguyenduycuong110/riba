@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasQuery;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Scholar extends Model
 {
@@ -77,6 +78,10 @@ class Scholar extends Model
     public function setLanguage($language){
         $this->languageId = $language;
         return $this;
+    }
+
+    public function scholar_admissions(): HasMany{
+        return $this->hasMany(Admission::class, 'scholar_id', 'id');
     }
 
 }

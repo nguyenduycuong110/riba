@@ -43,7 +43,7 @@ trait HasRouter {
         $payload = $this->createRouterPayload($request->canonical, $this->model->id, $languageId, $controller);
         $routerRequest = new Request();
         $routerRequest->merge($payload);
-        Router::where(['language_id' => $languageId, 'module_id' => $this->context['id'], 'controllers' => $payload['contaollers']])->forceDelete();
+        Router::where(['language_id' => $languageId, 'module_id' => $this->context['id'], 'controllers' => $payload['controllers']])->forceDelete();
         $this->routerService->save($routerRequest, 'store');
     }
 }

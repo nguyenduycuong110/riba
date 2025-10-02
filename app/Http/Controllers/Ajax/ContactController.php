@@ -114,5 +114,51 @@ class ContactController extends Controller
 
     }
 
+     public function createScholar(Request $request){
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|regex:/^0[0-9]{9}$/',
+            'destination_area' => 'required|',
+            'apply_for' => 'required',
+        ]);
+
+        // dd(12312423);
+
+        // $scholar = Scholar::with(['languages'])->find($validated['scholarshipType']);
+
+        try {
+            DB::beginTransaction();
+            DB::table('contacts')->insert([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'address' => $validated['address'] ?? '',
+                'message' => '<div>
+                    <h1>Đăng ký nhận tư vấn học bổng</h1>
+                    <div>Loại học bổng: '.$validated['apply_for'].'</div>
+                    <div>Khu vực: '.$validated['destination_area'].'</div>
+                </div>',
+                'created_at' => now(),
+                'updated_at' => now() 
+            ]);
+            DB::commit();
+            return response()->json([
+                'message' => 'Xử lý yêu cầu thành công',
+                'code' => '200'
+            ]);
+
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+            return response()->json([
+                'message' => 'Có vấn đề xảy ra trong quá trình xử lý',
+                'code' => '500'
+            ]);
+        }
+
+    }
+
     
 }

@@ -14,7 +14,7 @@
                                         type="text"
                                         name="keyword"
                                         value="{{ request()->get('keyword') }}"
-                                        class="input-text"
+                                        class="input-text  scholar-keyword"
                                         placeholder="Tìm kiếm"
                                     >
                                     <button class="btn-filter-search" name="" value="">Tìm Kiếm</button>
@@ -30,34 +30,36 @@
             <div class="record-list">
                 <div class="uk-grid uk-grid-medium">
                     <div class="uk-width-large-2-3">
-                        <div class="scholar-list filter-list">
-                            @if(!is_null($scholars) && count($scholars))
-                            <div class="uk-grid uk-grid-medium">
-                                @foreach($scholars as $item)
-                                @php
-                                    $name = $item->languages->first()->pivot->name;
-                                    $canonical = $item->languages->first()->pivot->canonical;
-                                    $catName = $item->scholar_catalogues->first()->languages->first()->pivot->name;
-                                    $image = $item->image;
-                                @endphp
-                                <div class="uk-width-small-1-1 uk-width-medium-1-3 mb20">
-                                    <div class="scholar-item">
-                                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}" class="img-zoomin"></a>
-                                        <div class="info">
-                                            <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                            <ul class="uk-list uk-clearfix">
+                        <div class="filter-result-list">
+                            <div class="scholar-list filter-list">
+                                @if(!is_null($scholars) && count($scholars))
+                                <div class="uk-grid uk-grid-medium">
+                                    @foreach($scholars as $item)
+                                    @php
+                                        $name = $item->languages->first()->pivot->name;
+                                        $canonical = write_url($item->languages->first()->pivot->canonical);
+                                        $catName = $item->scholar_catalogues->first()->languages->first()->pivot->name;
+                                        $image = $item->image;
+                                    @endphp
+                                    <div class="uk-width-small-1-1 uk-width-medium-1-3 mb20">
+                                        <div class="scholar-item">
+                                            <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}" class="img-zoomin"></a>
+                                            <div class="info">
+                                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                                <ul class="uk-list uk-clearfix">
                                                 <li>Loại học bổng: {{ $catName }}</li>
-                                            </ul>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
+                                @endif
                             </div>
-                            @endif
-                        </div>
 
-                        <div class="model-paginate mt30 mb30 uk-flex uk-flex-center">
-                            @include('frontend.component.pagination', ['model' => $scholars])
+                            <div class="model-paginate mt30 mb30 uk-flex uk-flex-center">
+                                @include('frontend.component.pagination', ['model' => $scholars])
+                            </div>
                         </div>
                     </div>
                     <div class="uk-width-large-1-3">
@@ -87,9 +89,9 @@
                                                 <div class="filter-item uk-flex uk-flex-middle">
                                                     <input 
                                                         type="checkbox"
-                                                        name="scholar_catalogues"
+                                                        name="scholar_catalogues[]"
                                                         value="{{ $val->id }}"
-                                                        class="input-checkbox"
+                                                        class="input-checkbox filter-value"
                                                         id="scholar_catalogue_{{ $val->id }}"
                                                     >
                                                     <label for="scholar_catalogue_{{ $val->id }}">{{ $val->languages->first()->pivot->name; }}</label>
@@ -123,10 +125,10 @@
                                                         type="checkbox"
                                                         name="scholar_policies[]"
                                                         value="{{ $val->id }}"
-                                                        class="input-checkbox"
-                                                        id="scholar_catalogue_{{ $val->id }}"
+                                                        class="input-checkbox filter-value"
+                                                        id="policy_{{ $val->id }}"
                                                     >
-                                                    <label for="scholar_catalogue_{{ $val->id }}">{{ $val->name; }}</label>
+                                                    <label for="policy_{{ $val->id }}">{{ $val->name; }}</label>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -155,12 +157,12 @@
                                                 <div class="filter-item uk-flex uk-flex-middle">
                                                     <input 
                                                         type="checkbox"
-                                                        name="scholar_trains"
+                                                        name="scholar_trains[]"
                                                         value="{{ $val->id }}"
-                                                        class="input-checkbox"
-                                                        id="scholar_catalogue_{{ $val->id }}"
+                                                        class="input-checkbox filter-value"
+                                                        id="train_{{ $val->id }}"
                                                     >
-                                                    <label for="scholar_catalogue_{{ $val->id }}">{{ $val->name; }}</label>
+                                                    <label for="train_{{ $val->id }}">{{ $val->name; }}</label>
                                                 </div>
                                                 @endforeach
                                             </div>

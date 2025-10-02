@@ -15,6 +15,7 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\V2\HandlerController;
 use App\Http\Controllers\Ajax\ContactController;
+use App\Http\Controllers\Frontend\ScholarCatalogueController;
 
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['locale']], function () {
     Route::post('ajax/cart/pay', [AjaxCartController::class, 'pay'])->name('ajax.cart.pay');
 
     Route::post('ajax/contact/saveContact', [ContactController::class, 'create'])->name('ajax.cart.pay');
+    Route::post('ajax/contact/saveScholarShip', [ContactController::class, 'createScholar'])->name('ajax.scholar.pay');
 
     Route::post('ajax/review/create', [AjaxReviewController::class, 'create'])->name('ajax.review.create');
     Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
@@ -64,6 +66,7 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
     Route::get('ajax/post/video', [AjaxPostController::class, 'video'])->name('post.video');
     Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
+    Route::get('ajax/scholar/filter', [ScholarCatalogueController::class, 'filter'])->name('scholar.filter');
 
 });
 

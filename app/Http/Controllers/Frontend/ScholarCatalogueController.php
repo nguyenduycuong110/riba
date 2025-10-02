@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 
 use App\Enums\SlideEnum;
 
+use Illuminate\Support\Facades\DB;
+use App\Models\Scholar;
+
 
 class ScholarCatalogueController extends FrontendController
 {
@@ -49,9 +52,8 @@ class ScholarCatalogueController extends FrontendController
     public function index($id, $request, $page = 1)
     {
         $scholarCatalogue = $this->service->findById($id);
-        // $childrenIds = $this->service->getCatalogueChildren($scholarCatalogue, new Request())->pluck('id')->toArray();
+        $childrenIds = $this->service->getCatalogueChildren($scholarCatalogue, new Request())->pluck('id')->toArray();
         
-        $childrenIds = [11];
 
         $scholars = $this->scholarService->pagination(new Request()->merge([
             'sort' => 'order,desc',
@@ -211,6 +213,49 @@ class ScholarCatalogueController extends FrontendController
                 'https://getuikit.com/v2/src/js/components/sticky.js'
             ]
         ];
+    }
+
+
+    public function filter(Request $request)
+    {
+        $query = Scholar::with(['languages', 'scholar_catalogues', 'scholar_policies', 'scholar_trains']);
+
+        // lọc theo policy_id
+        if ($request->filled('scholar_policies')) {
+            $query->whereIn('policy_id', $request->scholar_policies);
+        }
+
+        // lọc theo train_id
+        if ($request->filled('scholar_trains')) {
+            $query->whereIn('train_id', $request->scholar_trains);
+        }
+
+        // lọc theo catalogue (nếu có dạng belongsToMany)
+        if ($request->filled('scholar_catalogues')) {
+            $query->whereHas('scholar_catalogues', function($q) use ($request) {
+                $q->whereIn('scholar_catalogue_id', $request->scholar_catalogues);
+            });
+        }
+
+        // lọc theo keyword
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->whereHas('languages', function($q) use ($keyword) {
+                $q->where('scholar_language.name', 'LIKE', "%$keyword%");
+            });
+        }
+
+        $scholars = $query->paginate(12);
+
+        if ($request->ajax()) {
+            // trả về partial để update list
+            return response()->json([
+                'html' => view('frontend.scholar.catalogue._list', compact('scholars'))->render(),
+                'count' => $scholars->total(),
+            ]);
+        }
+
+        return view('frontend.scholar.index', compact('scholars'));
     }
 
 }
