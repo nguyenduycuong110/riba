@@ -2837,6 +2837,17 @@ ol li {
     padding: 40px 0;
     text-align: center;
 
+    @media (max-width: 475px){
+        padding: 30px 10px;
+
+        .uk-form {
+            .input-text{
+                width:100% !important;
+                margin-bottom:20px;
+            }
+        }
+    }
+
     .search-heading{
         font-family: 'Oswald';
         font-size:30px;
@@ -3016,7 +3027,7 @@ ol li {
     }
      .filter-item{
         margin-bottom:15px;
-       
+       display: block !Important;
         
         .input-checkbox {
             width: 1.25rem;
@@ -3164,6 +3175,7 @@ ol li {
 
 .scholar-page-container{
     padding: 80px 0;
+    padding-top:0;
 }
 
 .page-h2{
@@ -3268,7 +3280,7 @@ ol li {
             font-family: var(--four-font);
             
 
-            font-size:18px;
+            font-size:16px;
             line-height:36px;
             color: #424242bf;
 
@@ -3308,9 +3320,7 @@ ol li {
     }
 }
 
-.scholar-aside{
-    margin-top:80px;
-}
+
 
 .register-scholar-form{
     margin-top:30px;
@@ -3409,4 +3419,61 @@ ol li {
       }
     }
   }
+}
+
+.admission-item{
+    display: flex;
+    gap: 20px;
+
+    @media (max-width: 475px){
+        display: block;
+
+        .image{
+            margin-bottom:15px;
+        }
+    }
+
+    .image{
+        flex: 0 0 330px;
+        height:185px;
+        aspect-ratio: 16/9;
+        border-radius: 8px;
+        overflow: hidden;
+
+
+        @media (max-width: 600px){
+            flex: 0 0 175px;
+        }
+        
+    }
+
+    .expired{
+        color: rgb(220,53,69);
+        font-weight: 600;
+        font-size:15px;
+        margin-bottom:15px;
+    }
+
+    .title{
+        font-size: 20px;
+        font-family: var(--four-font);
+        line-height:25px;
+        font-weight: 700;
+    }
+    .text-primary{
+        color: var(--secondary-color);
+    }
+
+    .admission-extend{
+        padding-left:15px;
+        border-left:2px solid;
+        border-color: var(--secondary-color);
+        font-family: var(--four-font);
+        font-weight: 500;
+        color:#333;
+    }
+
+    .extend-item:not(:last-child){
+        margin-bottom:10px;
+    }
 }
