@@ -73,7 +73,7 @@ class ScholarController extends FrontendController
         ->get();
 
 
-        $scholar->scholar_admissions->load(['languages', 'admission_schools']);
+        $scholar->scholar_admissions->load(['languages', 'admission_schools.languages']);
 
         $template = 'frontend.scholar.scholar.index';
         $schema = $this->schema($scholar, $scholarCatalogue, $breadcrumb);
