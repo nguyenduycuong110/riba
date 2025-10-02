@@ -20,7 +20,7 @@ trait HasQueryBuilder{
         return $conditions;
     }
 
-    private function specifications(Request $request): array {
+    protected function specifications(Request $request): array {
         return [
             'type' => $request->input('type') === 'all',
             'sort' => $request->filled('sort')
@@ -35,6 +35,7 @@ trait HasQueryBuilder{
                     'searchFields' => $this->searchField ?? []
                 ],
                 'simple' => $this->buildFilter($request, $this->simpleFilters), 
+                'complex' => $this->buildFilter($request, $this->complexFilters)
             ]
         ];
     }

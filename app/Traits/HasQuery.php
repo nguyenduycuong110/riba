@@ -121,6 +121,19 @@ trait HasQuery {
         }
         return $query;
     }
+
+    public function scopeCatalogueFilter($query, $condition){
+        if(isset($condition) && is_array($condition) && count($condition)){
+            foreach($condition as $key => $val){
+                $query->whereHas($val['name'], function($subQuery) use ($val) {
+                    if(count($val['id'])){
+                        $subQuery->whereIn($val['field'], $val['id']);
+                    }
+                });
+            }
+        }
+        return $query;
+    }
     
 
 

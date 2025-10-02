@@ -34,6 +34,7 @@ class RouterController extends FrontendController
     public function page(string $canonical = '', $page = 1, Request $request)
     {
         $this->getRouter($canonical);
+        $request->merge(['page' => $page]);
         $page = (!isset($page)) ? 1 : $page;
         if (!is_null($this->router) && !empty($this->router)) {
             $method = 'index';

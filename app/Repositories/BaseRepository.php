@@ -280,13 +280,20 @@ class BaseRepository
         ->keyword($specs['filter']['keyword'])
         ->simpleFilter($specs['filter']['simple'])
         ->dateFilter($specs['filter']['date'] ?? [])
+        ->complexFilter($specs['filter']['complex'] ?? [])
+        ->catalogueFilter($specs['filter']['relation'] ?? [])
         ->with($specs['with'])
         ->take($specs['take'])
         ->orderBy($specs['sort'][0], $specs['sort'][1])
         ->when(
             $specs['type'],
             fn($q) => $q->get(),
-            fn($q) => $q->paginate($specs['perpage'])
+            fn($q) => isset($specs['path'])
+            ? $q->paginate($specs['perpage'])
+                ->withQueryString()
+                ->withPath(env('APP_URL').$specs['path'])
+            : $q->paginate($specs['perpage'])
+            // fn($q) => $q->toSql()
         );
     }
 

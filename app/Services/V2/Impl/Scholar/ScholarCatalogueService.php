@@ -22,6 +22,8 @@ class ScholarCatalogueService extends BaseService {
     private $routerService;
 
     protected $with = ['languages', 'users'];
+    protected $simpleFilter = ['publish', 'level'];
+    protected $complexFilters = ['lft', 'rgt'];
 
     public function __construct(
         ScholarCatalogueRepo $repository,

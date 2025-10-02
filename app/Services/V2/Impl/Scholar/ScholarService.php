@@ -5,6 +5,7 @@ use App\Repositories\Scholar\ScholarRepo;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\HasRouter;
 use App\Services\V2\Impl\RouterService;
+use Illuminate\Http\Request;
 
 class ScholarService extends BaseService {
 
@@ -15,6 +16,7 @@ class ScholarService extends BaseService {
     private $routerService;
 
     protected $with = ['languages', 'users'];
+    protected $perpage = 24;
 
     public function __construct(
         ScholarRepo $repository,
@@ -47,6 +49,21 @@ class ScholarService extends BaseService {
     protected function afterSave(): static {
         $this->handleRouter(controller: 'ScholarController');
         return $this;
+    }
+
+    protected function specifications(Request $request): array
+    {
+        $specs = parent::specifications($request);
+        if($request->has('scholar_catalogue_id')){
+            $specs['filter']['relation'][0]['name'] = 'scholar_catalogues';
+            $specs['filter']['relation'][0]['id'] =  $request->childrenId;
+            $specs['filter']['relation'][0]['field'] = 'scholar_catalogue_id';
+        }
+        if($request->has('path')){
+            $specs['path'] = $request->path;
+        }
+
+        return $specs;
     }
 
 }

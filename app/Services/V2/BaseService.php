@@ -22,6 +22,7 @@ abstract class BaseService implements BaseServiceInterface{
     protected $perpage = 20;
     protected $searchField = ['name'];
     protected $simpleFilters = ['publish']; // DEFAULT
+    protected $complexFilters = [];
 
     protected $with = [];
 
@@ -112,6 +113,25 @@ abstract class BaseService implements BaseServiceInterface{
             }
         }
         return $temp;
+    }
+
+    public function getCatalogueChildren($catalogue = null, $request){
+        $customRequest = $request->merge(
+            [
+                'lft' => [
+                    'gte' => $catalogue->lft,
+                ],
+                'rgt' => [
+                    'lte' => $catalogue->rgt
+                ],
+                'type' => 'all'
+            ]
+        );
+
+
+        $children = $this->pagination($customRequest);
+
+        return $children;
     }
 
 }

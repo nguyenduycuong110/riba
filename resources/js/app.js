@@ -26,4 +26,3 @@ import '../vendor/frontend/resources/function.js';
 //     broadcaster: 'socket.io',
 //     host: 'http://laravelversion1.com:6001' 
 // });
-
