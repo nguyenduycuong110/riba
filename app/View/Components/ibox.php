@@ -21,6 +21,6 @@ class ibox extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.backend.ibox');
+        return view('components.ibox');
     }
 }
