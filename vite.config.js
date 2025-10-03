@@ -5,7 +5,12 @@ import sass from 'sass';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.scss', 'resources/js/app.js'],
+            input: [
+                'resources/css/app.scss', 
+                'resources/js/app.js',
+                'resources/css/app_backend.scss',
+                'resources/js/app.backend.js'
+            ],
             refresh: true,
         }),
     ],
