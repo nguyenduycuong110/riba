@@ -1,3 +1,5 @@
+(function($) {
+    
 var HT = {}; 
 var _token = $('meta[name="csrf-token"]').attr('content');
 var typingTimer;
@@ -342,3 +344,6 @@ $(document).ready(function(){
     // HT.runUpdateNestableOutput()
     HT.expandAndCollapse()
 })
+
+
+})(jQuery);

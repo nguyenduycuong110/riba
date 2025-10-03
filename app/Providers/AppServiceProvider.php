@@ -46,10 +46,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        $this->publishes([
-            resource_path('vendor/frontend/resources') => public_path('vendor/frontend'),
-            resource_path('vendor/backend') => public_path('vendor/backend'),
-        ], 'assets');
+        // $this->publishes([
+        //     resource_path('vendor/frontend/resources') => public_path('vendor/frontend'),
+        //     resource_path('vendor/backend') => public_path('vendor/backend'),
+        // ], 'assets');
 
         if (app()->environment(['local', 'testing'])) {
             error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);

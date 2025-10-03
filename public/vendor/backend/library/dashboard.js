@@ -1,5 +1,5 @@
 var HT = {}; 
-
+if (typeof HT === "undefined") { var HT = {}; }
 
 HT.createChart = (label, data) => {
 
@@ -65,14 +65,21 @@ HT.createChart = (label, data) => {
 }
 
 HT.changeChart = () => {
-    $(document).on('click', '.chartButton', function(e){
-        e.preventDefault()
-        let button = $(this)
-        let chartType = button.attr('data-chart')
-        $('.chartButton').removeClass('active')
-        button.addClass('active')
-        HT.callChart(chartType)
-    })
+
+    console.log(1234);
+    
+
+    if($('.chartButton').length){
+         $(document).on('click', '.chartButton', function(e){
+            e.preventDefault()
+            let button = $(this)
+            let chartType = button.attr('data-chart')
+            $('.chartButton').removeClass('active')
+            button.addClass('active')
+            HT.callChart(chartType)
+        })
+    }
+   
 }
 
 HT.callChart = (chartType) => {
@@ -95,5 +102,5 @@ $(document).ready(function(){
         HT.createChart(window.label, window.data);
     }
 
-    HT.changeChart();
+    // HT.changeChart();
 })

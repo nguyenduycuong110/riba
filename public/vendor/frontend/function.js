@@ -1,3 +1,4 @@
+
 "use strict";
 var HT = {}; // Khai báo là 1 đối tượng
 var timer;
@@ -585,18 +586,29 @@ HT.regForm = () => {
 }
 
 HT.searchFilterItem = () => {
-    $(document).on('keyup', '.form-item-search', function(){
-        let keyword = $(this).val().toLowerCase().trim()
-        let $wrapper = $(this).closest('.uk-accordion-content')
+    let debounceTimer = null;
 
-        $wrapper.find('.filter-item').each(function(){
-            let text = $(this).find('label').text().toLowerCase()
-            if(text.indexOf(keyword) > -1){
-                $(this).show()
-            }else{
-                $(this).hide()
-            }
-        })
+    $(document).on('keyup', '.form-item-search', function(){
+        let $input = $(this);
+        let $wrapper = $input.closest('.uk-accordion-content');
+
+        clearTimeout(debounceTimer); 
+        debounceTimer = setTimeout(() => {
+            let keyword = $input.val().toLowerCase().trim();
+
+            $wrapper.find('.filter-item').each(function(){
+                let text = $(this).find('label').text().toLowerCase();
+                if (text.indexOf(keyword) > -1) {
+                    console.log(123);
+                    
+                    $(this).show();
+                } else {
+                    console.log(234);
+                    
+                    $(this).hide();
+                }
+            });
+        }, 300); 
     });
 }
 
@@ -650,9 +662,178 @@ HT.loadScholarFilter = (url) => {
     });
 }
 
+HT.admissionFilter = () => {
+    if($('.admission-catalogue-page').length){
+        $(document).on('change', '.filter-value, .admission-keyword, input[name=min_year], input[name=max_year]', function () {
+            HT.loadAdmissionFilter()
+        })
+
+        // sự kiện khi click phân trang
+        $(document).on('click', '.model-paginate a', function (e) {
+            e.preventDefault()
+            let url = $(this).attr('href')
+            HT.loadAdmissionFilter()
+        })
+    }
+    
+}
+
+HT.loadAdmissionFilter = (url) => {
+    let params = {}
+
+    // gom tất cả filter đang check
+    $('.filter-value:checked').each(function () {
+        let name = $(this).attr('name').replace('[]','')
+        if (!params[name]) params[name] = []
+        params[name].push($(this).val())
+    })
+
+    // gom keyword
+    let keyword = $('.scholar-keyword').val()
+    if (keyword) {
+        params['keyword'] = keyword
+    }
+
+    params['min_year'] = $('input[name=min_year]').val()
+    params['max_year'] = $('input[name=max_year]').val()
+
+
+    $.ajax({
+        url: '/ajax/admission/filter', // hoặc route filter
+        type: 'GET',
+        data: params,
+        beforeSend: function() {
+            $('.filter-result-list').addClass('loading');
+        },
+        success: function(res) {
+            // render lại danh sách
+            $('.filter-result-list').html(res.html);
+            $('.filter-count').text(res.count)  
+            $('html, body').animate({
+                scrollTop: $('.filter-result-list').offset().top
+            }, 500)
+        },
+        complete: function() {
+            $('.filter-result-list').removeClass('loading');
+        }
+    });
+}
+
+
+HT.schoolFilter = () => {
+    if($('.school-catalogue-page').length){
+        $(document).on('change', '.filter-value, .school-keyword', function () {
+            HT.loadSchoolFilter()
+        })
+
+        // sự kiện khi click phân trang
+        $(document).on('click', '.model-paginate a', function (e) {
+            e.preventDefault()
+            let url = $(this).attr('href')
+            HT.loadSchoolFilter()
+        })
+    }
+    
+}
+
+HT.loadSchoolFilter = (url) => {
+    let params = {}
+
+    // gom tất cả filter đang check
+    $('.filter-value:checked').each(function () {
+        let name = $(this).attr('name').replace('[]','')
+        if (!params[name]) params[name] = []
+        params[name].push($(this).val())
+    })
+
+    // gom keyword
+    let keyword = $('.scholar-keyword').val()
+    if (keyword) {
+        params['keyword'] = keyword
+    }
+
+    $.ajax({
+        url: '/ajax/school/filter', // hoặc route filter
+        type: 'GET',
+        data: params,
+        beforeSend: function() {
+            $('.filter-result-list').addClass('loading');
+        },
+        success: function(res) {
+            // render lại danh sách
+            $('.filter-result-list').html(res.html);
+            $('.filter-count').text(res.count)  
+            $('html, body').animate({
+                scrollTop: $('.filter-result-list').offset().top
+            }, 500)
+        },
+        complete: function() {
+            $('.filter-result-list').removeClass('loading');
+        }
+    });
+}
+
+
+HT.regScholarForm = () => {
+    $(document).on('submit', '.scholar-form', function(e){
+        e.preventDefault()
+        e.stopPropagation()
+        let $form = $(this);
+        let formData = {
+            name: $form.find('.name').val().trim(),
+            email: $form.find('.email').val().trim(),
+            phone: $form.find('.phone').val().trim(),
+            destination_area: $form.find('.destination_area').val(),
+            apply_for: $form.find('.apply_for').val().trim(),
+            _token: $('meta[name="csrf-token"]').attr('content') // nhớ có csrf ở <head>
+        };
+
+
+        // validate
+        let errors = [];
+        if(!formData.name) errors.push("Vui lòng nhập họ tên");
+        if(!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) errors.push("Email không hợp lệ");
+        if(!formData.phone || !/^(0[0-9]{9})$/.test(formData.phone)) errors.push("Số điện thoại không hợp lệ");
+        if(!formData.destination_area) errors.push("Vui lòng chọn loại học bổng");
+        if(!formData.apply_for) errors.push("Vui lòng nhập địa chỉ");
+
+        // submit ajax
+        $.ajax({
+            url: "ajax/contact/saveScholarShip",  // route xử lý ở backend
+            type: "POST",
+            data: formData,
+            beforeSend: function(){
+                $form.find('button[type="submit"]').prop('disabled', true).text('Đang gửi...');
+            },
+            success: function(res){
+                if(res.success){
+                    alert("Đăng ký thành công!");
+                    $form.trigger('reset'); // reset form
+                } else {
+                    alert(res.message || "Có lỗi xảy ra, vui lòng thử lại.");
+                }
+            },
+            error: function(xhr){
+                console.error(xhr.responseText);
+                alert("Hệ thống lỗi, vui lòng thử lại sau.");
+            },
+            complete: function(){
+                $form.find('button[type="submit"]').prop('disabled', false).text('Đăng Ký Ngay');
+            }
+        });
+
+    })
+    
+}
+
 $(document).ready(function(){
+    HT.schoolFilter()
+    HT.regScholarForm()
     HT.searchFilterItem()
     HT.scholarFilter()
+
+    HT.admissionFilter()
+
     HT.collapse()
     HT.changeStatusDropdownMenu()
     HT.changeStatusPass()

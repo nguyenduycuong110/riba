@@ -381,7 +381,7 @@ iframe {
 }
 
 @media (min-width:1220px) {
-    .uk-grid-divider:not(: empty) {
+    .uk-grid-divider:not(:empty) {
         margin-left: -35px;
         margin-right: -35px
     }
