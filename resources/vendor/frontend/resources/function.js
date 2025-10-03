@@ -1,3 +1,4 @@
+
 "use strict";
 var HT = {}; // Khai báo là 1 đối tượng
 var timer;
