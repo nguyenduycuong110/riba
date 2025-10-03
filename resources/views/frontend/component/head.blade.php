@@ -28,4 +28,6 @@
 <meta name="twitter:description" content="{{ $seo['meta_description'] }}" />
 <meta name="twitter:image" content="{{ $seo['meta_image'] }}" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 

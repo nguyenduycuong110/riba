@@ -37,6 +37,7 @@ class School extends Model
         'order',
         'user_id',
         'viewed',
+        'shool_over_view'
     ];
 
     protected $casts = [

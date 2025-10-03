@@ -268,11 +268,19 @@ class SchoolCatalogueController extends FrontendController
         }
 
         if ($request->filled('school_projects')) {
-            $query->whereIn('project_id', $request->school_projects);
+            $query->whereHas('school_projects', function($q) use ($request) {
+                $q->whereIn('project_id', $request->school_projects);
+            });
         }
 
         // lọc theo catalogue (nếu có dạng belongsToMany)
         if ($request->filled('school_catalogues')) {
+            $query->whereHas('school_catalogues', function($q) use ($request) {
+                $q->whereIn('school_catalogue_id', $request->school_catalogues);
+            });
+        }
+
+        if ($request->filled('major_catalogues')) {
             $query->whereHas('school_catalogues', function($q) use ($request) {
                 $q->whereIn('school_catalogue_id', $request->school_catalogues);
             });
