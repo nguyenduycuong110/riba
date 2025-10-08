@@ -48,13 +48,14 @@ class HomeController extends FrontendController
             ['keyword' => 'commit'],
             ['keyword' => 'about-us'],
             ['keyword' => 'event'],
-            ['keyword' => 'scholar'],
+            ['keyword' => 'scholar-hl', 'object' => true],
             ['keyword' => 'scholars', 'object' => true],
             ['keyword' => 'scholar-catalogues'],
             ['keyword' => 'major-catalogue'],
             ['keyword' => 'review', 'object' => true],
             ['keyword' => 'share', 'object' => true],
         ], $this->language);
+
 
 
         $scholars = $this->scholarService->pagination(new Request()->merge(['type' => 'all', 'sort' => 'id,asc']));

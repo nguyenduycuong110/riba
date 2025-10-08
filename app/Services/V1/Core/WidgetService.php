@@ -166,6 +166,7 @@ class WidgetService extends BaseService
         // SINGLE QUERY 1: Get all widgets
         $widgets = $this->getWidgetsQuery($keywords);
 
+
         if ($widgets->isEmpty()) {
             return static::$widgetCache[$cacheKey] = [];
         }

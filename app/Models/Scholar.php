@@ -17,6 +17,7 @@ class Scholar extends Model
 
     protected $fillable = [
         'id',
+        'scholar_catalogue_id',
         'album',
         'policy_id',
         'train_id',

@@ -42,7 +42,7 @@ class ScholarService extends BaseService {
     protected function beforeSave(): static {
         $request = $this->context['request'] ?? null;
         $this->generatePayloadLanguage();
-        $this->generatePayloadRelation('scholar_catalogues', [$request->input('scholar_catalogue_id')]);
+        $this->generatePayloadRelation('scholar_catalogues', [$request->input('scholar_catalogue_id'), ...$request->input('catalogue')]);
         return $this;
     }
 

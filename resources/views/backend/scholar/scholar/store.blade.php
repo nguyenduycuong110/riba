@@ -35,9 +35,19 @@
                         :options="$dropdown"
                         heading="Chọn danh mục cha"
                         name="scholar_catalogue_id"
-                        :selectedValue="$scholar->scholar_catalogues[0]->id ?? 0"
+                        :selectedValue="$scholar->scholar_catalogue_id ?? 0"
                         class="mb10"
                     />
+
+                    {{-- @dd($scholar) --}}
+                    <x-backend.select2-multiple
+                        :model="$scholar"
+                        with="scholar_catalogues"
+                        :dropdown="$dropdown"
+                        :excludeId="old('scholar_catalogue_id', $scholar->scholar_catalogue_id ?? null)"
+                        name="Danh mục khác"
+                    />
+
                     @php
                         $scholar_school_ids = isset($scholar) ? $scholar->scholar_schools->pluck('id')->toArray() : null;
                     @endphp

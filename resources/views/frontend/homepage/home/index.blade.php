@@ -140,18 +140,19 @@
         @endif
         
         @php
-            $schoolarship =  $widgets['scholar'] ?? null;
+            $schoolarship =  $widgets['scholar-hl'] ?? null;
             // dd($schoolarship->object);
             $scholarCatalogue = $widgets['scholar-catalogues'] ?? null;
-            $catName = $schoolarship->name;
+            // $catName = $schoolarship->name;
             $catCanonical = write_url('hoc-bong-noi-bat');
         @endphp
 
         @if(isset($schoolarship))
+        @foreach($schoolarship->object as $key => $val)
             <div class="panel-scholarship">
                 <div class="uk-container uk-container-center">
                     <div class="panel-head uk-text-center">
-                        <div class="heading-2"><span>{{ $catName }}</span></div>
+                        <div class="heading-2"><span>{{ $val->languages->name }}</span></div>
                         @if(count($scholarCatalogue->object))
                         <div class="sub-category uk-flex uk-flex-middle uk-flex-center">
                             <a class="active"  href="{{ $catCanonical }}" title="Tất cả">Tất cả</a>
@@ -166,12 +167,12 @@
                         @endif
                     </div>
                     <div class="panel-body">
-                        @if(isset($schoolarship->object))
+                        @if(isset($val->scholars))
                         <div class="uk-grid uk-grid-medium">
-                            @foreach($schoolarship->object as $item)
+                            @foreach($val->scholars as $item)
                             @php
-                                $name = $item->languages->name;
-                                $canonical = write_url($item->languages->canonical);
+                                $name = $item->languages[0]->name;
+                                $canonical = write_url($item->languages[0]->canonical);
                                 $image = $item->image;
                                 $rate = rand(75,100);
                             @endphp
@@ -207,6 +208,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         @endif
 
         
