@@ -144,7 +144,7 @@
             // dd($schoolarship->object);
             $scholarCatalogue = $widgets['scholar-catalogues'] ?? null;
             $catName = $schoolarship->name;
-            $catCanonical = write_url('hoc-bong');
+            $catCanonical = write_url('hoc-bong-noi-bat');
         @endphp
 
         @if(isset($schoolarship))
