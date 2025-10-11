@@ -47,7 +47,7 @@ class ScholarCatalogueController extends FrontendController
         $childrenIds = $this->service->getCatalogueChildren($scholarCatalogue, new Request())->pluck('id')->toArray();
         
 
-        $scholars = $this->scholarService->pagination(new Request()->merge([
+        $scholars = $this->scholarService->pagination($request->merge([
             'sort' => 'order,desc',
             'path' => $scholarCatalogue->languages->first()->pivot->canonical,
             'scholar_catalogue_id' => $scholarCatalogue->id,

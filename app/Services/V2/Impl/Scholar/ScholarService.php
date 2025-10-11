@@ -63,6 +63,9 @@ class ScholarService extends BaseService {
             $specs['path'] = $request->path;
         }
 
+        $specs['filter']['keyword']['isMultipleLanguage'] = true;
+        $specs['filter']['keyword']['pivot'] = 'scholar_language';
+
         return $specs;
     }
 

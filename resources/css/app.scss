@@ -1615,9 +1615,16 @@ ol li {
       width: 85%;
     }
 
+    @media (max-width: 1400px){
+        display: none;
+    }
+
     @media (max-width: 600px){
         display: none;
     }
+
+
+
   }
 
   .upDown {
@@ -4111,8 +4118,11 @@ button{
 }
 
 /*Contact-page*/
-.page-breadcrumb {
-    background: none;
+.contact-page{
+    .page-breadcrumb {
+        background: none;
+    }
+
 }
 .page-breadcrumb .uk-flex{
     justify-content: center;
@@ -4151,4 +4161,64 @@ button{
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
+}
+
+.mobile-header{
+    &.uk-sticky-init{
+        .mobile-logo{
+            img{
+                max-width: 100px;
+            }
+        }
+        .navigation-mobile{
+            display: none;
+        }
+        border-bottom:1px solid #eaeaea;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+}
+
+.mobile-upper{
+    background: #fff;
+}
+
+.uk-nav-offcanvas ul a{
+    color:#000;
+}
+
+@media (max-width: 600px){
+    body {
+        > .uk-sticky-placeholder{
+            height:auto !important;
+        }
+    }
+}
+
+@media (max-width: 767px){
+    .record-list .uk-grid > :nth-child(1){
+        order:2
+    }
+     .record-list .uk-grid > :nth-child(2){
+        order:1
+    }
+    .filter-body{
+         .collapse-filter {
+            max-height:0;
+            .filter-item{
+                display: block !important;
+            }
+        }
+    }   
+    .filter-box{
+        margin-bottom:25px !important;
+    }
+    .scholar-item{
+        .title{
+            height:70px;
+        }
+    }
+}
+
+.mobile-active{
+    max-height: 260px !important;
 }

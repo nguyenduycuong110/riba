@@ -16,9 +16,23 @@ trait HasQuery {
 
     public function scopeKeyword($query, array $keyword = []){
         if(!is_null($keyword['q'])){
-            foreach($keyword['searchFields'] as $field){
-                $query->orWhere($field, 'LIKE', '%'.$keyword['q'].'%');
+            if($keyword['isMultipleLanguage'] == false){
+                  $query->where(function($q) use ($keyword){
+                    foreach($keyword['searchFields'] as $field){
+                        $q->orWhere($field, 'LIKE', '%'.$keyword['q']. '%');
+                    }
+                });
+            }else{
+                 $query->whereHas('languages', function($q) use ($keyword){
+                    $q->where(function($subQuery) use ($keyword){
+                         foreach($keyword['searchFields'] as $field){
+                            $subQuery->orWhere("{$keyword['pivot']}.{$field}", 'LIKE', '%'.$keyword['q']. '%');
+                        }
+                    });
+                });
             }
+
+           
         }
         return $query;
     }

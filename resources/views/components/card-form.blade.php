@@ -1,7 +1,7 @@
 @props(['scholars'])
 
 
-<div class="panel-form">
+<div class="panel-form" id="panel-form">
     <div class="form-area">
         <div class="apply-form-4__bg__1 d-none d-xl-block"></div>
         <div class="apply-form-4__bg__2"></div>

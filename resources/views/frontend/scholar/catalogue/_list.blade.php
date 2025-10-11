@@ -8,7 +8,7 @@
                     $catName = $item->scholar_catalogues->first()->languages->first()->pivot->name ?? '';
                     $image = $item->image;
                 @endphp
-                <div class="uk-width-small-1-1 uk-width-medium-1-3 mb20">
+                <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 mb20">
                     <div class="scholar-item">
                         <a href="{{ $canonical }}" class="image img-cover">
                             <img src="{{ $image }}" alt="{{ $name }}" class="img-zoomin">

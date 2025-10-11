@@ -32,7 +32,8 @@ trait HasQueryBuilder{
             'filter' => [
                 'keyword' => [
                     'q' => $request->input('keyword') ?? null,
-                    'searchFields' => $this->searchField ?? []
+                    'searchFields' => $this->searchField ?? [],
+                    'isMultipleLanguage' => false
                 ],
                 'simple' => $this->buildFilter($request, $this->simpleFilters), 
                 'complex' => $this->buildFilter($request, $this->complexFilters)

@@ -826,7 +826,26 @@ HT.regScholarForm = () => {
     
 }
 
+HT.scrollToForm = () => {
+    $('.slide-button .uk-button').on('click', function (e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#panel-form').offset().top
+        }, 800); // thời gian scroll: 800ms
+    });
+}
+
+HT.showFilter = () => {
+    $('.filter-box .filter-content-item .uk-accordion-title').on('click', function(){
+        let _this = $(this);
+        _this.siblings('.uk-accordion-content').find('.collapse-filter').toggleClass('mobile-active');
+    });
+   
+}
+
 $(document).ready(function(){
+    HT.showFilter()
+    HT.scrollToForm()
     HT.schoolFilter()
     HT.regScholarForm()
     HT.searchFilterItem()
