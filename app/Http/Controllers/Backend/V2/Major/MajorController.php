@@ -8,6 +8,7 @@ use App\Services\V2\Impl\Major\MajorService;
 use App\Services\V2\Impl\Scholar\TrainService;
 use App\Models\Language;
 use App\Services\V2\Impl\Major\MajorCatalogueService;
+use App\Services\V2\Impl\Major\MajorGroupService;
 
 class MajorController extends Controller {
 
@@ -16,16 +17,19 @@ class MajorController extends Controller {
     private $majorCatalogueService;
     private $trainService;
     protected $language;
+    private $majorGroupService;
 
     public function __construct(
         MajorService $service,
         MajorCatalogueService $majorCatalogueService,
-        TrainService $trainService
+        TrainService $trainService,
+        MajorGroupService $majorGroupService,
     )
     {
         $this->service = $service;
         $this->majorCatalogueService = $majorCatalogueService;
         $this->trainService = $trainService;
+        $this->majorGroupService = $majorGroupService;
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
             $language = Language::where('canonical', $locale)->first();
@@ -60,12 +64,14 @@ class MajorController extends Controller {
         ];
         $dropdown = $this->majorCatalogueService->dropdown();
         $trains = $this->trainService->all()->pluck('name', 'id');
+        $majorGroups = $this->majorGroupService->dropdown();
         $template = 'backend.major.major.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'dropdown',
-            'trains'
+            'trains',
+            'majorGroups'
         ));
     }
 
@@ -82,13 +88,15 @@ class MajorController extends Controller {
         ];
         $dropdown = $this->majorCatalogueService->dropdown();
         $trains = $this->trainService->all()->pluck('name', 'id');
+        $majorGroups = $this->majorGroupService->dropdown();
         $template = 'backend.major.major.store';
         return view('backend.dashboard.layout', compact(
             'template',
             'config',
             'major',
             'dropdown',
-            'trains'
+            'trains',
+            'majorGroups',
         ));     
     }
     

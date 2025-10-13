@@ -843,6 +843,62 @@ HT.showFilter = () => {
    
 }
 
+
+
+HT.majorFilter = () => {
+    if($('.major-catalogue-page').length){
+        $(document).on('change', '.filter-value, .major-keyword', function () {
+            HT.loadmajorFilter()
+        })
+
+        // sự kiện khi click phân trang
+        $(document).on('click', '.model-paginate a', function (e) {
+            e.preventDefault()
+            let url = $(this).attr('href')
+            HT.loadmajorFilter()
+        })
+    }
+    
+}
+
+HT.loadmajorFilter = (url) => {
+    let params = {}
+
+    // gom tất cả filter đang check
+    $('.filter-value:checked').each(function () {
+        let name = $(this).attr('name').replace('[]','')
+        if (!params[name]) params[name] = []
+        params[name].push($(this).val())
+    })
+
+    // gom keyword
+    let keyword = $('.major-keyword').val()
+    if (keyword) {
+        params['keyword'] = keyword
+    }
+
+    $.ajax({
+        url: '/ajax/major/filter', // hoặc route filter
+        type: 'GET',
+        data: params,
+        beforeSend: function() {
+            $('.filter-result-list').addClass('loading');
+        },
+        success: function(res) {
+            // render lại danh sách
+            $('.filter-result-list').html(res.html);
+            $('.filter-count').text(res.count)  
+            $('html, body').animate({
+                scrollTop: $('.filter-result-list').offset().top
+            }, 500)
+        },
+        complete: function() {
+            $('.filter-result-list').removeClass('loading');
+        }
+    });
+}
+
+
 $(document).ready(function(){
     HT.showFilter()
     HT.scrollToForm()
@@ -850,6 +906,7 @@ $(document).ready(function(){
     HT.regScholarForm()
     HT.searchFilterItem()
     HT.scholarFilter()
+    HT.majorFilter()
 
     HT.admissionFilter()
 

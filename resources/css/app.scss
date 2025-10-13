@@ -4222,3 +4222,14 @@ button{
 .mobile-active{
     max-height: 260px !important;
 }
+
+.major-list{
+    background: transparent !important;
+    padding-top:0;
+
+    .major-item {
+        .image{
+            height: 135px;
+        }
+    }
+}

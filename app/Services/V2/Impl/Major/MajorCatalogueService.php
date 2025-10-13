@@ -21,6 +21,7 @@ class MajorCatalogueService extends BaseService {
 
     protected $with = ['languages', 'users'];
 
+    protected $simpleFilters = ['level'];
     protected $defaultSort = ['lft', 'asc'];
 
     public function __construct(

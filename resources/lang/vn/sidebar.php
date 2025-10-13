@@ -215,14 +215,14 @@ return [
         [
             'title' => 'QL Chuyên Ngành',
             'icon' => 'fa fa-database',
-            'name' => ['major', 'major_catalogue'],
+            'name' => ['major', 'major_catalogue', 'major_group'],
             'subModule' => [
                 [
                     'title' => 'Nhóm Ngành',
                     'route' => 'major_group/index'
                 ],
                 [
-                    'title' => 'Ngành',
+                    'title' => 'Nhóm Chuyên Ngành',
                     'route' => 'major_catalogue/index'
                 ],
                 [

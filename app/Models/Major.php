@@ -22,6 +22,7 @@ class Major extends Model
         'order',
         'user_id',
         'train_id',
+        'major_group_id',
         'viewed',
     ];
 
@@ -43,6 +44,10 @@ class Major extends Model
 
     public function major_trains(): BelongsTo{
         return $this->belongsTo(ScholarTrain::class, 'train_id', 'id');
+    }
+
+    public function major_groups(): BelongsTo{
+        return $this->belongsTo(MajorGroup::class, 'major_group_id', 'id');
     }
 
     public function languages(){

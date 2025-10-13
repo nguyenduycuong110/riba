@@ -18,6 +18,7 @@ use App\Http\Controllers\Ajax\ContactController;
 use App\Http\Controllers\Frontend\ScholarCatalogueController;
 use App\Http\Controllers\Frontend\SchoolCatalogueController;
 use App\Http\Controllers\Frontend\AdmissionCatalogueController;
+use App\Http\Controllers\Frontend\MajorCatalogueController;
 
 
 Route::group(['middleware' => ['admin','locale','backend_default_locale']], function () {
@@ -71,6 +72,7 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('ajax/scholar/filter', [ScholarCatalogueController::class, 'filter'])->name('scholar.filter');
     Route::get('ajax/school/filter', [SchoolCatalogueController::class, 'filter'])->name('school.filter');
     Route::get('ajax/admission/filter', [AdmissionCatalogueController::class, 'filter'])->name('scholar.filter');
+    Route::get('ajax/major/filter', [MajorCatalogueController::class, 'filter'])->name('scholar.filter');
 
 });
 

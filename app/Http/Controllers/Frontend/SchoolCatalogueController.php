@@ -15,6 +15,7 @@ use App\Services\V2\Impl\Scholar\PolicyService;
 use App\Services\V2\Impl\Scholar\TrainService;
 use App\Services\V2\Impl\Major\MajorCatalogueService;
 use App\Services\V2\Impl\Major\MajorService;
+use App\Services\V2\Impl\Major\MajorGroupService;
 use Illuminate\Http\Request;
 use App\Models\School;
 
@@ -34,6 +35,7 @@ class SchoolCatalogueController extends FrontendController
     protected $trainService;
     protected $majorService;
     protected $majorCatalogueService;
+    protected $majorGroupService;
 
     public function __construct(
         SchoolService $schoolService,
@@ -48,6 +50,7 @@ class SchoolCatalogueController extends FrontendController
         TrainService $trainService,
         MajorService $majorService,
         MajorCatalogueService $majorCatalogueService,
+        MajorGroupService $majorGroupService,
     ) {
         $this->service = $service;
         $this->schoolService = $schoolService;
@@ -61,6 +64,7 @@ class SchoolCatalogueController extends FrontendController
         $this->trainService = $trainService;
         $this->majorCatalogueService = $majorCatalogueService;
         $this->majorService = $majorService;
+        $this->majorGroupService = $majorGroupService;
         parent::__construct();
     }
 
@@ -71,59 +75,41 @@ class SchoolCatalogueController extends FrontendController
         $childrenIds = $this->service->getCatalogueChildren($schoolCatalogue, new Request())->pluck('id')->toArray();
         
 
-        $schools = $this->schoolService->pagination(new Request()->merge([
+        $schools = $this->schoolService->pagination($request->merge([
             'sort' => 'order,desc',
             'path' => $schoolCatalogue->languages->first()->pivot->canonical,
             'school_catalogue_id' => $schoolCatalogue->id,
             'childrenId' => $childrenIds
         ]));
-
         $schoolCatalogueList = $this->service->pagination(new Request()->merge([
             'type' => 'all',
             'level' => 2,
             'sort' => 'id,asc'
         ]));
-
         $policies = $this->policyService->pagination(new Request()->merge([
             'type' => 'all'
         ]));
-
         $trains = $this->trainService->pagination(new Request()->merge([
             'type' => 'all'
         ]));
-
         $areas = $this->areaService->pagination(new Request()->merge([
             'type' => 'all'
         ]));
-
         $cities = $this->cityService->pagination(new Request()->merge([
             'type' => 'all'
         ]));
-
         $scholarCatalogues = $this->scholarCatalogueService->pagination(new Request()->merge([
             'type' => 'all'
         ]));
-
-        $projects = $this->projectService->pagination(new Request()->merge([
-            'type' => 'all'
-        ]));
-
-        $majors = $this->majorService->pagination(new Request()->merge([
-            'type' => 'all'
-        ]));
-
-        $majorCatalogues = $this->majorCatalogueService->pagination(new Request()->merge([
-            'type' => 'all'
-        ]));
+        $projects = $this->projectService->pagination(new Request(['type' => 'all']));
+        $majors = $this->majorService->pagination(new Request(['type' => 'all']));
+        $majorCatalogues = $this->majorGroupService->pagination(new Request(['type' => 'all']));
 
         $breadcrumb = $this->repository->breadcrumb($schoolCatalogue, $this->language);
 
         $template = 'frontend.school.catalogue.index';
-
         $config = $this->config();
-
         $system = $this->system;
-
         $canonical = ($page > 1) ? write_url($schoolCatalogue->languages->first()->pivot->canonical, true, false).'/trang-'.$page.config('apps.general.suffix'): write_url($schoolCatalogue->languages->first()->pivot->canonical, true, true);
 
         $seo = [

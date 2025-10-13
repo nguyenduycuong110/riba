@@ -40,7 +40,7 @@
                     </div>
                     <x-backend.select2
                         :options="$dropdown"
-                        heading="Chọn ngành"
+                        heading="Chọn Nhóm ngành"
                         name="major_catalogue_id"
                         :selectedValue="$major->major_catalogues[0]->id ?? 0"
                         class="mb10"
@@ -51,6 +51,14 @@
                         name="train_id"
                         :selectedValue="$major->train_id ?? 0"
                     />
+                    <div class="mt10">
+                        <x-backend.select2
+                            :options="$majorGroups"
+                            heading="Chọn ngành"
+                            name="major_group_id"
+                            :selectedValue="$major->major_group_id ?? 0"
+                        />
+                    </div>
                 </x-ibox>
 
                 <x-ibox heading="Ảnh đại diện">
