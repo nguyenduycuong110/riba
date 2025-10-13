@@ -1,9 +1,9 @@
 @extends('frontend.homepage.layout')
 @section('content')
-    <div class="scholar-page">
+    <div class="scholar-page major-page">
         <div class="page-header">
             <div class="uk-container uk-container-center">
-                <h1 class="page-title">{{ $scholar->languages->first()->pivot->name }}</h1>
+                <h1 class="page-title">{{ $major->languages->first()->pivot->name }}</h1>
                 <nav class="nav-breadcrumb uk-flex uk-flex-center">
                     <ol class="uk-list uk-clearflix">
                         <li><a href="/">Trang chủ</a></li>
@@ -21,48 +21,62 @@
         </div>
         <div class="page-body mt30">
             <div class="uk-container uk-container-center">
+               
                 <div class="uk-grid uk-grid-large">
                     <div class="uk-width-large-2-3">
                         <div class="scholar-page-container">
-                            @if(isset($scholar->scholar_policy) && count($scholar->scholar_policy))
-                            <div class="scholar-policy page-h2">
-                                <h2 class="title"><span>Chính sách học bổng</span></h2>
-                                <div class="uk-grid uk-grid-medium">
-                                    @foreach($scholar->scholar_policy as $policy)
-                                    <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-3">
-                                        <div class="policy-item">
-                                            <div class="title">{{ $policy['title'] }}</div>
-                                            <div class="description">
-                                                {!! $policy['description'] !!}
+                            <div class="scholar-content">
+                                <div class="description">
+                                    {!! $major->languages->first()->pivot->description !!}
+                                </div>
+                            </div>
+
+                            <div class="detail-admission-information page-h2 mt30 mb30">
+                                <h2 class="heading-2"><span>Chi tiết chuyên ngành</span></h2>
+                                <div class="widget-body">
+                                    <div class="uk-grid uk-grid-collapse">
+                                        <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3">
+                                            <div class="widget-body-item">
+                                                <div class="label">Tên Tiếng Trung</div>
+                                                <div class="value">{{ $major->cn_name ?? '-' }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3">
+                                            <div class="widget-body-item">
+                                                <div class="label">Tên Tiếng Anh</div>
+                                                <div class="value">{{ $major->en_name ?? '-' }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3">
+                                            <div class="widget-body-item">
+                                                <div class="label">Ngành</div>
+                                                <div class="value">{{ $major->major_groups->languages->first()->pivot->name }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3">
+                                            <div class="widget-body-item">
+                                                <div class="label">Mã ngành</div>
+                                                <div class="value">{{ $major->code  }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3">
+                                            <div class="widget-body-item">
+                                                <div class="label">Hệ đào tạo</div>
+                                                <div class="value">{{ $major->major_trains->name ?? '-' }}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    @endforeach
                                 </div>
                             </div>
-                            @endif
 
                             <div class="scholar-content page-h2 mt30">
-                                <h2 class="title"><span>Giới thiệu về học bổng</span></h2>
-                                <div class="description">
-                                    {!! $scholar->languages->first()->pivot->description !!}
-                                </div>
                                 <div class="content">
                                     <x-table-of-contents :content="$contentWithToc" />
-                                    {!! $contentWithToc !!}
+                                    <div class="detail-content">
+                                        {!! $contentWithToc !!}
+                                    </div>
                                 </div>
                             </div>
-
-                            @if(!is_null($scholar->scholar_admissions) && $scholar->scholar_admissions->count() > 0)
-                            <div class="scholar-admission page-h2">
-                                <h2 class="page-title">Thông tin tuyển sinh liên quan</h2>
-                                <div class="panel-body">
-                                    @foreach($scholar->scholar_admissions as $item)
-                                        <x-admission-item :item="$item" />
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
 
                         </div>
                     </div>
@@ -104,30 +118,6 @@
                                     </div>
                                 </div>
 
-                                @if(isset($relatedScholars) && $relatedScholars->count())
-                                    <div class="scholar-related page-h2">
-                                        <h2 class="page-title mb30">Các loại học bổng khác</h2>
-                                        <ul class="related-list">
-                                            @foreach($relatedScholars as $item)
-                                                @php
-                                                    $name = $item->languages->first()->pivot->name ?? '';
-                                                    $canonical = $item->languages->first()->pivot->canonical ?? '#';
-                                                    $image = $item->image ?? '/images/no-image.png';
-                                                @endphp
-                                                <li class="related-item">
-                                                    <a href="{{ $canonical }}" class="image">
-                                                        <img src="{{ $image }}" alt="{{ $name }}">
-                                                    </a>
-                                                    <div class="info">
-                                                        <h3 class="title">
-                                                            <a href="{{ $canonical }}">{{ $name }}</a>
-                                                        </h3>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
                             </div>
 
                         </div>

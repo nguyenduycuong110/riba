@@ -38,6 +38,36 @@
                             value="{{ old('total_applications', $major->total_applications ?? '') }}"
                         >
                     </div>
+                    <div class="form-row mb10">
+                        <span class="text-danger notice">Mã Ngành</span>
+                        <input 
+                            type="text" 
+                            name="code" 
+                            class="form-control" 
+                            placeholder="Nhập tổng số apply"
+                            value="{{ old('code', $major->code ?? '') }}"
+                        >
+                    </div>
+                    <div class="form-row mb10">
+                        <span class="text-danger notice">Tên Tiếng Anh</span>
+                        <input 
+                            type="text" 
+                            name="en_name" 
+                            class="form-control" 
+                            placeholder=""
+                            value="{{ old('en_name', $major->en_name ?? '') }}"
+                        >
+                    </div>
+                     <div class="form-row mb10">
+                        <span class="text-danger notice">Tên Tiếng Trung</span>
+                        <input 
+                            type="text" 
+                            name="cn_name" 
+                            class="form-control" 
+                            placeholder=""
+                            value="{{ old('cn_name', $major->cn_name ?? '') }}"
+                        >
+                    </div>
                     <x-backend.select2
                         :options="$dropdown"
                         heading="Chọn Nhóm ngành"

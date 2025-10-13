@@ -24,6 +24,9 @@ class Major extends Model
         'train_id',
         'major_group_id',
         'viewed',
+        'en_name',
+        'cn_name',
+        'code'
     ];
 
     protected $casts = [

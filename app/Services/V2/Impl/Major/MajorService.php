@@ -14,7 +14,7 @@ class MajorService extends BaseService {
     protected $fillable;
     private $routerService;
 
-    protected $with = ['languages', 'users'];
+    protected $with = ['languages', 'users', 'major_groups.languages'];
 
     public function __construct(
         MajorRepo $repository,
