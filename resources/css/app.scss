@@ -42,7 +42,9 @@
   --main-font: "Inter";
   --second-font: "Manrope";
   --third-font: "Unbounded";
-  --four-font: "Montserrat"
+  --four-font: "Montserrat";
+   --bs-primary: #af52de;
+  --bs-body-color: #424242;
 }
 
 // ================
@@ -4231,5 +4233,225 @@ button{
         .image{
             height: 135px;
         }
+    }
+}
+
+.page-body{
+    padding:120px 0;
+    .section-header{
+        margin-bottom:3rem;
+    }
+    .section-title{
+        font-size:44px;
+        line-height:53px;
+        color:rgb(50, 0, 75);
+        font-weight: 700;
+        font-family: var(--four-font);
+        text-transform: uppercase;
+    }
+    .section-subtitle{
+        font-family: var(--four-font);
+        font-weight: 600;
+        font-size:28px;
+        line-height:34px;
+        text-align: center;
+    }
+}
+
+.sst-row{
+    border-bottom:1px solid rgba(175, 85, 222, 0.1);
+    display: flex;
+    border-top:1px solid rgba(175, 85, 222, 0.1);
+
+
+    .sst-col {
+        padding: .5rem;
+        width: 33%;
+        text-align: center;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: flex;
+        -webkit-align-items: center;
+        -moz-box-align: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        -moz-box-pack: center;
+        justify-content: center;
+        background-color: #fff;
+        border-right: 1px solid rgba(175, 82, 222, .1);
+        position: relative;
+        justify-content: center !important;
+
+        &:first-child{
+            border-left: 1px solid rgba(175, 82, 222, .1)
+        }
+
+        &.label{
+            width: 240px;
+            -webkit-flex-shrink: 0;
+            flex-shrink: 0;
+            -webkit-justify-content: flex-start;
+            -moz-box-pack: start;
+            justify-content: flex-start;
+            text-align: start;
+            color: #6c757d;
+            font-size: 14px;
+
+            svg{
+                margin-right:15px;
+            }
+        }
+    }
+
+    .text-primary {
+        --bs-text-opacity: 1;
+        color: rgba(175, 82, 222, var(--bs-text-opacity)) !important;
+    }
+
+}
+.btn{
+    font-weight: 500;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    justify-content: center;
+    grid-gap: .25rem;
+    gap: .25rem;
+    padding:0.5rem !important;
+}
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #af52de;
+  border: 1px solid #af52de;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 10px rgba(#af52de, 0.4);
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken(#af52de, 8%);
+    border-color: darken(#af52de, 8%);
+    box-shadow: 0 0 12px rgba(#af52de, 0.6);
+  }
+
+  &:active {
+    background-color: darken(#af52de, 15%);
+    border-color: darken(#af52de, 15%);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.15);
+  }
+
+  &:disabled {
+    background-color: lighten(#af52de, 20%);
+    border-color: lighten(#af52de, 20%);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.sst-header{
+    margin: 0.25rem 0;
+    background: rgba(175, 82, 222, .1);
+    text-transform: uppercase;
+    border-left: 3px solid var(--bs-primary);
+    font-weight: 600;
+    padding: .5rem 1rem;
+}
+
+.sst-body .sst-col.label{
+    text-align: left !important;
+    justify-content: left !important;
+}
+
+.sst-row:nth-child(2n) .sst-col {
+    background-color: #fafbfc;
+}
+
+.scholar-page .page-body{
+    padding-top:0;
+}
+
+#school-list{
+    .uk-modal-dialog{
+        width:400px;
+        border-radius: 20px;
+        padding:20px;
+    }
+
+    form{
+        position: relative;
+        .input-text{
+            height:20px;
+            border-radius: 10px;
+            height:42px;
+            width:100%;
+            border:1px solid #dee2e6;
+            padding-left:85px;
+            padding-right:10px;
+        }
+        button{
+            position: absolute;
+            height:42px;
+            border-radius: 10px 0 0 10px;
+            border:0;
+            position: absolute;
+            left:0;
+            top:0;
+            padding: 0 20px;
+            border:1px solid #dee2e6;
+        }
+    }
+    
+    .schools{
+        padding:20px 0;
+
+        .compare-school-item{
+            padding:10px 0;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor:pointer;
+
+            img{
+                width:48px;
+                margin-right:10px;
+            }
+            .fw-medium {
+                font-weight: 700;
+                font-size:18px;
+                margin-bottom:8px;
+            }
+            .text-secondary{
+                color:rgba(108, 117, 125);
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.sst-row{
+    .sst-col{
+        text-align: center;
+    }
+}
+
+.sst-row .btnRevUni {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    border:0;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover{
+        background: #eaeaea;
     }
 }

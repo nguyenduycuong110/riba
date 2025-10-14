@@ -898,8 +898,166 @@ HT.loadmajorFilter = (url) => {
     });
 }
 
+HT.findSchoolList = () => {
+    $(document).on('click', '.choose-school', function(){
+        const _this = $(this)
+        let index = _this.attr('data-row')
+        $('#school-index').val(index)
+    })
+}
+
+HT.chooseSchoolToCompare = () => {
+    $(document).on('click', '.compare-school-item', function(){
+        const _this = $(this)
+        const index = parseInt($('#school-index').val(), 10) // ép kiểu về số nguyên
+        const schoolData = JSON.parse(_this.attr('data-json'))
+        const info = schoolData.information || {}
+
+        const name =  schoolData.languages[0].pivot.name;
+        const logo = schoolData.logo || '/images/no-logo.png';
+        const col = $(`.choose-school[data-row="${index}"]`).closest('.sst-col');
+
+        col.html(`
+        <div class="text-center my-2">
+            <img src="${logo}" width="48" height="48" alt="${name}">
+            <div class="mt-2 fw-medium">${name}</div>
+            <button type="button" class="p-2 btnRevUni btn btn-light" data-row="${index}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" stroke-width="1.5"></path>
+                </svg>
+            </button>
+        </div>
+        `);
+
+        // Test: đổ giá trị Mã trường
+        updateValue("Mã trường", schoolData.code)
+        updateValue("Năm thành lập", info.founded_year)
+        updateValue("Loại hình trường", schoolData.school_catalogues[0].languages[0].pivot.name)
+        const projects = (schoolData.school_projects || []).map(p => p.name).join(', ')
+        updateValue("Dự án", projects)
+        updateValue("Trực thuộc trung ương", info.direct_center)
+        updateValue("Khu Vực", schoolData.school_areas.name)
+        updateValue("Thành phố", info.city)
+        updateValue("Thành phố", info.city)
+        updateValue("Cấp thành phố", info.city_level)
+        updateValue("Cấp tỉnh", info.tinh_level)
+        updateValue("Đặc khu kinh tế", info.special_economic_zone)
+        updateValue("Xếp hạng quốc gia", info.national_rank)
+        updateValue("Xếp hạng thế giới", info.world_rank)
+        updateValue("Diện tích (m2)", info.acreage)
+        updateValue("Cơ sở trường", info.campuses)
+        updateValue("Số nhà ăn", 'N/A')
+        updateValue("Sân tập thể dục", 'Không có')
+        updateValue("Phòng thí nghiệm", info.labs_count)
+        updateValue("Sách thư viện", info.library_books)
+        updateValue("Số giảng viên", info.faculty_count)
+        updateValue("Tổng sinh viên", info.total_students)
+        updateValue("Sinh viên đại học", info.sinh_vien_dai_hoc)
+        updateValue("Nghiên cứu sinh", info.nghien_cuu_sinh)
+        updateValue("Sinh viên quốc tế", info.international_students)
+        updateValue("Số chuyên ngành đại học", info.programs_count)
+        updateValue("Chuyên ngành thạc sĩ", info.master_programs)
+        updateValue("Chuyên ngành tiến sĩ", info.phd_programs)
+        updateValue("Ngành trọng điểm quốc gia", info.key_subjects)
+        updateValue("Số lượng học bổng", schoolData.school_scholars.length)
+        const scholars = (schoolData.school_scholars || [])
+        const scholarChinhPhu = scholars
+        .filter(s => s.scholar_catalogue_id == 16)
+        .map(s => s.languages?.[0]?.pivot?.name)
+        .filter(Boolean)
+        .join(', ')
+
+        updateValue("Học bổng chính phủ", scholarChinhPhu || '—')
+
+        const scholarKhongTu = scholars
+        .filter(s => s.scholar_catalogue_id == 15)
+        .map(s => s.languages?.[0]?.pivot?.name)
+        .filter(Boolean)
+        .join(', ')
+        updateValue("Học bổng khổng tử", scholarKhongTu || '—')
+
+        const scholarTinh = scholars
+        .filter(s => s.scholar_catalogue_id == 14)
+        .map(s => s.languages?.[0]?.pivot?.name)
+        .filter(Boolean)
+        .join(', ')
+        updateValue("Học bổng Tỉnh", scholarTinh || '—')
+
+        const scholarThanhPho = scholars
+        .filter(s => s.scholar_catalogue_id == 13)
+        .map(s => s.languages?.[0]?.pivot?.name)
+        .filter(Boolean)
+        .join(', ')
+        updateValue("Học bổng Thành phố", scholarThanhPho || '—')
+
+        const scholarTruong = scholars
+        .filter(s => s.scholar_catalogue_id == 11)
+        .map(s => s.languages?.[0]?.pivot?.name)
+        .filter(Boolean)
+        .join(', ')
+        updateValue("Học bổng Trường", scholarTruong || '—')
+        updateValue("Học phí 1 năm tiếng", info.language_fee)
+        updateValue("Học phí hệ Đại học (Tệ/năm)", info.bachelor_fee)
+        updateValue("Học phí hệ Thạc sĩ (Tệ/năm)", info.master_fee)
+        updateValue("Học phí hệ Tiến sĩ (Tệ/năm)", info.phd_fee)
+        updateValue("Sinhhoạt phí (Tệ/tháng)", info.living_fee)
+        updateValue("Phí ký túc xá (Tệ/tháng)", info.dormitory_fee)
+
+
+        function updateValue(labelText, value){
+            if (!labelText) return
+
+            const safeLabel = labelText.replace(/(["'\\])/g, '\\$1') // tránh lỗi ký tự đặc biệt
+            const selector = `.sst-row:has(.label:contains("${safeLabel}")) .sst-col:nth-child(${index + 1})`
+            
+            // console.log('Selector:', selector, '| Value:', value)
+            $(selector).html(value || "—")
+        }
+    })
+}
+
+
+HT.resetCompareCol = () => {
+    $(document).on('click', '.btnRevUni', function(){
+        const _this = $(this)
+        const index = parseInt($(this).attr('data-row'), 10);
+        const col = _this.closest('.sst-col')
+
+        // Xoá nội dung cũ và render lại nút "+"
+        col.html(`
+            <button 
+                data-row="${index}" 
+                type="button" 
+                class="p-2 btn-raised btn btn-primary uk-button choose-school" 
+                data-uk-modal="{target:'#school-list'}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4.5v15m7.5-7.5h-15"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke="currentColor"
+                        stroke-width="1.5"></path>
+                </svg>
+            </button>
+        `)
+
+        // 2️⃣ Xoá toàn bộ dữ liệu trong cột tương ứng (trừ label)
+        $('.sst-row').each(function (rowIndex) {
+            if (rowIndex === 0) return; // ❌ bỏ qua hàng đầu tiên
+
+            const colToClear = $(this).find(`.sst-col:nth-child(${index + 1})`);
+            if (!colToClear.hasClass('label')) {
+                colToClear.html('');
+            }
+        });
+
+        console.log(`✅ Đã reset xong cột thứ ${index}`);
+    })
+}
 
 $(document).ready(function(){
+    HT.resetCompareCol()
+    HT.chooseSchoolToCompare();
+    HT.findSchoolList()
     HT.showFilter()
     HT.scrollToForm()
     HT.schoolFilter()

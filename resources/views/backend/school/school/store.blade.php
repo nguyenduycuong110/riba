@@ -147,6 +147,17 @@
                                         >
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Đặc khu kinh tế</td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="information[special_economic_zone]" 
+                                            class="form-control"
+                                            value="{{ old('information.special_economic_zone', $school->information['special_economic_zone'] ?? '') }}"
+                                        >
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                         
@@ -160,6 +171,17 @@
                                             name="information[city_level]" 
                                             class="form-control"
                                             value="{{ old('information.city_level', $school->information['city_level'] ?? '') }}"
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cấp tỉnh</td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            name="information[tinh_level]" 
+                                            class="form-control"
+                                            value="{{ old('information.tinh_level', $school->information['tinh_level'] ?? '') }}"
                                         >
                                     </td>
                                 </tr>
@@ -233,7 +255,7 @@
                                     <td>Số lượng sinh viên quốc tế</td>
                                     <td>
                                         <input 
-                                            type="number" 
+                                            type="text" 
                                             name="information[international_students]" 
                                             class="form-control"
                                             value="{{ old('information.international_students', $school->information['international_students'] ?? '') }}"
@@ -270,6 +292,17 @@
                                             name="information[faculty_count]" 
                                             class="form-control"
                                             value="{{ old('information.faculty_count', $school->information['faculty_count'] ?? '') }}"
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nghiên cứu sinh</td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="information[nghien_cuu_sinh]" 
+                                            class="form-control"
+                                            value="{{ old('information.nghien_cuu_sinh', $school->information['nghien_cuu_sinh'] ?? '') }}"
                                         >
                                     </td>
                                 </tr>
@@ -399,6 +432,30 @@
                                         >
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Trực thuộc trung ương</td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="information[direct_center]" 
+                                            class="form-control"
+                                            value="{{ old('information.direct_center', $school->information['direct_center'] ?? '') }}"
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sinh viên đại học</td>
+                                    <td>
+                                        <input 
+                                            type="text" 
+                                            name="information[sinh_vien_dai_hoc]" 
+                                            class="form-control"
+                                            value="{{ old('information.sinh_vien_dai_hoc', $school->information['sinh_vien_dai_hoc'] ?? '') }}"
+                                        >
+                                    </td>
+                                </tr>
+                                
+                                
                             </table>
                         </div>
                     </div>

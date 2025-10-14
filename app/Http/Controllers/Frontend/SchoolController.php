@@ -207,4 +207,29 @@ class SchoolController extends FrontendController
         ];
     }
 
+    public function compare(){
+        $config = $this->config();
+        $system = $this->system;
+        $canonical = write_url('so-sanh-truong');
+
+        $seo = [
+            'meta_title' => 'So sánh các trường đại học',
+            'meta_keyword' => '',
+            'meta_description' => '',
+            'meta_image' => '',
+            'canonical' => $canonical,
+        ];
+
+        $schools = $this->schoolService->pagination(new Request(['type' => 'all', 'take' => 4, 'sort' => 'id,desc']));
+
+        $template = 'frontend.school.school.compare';
+      
+        return view($template, compact(
+            'config',
+            'seo',
+            'system',
+            'schools'
+        ));
+    }
+
 }

@@ -14,7 +14,14 @@ class SchoolService extends BaseService {
     protected $fillable;
     private $routerService;
 
-    protected $with = ['users', 'school_catalogues', 'school_projects', 'school_areas', 'languages'];
+    protected $with = [
+        'users', 
+        'school_catalogues.languages', 
+        'school_projects', 
+        'school_areas',
+        'school_scholars.languages', 
+        'languages'
+    ];
 
     public function __construct(
         SchoolRepo $repository,
