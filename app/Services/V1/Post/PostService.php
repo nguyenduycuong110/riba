@@ -73,7 +73,7 @@ class PostService extends BaseService
 
 
         $orderBy = isset($sort) ? $sort : ['posts.id', 'DESC'];
-        $relations = ['post_catalogues.languages'];
+        $relations = ['post_catalogues.languages', 'post_catalogues.post_catalogue_language'];
         $rawQuery = $this->whereRaw($request, $languageId, $postCatalogue);
 
         $joins = [
