@@ -10,8 +10,8 @@
                         <p class="office">Văn phòng Hà Nội</p>
                         <p class="address">- Địa chỉ: {{ $system['contact_office'] }}</p>
                         <p class="hotline">
-                            - Số điện thoại: <a href="tel:{{ $system['contact_hotline'] }}">{{ $system['contact_hotline'] }} </a>
-                            - Số điện thoại: <a href="tel:{{ $system['contact_hotline'] }}"> {{ $system['contact_hotline'] }}</a>
+                            - Hotline: <a href="tel:{{ $system['contact_hotline'] }}">{{ $system['contact_hotline'] }} </a>
+                            - Số điện thoại: <a href="tel:{{ $system['contact_phone'] }}"> {{ $system['contact_phone'] }}</a>
                         </p>
                         <p class="address">- Email: <a href="mailto:{{ $system['contact_email'] }}">{{ $system['contact_email'] }}</a></p>
                         <p class="website">- Website: <a href="{{ $system['contact_website'] }}">{{ $system['contact_website'] }}</a></p>
