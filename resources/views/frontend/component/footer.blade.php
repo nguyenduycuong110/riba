@@ -5,7 +5,7 @@
                 <h3 class="heading-2 wow fadeInDown" data-wow-delay="0.3s"><span>{{ $system['homepage_company'] }}</span></h3>
             </div>
             <div class="uk-grid uk-grid-medium">
-                <div class="uk-width-medium-1-2">
+                <div class="uk-width-medium-2-5">
                     <div class="info-company wow fadeInDown" data-wow-delay="0.3s">
                         <p class="office">Văn phòng Hà Nội</p>
                         <p class="address">- Địa chỉ: {{ $system['contact_office'] }}</p>
@@ -42,16 +42,10 @@
                         </div>
                     @endforeach
                 @endif
-                <div class="uk-width-medium-1-6">
+                <div class="uk-width-medium-1-4">
                     <div class="footer-menu__item wow fadeInDown" data-wow-delay="0.3s">
                         <h3 class="heading-2"><span>Liên kết</span></h3>
-                        <ul class="uk-list uk-clearfix">
-                            <li><a href="{{ $system['social_facebook'] }}" title="" target="_blank" >- Facebook</a></li>
-                            <li><a href="{{ $system['social_youtube'] }}" title="" target="_blank" >- Youtube</a></li>
-                            <li><a href="{{ $system['social_tiktok'] }}" title="" target="_blank" >- Tiktok</a></li>
-                            <li><a href="{{ $system['social_lazada'] }}" title="" target="_blank" >- Lazada</a></li>
-                            <li><a href="{{ $system['social_shopee'] }}" title="" target="_blank" >- Shopee</a></li>
-                        </ul>
+                        <div class="fb-page" data-href="{{ $system['social_facebook'] }}"  data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
                     </div>
                 </div>
             </div>
@@ -63,3 +57,6 @@
         </div>
     </div>
 </footer>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v24.0&appId=103609027035330"></script>
