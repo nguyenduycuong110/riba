@@ -136,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <div class="section-6">
+        {{-- <div class="section-6">
             <div class="uk-container uk-container-center">
                 <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
                     <div class="uk-width-large-1-2">
@@ -191,7 +191,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         @php
             $icon = ['fa fa-user', 'fa fa-diamond', 'fa fa-tag']
         @endphp
