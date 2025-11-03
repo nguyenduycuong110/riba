@@ -22,7 +22,7 @@ class Introduce{
                 'fanpage_link' => ['type' => 'text', 'label' => 'Fanpage Link'],
             ]
         ];
-        $data['block_1'] = [
+        $data['block_2'] = [
             'label' => 'Khối 2',
             'description' => 'Cài đặt đầy đủ thông tin khối dưới đây',
             'value' => [
