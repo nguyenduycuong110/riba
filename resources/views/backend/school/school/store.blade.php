@@ -129,7 +129,7 @@
                                     <td>Xếp hạng quốc gia</td>
                                     <td>
                                         <input 
-                                            type="number" 
+                                            type="text" 
                                             name="information[national_rank]" 
                                             class="form-control"
                                             value="{{ old('information.national_rank', $school->information['national_rank'] ?? '') }}"
@@ -189,7 +189,7 @@
                                     <td>Xếp hạng thế giới</td>
                                     <td>
                                         <input 
-                                            type="number" 
+                                            type="text" 
                                             name="information[world_rank]" 
                                             class="form-control"
                                             value="{{ old('information.world_rank', $school->information['world_rank'] ?? '') }}"
@@ -491,10 +491,7 @@
                     <div class="form-row mb10">
                         <span class="text-danger notice">Xếp hạng</span>
                         <input 
-                            type="number" 
-                            min="1" 
-                            max="1000" 
-                            step="1" 
+                            type="text" 
                             name="rank" 
                             class="form-control" 
                             placeholder="Nhập xếp hạng"
