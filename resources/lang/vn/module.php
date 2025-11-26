@@ -10,6 +10,8 @@
             'Scholar' => 'Học Bổng',
             'MajorCatalogue' => 'Nhóm Chuyên Ngành',
             'Major' => 'Chuyên Ngành',
+            'SchoolCatalogue' => 'Nhóm Trường',
+            'School' => 'Trường',
         ],
         'type' => [
             'dropdown-menu' => 'Dropdown Menu',
