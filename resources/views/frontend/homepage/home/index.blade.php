@@ -314,39 +314,46 @@
         <x-card-form :scholars="$scholars" />
 
         @php
-            $review = $widgets['review'] ?? null;
+            // Lấy danh sách schools mới nhất từ controller
+            $schoolsList = $schools ?? collect();
         @endphp
-        @if(isset($review) && !is_null($review))
-            @foreach($review->object as $key => $val)
-            @php
-                $name = $val->languages->name;
-                $canonical = write_url($val->languages->canonical);
-                $description = $val->languages->description;
-            @endphp
+        
+        @if(isset($schoolsList) && $schoolsList->count() > 0)
             <div class="panel-review">
                 <div class="uk-container uk-container-center">
                     <div class="panel-head">
                         <div class="special-violet">Review</div>
-                        <h2 class="heading-2"><span>{{ $name }}</span></h2>
+                        <h2 class="heading-2"><span>Review Trường</span></h2>
                         <div class="description">
-                            {!! $description !!}
+                            <p>Khám phá các trường học nổi bật và đánh giá từ học sinh, phụ huynh</p>
                         </div>
                     </div>
                     <div class="panel-body">
-                        @if(isset($val->posts) && count($val->posts))
                         <div class="uk-grid uk-grid-medium">
-                            @foreach($val->posts as $keyPost => $item)
-                            @if($keyPost > 9) @break @endif
-                            <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 uk-width-xlarge-1-4 mb25">
+                            @foreach($schoolsList as $item)
+                            @php
+                                // Chỉ hiển thị nếu có languages
+                                if($item->languages && $item->languages->count() > 0):
+                                    // Đảm bảo extra không null để tránh lỗi trong component review
+                                    if(!isset($item->extra) || is_null($item->extra)) {
+                                        $item->extra = '';
+                                    }
+                                    // Lấy số lượng reviews nếu có
+                                    if(!isset($item->comments)) {
+                                        $item->comments = ($item->reviews && method_exists($item->reviews, 'count')) ? $item->reviews->count() : 0;
+                                    }
+                            @endphp
+                            <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-2 uk-width-large-1-3 uk-width-xlarge-1-4 mb25">
                                 <x-review :item="$item" />
                             </div>
+                            @php
+                                endif;
+                            @endphp
                             @endforeach
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
-            @endforeach
         @endif
 
 

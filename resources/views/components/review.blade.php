@@ -1,14 +1,24 @@
 @props(['item'])
 @php
-    $name = $item->languages[0]->name;
-    $description = cutnchar(strip_tags($item->languages[0]->description));
-    $content = explode(',', $item->extra);
-    $image = $item->image;
+    // Xử lý cho cả Post và School model
+    $language = $item->languages->first() ?? null;
+    if($language) {
+        // Nếu có pivot (belongsToMany như School)
+        $name = $language->pivot->name ?? $language->name ?? '';
+        $description = cutnchar(strip_tags($language->pivot->description ?? $language->description ?? ''));
+        $canonical = write_url($language->pivot->canonical ?? $language->canonical ?? '');
+    } else {
+        // Fallback nếu không có language
+        $name = '';
+        $description = '';
+        $canonical = '#';
+    }
+    $content = explode(',', $item->extra ?? '');
+    $image = $item->image ?? '';
     $logo = $item->logo ?? '';
     // $rank = rand(1,10);
     $rate = $item->rate ?? rand(75,100);
     $comments = $item->comments ?? 0;
-    $canonical = write_url($item->languages[0]->canonical);
 @endphp
 <div class="review-item">
     <a href="{{ $canonical }}" class="image img-cover">

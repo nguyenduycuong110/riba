@@ -9,6 +9,7 @@ use App\Services\V1\Core\SlideService;
 use App\Enums\SlideEnum;
 use App\Services\V1\Core\WidgetService;
 use App\Services\V2\Impl\Scholar\ScholarService;
+use App\Models\School;
 use Illuminate\Http\Request;
 
 class HomeController extends FrontendController
@@ -52,13 +53,24 @@ class HomeController extends FrontendController
             ['keyword' => 'scholars', 'object' => true],
             ['keyword' => 'scholar-catalogues'],
             ['keyword' => 'major-catalogue'],
-            ['keyword' => 'review', 'object' => true],
             ['keyword' => 'share', 'object' => true],
         ], $this->language);
 
 
 
         $scholars = $this->scholarService->pagination(new Request()->merge(['type' => 'all', 'sort' => 'id,asc']));
+        
+        // Lấy danh sách schools mới nhất cho phần Review trường
+        // Lấy 8 bản ghi mới nhất, language_id = 1
+        $schools = School::with(['languages'])
+            ->where('publish', 2)
+            ->whereHas('languages', function($query) {
+                $query->where('language_id', 1);
+            })
+            ->orderBy('id', 'desc')
+            ->take(8)
+            ->get();
+
         $system = $this->system;
         $seo = [
             'meta_title' => $this->system['seo_meta_title'],
@@ -76,7 +88,8 @@ class HomeController extends FrontendController
             'system',
             'schema',
             'widgets',
-            'scholars'
+            'scholars',
+            'schools'
         ));
     }
 
