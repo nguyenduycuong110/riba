@@ -109,6 +109,15 @@ class System{
             ]
         ];
 
+         $data['text'] = [
+            'label' => 'Cấu hình script',
+            'description' => '',
+            'value' => [
+                '12' => ['type' => 'textarea', 'label' => 'Text Liên Hệ'],
+            ]
+        ];
+
+
        
         return $data;
     }
