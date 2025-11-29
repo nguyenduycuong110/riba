@@ -15,10 +15,9 @@
                     <div class="apply-form-wrapper">
                         <form action="post" class="reg-form">
                             <div class="form-heading">
-                                <div class="text-whit">Tài Khoản</div>
                                 <h2 class="heading-3"><span>Đăng Ký<br /> Tư Vấn <span class="clr">Học Bổng</span> </span></h2>
                                 <div class="description">
-                                    Nhập đầy đủ tất cả các thông tin trong biểu mẫu dưới dây
+                                    Liên hệ ngay cho Du học CTI HSK để được tư vấn hỗ trợ
                                 </div>
                                 <div class="form-container">
                                     <div class="uk-grid uk-grid-medium mb20">
