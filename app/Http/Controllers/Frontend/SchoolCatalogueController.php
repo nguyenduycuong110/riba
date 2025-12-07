@@ -143,83 +143,71 @@ class SchoolCatalogueController extends FrontendController
 
     private function schema($schoolCatalogue, $schools, $breadcrumb)
     {
+        $catName = $schoolCatalogue->languages->first()->pivot->name ?? '';
+        $catCanonical = write_url($schoolCatalogue->languages->first()->pivot->canonical ?? '');
+        $catDescription = strip_tags($schoolCatalogue->languages->first()->pivot->description ?? '');
 
-        $cat_name = $schoolCatalogue->languages->first()->pivot->name;
-
-        $cat_canonical = write_url($schoolCatalogue->languages->first()->pivot->canonical);
-
-        $cat_description = strip_tags($schoolCatalogue->languages->first()->pivot->description);
-
-        $itemListElements = '';
-
-        $position = 1;
-
+        // Build blog post items
+        $blogPosts = [];
         foreach ($schools as $school) {
-            $name = $school->languages->first()->pivot->name;
-            $canonical = write_url($school->languages->first()->pivot->canonical);
-            $itemListElements .= "
-                {
-                    \"@type\": \"BlogPosting\",
-                    \"headline\": \" " . $name . " \",
-                    \"url\": \" " . $canonical . " \",
-                    \"datePublished\": \" " . convertDateTime($school->created_at, 'd-m-Y') . " \",
-                    \"author\": {
-                        \"@type\": \" Person  \",
-                        \"name\": \" An Hưng \",
-                    }
-                },";
-            $position++;
-        }
-
-        $itemListElements = rtrim($itemListElements, ',');
-
-        $itemBreadcrumbElements = '';
-
-        $positionBreadcrumb = 2;
-
-        foreach ($breadcrumb as $key => $item) {
-            $name = $item->languages->first()->pivot->name;
-            $canonical = write_url($item->languages->first()->pivot->canonical);
-            $itemBreadcrumbElements .= "
-                {
-                    \"@type\": \"ListItem\",
-                    \"position\": $positionBreadcrumb,
-                    \"name\": \"" . $name . "\",
-                    \"item\": \"" . $canonical . "\",
-                },";
-            $positionBreadcrumb++;
-        }
-
-        $itemBreadcrumbElements = rtrim($itemBreadcrumbElements, ',');
-
-        $schema = "<script type='application/ld+json'>
-            {
-                \"@type\": \"BreadcrumbList\",
-                \"itemListElement\": [
-                    {
-                        \"@type\": \"ListItem\",
-                        \"position\": 1,
-                        \"name\": \" Trang chủ  \",
-                        \"item\": \" " . config('app.url') . " \"
-                    },
-                    $itemBreadcrumbElements
-                ]
-            },
-            {
-                \"@context\": \"https://schema.org\",
-                \"@type\": \"Blog\",
-                \"name\": \"" . $cat_name . "\",
-                \"description\": \" " . $cat_description . " \",
-                \"url\": \"" . $cat_canonical . "\",
-                \"publisher\": [
-                    \"@type\": \"Organization\",
-                    \"name\": \" An Hưng \",
-                ],
-                \"blogPost\": {
-                    $itemListElements
-                }
+            $name = $school->languages->first()->pivot->name ?? '';
+            $canonical = write_url($school->languages->first()->pivot->canonical ?? '');
+            $datePublished = $school->created_at ? convertDateTime($school->created_at, 'd-m-Y') : '';
+            
+            if (!empty($name) && !empty($canonical)) {
+                $blogPosts[] = [
+                    "@type" => "BlogPosting",
+                    "headline" => $name,
+                    "url" => $canonical,
+                    "datePublished" => $datePublished,
+                ];
             }
-            </script>";
+        }
+
+        // Build breadcrumb items
+        $breadcrumbItems = [
+            [
+                "@type" => "ListItem",
+                "position" => 1,
+                "name" => "Trang chủ",
+                "item" => config('app.url')
+            ]
+        ];
+
+        $position = 2;
+        foreach ($breadcrumb as $item) {
+            $itemName = $item->languages->first()->pivot->name ?? '';
+            $itemCanonical = write_url($item->languages->first()->pivot->canonical ?? '');
+            
+            if (!empty($itemName) && !empty($itemCanonical)) {
+                $breadcrumbItems[] = [
+                    "@type" => "ListItem",
+                    "position" => $position,
+                    "name" => $itemName,
+                    "item" => $itemCanonical
+                ];
+                $position++;
+            }
+        }
+
+        // Build schema data
+        $schemaData = [
+            [
+                "@type" => "BreadcrumbList",
+                "itemListElement" => $breadcrumbItems
+            ],
+            [
+                "@context" => "https://schema.org",
+                "@type" => "Blog",
+                "name" => $catName,
+                "description" => $catDescription,
+                "url" => $catCanonical,
+                "blogPost" => $blogPosts
+            ]
+        ];
+
+        $schema = "<script type='application/ld+json'>" . json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>";
+        
         return $schema;
     }
 

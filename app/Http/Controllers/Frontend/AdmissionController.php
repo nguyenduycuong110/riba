@@ -100,95 +100,67 @@ class AdmissionController extends FrontendController
     }
 
     private function schema($post, $postCatalogue, $breadcrumb){
+        // Lưu giá trị gốc trước khi bị ghi đè trong vòng lặp
+        $postName = $post->languages->first()->pivot->name ?? '';
+        $postImage = $post->image ?? '';
+        $postDescription = strip_tags($post->languages->first()->pivot->description ?? '');
+        $postCanonical = write_url($post->languages->first()->pivot->canonical ?? '');
+        $postDatePublished = $post->created_at ? convertDateTime($post->created_at, 'd-m-y') : '';
+        $postDateModified = $post->updated_at ? convertDateTime($post->updated_at, 'd-m-y') : '';
+        $articleSection = $postCatalogue->languages->first()->pivot->name ?? '';
 
-        $image = $post->image;
+        // Build breadcrumb items
+        $breadcrumbItems = [
+            [
+                "@type" => "ListItem",
+                "position" => 1,
+                "name" => "Trang chủ",
+                "item" => config('app.url')
+            ]
+        ];
 
-        $name = $post->languages->first()->pivot->name;
-
-        $description = strip_tags($post->languages->first()->pivot->description);
-
-        $canonical = write_url($post->languages->first()->pivot->canonical);
-
-        $itemBreadcrumbElements = '';
-
-        $positionBreadcrumb = 2;
-
-        foreach ($breadcrumb as $key => $item) {
-
-            $name = $item->languages->first()->pivot->name;
-
-            $canonical = write_url($item->languages->first()->pivot->canonical);
-
-            $itemBreadcrumbElements .= "
-                {
-                    \"@type\": \"ListItem\",
-                    \"position\": $positionBreadcrumb,
-                    \"name\": \"" . $name . "\",
-                    \"item\": \"" . $canonical . "\",
-                },";
-            $positionBreadcrumb++;
+        $position = 2;
+        foreach ($breadcrumb as $item) {
+            $itemName = $item->languages->first()->pivot->name ?? '';
+            $itemCanonical = write_url($item->languages->first()->pivot->canonical ?? '');
+            
+            if (!empty($itemName) && !empty($itemCanonical)) {
+                $breadcrumbItems[] = [
+                    "@type" => "ListItem",
+                    "position" => $position,
+                    "name" => $itemName,
+                    "item" => $itemCanonical
+                ];
+                $position++;
+            }
         }
 
-        $itemBreadcrumbElements = rtrim($itemBreadcrumbElements, ',');
+        // Build schema data
+        $schemaData = [
+            [
+                "@type" => "BreadcrumbList",
+                "itemListElement" => $breadcrumbItems
+            ],
+            [
+                "@context" => "https://schema.org",
+                "@type" => "BlogPosting",
+                "headline" => $postName,
+                "description" => $postDescription,
+                "url" => $postCanonical,
+                "datePublished" => $postDatePublished,
+                "dateModified" => $postDateModified,
+                "articleSection" => $articleSection,
+            ]
+        ];
 
-        $schema = "
-            <script type=\"application/ld+json\">
-                {
-                    \"@type\": \"BreadcrumbList\",
-                    \"itemListElement\": [
-                        {
-                            \"@type\": \"ListItem\",
-                            \"position\": 1,
-                            \"name\": \" Trang chủ  \",
-                            \"item\": \" ". config('app.url') . " \"
-                        },
-                        $itemBreadcrumbElements
-                    ]
-                },
-                {
-                    \"@context\": \"https://schema.org\",
-                    \"@type\": \"BlogPosting\",
-                    \"headline\": \" " . $name .  " \",
-                    \"description\": \"  " . $description .  "  \",
-                    \"image\": \"  " . $image .  "  \",
-                    \"url\": \"  " . $canonical .  "  \",
-                    \"datePublished\": \"  " . convertDateTime($post->created_at, 'd-m-y') .  "  \",
-                    \"dateModified\": \"  " . convertDateTime($post->created_at, 'd-m-y') .  "  \",
-                    \"author\": [
-                        \"@type\": \"Person\",
-                        \"name\": \"\",
-                        \"url\": \"\",
-                    ],
-                    \"publisher\": [
-                        \"@type\": \"Organization\",
-                        \"name\": \" An Hưng  \",
-                        \"logo\": [
-                            \"@type\": \"ImageObject\",
-                            \"url\": \"   \",
-                        ],
-                    ],
-                    \"mainEntityOfPage\": [
-                        \"@type\": \"Organization\",
-                        \"@id\": \" " . $canonical . " \",
-                    ],
-                    \"articleSection\": \"  " . $postCatalogue->languages->first()->pivot->name .  "  \",
-                    \" keywords \": \"  \",
-                    \" timeRequired \": \"  \",
-                    \"about\": [
-                        \"@type\": \"Thing\",
-                        \"name\": \" \",
-                    ],
-                    \"mentions\": [
-                        {
-                            \"@type\": \"Product\",
-                            \"name\": \" \",
-                        }
-                    ],
-                }
-            </script>
-        ";
+        // Add image if exists
+        if (!empty($postImage)) {
+            $schemaData[1]["image"] = $postImage;
+        }
+
+        $schema = "<script type=\"application/ld+json\">" . json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>";
+        
         return $schema;
-
     } 
 
     private function config(){

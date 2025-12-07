@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
 use App\Http\Controllers\Frontend\ContactController as FeContactController;
 use App\Http\Controllers\Frontend\SchoolController;
+use App\Http\Controllers\Frontend\ReviewSchoolController;
 
 //@@useController@@
 
@@ -41,6 +42,8 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');
 
     Route::get('so-sanh-truong.html', [SchoolController::class, 'compare'])->name('school.compare');
+    Route::get('review-cac-truong-dai-hoc.html', [ReviewSchoolController::class, 'index'])->name('review.school.index');
+    Route::get('review-cac-truong-dai-hoc/trang-{page}.html', [ReviewSchoolController::class, 'index'])->name('review.school.page')->where('page', '[0-9]+');
 
     /** CART */
     Route::get('gio-hang'.config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');

@@ -16,9 +16,9 @@
                     :records="$records->getCollection()"
                     :columns="[
                         'name' => ['label' => 'Thành phố', 'render' => fn($item) => e($item->name)],
-                        'creator' => ['label' => 'Người tạo', 'render' => fn($item) => $item->users->name],
-                        'created_at' => ['label' => 'Ngày tạo', 'render' => fn($item) => $item->created_at->format('d-m-Y')],
-                        'updated_at' => ['label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at->format('d-m-Y')],
+                        'creator' => ['label' => 'Người tạo', 'render' => fn($item) => $item->users ? e($item->users->name) : '--'],
+                        'created_at' => ['label' => 'Ngày tạo', 'render' => fn($item) => $item->created_at ? $item->created_at->format('d-m-Y') : '--'],
+                        'updated_at' => ['label' => 'Ngày Sửa', 'render' => fn($item) => $item->updated_at ? $item->updated_at->format('d-m-Y') : '--'],
                     ]"
                     :actions="[
                         ['route' => 'school.city.edit', 'class' => 'btn-success', 'icon' => 'fa-edit'],

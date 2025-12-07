@@ -38,6 +38,20 @@ class SchoolService extends BaseService {
             $this->fillable = $this->repository->getFillable();
             $this->modelData = $request->only($this->fillable);
             $this->modelData['user_id'] = Auth::id();
+            
+            // Xử lý empty values: convert empty string thành null cho các trường nullable
+            // và xử lý area_id = 0 thành null
+            $nullableFields = ['code', 'rank', 'panorama', 'video', 'logo', 'address', 'phone', 'email', 'link_website', 'map'];
+            foreach ($nullableFields as $field) {
+                if (isset($this->modelData[$field]) && $this->modelData[$field] === '') {
+                    $this->modelData[$field] = null;
+                }
+            }
+            
+            // Xử lý area_id: nếu = 0 hoặc empty thì set null
+            if (isset($this->modelData['area_id']) && (empty($this->modelData['area_id']) || $this->modelData['area_id'] == 0)) {
+                $this->modelData['area_id'] = null;
+            }
         }
         return $this;
     }

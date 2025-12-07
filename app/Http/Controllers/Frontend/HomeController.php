@@ -96,27 +96,27 @@ class HomeController extends FrontendController
 
     private function schema($seo)
     {
-        $schema = "<script type='application/ld+json'>
-            {
-                \"@context\": \"https://schema.org\",
-                \"@type\": \"WebSite\",
-                \"name\": \"" . $seo['meta_title'] . "\",
-                \"url\": \"" . $seo['canonical'] . "\",
-                \"description\": \"" . $seo['meta_description'] . "\",
-                \"publisher\": {
-                    \"@type\": \"Organization\",
-                    \"name\": \"" . $seo['meta_title'] . "\"
-                },
-                \"potentialAction\": {
-                    \"@type\": \"SearchAction\",
-                    \"target\": {
-                        \"@type\": \"EntryPoint\",
-                        \"urlTemplate\": \"" . $seo['canonical'] . "search?q={search_term_string}\"
-                    },
-                    \"query-input\": \"required name=search_term_string\"
-                }
-            }
-            </script>";
+        $schemaData = [
+            "@context" => "https://schema.org",
+            "@type" => "WebSite",
+            "name" => $seo['meta_title'] ?? '',
+            "url" => $seo['canonical'] ?? '',
+            "description" => $seo['meta_description'] ?? '',
+            "publisher" => [
+                "@type" => "Organization",
+                "name" => $seo['meta_title'] ?? ''
+            ],
+            "potentialAction" => [
+                "@type" => "SearchAction",
+                "target" => [
+                    "@type" => "EntryPoint",
+                    "urlTemplate" => ($seo['canonical'] ?? '') . "search?q={search_term_string}"
+                ],
+                "query-input" => "required name=search_term_string"
+            ]
+        ];
+
+        $schema = "<script type='application/ld+json'>" . json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>";
 
         return $schema;
     }

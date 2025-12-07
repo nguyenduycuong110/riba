@@ -479,7 +479,7 @@
             <div class="col-lg-3">
                 <x-ibox heading="Thông tin trường">
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Mã trường</span>
+                        <span>Mã trường</span>
                         <input 
                             type="text" 
                             name="code" 
@@ -489,7 +489,7 @@
                         >
                     </div>
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Xếp hạng</span>
+                        <span>Xếp hạng</span>
                         <input 
                             type="text" 
                             name="rank" 
@@ -547,14 +547,14 @@
                     />
                     <div class="form-row mb10">
                         <label for="" class="uk-flex uk-flex-space-between">
-                            <span class="text-danger notice" style="margin-bottom: 0;">Toàn cảnh trường</span>
+                            <span style="margin-bottom: 0;">Toàn cảnh trường</span>
                         </label>
                         <textarea name="panorama" id="" cols="30" rows="10" class="form-control">{{ old('panorama', $school->panorama ?? '') }}</textarea>
                     </div>
                 </x-ibox>
                 <x-ibox heading="Thông tin liên hệ">
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Email</span>
+                        <span>Email</span>
                         <input 
                             type="text" 
                             name="email" 
@@ -564,7 +564,7 @@
                         >
                     </div>
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Số điện thoaị</span>
+                        <span>Số điện thoaị</span>
                         <input 
                             type="text" 
                             name="phone" 
@@ -574,7 +574,7 @@
                         >
                     </div>
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Địa chỉ</span>
+                        <span>Địa chỉ</span>
                         <input 
                             type="text" 
                             name="address" 
@@ -584,7 +584,7 @@
                         >
                     </div>
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Website</span>
+                        <span>Website</span>
                         <input 
                             type="text" 
                             name="link_website" 
@@ -595,7 +595,7 @@
                     </div>
                     <div class="form-row mb10">
                         <label for="" class="uk-flex uk-flex-space-between">
-                            <span class="text-danger notice" style="margin-bottom: 0;">Iframe bản đồ</span>
+                            <span style="margin-bottom: 0;">Iframe bản đồ</span>
                             <a class="system-link" target="_blank" href="https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/">Hướng dẫn thiết lập bản đồ</a>
                         </label>
                         <textarea name="map" id="" cols="30" rows="10" class="form-control">{{ old('map', $school->map ?? '') }}</textarea>

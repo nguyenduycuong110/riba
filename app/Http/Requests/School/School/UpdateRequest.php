@@ -25,10 +25,6 @@ class UpdateRequest extends FormRequest
 
         return [
             'name' => 'required',
-            'code' => 'required',
-            'rank' => 'required',
-            'school_catalogue_id' => 'gt:0',
-            'area' => 'gt:0',
             'canonical' => 'required|unique:routers,canonical, '.$this->id.',module_id',
         ];
     }
@@ -37,10 +33,6 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập vào ô tiêu đề.',
-            'code.required' => 'Bạn chưa nhập mã trường.',
-            'rank.required' => 'Bạn chưa nhập xếp hạng.',
-            'school_catalogue_id.gt' => 'Bạn chưa chọn loại hình trường.',
-            'area_id.gt' => 'Bạn chưa chọn khu vực.',
             'canonical.required' => 'Bạn chưa nhập vào ô đường dẫn',
             'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',
         ];
