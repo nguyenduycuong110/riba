@@ -78,7 +78,7 @@ class MajorController extends Controller {
     public function edit($id){
         $this->authorize('modules', 'major.update');
         if(!$major = $this->service->findById($id)){
-            return redirect()->route('major.major.index')->with('error','Bản ghi không tồn tại'); 
+            return redirect()->route('major.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
             'model' => 'Major',
@@ -118,7 +118,7 @@ class MajorController extends Controller {
     public function delete($id){
          $this->authorize('modules', 'major.destroy');
         if(!$major = $this->service->findById($id)){
-            return redirect()->route('major.major.index')->with('error','Bản ghi không tồn tại'); 
+            return redirect()->route('major.index')->with('error','Bản ghi không tồn tại'); 
         }
         $config = [
             'model' => 'Major',
@@ -136,7 +136,7 @@ class MajorController extends Controller {
     public function destroy($id){
          $this->authorize('modules', 'major.destroy');
         if($response = $this->service->destroy($id)){
-            return redirect()->route('major.major.index')->with('success', 'Xóa bản ghi thành công');
+            return redirect()->route('major.index')->with('success', 'Xóa bản ghi thành công');
         }
         return redirect()->back()->with('error','Xóa bản ghi không thành công. Hãy thử lại');
     }
