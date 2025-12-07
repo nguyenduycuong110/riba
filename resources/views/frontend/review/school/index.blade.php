@@ -61,7 +61,7 @@
                                 <div class="uk-grid uk-grid-medium mt30">
                                     @foreach($posts as $key => $val)
                                     @if($key == 0) @continue @endif
-                                    @if($key > 2) @break @endif
+                                    @if($key > 5) @break @endif
                                     @php
                                         $name = $val->languages->first()->pivot->name ?? '';
                                         $description = $val->languages->first()->pivot->description ?? '';
