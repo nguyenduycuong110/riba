@@ -25,8 +25,7 @@ class UpdateRequest extends FormRequest
 
         return [
             'name' => 'required',
-            'total_applications' => 'required',
-            'major_catalogue_id' => 'gt:0',
+            'major_catalogue_id' => 'required|exists:major_catalogues,id',
             'train_id' => 'gt:0',
             'canonical' => 'required|unique:routers,canonical, '.$this->id.',module_id',
         ];
@@ -36,8 +35,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập vào ô tiêu đề.',
-            'total_applications.required' => 'Bạn chưa nhập vào tổng số apply.',
-            'major_catalogue_id.gt' => 'Bạn chưa chọn ngành.',
+            'major_catalogue_id.required' => 'Bạn chưa chọn ngành.',
+            'major_catalogue_id.exists' => 'Ngành bạn chọn không tồn tại.',
             'train_id.gt' => 'Bạn chưa chọn hệ đào tạo.',
             'canonical.required' => 'Bạn chưa nhập vào ô đường dẫn',
             'canonical.unique' => 'Đường dẫn đã tồn tại, Hãy chọn đường dẫn khác',

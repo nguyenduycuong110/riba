@@ -29,7 +29,7 @@
             <div class="col-lg-3">
                 <x-ibox heading="Thông tin chuyên ngành">
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Tổng số apply</span>
+                        <span>Tổng số apply</span>
                         <input 
                             type="number" 
                             name="total_applications" 
@@ -49,7 +49,7 @@
                         >
                     </div>
                     <div class="form-row mb10">
-                        <span class="text-danger notice">Tên Tiếng Anh</span>
+                        <span>Tên Tiếng Anh</span>
                         <input 
                             type="text" 
                             name="en_name" 
@@ -59,7 +59,7 @@
                         >
                     </div>
                      <div class="form-row mb10">
-                        <span class="text-danger notice">Tên Tiếng Trung</span>
+                        <span>Tên Tiếng Trung</span>
                         <input 
                             type="text" 
                             name="cn_name" 
