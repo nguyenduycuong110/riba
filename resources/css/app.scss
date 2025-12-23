@@ -2484,21 +2484,30 @@ ol li {
             line-height:32px;
             word-wrap: break-word;
 
-            // Style cho ul li trong nội dung
+            // Style cho ul li trong nội dung - dùng ::before để tạo bullet
             ul {
-                padding-left: 30px;
+                padding-left: 0;
                 margin: 20px 0;
-                list-style-type: disc;
+                list-style: none; // Reset list style
                 
                 li {
-                    list-style: disc !important; // Override rule global
+                    list-style: none; // Reset list style
                     margin-bottom: 10px;
-                    padding-left: 10px;
-                    list-style-position: outside;
+                    padding-left: 25px;
+                    position: relative;
                     line-height: 1.8;
                     
-                    &::marker {
-                        color: var(--primary-color);
+                    // Tạo bullet disc bằng ::before
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        left: 8px;
+                        top: 0.6em;
+                        width: 6px;
+                        height: 6px;
+                        background-color: var(--primary-color);
+                        border-radius: 50%;
+                        display: block;
                     }
                 }
                 
@@ -2506,33 +2515,53 @@ ol li {
                 ul {
                     margin-top: 10px;
                     margin-bottom: 10px;
-                    list-style-type: circle;
+                    padding-left: 20px;
                     
                     li {
-                        list-style: circle !important;
+                        &::before {
+                            width: 5px;
+                            height: 5px;
+                            background-color: var(--primary-color);
+                            opacity: 0.8;
+                        }
                     }
                     
                     ul {
-                        list-style-type: square;
-                        
                         li {
-                            list-style: square !important;
+                            &::before {
+                                width: 4px;
+                                height: 4px;
+                                background-color: var(--primary-color);
+                                opacity: 0.6;
+                            }
                         }
                     }
                 }
             }
             
             ol {
-                padding-left: 30px;
+                padding-left: 0;
                 margin: 20px 0;
-                list-style-type: decimal;
+                list-style: none; // Reset list style
+                counter-reset: list-counter;
                 
                 li {
-                    list-style: decimal !important; // Override rule global
+                    list-style: none; // Reset list style
                     margin-bottom: 10px;
-                    padding-left: 10px;
-                    list-style-position: outside;
+                    padding-left: 30px;
+                    position: relative;
                     line-height: 1.8;
+                    counter-increment: list-counter;
+                    
+                    // Tạo số thứ tự bằng ::before
+                    &::before {
+                        content: counter(list-counter) '.';
+                        position: absolute;
+                        left: 8px;
+                        top: 0;
+                        color: var(--primary-color);
+                        font-weight: 600;
+                    }
                 }
             }
             
