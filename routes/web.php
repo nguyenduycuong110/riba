@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\RouterController;
+use App\Http\Controllers\Frontend\SitemapController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\Payment\VnpayController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
@@ -60,6 +61,9 @@ Route::group(['middleware' => ['locale']], function () {
 
     Route::get('paypal/success'.config('apps.general.suffix'), [PaypalController::class, 'success'])->name('paypal.success');
     Route::get('paypal/cancel'.config('apps.general.suffix'), [PaypalController::class, 'cancel'])->name('paypal.cancel');
+
+    /** SITEMAP */
+    Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 
     /** DYNAMIC ROUTE */
     Route::get('{canonical}'.config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');

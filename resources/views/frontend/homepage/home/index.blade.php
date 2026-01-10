@@ -303,6 +303,7 @@
                                 <div class="major-image img-zoomin">
                                     <img src="{{ $imageC }}" alt="{{ $major->name }}">
                                 </div>
+
                             </div>
                         </div>
                         @endif
@@ -386,3 +387,4 @@
             
     </div>
 @endsection
+
