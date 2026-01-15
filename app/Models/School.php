@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\HasQuery;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Router;
 
 class School extends Model
 {
@@ -104,5 +105,8 @@ class School extends Model
         return $this->morphMany(Review::class, 'reviewable');
     }
 
+    public function routers(){
+        return $this->morphMany(Router::class, 'module');
+    }
 
 }

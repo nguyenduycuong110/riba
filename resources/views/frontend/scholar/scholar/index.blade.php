@@ -44,10 +44,10 @@
 
                             <div class="scholar-content page-h2 mt30">
                                 <h2 class="title"><span>Giới thiệu về học bổng</span></h2>
-                                <div class="description">
+                                <div class="description article-content">
                                     {!! $scholar->languages->first()->pivot->description !!}
                                 </div>
-                                <div class="content">
+                                <div class="content article-content">
                                     <x-table-of-contents :content="$contentWithToc" />
                                     {!! $contentWithToc !!}
                                 </div>
