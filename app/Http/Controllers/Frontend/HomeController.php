@@ -62,7 +62,7 @@ class HomeController extends FrontendController
         
         // Lấy danh sách schools mới nhất cho phần Review trường
         // Lấy 8 bản ghi mới nhất, language_id = 1
-        $schools = School::with(['languages', 'routers'])
+        $schools = School::with(['languages'])
             ->where('publish', 2)
             ->whereHas('languages', function($query) {
                 $query->where('language_id', 1);

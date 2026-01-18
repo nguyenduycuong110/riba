@@ -7,16 +7,8 @@
         $name = $language->pivot->name ?? $language->name ?? '';
         $description = cutnchar(strip_tags($language->pivot->description ?? $language->description ?? ''));
         
-        // Lấy canonical từ routers trước, nếu không có thì lấy từ pivot
-        $canonicalFromRouter = null;
-        if(isset($item->routers) && $item->routers->count() > 0) {
-            // Lấy router đầu tiên (hoặc filter theo language_id nếu cần)
-            $router = $item->routers->where('language_id', config('app.language_id'))->first();
-            if($router) {
-                $canonicalFromRouter = $router->canonical;
-            }
-        }
-        $canonical = write_url($canonicalFromRouter ?? $language->pivot->canonical ?? $language->canonical ?? '');
+        // Lấy canonical từ pivot (school_language.canonical)
+        $canonical = write_url($language->pivot->canonical ?? $language->canonical ?? '');
     } else {
         // Fallback nếu không có language
         $name = '';
