@@ -34,25 +34,27 @@ class ReviewSchoolController extends FrontendController
 
         // Lấy page từ route parameter hoặc request
         $currentPage = $page ?? $request->get('page', 1);
-        
+
         // Set paginator current page resolver
         \Illuminate\Pagination\Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
 
+        // Define canonical trước để dùng cho pagination
+        $canonical = 'review-cac-truong-dai-hoc';
+
         // Lấy danh sách schools với pagination
         $perPage = 12;
-        $canonicalPath = 'review-cac-truong-dai-hoc.html';
 
         $schools = School::with(['languages', 'reviews'])
             ->where('publish', 2)
-            ->whereHas('languages', function($query) {
+            ->whereHas('languages', function ($query) {
                 $query->where('language_id', 1); // Sử dụng language_id = 1 như HomeController
             })
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->paginate($perPage)
-            ->withPath(write_url($canonicalPath));
+            ->withPath(write_url($canonical));
 
         // Breadcrumb
         $breadcrumb = [
@@ -78,7 +80,7 @@ class ReviewSchoolController extends FrontendController
         $postCatalogue = new \stdClass();
         $postCatalogue->name = 'Review Các Trường Đại Học';
         $postCatalogue->description = '<p>Khám phá các trường học nổi bật và đánh giá từ học sinh, phụ huynh. Danh sách review các trường đại học Trung Quốc uy tín.</p>';
-        $postCatalogue->canonical = 'review-cac-truong-dai-hoc';
+        $postCatalogue->canonical = $canonical;
         $postCatalogue->direct_children = collect([]); // Không có children
         $postCatalogue->meta_title = 'Review Các Trường Đại Học Trung Quốc';
         $postCatalogue->meta_keyword = 'review trường đại học, đánh giá trường học, review đại học Trung Quốc';
@@ -157,7 +159,7 @@ class ReviewSchoolController extends FrontendController
             $name = $school->languages->first()->pivot->name ?? '';
             $canonical = write_url($school->languages->first()->pivot->canonical ?? '');
             $datePublished = $school->created_at ? convertDateTime($school->created_at, 'd-m-Y') : '';
-            
+
             if (!empty($name) && !empty($canonical)) {
                 $blogPosts[] = [
                     "@type" => "BlogPosting",
@@ -182,7 +184,7 @@ class ReviewSchoolController extends FrontendController
         foreach ($breadcrumb as $item) {
             $itemName = $item->languages->first()->pivot->name ?? '';
             $itemCanonical = write_url($item->languages->first()->pivot->canonical ?? '');
-            
+
             if (!empty($itemName) && !empty($itemCanonical)) {
                 $breadcrumbItems[] = [
                     "@type" => "ListItem",
@@ -211,7 +213,7 @@ class ReviewSchoolController extends FrontendController
         ];
 
         $schema = "<script type='application/ld+json'>" . json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>";
-        
+
         return $schema;
     }
 
