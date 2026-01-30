@@ -48,13 +48,10 @@ class ReviewSchoolController extends FrontendController
 
         $schools = School::with(['languages', 'reviews'])
             ->where('publish', 2)
-            ->whereHas('languages', function ($query) {
-                $query->where('language_id', 1); // Sử dụng language_id = 1 như HomeController
-            })
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->paginate($perPage)
-            ->withPath(write_url($canonical));
+            ->withPath($canonical); // Remove write_url() to avoid .html in path
 
         // Breadcrumb
         $breadcrumb = [

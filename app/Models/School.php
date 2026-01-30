@@ -11,13 +11,13 @@ use App\Models\Router;
 
 class School extends Model
 {
-   use HasFactory, SoftDeletes, HasQuery;
+    use HasFactory, SoftDeletes, HasQuery;
 
     protected $fillable = [
         'area_id',
         'code',
-        'rank', 
-        'panorama', 
+        'rank',
+        'panorama',
         'information',
         'video',
         'logo',
@@ -49,64 +49,82 @@ class School extends Model
     ];
 
     protected $relationable = [
-       'users', 'school_catalogues' , 'school_projects' , 'school_posts' , 'school_scholars' , 'reviews' , 'languages' , 'school_areas' , 'school_cities'
+        'users',
+        'school_catalogues',
+        'school_projects',
+        'school_posts',
+        'school_scholars',
+        'reviews',
+        'languages',
+        'school_areas',
+        'school_cities'
     ];
 
-    public function getRelationable(){
+    public function getRelationable()
+    {
         return $this->relationable;
     }
 
     protected $table = 'schools';
 
-    public function languages(){
+    public function languages()
+    {
         return $this->belongsToMany(Language::class, 'school_language')
-        ->withPivot(
-            'school_id',
-            'language_id',
-            'name',
-            'canonical',
-            'meta_title',
-            'meta_keyword',
-            'meta_description',
-            'description',
-            'content'
-        )->where('language_id', config('app.language_id'));
+            ->withPivot(
+                'school_id',
+                'language_id',
+                'name',
+                'canonical',
+                'meta_title',
+                'meta_keyword',
+                'meta_description',
+                'description',
+                'content'
+            )->where('language_id', config('app.language_id', 1)); // Use 1 as default if config not set
     }
 
-    public function school_catalogues(){
-        return $this->belongsToMany(SchoolCatalogue::class, 'school_catalogue_school' , 'school_id', 'school_catalogue_id');
+    public function school_catalogues()
+    {
+        return $this->belongsToMany(SchoolCatalogue::class, 'school_catalogue_school', 'school_id', 'school_catalogue_id');
     }
 
-    public function school_projects(){
-        return $this->belongsToMany(SchoolProject::class, 'school_project' , 'school_id', 'project_id');
+    public function school_projects()
+    {
+        return $this->belongsToMany(SchoolProject::class, 'school_project', 'school_id', 'project_id');
     }
 
-    public function school_posts(){
-        return $this->belongsToMany(Post::class, 'school_post' , 'school_id', 'post_id');
+    public function school_posts()
+    {
+        return $this->belongsToMany(Post::class, 'school_post', 'school_id', 'post_id');
     }
 
-    public function school_scholars(){
-        return $this->belongsToMany(Scholar::class, 'school_scholar' , 'school_id', 'scholar_id');
+    public function school_scholars()
+    {
+        return $this->belongsToMany(Scholar::class, 'school_scholar', 'school_id', 'scholar_id');
     }
 
-    public function school_areas(): BelongsTo{
+    public function school_areas(): BelongsTo
+    {
         return $this->belongsTo(SchoolArea::class, 'area_id', 'id');
     }
 
-    public function school_cities(): BelongsTo{
+    public function school_cities(): BelongsTo
+    {
         return $this->belongsTo(SchoolCity::class, 'city_id', 'id');
     }
 
-    public function users(): BelongsTo{
+    public function users(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function reviews(){
+    public function reviews()
+    {
         return $this->morphMany(Review::class, 'reviewable');
     }
 
-    public function routers(){
+    public function routers()
+    {
         return $this->morphMany(Router::class, 'module');
     }
-
 }

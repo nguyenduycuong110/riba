@@ -53,5 +53,4 @@ class RouterController extends FrontendController
             ]
         );
     }
-
 }

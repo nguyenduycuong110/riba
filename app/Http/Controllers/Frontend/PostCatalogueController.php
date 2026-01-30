@@ -53,7 +53,7 @@ class PostCatalogueController extends FrontendController
             [],
             ['order', 'desc']
         );
-        
+
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $this->language);
         $posts = $this->postService->paginate(
             $request,
@@ -66,12 +66,13 @@ class PostCatalogueController extends FrontendController
 
         // dd($posts->toArray());
 
+
         $featuredPost = $this->postCatalogueRepository->getFeaturedPost($postCatalogue);
 
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'students', 'object' => true],
             ['keyword' => 'product-catalogue', 'object' => true],
-            
+
         ], $this->language);
 
         $slides = $this->slideService->getSlide(
@@ -81,9 +82,9 @@ class PostCatalogueController extends FrontendController
         $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
         // dd($lastestNews);
 
-        if($postCatalogue->canonical === 've-chung-toi'){
+        if ($postCatalogue->canonical === 've-chung-toi') {
             $template = 'frontend.post.catalogue.intro';
-        }else{
+        } else {
             $template = 'frontend.post.catalogue.index';
         }
 
@@ -119,7 +120,7 @@ class PostCatalogueController extends FrontendController
             $name = $post->languages->first()->pivot->name ?? '';
             $canonical = write_url($post->languages->first()->pivot->canonical ?? '');
             $datePublished = $post->created_at ? convertDateTime($post->created_at, 'd-m-Y') : '';
-            
+
             if (!empty($name) && !empty($canonical)) {
                 $blogPosts[] = [
                     "@type" => "BlogPosting",
@@ -144,7 +145,7 @@ class PostCatalogueController extends FrontendController
         foreach ($breadcrumb as $item) {
             $itemName = $item->languages->first()->pivot->name ?? '';
             $itemCanonical = write_url($item->languages->first()->pivot->canonical ?? '');
-            
+
             if (!empty($itemName) && !empty($itemCanonical)) {
                 $breadcrumbItems[] = [
                     "@type" => "ListItem",
@@ -173,11 +174,11 @@ class PostCatalogueController extends FrontendController
         ];
 
         $schema = "<script type='application/ld+json'>" . json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>";
-        
+
         return $schema;
     }
 
-   
+
 
 
     private function config()
@@ -196,5 +197,4 @@ class PostCatalogueController extends FrontendController
             ]
         ];
     }
-
 }
