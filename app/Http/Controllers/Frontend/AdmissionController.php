@@ -25,18 +25,19 @@ class AdmissionController extends FrontendController
         AdmissionCatalogueService $admissionCatalogueService,
         AdmissionService $admissionService,
         AdmissionCatalogueRepo $admissionCatalogueRepo
-    ){
+    ) {
         $this->admissionCatalogueService = $admissionCatalogueService;
         $this->admissionService = $admissionService;
         $this->admissionCatalogueRepo = $admissionCatalogueRepo;
-        parent::__construct(); 
+        parent::__construct();
     }
 
 
-    public function index($id, $request){
+    public function index($id, $request)
+    {
         $language = $this->language;
-        $admission = $this->admissionService->findById($id, ['*']);    
-        if(!$admission){
+        $admission = $this->admissionService->findById($id, ['*']);
+        if (!$admission) {
             abort(404);
         }
 
@@ -48,11 +49,11 @@ class AdmissionController extends FrontendController
 
         // $widgets = $this->widgetService->getWidget([
         //     ['keyword' => 'product-catalogue', 'object' => true],
-            
+
         // ], $this->language);
 
         /* ------------------- */
-        
+
         $config = $this->config();
         $system = $this->system;
         $canonical = write_url($admission->languages->first()->pivot->canonical, true, true);
@@ -68,14 +69,14 @@ class AdmissionController extends FrontendController
         // dd($admissionCatalogue);
 
         // dd( $admission->admission_catalogues->pluck('id')->toArray());
-        $relateds = Admission::with(['languages'])
-         ->whereHas('admission_catalogues', function($q) use ($admission) {
-            $q->whereIn('admission_catalogue_id', $admission->admission_catalogues->pluck('id')->toArray());
-        })
-        ->where('id', '!=', $admission->id) // bỏ chính nó
-        ->where('publish', 2)
-        ->limit(6)
-        ->get();
+        $relateds = Admission::with(['languages', 'scholars.scholar_catalogues.languages', 'admission_schools', 'admission_trains'])
+            ->whereHas('admission_catalogues', function ($q) use ($admission) {
+                $q->whereIn('admission_catalogue_id', $admission->admission_catalogues->pluck('id')->toArray());
+            })
+            ->where('id', '!=', $admission->id) // bỏ chính nó
+            ->where('publish', 2)
+            ->limit(6)
+            ->get();
 
 
         $template = 'frontend.admission.admission.index';
@@ -99,7 +100,8 @@ class AdmissionController extends FrontendController
         ));
     }
 
-    private function schema($post, $postCatalogue, $breadcrumb){
+    private function schema($post, $postCatalogue, $breadcrumb)
+    {
         // Lưu giá trị gốc trước khi bị ghi đè trong vòng lặp
         $postName = $post->languages->first()->pivot->name ?? '';
         $postImage = $post->image ?? '';
@@ -123,7 +125,7 @@ class AdmissionController extends FrontendController
         foreach ($breadcrumb as $item) {
             $itemName = $item->languages->first()->pivot->name ?? '';
             $itemCanonical = write_url($item->languages->first()->pivot->canonical ?? '');
-            
+
             if (!empty($itemName) && !empty($itemCanonical)) {
                 $breadcrumbItems[] = [
                     "@type" => "ListItem",
@@ -159,11 +161,12 @@ class AdmissionController extends FrontendController
         }
 
         $schema = "<script type=\"application/ld+json\">" . json_encode($schemaData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</script>";
-        
-        return $schema;
-    } 
 
-    private function config(){
+        return $schema;
+    }
+
+    private function config()
+    {
         return [
             'language' => $this->language,
             'js' => [
@@ -178,5 +181,4 @@ class AdmissionController extends FrontendController
             ]
         ];
     }
-
 }

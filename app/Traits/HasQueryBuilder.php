@@ -1,18 +1,20 @@
-<?php  
+<?php
+
 namespace App\Traits;
+
 use Illuminate\Http\Request;
 
-trait HasQueryBuilder{
+trait HasQueryBuilder
+{
 
-    public function build(){
+    public function build() {}
 
-    }
-
-    private function buildFilter(Request $request, array $filter = []): array{
+    private function buildFilter(Request $request, array $filter = []): array
+    {
         $conditions = [];
-        if(count($filter)){
-            foreach($filter as $key => $val){
-                if($request->has($val)){
+        if (count($filter)) {
+            foreach ($filter as $key => $val) {
+                if ($request->has($val)) {
                     $conditions[$val] = $request->{$val};
                 }
             }
@@ -20,7 +22,8 @@ trait HasQueryBuilder{
         return $conditions;
     }
 
-    protected function specifications(Request $request): array {
+    protected function specifications(Request $request): array
+    {
         return [
             'type' => $request->input('type') === 'all',
             'sort' => $request->filled('sort')
@@ -33,13 +36,12 @@ trait HasQueryBuilder{
                 'keyword' => [
                     'q' => $request->input('keyword') ?? null,
                     'searchFields' => $this->searchField ?? [],
-                    'isMultipleLanguage' => false
+                    'isMultipleLanguage' => $this->isMultipleLanguage ?? false,
+                    'pivot' => $this->pivot ?? ''
                 ],
-                'simple' => $this->buildFilter($request, $this->simpleFilters), 
+                'simple' => $this->buildFilter($request, $this->simpleFilters),
                 'complex' => $this->buildFilter($request, $this->complexFilters)
             ]
         ];
     }
-
-
 }
