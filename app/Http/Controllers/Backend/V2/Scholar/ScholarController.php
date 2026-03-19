@@ -10,6 +10,7 @@ use App\Services\V2\Impl\Scholar\PolicyService;
 use App\Services\V2\Impl\Scholar\TrainService;
 use App\Services\V2\Impl\School\SchoolService;
 use App\Models\Language;
+use App\Models\Scholar;
 
 class ScholarController extends Controller {
 
@@ -70,6 +71,7 @@ class ScholarController extends Controller {
             'extendJs' => true
         ];
         $template = 'backend.scholar.scholar.store';
+        $scholar = new Scholar();
         return view('backend.dashboard.layout', compact(
             'dropdown',
             'policies',
@@ -77,6 +79,7 @@ class ScholarController extends Controller {
             'schools',
             'template',
             'config',
+            'scholar'
         ));
     }
 

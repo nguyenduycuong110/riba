@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 @php
-                    $translation = (isset($scholar)) ? $scholar->languages->first()->pivot : null;
+                    $translation = $scholar?->languages?->first()?->pivot;
                 @endphp
                 <x-backend.content
                     :name="$translation?->name"

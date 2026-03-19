@@ -151,10 +151,10 @@
 
                                 <div class="school-post page-h2 mt50">
                                     <h2 class="heading-7"><span>Giới thiệu</span></h2 >
-                                    <div class="description">
+                                    <div class="description article-content">
                                         {!! $school->languages->first()->pivot->description !!}
                                     </div>
-                                    <div class="content">
+                                    <div class="content article-content">
                                         {!! $school->languages->first()->pivot->content !!}
                                     </div>
                                 </div>

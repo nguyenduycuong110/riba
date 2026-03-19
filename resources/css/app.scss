@@ -3485,9 +3485,10 @@ ol li {
 }
 
 .scholar-content {
+
   // Styling for lists directly in scholar-content
-  > ul,
-  > ol {
+  >ul,
+  >ol {
     padding: 15px 0;
     padding-left: 20px;
 
@@ -3512,7 +3513,7 @@ ol li {
     }
   }
 
-  > ol {
+  >ol {
     counter-reset: list-counter;
 
     li {
