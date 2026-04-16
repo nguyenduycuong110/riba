@@ -181,7 +181,11 @@
                                                 <tr>
                                                     <td>{{ $key+1 }}.</td>
                                                     <td class="text-start">{{ $val->scholar_catalogues->first()->languages->first()->pivot->name }}</td>
-                                                    <td class="text-start">{{ $val->languages->first()->pivot->name }}</td>
+                                                    <td class="text-start">
+                                                        <a href="{{ write_url($val->languages->first()->pivot->canonical) }}" target="_blank" title="{{ $val->languages->first()->pivot->name }}">
+                                                            {{ $val->languages->first()->pivot->name }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $val->scholar_trains->name }}</td>
                                                 </tr>
                                                 @endforeach
