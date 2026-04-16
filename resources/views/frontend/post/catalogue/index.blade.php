@@ -180,12 +180,10 @@
                         </h2>
                         <div class="panel-body">
                            
-                            @php
-                                $posts = $posts->filter(fn($q) => $q->recommend != 2);
-                            @endphp
                             @if(!is_null($posts) && count($posts))
                                 <div class="uk-grid uk-grid-medium">
                                     @foreach($posts as $key => $val)
+                                    @if($val->recommend == 2) @continue @endif
                                     @php
                                         $name = $val->languages->first()->pivot->name;
                                         $description = $val->languages->first()->pivot->description;
@@ -205,6 +203,9 @@
                                         </div>
                                     </div>
                                     @endforeach
+                                </div>
+                                <div class="uk-flex uk-flex-center mt50">
+                                    @include('frontend.component.pagination', ['model' => $posts])
                                 </div>
                             @else
                             <div class="not-found">Không tìm thấy dữ liệu</div>
