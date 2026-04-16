@@ -67,7 +67,7 @@ class PostCatalogueController extends FrontendController
         // dd($posts->toArray());
 
 
-        $featuredPost = $this->postCatalogueRepository->getFeaturedPost($postCatalogue);
+        $featuredPosts = $this->postCatalogueRepository->getFeaturedPost($postCatalogue, $this->language);
 
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'students', 'object' => true],
@@ -104,7 +104,8 @@ class PostCatalogueController extends FrontendController
             'schema',
             'slides',
             'introduce',
-            'lastestNews'
+            'lastestNews',
+            'featuredPosts'
         ));
     }
 

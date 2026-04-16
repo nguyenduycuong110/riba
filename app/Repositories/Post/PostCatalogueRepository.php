@@ -51,8 +51,30 @@ class PostCatalogueRepository extends BaseRepository
         ->find($id);
     }
 
-    public function getFeaturedPost($postCatalogue){
-
+    public function getFeaturedPost($postCatalogue, $languageId){
+        return \App\Models\Post::select([
+                'posts.id',
+                'posts.image',
+                'posts.created_at',
+                'posts.recommend',
+                'tb2.name',
+                'tb2.description',
+                'tb2.canonical',
+            ])
+            ->join('post_language as tb2', 'tb2.post_id', '=', 'posts.id')
+            ->join('post_catalogue_post as tb3', 'posts.id', '=', 'tb3.post_id')
+            ->where('tb2.language_id', '=', $languageId)
+            ->where('posts.publish', '=', 2)
+            ->where('posts.recommend', '=', 2)
+            ->whereRaw('tb3.post_catalogue_id IN (
+                SELECT id
+                FROM post_catalogues
+                WHERE lft >= ? AND rgt <= ?
+            )', [$postCatalogue->lft, $postCatalogue->rgt])
+            ->orderBy('posts.order', 'desc')
+            ->orderBy('posts.id', 'desc')
+            ->distinct()
+            ->get();
     }
 
 }

@@ -33,13 +33,12 @@
                             <div class="featured-container">
                                 <div class="featured-post">
                                     <h2 class="heading-7"><span>Bài viết nổi bật</span></h2>
-                                    @foreach($posts as $key => $val)
-                                    @if($val->recommend != 2) @continue @endif
+                                    @foreach($featuredPosts as $key => $val)
                                     @if($key > 0) @break @endif
                                     @php
-                                        $name = $val->languages->first()->pivot->name;
-                                        $description = $val->languages->first()->pivot->description;
-                                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                                        $name = $val->name;
+                                        $description = $val->description;
+                                        $canonical = write_url($val->canonical);
                                         $image = $val->image;
                                     @endphp
                                     <div class="featured-post-item">
@@ -54,15 +53,13 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                @if($posts)
                                 <div class="uk-grid uk-grid-medium mt30">
-                                    @foreach($posts as $key => $val)
-                                    @if($val->recommend != 2) @continue @endif
+                                    @foreach($featuredPosts as $key => $val)
                                     @if($key == 0) @continue @endif
                                     @php
-                                        $name = $val->languages->first()->pivot->name;
-                                        $description = $val->languages->first()->pivot->description;
-                                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                                        $name = $val->name;
+                                        $description = $val->description;
+                                        $canonical = write_url($val->canonical);
                                         $image = $val->image;
                                     @endphp
                                     <div class="uk-width-medium-1-2 mb20">
@@ -79,7 +76,6 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                @endif
                             </div>
                         </div>
                         <div class="uk-width-large-1-3">
