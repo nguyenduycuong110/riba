@@ -5,3 +5,4 @@
 /public/upload
 # /public/image-cacherm public.zip
 /.agent
+*.htaccess
