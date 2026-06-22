@@ -1286,6 +1286,15 @@ ul li,ol li{
     clip-path: polygon(0% 0%, 78% 0%, 100% 50%, 78% 100%, 0% 100%);
 }
 
+@media (max-width: 1400px) {
+    .form-area .apply-form-4__bg__1 {
+        width: 860px;
+    }
+    .form-area .apply-form-4__bg__2 {
+        width: 745px;
+    }
+}
+
 .apply-form-4__thumb__bg {
     width: 1114px;
     height: 100%;

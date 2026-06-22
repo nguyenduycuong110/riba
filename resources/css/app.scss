@@ -1593,6 +1593,10 @@ ol li {
     top: 0;
     clip-path: polygon(100% 0%, 80% 66%, 87% 100%, 0 100%, 0% 50%, 0 0);
 
+    @media (max-width: 1400px) {
+      width: 860px;
+    }
+
     @media(max-width: 600px) {
       height: auto;
       padding-bottom: 30px;
@@ -1607,6 +1611,10 @@ ol li {
     left: 0;
     top: 0;
     clip-path: polygon(0% 0%, 78% 0%, 100% 50%, 78% 100%, 0% 100%);
+
+    @media (max-width: 1400px) {
+      width: 745px;
+    }
   }
 
   .apply-form-4__thumb__bg {
