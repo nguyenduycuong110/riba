@@ -14,6 +14,7 @@ class System{
                 'logo' => ['type' => 'images', 'label' => 'Logo Website', 'title' => 'Click vào ô phía dưới để tải logo'],
                 'logo_mobile' => ['type' => 'images', 'label' => 'Logo Mobile', 'title' => 'Click vào ô phía dưới để tải logo'],
                 'favicon' => ['type' => 'images', 'label' => 'Favicon', 'title' => 'Click vào ô phía dưới để tải logo'],
+                'card_bg' => ['type' => 'images', 'label' => 'Ảnh nền form đăng ký', 'title' => 'Click vào ô phía dưới để tải ảnh nền form đăng ký'],
                 'copyright' => ['type' => 'text', 'label' => 'Copyright'],
                 'flashSale' => ['type' => 'text', 'label' => 'Khuyến mãi'],
                 'website' => [

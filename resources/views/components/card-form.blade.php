@@ -1,11 +1,11 @@
-@props(['scholars'])
+@props(['scholars', 'system' => null])
 
 
 <div class="panel-form" id="panel-form">
     <div class="form-area">
         <div class="apply-form-4__bg__1 d-none d-xl-block"></div>
         <div class="apply-form-4__bg__2"></div>
-        <div class="apply-form-4__thumb__bg" style="background-image: url(https://wp.rrdevs.net/routex/wp-content/uploads/2024/10/thumb-bg.jpg);"></div>
+        <div class="apply-form-4__thumb__bg" style="background-image: url({{ !empty($system['homepage_card_bg']) ? $system['homepage_card_bg'] : 'https://wp.rrdevs.net/routex/wp-content/uploads/2024/10/thumb-bg.jpg' }});"></div>
         <div class="apply-form-4__shape upDown d-none d-xxl-block" bis_skin_checked="1">
             <img decoding="async" src="/vendor/frontend/img/project/apply-form-4-shape.png" alt="image not found">
         </div>

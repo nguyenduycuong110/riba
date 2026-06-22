@@ -14,7 +14,7 @@
                 <div class="uk-width-large-1-2">
                     <div class="meta-data">
                         <h1 class="entry-meta-title">{{ $post->name }}</h1>
-                        <div class="description">
+                        <div class="description article-content">
                             {!! $post->description !!}
                         </div>
                         <div class="uk-flex uk-flex-middle">
@@ -33,12 +33,12 @@
                     <div class="post-container">
                         @if($post->post_type === 'normal')
                             <h1 class="post-heading">{{ $post->name }}</h1>
-                            <div class="description">
+                            <div class="description article-content">
                                 {!! $post->description !!}
                             </div>
                         @endif
                         
-                        <div class="content">
+                        <div class="content article-content">
                             <x-table-of-contents :content="$contentWithToc" />
                             {!! $contentWithToc !!}
                         </div>

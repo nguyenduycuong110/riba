@@ -312,7 +312,7 @@
             </div>
         @endif
 
-        <x-card-form :scholars="$scholars" />
+        <x-card-form :scholars="$scholars" :system="$system" />
 
         @php
             // Lấy danh sách schools mới nhất từ controller

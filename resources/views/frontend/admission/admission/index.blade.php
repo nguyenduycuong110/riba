@@ -127,7 +127,7 @@
                     <div class="scholar-aside uk-height-1-1">
                         <div data-uk-sticky="{boundary: true}">
                             <div class="fanpage-facebook">
-                                <a href="{{ $system['social_facebook'] }}" target="_blank"><img src="{{ asset('userfiles/image/hoi-tu-apply-hoc-bong-trung-quoc-6.jpeg') }}" alt=""></a>
+                                <a href="{{ $system['social_facebook'] }}" target="_blank"><img src="{{ !empty($system['social_facebook_image']) ? $system['social_facebook_image'] : asset('userfiles/image/hoi-tu-apply-hoc-bong-trung-quoc-6.jpeg') }}" alt=""></a>
                             </div>
 
                             <div class="register-scholar-form">

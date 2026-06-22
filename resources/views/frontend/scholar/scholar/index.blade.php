@@ -32,7 +32,7 @@
                                     <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-2 uk-width-large-1-3">
                                         <div class="policy-item">
                                             <div class="title">{{ $policy['title'] }}</div>
-                                            <div class="description">
+                                            <div class="description article-content">
                                                 {!! $policy['description'] !!}
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                         <div class="scholar-aside uk-height-1-1">
                             <div  data-uk-sticky="{boundary: true}">
                                 <div class="fanpage-facebook">
-                                <a href="{{ $system['social_facebook'] }}" target="_blank"><img src="{{ asset('userfiles/image/hoi-tu-apply-hoc-bong-trung-quoc-6.jpeg') }}" alt=""></a>
+                                    <a href="{{ $system['social_facebook'] }}" target="_blank"><img src="{{ !empty($system['social_facebook_image']) ? $system['social_facebook_image'] : asset('userfiles/image/hoi-tu-apply-hoc-bong-trung-quoc-6.jpeg') }}" alt=""></a>
                                 </div>
 
                                 <div class="register-scholar-form">

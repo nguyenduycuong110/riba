@@ -1199,7 +1199,7 @@ ol li {
     border-radius: 10px;
 
     .image {
-      height: 350px;
+      height: 205px;
       border-radius: 10px;
 
       @media (max-width: 600px) {
@@ -4881,6 +4881,14 @@ button {
   line-height: 1.8;
   color: #424242;
   word-wrap: break-word;
+
+  a {
+    color: #fb8c00;
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   // Styling cho ul với marker tròn
   ul {

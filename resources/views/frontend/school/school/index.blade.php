@@ -90,7 +90,7 @@
                             <div class="school-content">
                                <div class="school-overview page-h2 mb30">
                                     <h2 class="heading-7"><span>Toàn cảnh trường</span></h2>
-                                    <div class="school-over-content">
+                                    <div class="school-over-content article-content">
                                         {!! $school->panorama !!}
                                     </div>
                                </div>
