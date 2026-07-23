@@ -12,6 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,user-scalable=0">
 <meta name="google-site-verification" content="lZG2VGL44FaRRZsQGrNtsL28Cjx5Z6RQ8mQfNzI4jKQ" />
+<meta name="p:domain_verify" content="934327b2f7f66e1f5b9d300d5bf7a489"/>
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <meta name="robots" content="index,follow"/>
 <meta name="author" content="{{ $system['homepage_company'] }}"/>
