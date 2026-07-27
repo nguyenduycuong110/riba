@@ -13,7 +13,7 @@
             <div class="uk-grid">
                 <div class="uk-width-large-1-2">
                     <div class="apply-form-wrapper">
-                        <form action="post" class="reg-form">
+                        <form action="" method="POST" class="reg-form">
                             <div class="form-heading">
                                 <h2 class="heading-3"><span>Đăng Ký<br /> Tư Vấn <span class="clr">Học Bổng</span> </span></h2>
                                 <div class="description">

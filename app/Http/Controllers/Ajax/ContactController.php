@@ -76,28 +76,38 @@ class ContactController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|regex:/^0[0-9]{9}$/',
-            'scholarshipType' => 'required|integer|min:1',
+            'scholarshipType' => 'nullable|integer|min:1',
             'address' => 'required|string|max:500',
         ]);
 
-        $scholar = Scholar::with(['languages'])->find($validated['scholarshipType']);
+        $scholar = null;
+        if (!empty($validated['scholarshipType'])) {
+            $scholar = Scholar::with(['languages'])->find($validated['scholarshipType']);
+        }
 
         try {
             DB::beginTransaction();
+            
+            $scholarshipName = '';
+            if ($scholar && $scholar->languages->first()) {
+                $scholarshipName = $scholar->languages->first()->pivot->name;
+            }
+
             DB::table('contacts')->insert([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'phone' => $validated['phone'],
                 'address' => $validated['address'],
                 'message' => '<div>
-                    <h1>Đăng ký nhận thông tin chương trình ưu đãi</h1>
-                    <div>Loại học bổng: '.$scholar->languages->first()->pivot->name.'</div>
+                    <h1>Đăng ký nhận thông tin chương trình ưu đãi</h1>' . 
+                    ($scholarshipName ? '<div>Loại học bổng: '.$scholarshipName.'</div>' : '') . '
                 </div>',
                 'created_at' => now(),
                 'updated_at' => now() 
             ]);
             DB::commit();
             return response()->json([
+                'success' => true,
                 'message' => 'Xử lý yêu cầu thành công',
                 'code' => '200'
             ]);
@@ -105,11 +115,11 @@ class ContactController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th->getMessage());
             return response()->json([
-                'message' => 'Có vấn đề xảy ra trong quá trình xử lý',
+                'success' => false,
+                'message' => 'Có vấn đề xảy ra trong quá trình xử lý: ' . $th->getMessage(),
                 'code' => '500'
-            ]);
+            ], 500);
         }
 
     }
@@ -119,13 +129,9 @@ class ContactController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|regex:/^0[0-9]{9}$/',
-            'destination_area' => 'required|',
-            'apply_for' => 'required',
+            'destination_area' => 'required|string|max:255',
+            'apply_for' => 'required|string|max:255',
         ]);
-
-        // dd(12312423);
-
-        // $scholar = Scholar::with(['languages'])->find($validated['scholarshipType']);
 
         try {
             DB::beginTransaction();
@@ -144,6 +150,7 @@ class ContactController extends Controller
             ]);
             DB::commit();
             return response()->json([
+                'success' => true,
                 'message' => 'Xử lý yêu cầu thành công',
                 'code' => '200'
             ]);
@@ -151,11 +158,11 @@ class ContactController extends Controller
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th->getMessage());
             return response()->json([
-                'message' => 'Có vấn đề xảy ra trong quá trình xử lý',
+                'success' => false,
+                'message' => 'Có vấn đề xảy ra trong quá trình xử lý: ' . $th->getMessage(),
                 'code' => '500'
-            ]);
+            ], 500);
         }
 
     }

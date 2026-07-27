@@ -61,7 +61,7 @@
 <!-- ==================== RIGHT SIDE CONTACT WIDGET (ZALO & MESSENGER) ==================== -->
 <div class="contact-floating-widget">
     <!-- Nút Messenger (Nằm phía trên) -->
-    <a href="https://m.me/{{ $system['social_facebook'] }}" target="_blank" rel="noopener noreferrer" class="contact-link messenger-link">
+    <a href="{{ $system['social_facebook'] }}" target="_blank" rel="noopener noreferrer" class="contact-link messenger-link">
         <!-- Vòng sóng tỏa -->
         <span class="contact-wave wave-messenger-1"></span>
         <span class="contact-wave wave-messenger-2"></span>

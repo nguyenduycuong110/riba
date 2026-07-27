@@ -553,8 +553,12 @@ HT.regForm = () => {
         if(!formData.name) errors.push("Vui lòng nhập họ tên");
         if(!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) errors.push("Email không hợp lệ");
         if(!formData.phone || !/^(0[0-9]{9})$/.test(formData.phone)) errors.push("Số điện thoại không hợp lệ");
-        if(!formData.scholarshipType || formData.scholarshipType == 0) errors.push("Vui lòng chọn loại học bổng");
         if(!formData.address) errors.push("Vui lòng nhập địa chỉ");
+
+        if(errors.length > 0) {
+            alert(errors.join("\n"));
+            return false;
+        }
 
         // submit ajax
         $.ajax({
@@ -574,6 +578,17 @@ HT.regForm = () => {
             },
             error: function(xhr){
                 console.error(xhr.responseText);
+                try {
+                    let errObj = JSON.parse(xhr.responseText);
+                    if (errObj.errors) {
+                        let valErrors = [];
+                        for (let key in errObj.errors) {
+                            valErrors.push(errObj.errors[key][0]);
+                        }
+                        alert(valErrors.join("\n"));
+                        return;
+                    }
+                } catch(e) {}
                 alert("Hệ thống lỗi, vui lòng thử lại sau.");
             },
             complete: function(){
@@ -794,8 +809,13 @@ HT.regScholarForm = () => {
         if(!formData.name) errors.push("Vui lòng nhập họ tên");
         if(!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) errors.push("Email không hợp lệ");
         if(!formData.phone || !/^(0[0-9]{9})$/.test(formData.phone)) errors.push("Số điện thoại không hợp lệ");
-        if(!formData.destination_area) errors.push("Vui lòng chọn loại học bổng");
-        if(!formData.apply_for) errors.push("Vui lòng nhập địa chỉ");
+        if(!formData.destination_area) errors.push("Vui lòng nhập khu vực du học mong muốn");
+        if(!formData.apply_for) errors.push("Vui lòng nhập loại học bổng muốn đăng ký");
+
+        if(errors.length > 0) {
+            alert(errors.join("\n"));
+            return false;
+        }
 
         // submit ajax
         $.ajax({
@@ -815,10 +835,21 @@ HT.regScholarForm = () => {
             },
             error: function(xhr){
                 console.error(xhr.responseText);
+                try {
+                    let errObj = JSON.parse(xhr.responseText);
+                    if (errObj.errors) {
+                        let valErrors = [];
+                        for (let key in errObj.errors) {
+                            valErrors.push(errObj.errors[key][0]);
+                        }
+                        alert(valErrors.join("\n"));
+                        return;
+                    }
+                } catch(e) {}
                 alert("Hệ thống lỗi, vui lòng thử lại sau.");
             },
             complete: function(){
-                $form.find('button[type="submit"]').prop('disabled', false).text('Đăng Ký Ngay');
+                $form.find('button[type="submit"]').prop('disabled', false).text('Đăng ký tư vấn');
             }
         });
 
