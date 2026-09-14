@@ -179,6 +179,37 @@ class SchoolController extends FrontendController
         ];
     }
 
+    /**
+     * So truong nap vao popup chon truong de so sanh.
+     *
+     * Du de hien het danh sach hien tai ma van co tran cho truong hop sau nay
+     * them nhieu truong; vuot qua con so nay thi nguoi dung dung o tim kiem.
+     */
+    private const COMPARE_LIST_LIMIT = 50;
+
+    /**
+     * Tim truong theo tu khoa cho popup so sanh (goi bang ajax).
+     *
+     * Dung chinh schoolService::pagination nhu luc tai trang, nen quan he nap
+     * kem giong het nhau - neu dung mot truy van rieng (vi du ajax/school/filter
+     * cua trang danh sach) thi data-json se thieu 'information' va
+     * 'school_scholars', va cac dong trong bang so sanh se bi trong.
+     */
+    public function searchForCompare(Request $request)
+    {
+        $schools = $this->schoolService->pagination(new Request([
+            'type' => 'all',
+            'take' => self::COMPARE_LIST_LIMIT,
+            'sort' => 'id,desc',
+            'keyword' => trim((string) $request->input('keyword')),
+        ]));
+
+        return response()->json([
+            'html' => view('frontend.school.school._compare_item', compact('schools'))->render(),
+            'count' => $schools->count(),
+        ]);
+    }
+
     public function compare(){
         $config = $this->config();
         $system = $this->system;
@@ -192,7 +223,15 @@ class SchoolController extends FrontendController
             'canonical' => $canonical,
         ];
 
-        $schools = $this->schoolService->pagination(new Request(['type' => 'all', 'take' => 4, 'sort' => 'id,desc']));
+        // Truoc day 'take' => 4: popup "Them truong vao so sanh" chi bao gio hien
+        // dung 4 truong, trong khi CSDL co nhieu hon han. Cong voi viec o tim
+        // kiem chua duoc noi vao dau, nguoi dung khong co cach nao chon cac
+        // truong con lai.
+        $schools = $this->schoolService->pagination(new Request([
+            'type' => 'all',
+            'take' => self::COMPARE_LIST_LIMIT,
+            'sort' => 'id,desc',
+        ]));
 
         $template = 'frontend.school.school.compare';
       

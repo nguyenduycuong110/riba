@@ -398,26 +398,14 @@
             {{-- <a class="uk-modal-close uk-close"></a> --}}
             <div class="modal-content">
                 <h2 class="heading-2 mb20">Chọn trường</h2>
-                <form action="" class="uk-form search-school-form">
-                    <input type="text" class="input-text" value="" name="" placeholder="Nhập tên trường">
-                    <button class="form-button"><img src="/vendor/frontend/img/search.svg" alt=""></button>
+                {{-- o nhap truoc day khong co thuoc tinh name va khong co JS nao
+                     lang nghe, nen go tu khoa roi Enter chi lam tai lai trang. --}}
+                <form action="" class="uk-form search-school-form" data-url="{{ route('ajax.school.searchCompare') }}">
+                    <input type="text" class="input-text" value="" name="keyword" placeholder="Nhập tên trường">
+                    <button type="submit" class="form-button"><img src="/vendor/frontend/img/search.svg" alt=""></button>
                 </form>
                 <div class="schools ajax-schools">
-                    @if(!is_null($schools) && $schools->count() > 0)
-                    @foreach($schools as $school)
-                    @php
-                        $name = $school->languages->first()->pivot->name;
-                        $image = $school->logo;
-                        $code = $school->code;
-                    @endphp
-                    <div class="compare-school-item" data-json="{{ json_encode($school) }}">
-                        <div class="uk-flex uk-flex-middle">
-                            <img src="{{ $image }}" width="48" height="48" alt="{{ $name }}">
-                            <div><div class="fw-medium ">{{ $name }}</div><div class="small text-secondary">Mã: {{ $code }}</div></div>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
+                    @include('frontend.school.school._compare_item', ['schools' => $schools])
                 </div>
             </div>
         </div>

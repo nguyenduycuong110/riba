@@ -17,6 +17,7 @@ use App\Http\Controllers\Ajax\V2\HandlerController;
 use App\Http\Controllers\Ajax\ContactController;
 use App\Http\Controllers\Frontend\ScholarCatalogueController;
 use App\Http\Controllers\Frontend\SchoolCatalogueController;
+use App\Http\Controllers\Frontend\SchoolController as FeSchoolController;
 use App\Http\Controllers\Frontend\AdmissionCatalogueController;
 use App\Http\Controllers\Frontend\MajorCatalogueController;
 
@@ -71,6 +72,10 @@ Route::group(['middleware' => ['locale']], function () {
     Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
     Route::get('ajax/scholar/filter', [ScholarCatalogueController::class, 'filter'])->name('scholar.filter');
     Route::get('ajax/school/filter', [SchoolCatalogueController::class, 'filter'])->name('school.filter');
+    // Tim truong theo tu khoa cho popup "Them truong vao so sanh".
+    // Khong dung lai ajax/school/filter vi endpoint do tra ve markup cua trang
+    // danh sach va thieu quan he ma bang so sanh can.
+    Route::get('ajax/school/searchCompare', [FeSchoolController::class, 'searchForCompare'])->name('ajax.school.searchCompare');
     Route::get('ajax/admission/filter', [AdmissionCatalogueController::class, 'filter'])->name('scholar.filter');
     Route::get('ajax/major/filter', [MajorCatalogueController::class, 'filter'])->name('scholar.filter');
 

@@ -937,6 +937,62 @@ HT.findSchoolList = () => {
     })
 }
 
+HT.searchSchoolToCompare = () => {
+    // O tim kiem trong popup "Them truong vao so sanh" truoc day khong co handler
+    // nao: go tu khoa roi Enter chi submit form rong va tai lai trang. Danh sach
+    // cung chi co dung so truong duoc render san, khong tim duoc truong nao khac.
+    const $form = $(document).find('.search-school-form')
+    if (!$form.length) return
+
+    const url = $form.attr('data-url')
+    if (!url) return
+
+    let timer = null
+    let xhr = null
+
+    const run = (keyword) => {
+        // Huy request truoc do: go nhanh se sinh nhieu request, cai ve sau cung
+        // chua chac ve sau cung -> ket qua nhay lung tung.
+        if (xhr) xhr.abort()
+
+        const $list = $(document).find('.ajax-schools')
+        $list.addClass('loading')
+
+        xhr = $.ajax({
+            url: url,
+            type: 'GET',
+            data: { keyword: keyword },
+            success: function (res) {
+                if (res && typeof res.html !== 'undefined') {
+                    $list.html(res.html)
+                }
+            },
+            error: function (_, status) {
+                if (status === 'abort') return
+                $list.html('<div class="compare-school-empty text-secondary p-2">Không tải được danh sách trường. Vui lòng thử lại.</div>')
+            },
+            complete: function () {
+                xhr = null
+                $list.removeClass('loading')
+            }
+        })
+    }
+
+    // Go den dau loc den do, nhung cho 350ms cho nguoi dung go xong moi goi.
+    $(document).on('input', '.search-school-form input[name="keyword"]', function () {
+        const keyword = $(this).val()
+        clearTimeout(timer)
+        timer = setTimeout(() => run(keyword), 350)
+    })
+
+    // Bam nut kinh lup / nhan Enter: tim ngay, va chan submit de khoi tai lai trang.
+    $(document).on('submit', '.search-school-form', function (e) {
+        e.preventDefault()
+        clearTimeout(timer)
+        run($(this).find('input[name="keyword"]').val())
+    })
+}
+
 HT.chooseSchoolToCompare = () => {
     $(document).on('click', '.compare-school-item', function(){
         const _this = $(this)
@@ -1089,6 +1145,7 @@ $(document).ready(function(){
     HT.resetCompareCol()
     HT.chooseSchoolToCompare();
     HT.findSchoolList()
+    HT.searchSchoolToCompare()
     HT.showFilter()
     HT.scrollToForm()
     HT.schoolFilter()

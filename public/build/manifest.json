@@ -1,6 +1,6 @@
 {
   "resources/css/app.scss": {
-    "file": "assets/app-14e02f40.css",
+    "file": "assets/app-262ddd3a.css",
     "isEntry": true,
     "src": "resources/css/app.scss"
   },
@@ -15,7 +15,7 @@
     "src": "resources/js/app.backend.js"
   },
   "resources/js/app.js": {
-    "file": "assets/app-77fb16e4.js",
+    "file": "assets/app-79516d8c.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -164,7 +164,7 @@
     "src": "resources/vendor/frontend/resources/img/project/phone-call.png"
   },
   "resources/vendor/frontend/resources/img/project/quote.64b3fe4f.svg": {
-    "file": "assets/quote.64b3fe4f-ab965f20.svg",
+    "file": "assets/quote.64b3fe4f-fc72fb40.svg",
     "src": "resources/vendor/frontend/resources/img/project/quote.64b3fe4f.svg"
   }
 }
