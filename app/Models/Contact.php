@@ -15,6 +15,10 @@ class Contact extends Model
         'id',
         'name',
         'phone',
+        // Bang contacts co cot email va form lien he bat buoc nhap, nhung truoc
+        // day cot nay khong nam trong fillable nen Contact::create() lang le bo
+        // di - luu xong van khong co email de lien he lai.
+        'email',
         'address',
         'product_id',
         'post_id',

@@ -37,6 +37,9 @@ require __DIR__ . '/web/custom.route.php';
 Route::group(['middleware' => ['locale']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
     Route::get('lien-he.html', [FeContactController::class, 'index'])->name('contact.index');
+    // Form o trang lien he post len day. Truoc day khong co route nao nhan
+    // nen bam "Xac nhan" la 404.
+    Route::post('contact/save', [FeContactController::class, 'saveContact'])->name('contact.save');
     Route::get('/thumb', [App\Http\Controllers\ImageResizerController::class, 'resize'])->name('thumb');
 
     Route::get('tim-kiem', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');

@@ -63,18 +63,68 @@ class ContactController extends FrontendController
         
     }
 
+    /**
+     * Nhan form o trang lien-he.html.
+     *
+     * Truoc day method nay khong co route nao tro toi, ma form lai post len
+     * url('contact/save') -> bam Xac nhan la 404.
+     *
+     * Ngoai ra no chi doc ['email','name','phone','address','message'], trong
+     * khi form gui 'content' (Tieu de) va 'description' (Noi dung can ho tro).
+     * Neu chi noi route ma khong sua cho nay thi hai o do bi vut di lang le:
+     * lien he luu vao CSDL nhung khong co noi dung nguoi ta viet.
+     */
     public function saveContact(Request $request){
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'content' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:5000',
+        ], [
+            'name.required' => 'Bạn chưa nhập họ tên.',
+            'email.required' => 'Bạn chưa nhập email.',
+            'email.email' => 'Email không hợp lệ.',
+            'phone.required' => 'Bạn chưa nhập số điện thoại.',
+        ]);
+
         try {
             DB::beginTransaction();
-            $payload = $request->only(['email', 'name', 'phone', 'address', 'message']);
-            Contact::create($payload);
+
+            // Bang contacts khong co cot rieng cho tieu de / noi dung nen gop vao
+            // 'message'. Phai escape: trang quan tri in cot nay bang {!! !!}
+            // (khong escape), de nguyen thi noi dung nguoi dung gui thanh XSS
+            // luu tru nham vao admin.
+            $title = trim((string) ($validated['content'] ?? ''));
+            $body = trim((string) ($validated['description'] ?? ''));
+
+            $message = '';
+            if ($title !== '') {
+                $message .= '<div><strong>' . e($title) . '</strong></div>';
+            }
+            if ($body !== '') {
+                $message .= '<div>' . nl2br(e($body)) . '</div>';
+            }
+
+            Contact::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'message' => $message,
+            ]);
+
             DB::commit();
-            return redirect()->back()->with('success', 'Gửi đăng ký thành công. Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất');
+
+            return redirect()->back()->with('success', 'Gửi liên hệ thành công. Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            throw $th;
+            report($th);
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Có lỗi xảy ra khi gửi liên hệ. Vui lòng thử lại.');
         }
-        
+
     }
 
     private function config(){

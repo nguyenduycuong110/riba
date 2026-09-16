@@ -18,27 +18,41 @@
                     <div class="frm-ct">
                         <h3 class="heading-2"><span>Liên hệ ngay</span></h3>
                         <p class="des">{{ $system['text_12'] }}</p>
-                        <form action="{{ url('contact/save') }}" method="POST" class="ct-form">
+                        {{-- Chi hien loi nhap lieu o day. Thong bao thanh cong / that bai
+                             KHONG kiem tra bang session('success'): du an dung php-flasher,
+                             no chan redirect()->with('success'|'error') va chuyen thanh
+                             thong bao dang toast, nen session('success') luon rong - viet
+                             @if(session('success')) o day se la code chet. --}}
+                        @if($errors->any())
+                            <div class="uk-alert uk-alert-danger mb20">
+                                <ul class="mb0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form action="{{ route('contact.save') }}" method="POST" class="ct-form">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Họ tên</label>
-                                <input type="text" id="name" name="name" placeholder="Nguyễn Văn A" required>
+                                <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="Nguyễn Văn A" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" id="email" name="email" placeholder="email@example.com" required>
+                                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="email@example.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Số điện thoại</label>
-                                <input type="text" id="phone" name="phone" placeholder="" required>
+                                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="" required>
                             </div>
                             <div class="form-group">
                                 <label for="content">Tiêu đề</label>
-                                <input type="text" id="content" name="content" placeholder="Tôi cần hỗ trợ về..." required>
+                                <input type="text" id="content" name="content" value="{{ old('content') }}" placeholder="Tôi cần hỗ trợ về..." required>
                             </div>
                             <div class="form-group">
                                 <label for="description">Nội dung cần hỗ trợ</label>
-                                <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                                <textarea name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
                             </div>
                             <div class="btn">
                                 <button type="submit" class="submit-btn">Xác nhận</button>
