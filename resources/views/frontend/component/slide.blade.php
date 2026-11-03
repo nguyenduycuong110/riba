@@ -17,10 +17,7 @@
                             <div class="slide-description">{{ $val['alt'] }}</div>
                             <div class="slide-content">{{ $val['description'] }}</div>
                             <div class="slide-button uk-flex uk-flex-middle uk-flex-center">
-                                <a href="{{ $val['canonical'] }}" class="uk-button button-primary uk-position-relative button-style-1">
-                                    Bắt đầu ngay
-                                </a>
-                                <div class="phone-call ml20  wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                                <div class="phone-call wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
                                     <div class="phone-icon">
                                         <img src="/vendor/frontend/img/project/phone-call-1.png" alt="">
                                     </div>
